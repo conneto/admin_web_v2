@@ -1,0 +1,47 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <button (click)="this.sidenav.toggle()" mat-icon-button>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div>
+      <p>{{ titleName }}</p>
+    </div>
+    <div class="toolbar-notification-button">
+      <a mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>person</mat-icon>
+      </a>
+      <mat-menu #menu="matMenu">
+        <a mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          Settings
+        </a>
+        <a mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          Logout
+        </a>
+      </mat-menu>
+      <a mat-button>
+        <mat-icon matBadge="3">notifications</mat-icon>
+      </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-nav-list>
+      <div class="sidenav-heading">
+        <p>Conneto</p>
+        <hr />
+      </div>
+      <app-menu-icon
+        *ngFor="let item of menus"
+        [menu]="item"
+        (getTitle)="handleTitle($event)"
+      >
+      </app-menu-icon>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="content"><router-outlet></router-outlet></div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

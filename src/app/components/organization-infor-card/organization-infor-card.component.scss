@@ -1,0 +1,56 @@
+ mat-card {
+   width: 350px;
+
+ }
+
+ mat-card-actions {
+   display: flex !important;
+   justify-content: center;
+
+   button {
+     width: 100%;
+
+   }
+
+   :first-child {
+     color: green;
+
+   }
+
+   :nth-child(2) {
+     color: red;
+   }
+
+ }
+
+ img {
+   width: 75px;
+   height: 75px;
+
+
+ }
+
+ .mat-card-avatar {
+   object-fit: fill;
+ }
+
+ .card-icon {
+   display: flex;
+   font-size: 15px !important;
+   justify-content: space-between;
+   margin-top: 9px;
+   margin-bottom: 2px;
+   font-weight: bold;
+
+   div {
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+   }
+ }
+
+
+
+ .margin-left {
+   margin-left: 5px;
+ }

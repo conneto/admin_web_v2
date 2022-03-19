@@ -1,0 +1,146 @@
+#container {
+  max-width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+#container #login-box {
+
+  display: flex;
+  width: 650px;
+  max-width: 100%;
+  border-radius: 6px;
+  background-color: rgba(255, 235, 204, 1);
+  box-shadow: 0px 1px 9px #ccc;
+}
+
+.login-left {
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  max-width: 100%;
+  font-size: 30px;
+  display: flex;
+  width: 35%;
+  background-color: #ffebcc;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-right {
+  max-width: 100%;
+
+  background-color: white;
+  width: 75%;
+
+}
+
+.login-heading {
+  font-size: 35px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px;
+}
+
+.login-heading hr {
+  margin: 10px 0 0 0;
+  width: 75%;
+  border: 0.2px solid rgba(181, 181, 181, 1);
+  opacity: 0.3;
+}
+
+.line {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.login-form {
+
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form .form-icon {
+  position: absolute;
+
+  margin-left: 10px;
+}
+
+.login-form form {
+  display: inline-grid;
+  width: 80%;
+
+}
+
+.login-form .mat-form-field {
+  width: 90%;
+}
+
+.form-text {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.login-sub {
+  display: flex;
+  margin-left: -8px;
+  margin-right: -8px;
+  text-align: center;
+  margin-top:10px;
+  margin-bottom: 10px;
+}
+
+.login-remember-box {
+  width: 50%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-forget,
+.login-remember-box {
+
+  width: 50%;
+}
+
+.login-forget a {
+  text-decoration: none;
+  color: rgba(248, 217, 136, 1);
+  font-weight: bold;
+}
+
+.login-forget a:hover {
+  text-decoration: underline;
+
+}
+
+#checkbox {
+  margin-right: 4px;
+  width: 18px;
+  height: 18px;
+}
+
+.login-button {
+  text-align: center;
+  padding: 20px;
+
+}
+
+.login-button button {
+  background: linear-gradient(to bottom left,rgba(254, 204, 78, 1),rgba(254, 223, 141, 1)) !important;
+  padding:0 30px;
+  font-size:18px;
+}
+.login-button button:hover{
+  opacity: 0.7;
+}

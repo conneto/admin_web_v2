@@ -1,0 +1,10 @@
+<mat-card *ngIf="card" >
+  <mat-card-title-group>
+    <mat-card-subtitle class="card-heading-color">{{
+      card.title
+    }}</mat-card-subtitle>
+    <mat-card-title>{{ card.value }}</mat-card-title>
+    <img mat-card-sm-image src="{{ card.icon }}" />
+  </mat-card-title-group>
+  <mat-card-subtitle>{{ card.status }} since {{ card.date }}</mat-card-subtitle>
+</mat-card>

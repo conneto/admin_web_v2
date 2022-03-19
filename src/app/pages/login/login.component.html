@@ -1,0 +1,45 @@
+<div id="container">
+  <div id="login-box">
+    <div class="login-left">
+      <p>Conneto</p>
+    </div>
+    <div class="login-right">
+      <div class="login-heading">
+        <span>Sign In</span>
+        <div class="line"><hr /></div>
+      </div>
+      <div class="login-form">
+        <form action="">
+          <div>
+            <mat-form-field>
+              <mat-label class="form-text">Username</mat-label>
+              <input matInput />
+              <mat-icon class="form-icon">person</mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div>
+            <mat-form-field>
+              <mat-label class="form-text">Password</mat-label>
+
+              <input matInput />
+              <mat-icon class="form-icon">lock</mat-icon>
+            </mat-form-field>
+          </div>
+        </form>
+      </div>
+      <div class="login-sub">
+        <div class="login-forget">
+          <a href="#">Forget Password?</a>
+        </div>
+        <div class="login-remember-box">
+          <input type="checkbox" name="Remember Me" id="checkbox">
+          <label for="checkbox">Remember Me</label>
+        </div>
+      </div>
+      <div class="login-button">
+        <button mat-raised-button (click)="login()">Login</button>
+      </div>
+    </div>
+  </div>
+</div>

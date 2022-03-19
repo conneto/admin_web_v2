@@ -1,0 +1,11 @@
+<div *ngIf="menu">
+  <a
+    mat-list-item
+    [routerLink]="[menu.path]"
+    [routerLinkActive]="['is-active', 'shadow']"
+    (click)="handleTitle()"
+  >
+    <img src="{{ menu.icon }}" />
+    <p>{{ menu.name }}</p>
+  </a>
+</div>
