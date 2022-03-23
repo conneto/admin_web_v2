@@ -10,11 +10,25 @@ import { Menu } from 'src/app/models/menu/menu';
 export class MenuIconComponent implements OnInit {
   @Input() menu?: Menu;
   @Input() isExpaned?: boolean;
-  @Output() getTitle=new EventEmitter<Menu>();
-
+  @Output() getTitle = new EventEmitter<Menu>();
+  
+  isShowSubMenu=false;
+  constructor(){
+    
+  }
   ngOnInit(): void {
+
   }
+  
   handleTitle() {
+   
     this.getTitle.emit(this.menu);
+   
   }
+  check() {
+    var a = document.querySelector('.sub-menu');
+    console.log(a);
+  }
+
 }
+

@@ -25,6 +25,10 @@ var routes = [
             },
             { path: 'user-management', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); } },
             { path: 'organization-request', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/organization-request/organization-request.module'); }).then(function (m) { return m.OrganizationRequestModule; }); } },
+            { path: 'manage-campaign', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/campaigns/campaigns.module'); }).then(function (m) { return m.CampaignsModule; }); } },
+            { path: 'manage-project', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/project/project.module'); }).then(function (m) { return m.ProjectModule; }); } },
+            { path: 'campaign-request', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/campaign-request/campaign-request.module'); }).then(function (m) { return m.CampaignRequestModule; }); } },
+            { path: 'project-request', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/project-request/project-request.module'); }).then(function (m) { return m.ProjectRequestModule; }); } },
         ]
     },
 ];

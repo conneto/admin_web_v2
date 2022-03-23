@@ -1,11 +1,37 @@
-<div *ngIf="menu">
-  <a
-    mat-list-item
-    [routerLink]="[menu.path]"
-    [routerLinkActive]="['is-active', 'shadow']"
-    (click)="handleTitle()"
-  >
-    <img src="{{ menu.icon }}" />
-    <p>{{ menu.name }}</p>
-  </a>
-</div>
+<div *ngIf="menu?.submenu; then submenu; else nosubmenu"></div>
+
+<ng-template #nosubmenu>
+  <div *ngIf="menu">
+    <a
+      mat-list-item
+      [routerLink]="[menu.path]"
+      [routerLinkActive]="['is-active', 'shadow']"
+      (click)="handleTitle()"
+    >
+      <img src="{{ menu.icon }}" />
+      <p>{{ menu.name }}</p>
+    </a>
+  </div>
+</ng-template>
+
+<ng-template #submenu>
+  <div class="sub-menu" *ngIf="menu">
+    <a (click)="isShowSubMenu = !isShowSubMenu" mat-list-item >
+      <img src="{{ menu.icon }}" />
+      <p>{{ menu.name }}</p>
+      <i class="fa fa-angle-right icon" [class.rotate]="isShowSubMenu"></i>
+    </a>
+
+    <div class="sub-menu-item" [class.showSubMenu]="isShowSubMenu">
+      <a
+        *ngFor="let submenu of menu.submenu"
+        mat-list-item
+        [routerLink]="[submenu.path]"
+        [routerLinkActive]="['is-active', 'shadow']"
+        (click)="handleTitle()"
+      >
+        {{ submenu.subname }}
+      </a>
+    </div>
+  </div>
+</ng-template>

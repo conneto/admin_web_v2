@@ -1,0 +1,88 @@
+mat-card-title {
+  text-align: center;
+  font-size: 20px;
+  margin: 10px 0 0;
+  color: #ffb800;
+}
+
+mat-card {
+  width: 350px;
+  padding-top: 0 !important;
+}
+
+.image :first-child {
+  margin-top: 5px;
+  position: absolute;
+  width: 40px;
+  height: 20px;
+}
+.image :nth-child(2) img {
+  height: 200px;
+  object-fit: fill;
+  border-radius: 10px 10px 0 0;
+}
+
+mat-card-actions {
+  display: flex !important;
+  justify-content: center;
+}
+mat-card-actions button {
+  width: 100%;
+}
+mat-card-actions :first-child {
+  background-color: #8af495;
+}
+mat-card-actions :nth-child(2) {
+  background-color: #f48a8a;
+}
+
+button:hover {
+  opacity: 0.7 !important;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+.subtitle mat-card-subtitle {
+  margin-left: 10px;
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+}
+
+.card-icon {
+  display: flex;
+  font-size: 15px !important;
+  justify-content: space-around;
+  margin: 10px 0 10px;
+}
+.card-icon mat-card-subtitle {
+  margin-bottom: 0 !important;
+}
+.card-icon .start-date,
+.card-icon .budget-item {
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  border: 1px dotted #ccc !important;
+}
+.card-icon .start-date p,
+.card-icon .budget-item p {
+  font-weight: bold;
+}
+.card-icon div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.margin-left {
+  margin-left: 5px;
+}
+
+.mat-card-image {
+  border-radius: 10px 10px 0 0;
+}

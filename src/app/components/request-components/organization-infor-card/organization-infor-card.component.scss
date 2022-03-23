@@ -13,12 +13,12 @@
    }
 
    :first-child {
-     color: green;
+     background-color: rgba(138, 244, 149, 1);
 
    }
 
    :nth-child(2) {
-     color: red;
+     background-color: rgba(244, 138, 138, 1);;
    }
 
  }

@@ -11,11 +11,16 @@ var core_1 = require("@angular/core");
 var MenuIconComponent = /** @class */ (function () {
     function MenuIconComponent() {
         this.getTitle = new core_1.EventEmitter();
+        this.isShowSubMenu = false;
     }
     MenuIconComponent.prototype.ngOnInit = function () {
     };
     MenuIconComponent.prototype.handleTitle = function () {
         this.getTitle.emit(this.menu);
+    };
+    MenuIconComponent.prototype.check = function () {
+        var a = document.querySelector('.sub-menu');
+        console.log(a);
     };
     __decorate([
         core_1.Input()

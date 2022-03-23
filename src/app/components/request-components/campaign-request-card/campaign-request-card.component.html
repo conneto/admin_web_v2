@@ -1,0 +1,35 @@
+<mat-card
+  title="Click to see more details"
+  (click)="viewDetails()"
+  class="moveFadein"
+>
+  <div class="image">
+    <img src="assets/image/sugar.png" />
+    <img mat-card-image src="assets/image/ddtt18_cover.png" />
+  </div>
+  <mat-card-title>
+    Hỗ trợ 40 trẻ mồ côi do dịch Covid-19 và trẻ có hoàn cảnh khó khăn
+  </mat-card-title>
+
+  <div class="subtitle">
+    <img mat-card-avatar src="assets/image/sugar.png" />
+    <mat-card-subtitle class="organization-name"
+      >SUGAR Vietnam</mat-card-subtitle
+    >
+  </div>
+  <div class="card-icon">
+    <div class="start-date">
+      <p>Mar 23,2022</p>
+      <mat-card-subtitle> Start Date </mat-card-subtitle>
+    </div>
+    <div class="budget-item">
+      <p>{{300000000 | currency:'VND'}}</p>
+      <mat-card-subtitle> Budget </mat-card-subtitle>
+    </div>
+  </div>
+  <mat-card-actions>
+    <button title="Click to approve" mat-button>Approve</button>
+
+    <button title="Click to decline" mat-button>Decline</button>
+  </mat-card-actions>
+</mat-card>

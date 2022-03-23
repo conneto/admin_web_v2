@@ -15,7 +15,7 @@ export class ApiService {
   getFullUri(api_name: string, params: any) {
     let url = this.uri + '/' + api_name;
 
-
+    
     if (typeof params != 'undefined') {
       let array = [];
       for (let prop in params) {

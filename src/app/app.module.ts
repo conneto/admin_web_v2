@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { ComponentModule } from './components/component/component.module';
 import { HttpClientModule } from '@angular/common/http';
+import { HotToastModule } from '@ngneat/hot-toast';
+import { ProjectModule } from './pages/project/project.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     AngularMaterialModule
     , ComponentModule,
     HttpClientModule,
+    HotToastModule.forRoot(),
+    ProjectModule,
 
   ],
   providers: [],

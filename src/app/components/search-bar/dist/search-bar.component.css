@@ -1,0 +1,29 @@
+.search-box {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+.search-box .search-item {
+  display: flex;
+}
+.search-box .search-item input {
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px #ddd solid;
+  font-size: 15px;
+}
+.search-box .search-item button {
+  border: none;
+  width: 40px;
+}
+.search-box .search-item button :hover {
+  opacity: 0.5;
+}
+.search-box select {
+  border: 1px #ddd solid;
+}
+
+.ordering-item {
+  display: flex;
+  font-size: 15px;
+}

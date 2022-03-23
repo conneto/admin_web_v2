@@ -12,14 +12,12 @@
 
 .content {
   margin-left: 10px;
-  padding: 20px;
+  padding: 10px 10px 0;
 }
 
 .mat-sidenav {
-  margin-top: 6px;
-  margin-left: 6px;
   background: linear-gradient(0, #f8c407f8 0%, #eed076 100%);
-  border-radius: 6px;
+  border-radius: 3px;
   box-shadow: 5px 3px 5px #ddd;
   width: 260px;
 }
@@ -39,4 +37,8 @@
 
 .toolbar-notification-button a {
   float: right;
+}
+
+.toolbar-title p {
+  margin: 0 !important;
 }

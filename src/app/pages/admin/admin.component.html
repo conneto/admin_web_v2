@@ -3,8 +3,8 @@
     <button (click)="this.sidenav.toggle()" mat-icon-button>
       <mat-icon>menu</mat-icon>
     </button>
-    <div>
-      <p>{{ titleName }}</p>
+    <div class="toolbar-title">
+      <p>{{ titleName ? titleName : "DASHBOARD" }}</p>
     </div>
     <div class="toolbar-notification-button">
       <a mat-button [matMenuTriggerFor]="menu">
@@ -29,6 +29,7 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" opened="true">
     <mat-nav-list>
+      
       <div class="sidenav-heading">
         <p>Conneto</p>
         <hr />

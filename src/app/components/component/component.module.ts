@@ -3,11 +3,15 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuIconComponent } from '../menu-icon/menu-icon.component';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
-import { DashboardCardComponent } from 'src/app/components/dashboard-card/dashboard-card.component';
+import { DashboardCardComponent } from '../dashboard-card/dashboard-card.component';
 import { UserCardComponent } from '../user-card/user-card.component';
-import { OrganizationInforCardComponent } from '../organization-infor-card/organization-infor-card.component';
-import { CampaignCardInfoComponent } from 'src/app/components/campaign-card-info/campaign-card-info.component';
-import { OrganizationRequestComponent } from 'src/app/pages/manage-request/organization-request/organization-request.component';
+
+import { CampaignCardInfoComponent } from '../campaign-card-info/campaign-card-info.component';
+import { CampaignRequestCardComponent } from '../request-components/campaign-request-card/campaign-request-card.component';
+import { ProjectRequestCardComponent } from '../request-components/project-request-card/project-request-card.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { OrganizationInforCardComponent } from '../request-components/organization-infor-card/organization-infor-card.component';
+
 
 const componentModules = [
   MenuIconComponent,
@@ -15,7 +19,9 @@ const componentModules = [
   UserCardComponent,
   OrganizationInforCardComponent,
   CampaignCardInfoComponent,
-  OrganizationInforCardComponent,
+  CampaignRequestCardComponent,
+  ProjectRequestCardComponent,
+  SearchBarComponent,
 ]
 
 @NgModule({

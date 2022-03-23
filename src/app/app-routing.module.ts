@@ -13,11 +13,9 @@ const routes: Routes = [
     path: "admin", loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule),
   },
 
-  { path: 'campaigns', loadChildren: () => import('./pages/campaigns/campaigns.module').then(m => m.CampaignsModule) },
+  { path: 'project-request', loadChildren: () => import('./pages/manage-request/project-request/project-request.module').then(m => m.ProjectRequestModule) },
 
- 
   
-
 ];
 
 @NgModule({

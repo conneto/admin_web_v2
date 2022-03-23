@@ -12,7 +12,7 @@ var AdminComponent = /** @class */ (function () {
     function AdminComponent() {
         this.menus = [
             {
-                id: 'dashboard',
+                id: '1',
                 name: 'DASHBOARD',
                 path: 'dashboard',
                 icon: 'assets/icon/dashboard-icon.png'
@@ -23,31 +23,59 @@ var AdminComponent = /** @class */ (function () {
                 path: 'user-management',
                 icon: 'assets/icon/user-icon.png'
             },
-            {
-                id: '3',
-                name: 'ORGANIZATION REQUEST',
-                path: 'organization-request',
-                icon: 'assets/icon/economic.png'
-            },
-            {
-                id: '3',
-                name: 'PROJECT REQUEST',
-                icon: 'assets/icon/economic.png'
-            },
-            {
-                id: '3',
-                name: 'CAMPAIGN REQUEST',
-                icon: 'assets/icon/economic.png'
-            },
+            // {
+            //   id: '3',
+            //   name: 'ORGANIZATION REQUEST',
+            //   path: 'organization-request',
+            //   icon: 'assets/icon/economic.png',
+            // },
+            // {
+            //   id: '3',
+            //   name: 'PROJECT REQUEST',
+            //   icon: 'assets/icon/economic.png',
+            // },
+            // {
+            //   id: '3',
+            //   name: 'CAMPAIGN REQUEST',
+            //   icon: 'assets/icon/economic.png',
+            // },
             {
                 id: '3',
                 name: 'MANAGE REQUEST',
-                icon: 'assets/icon/economic.png'
+                icon: 'assets/icon/economic.png',
+                submenu: [{
+                        id: '3',
+                        subname: 'ORGANIZATION REQUEST',
+                        path: 'organization-request',
+                        icon: 'assets/icon/economic.png'
+                    }, {
+                        id: '3',
+                        subname: 'CAMPAIGN REQUEST',
+                        path: 'campaign-request',
+                        icon: 'assets/icon/economic.png'
+                    }, {
+                        id: '3',
+                        subname: 'PROJECT REQUEST',
+                        path: 'project-request',
+                        icon: 'assets/icon/economic.png'
+                    },]
             },
             {
                 id: '3',
                 name: 'ORGANIZATION MANAGEMENT',
                 path: 'manage-oraganization',
+                icon: 'assets/icon/user-icon.png'
+            },
+            {
+                id: '3',
+                name: 'CAMPAIGN MANAGEMENT',
+                path: 'manage-campaign',
+                icon: 'assets/icon/user-icon.png'
+            },
+            {
+                id: '3',
+                name: 'PROJECT MANAGEMENT',
+                path: 'manage-project',
                 icon: 'assets/icon/user-icon.png'
             },
         ];
@@ -70,7 +98,11 @@ var AdminComponent = /** @class */ (function () {
         alert("ngu");
     };
     AdminComponent.prototype.handleTitle = function (menu) {
-        return this.titleName = menu.name;
+        this.titleName = menu.name;
+        if (this.titleName === 'MANAGE REQUEST') {
+            this.titleName = menu.submenu.subname;
+        }
+        return this.titleName;
     };
     AdminComponent = __decorate([
         core_1.Component({

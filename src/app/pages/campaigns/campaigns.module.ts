@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CampaignsRoutingModule } from './campaigns-routing.module';
 import { CampaignsComponent } from './campaigns.component';
+import { ComponentModule } from 'src/app/components/component/component.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { CampaignsComponent } from './campaigns.component';
   ],
   imports: [
     CommonModule,
-    CampaignsRoutingModule
+    CampaignsRoutingModule,
+    ComponentModule,
   ]
 })
 export class CampaignsModule { }

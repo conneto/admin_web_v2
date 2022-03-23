@@ -1,0 +1,47 @@
+img {
+  width: 24px;
+  height: 24px;
+}
+
+p {
+  padding: 10px;
+  margin: 0;
+  font-size: 0.8875em !important;
+  letter-spacing: 1.1px;
+  line-height: 14px;
+}
+
+a {
+  margin-bottom: 7px;
+}
+
+.is-active {
+  border-radius: 10px;
+  background-color: #fffeb9 !important;
+  font-weight: bold;
+}
+
+a:hover {
+  background-color: rgba(0, 0, 0, 0.05) !important;
+  border-radius: 10px;
+}
+
+.sub-menu-item {
+  display: none;
+}
+
+.showSubMenu {
+  display: block;
+}
+
+.icon {
+  position: absolute;
+  right: 0;
+  overflow: hidden;
+  margin-right: 10px;
+  transition: 0.2s ease;
+}
+
+.rotate {
+  transform: rotate(90deg);
+}

@@ -1,5 +1,51 @@
 <div id="container">
-  <div id="login-box">
+  <!-- <img class="image-background" src="assets/cover/login.png" /> -->
+  <div class="login-box">
+    <div class="login-padding">
+      <div class="login-header">
+        <h2>Conneto</h2>
+        <p>Welcome back, please sign in !</p>
+      </div>
+      <div class="login-form">
+        <mat-form-filed>
+          <div>
+            <mat-icon class="form-icon">person</mat-icon
+            ><input
+              class="input login"
+              type="text"
+              placeholder="Enter your account"
+              required
+            />
+          </div>
+          <div>
+            <mat-icon class="form-icon">lock</mat-icon
+            ><input
+              class="input password"
+              [type]="hide ? 'password' : 'text'"
+              placeholder="Enter your password"
+              required
+            />
+            <button class="hide-button" title="Hide" (click)="hide = !hide">
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </div>
+        </mat-form-filed>
+      </div>
+      <div class="login-footer">
+        <div class="login-forget">
+          <a href="#">Forget Password?</a>
+        </div>
+        <div class="login-remember-box">
+          <input type="checkbox" name="Remember Me" id="checkbox" />
+          <label for="checkbox">Remember Me</label>
+        </div>
+      </div>
+      <div class="login-button">
+        <button mat-raised-button (click)="login()">Sign In</button>
+      </div>
+    </div>
+  </div>
+  <!-- <div id="login-box">
     <div class="login-left">
       <p>Conneto</p>
     </div>
@@ -41,5 +87,5 @@
         <button mat-raised-button (click)="login()">Login</button>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

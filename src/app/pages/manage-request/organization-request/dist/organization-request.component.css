@@ -1,0 +1,13 @@
+.footer-button {
+  display: flex !important;
+  justify-content: center;
+}
+.footer-button button {
+  width: 100%;
+}
+.footer-button :first-child {
+  color: green;
+}
+.footer-button :nth-child(2) {
+  color: red;
+}

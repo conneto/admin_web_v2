@@ -18,6 +18,11 @@ const routes: Routes = [
             },
             { path: 'user-management', loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule) },
             { path: 'organization-request', loadChildren: () => import('src/app/pages/manage-request/organization-request/organization-request.module').then(m => m.OrganizationRequestModule) },
+            { path: 'manage-campaign', loadChildren: () => import('src/app/pages/campaigns/campaigns.module').then(m => m.CampaignsModule) },
+            { path: 'manage-project', loadChildren: () => import('src/app/pages/project/project.module').then(m => m.ProjectModule) },
+            { path: 'campaign-request', loadChildren: () => import('src/app/pages/manage-request/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule) },
+            { path: 'project-request', loadChildren: () => import('src/app/pages/manage-request/project-request/project-request.module').then(m => m.ProjectRequestModule) },
+
         ],
     },
 
