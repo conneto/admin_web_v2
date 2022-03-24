@@ -26,6 +26,7 @@ var campaign_request_card_component_1 = require("../request-components/campaign-
 var project_request_card_component_1 = require("../request-components/project-request-card/project-request-card.component");
 var search_bar_component_1 = require("../search-bar/search-bar.component");
 var organization_infor_card_component_1 = require("../request-components/organization-infor-card/organization-infor-card.component");
+var approve_decline_button_component_1 = require("src/app/approve-decline-button/approve-decline-button.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -35,6 +36,7 @@ var componentModules = [
     campaign_request_card_component_1.CampaignRequestCardComponent,
     project_request_card_component_1.ProjectRequestCardComponent,
     search_bar_component_1.SearchBarComponent,
+    approve_decline_button_component_1.ApproveDeclineButtonComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

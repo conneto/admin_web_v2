@@ -9,12 +9,18 @@ exports.__esModule = true;
 exports.OrganizationInforCardComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationInforCardComponent = /** @class */ (function () {
-    function OrganizationInforCardComponent() {
+    function OrganizationInforCardComponent(router) {
+        this.router = router;
     }
     OrganizationInforCardComponent.prototype.ngOnInit = function () {
     };
-    OrganizationInforCardComponent.prototype.viewDetails = function () {
+    OrganizationInforCardComponent.prototype.viewDetails = function (id) {
+        console.log(id);
+        this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);
     };
+    __decorate([
+        core_1.Input()
+    ], OrganizationInforCardComponent.prototype, "organizations");
     OrganizationInforCardComponent = __decorate([
         core_1.Component({
             selector: 'app-organization-infor-card',

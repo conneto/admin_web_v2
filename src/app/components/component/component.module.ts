@@ -11,6 +11,7 @@ import { CampaignRequestCardComponent } from '../request-components/campaign-req
 import { ProjectRequestCardComponent } from '../request-components/project-request-card/project-request-card.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { OrganizationInforCardComponent } from '../request-components/organization-infor-card/organization-infor-card.component';
+import { ApproveDeclineButtonComponent } from 'src/app/approve-decline-button/approve-decline-button.component';
 
 
 const componentModules = [
@@ -22,6 +23,8 @@ const componentModules = [
   CampaignRequestCardComponent,
   ProjectRequestCardComponent,
   SearchBarComponent,
+  ApproveDeclineButtonComponent,
+
 ]
 
 @NgModule({

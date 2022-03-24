@@ -4,16 +4,20 @@ import { Adapter } from 'src/app/interface/adapter';
 
 export class Organization {
   constructor(
-    public id?: string,
-    public name?: string,
-    public logo?: string,
-    public creationCode?: number,
-    public creationMessage?: string,
     public cover?: string,
     public description?: string,
-    public vison?:string,
+    public eng_name?: string,
+    public foundingDate?: number,
+    public id?: string,
     public is_active?:boolean,
-  ) {}
+    public logo?: string,
+    public mission?: string,
+    public name?: string,
+    public operating_license?: string,
+    public vision?: boolean,
+    public website?:string,
+  
+  ) { }
 }
 
 @Injectable({
@@ -22,16 +26,19 @@ export class Organization {
 export class OrganizationAdapter implements Adapter<Organization> {
   adapt(item: any): Organization {
     return new Organization(
-      item.id,
-      item.name,
-      item.logo,
-      item.creationCode,
-      item.creationMessage,
       item.cover,
       item.description,
-      item.vision,
+      item.eng_name,
+      item.founding_date,
+      item.id,
       item.is_active,
-     
+      item.logo,
+      item.mission,
+      item.name,
+      item.operating_license,
+      item.vision,
+      item.website,
+
     );
   }
 }

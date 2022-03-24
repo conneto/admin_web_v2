@@ -3,6 +3,10 @@
 
  }
 
+ a {
+   text-decoration: none;
+ }
+
  mat-card-actions {
    display: flex !important;
    justify-content: center;
@@ -18,7 +22,8 @@
    }
 
    :nth-child(2) {
-     background-color: rgba(244, 138, 138, 1);;
+     background-color: rgba(244, 138, 138, 1);
+     ;
    }
 
  }

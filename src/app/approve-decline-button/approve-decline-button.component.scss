@@ -1,0 +1,17 @@
+div{
+    display: flex;
+    button {
+        width: 200px;
+        padding:5px 0 5px 0;
+        
+      }
+    
+      :first-child {
+        background-color: rgba(138, 244, 149, 1);
+        margin-right:20px
+      }
+    
+      :nth-child(2) {
+        background-color: rgba(244, 138, 138, 1);;
+      }
+}

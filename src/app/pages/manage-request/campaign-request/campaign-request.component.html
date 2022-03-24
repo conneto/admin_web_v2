@@ -1,1 +1,6 @@
-<app-campaign-request-card></app-campaign-request-card>
+<div class="container">
+    <div *ngFor="let campaign of campaigns">
+        <app-campaign-request-card [campaign]="campaign"></app-campaign-request-card>
+      </div>
+      
+</div>

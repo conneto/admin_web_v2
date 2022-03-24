@@ -17,7 +17,18 @@ const routes: Routes = [
                 path: 'dashboard', loadChildren: () => import('src/app/pages/dashboard/dashboard.module').then(((m) => m.DashboardModule)),
             },
             { path: 'user-management', loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule) },
-            { path: 'organization-request', loadChildren: () => import('src/app/pages/manage-request/organization-request/organization-request.module').then(m => m.OrganizationRequestModule) },
+            {
+                path: 'organization-request', loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
+                children: [
+                    {
+                        path: '', loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
+                    }, 
+                    {
+                        path: 'organization-request-detail/:id', loadChildren: () =>
+                            import('src/app/pages/manage-request/mod-organization/organization-request-details/organization-request-details.module').then(m => m.OrganizationRequestDetailsModule),
+                    }
+                ]
+            },
             { path: 'manage-campaign', loadChildren: () => import('src/app/pages/campaigns/campaigns.module').then(m => m.CampaignsModule) },
             { path: 'manage-project', loadChildren: () => import('src/app/pages/project/project.module').then(m => m.ProjectModule) },
             { path: 'campaign-request', loadChildren: () => import('src/app/pages/manage-request/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule) },

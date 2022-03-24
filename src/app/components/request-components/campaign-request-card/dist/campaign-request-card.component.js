@@ -15,6 +15,9 @@ var CampaignRequestCardComponent = /** @class */ (function () {
     };
     CampaignRequestCardComponent.prototype.viewDetails = function () {
     };
+    __decorate([
+        core_1.Input()
+    ], CampaignRequestCardComponent.prototype, "campaign");
     CampaignRequestCardComponent = __decorate([
         core_1.Component({
             selector: 'app-campaign-request-card',

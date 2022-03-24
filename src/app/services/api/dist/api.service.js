@@ -13,7 +13,7 @@ var ApiService = /** @class */ (function () {
     function ApiService(http, baseResponseAdapter) {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
-        this.uri = "https://955d-14-187-37-7.ngrok.io/fetch_data/api/v1";
+        this.uri = "https://3f4e-14-186-166-185.ngrok.io/fetch_data/api/v1";
         this.corsHeaders = new http_1.HttpHeaders();
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
     }

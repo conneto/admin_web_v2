@@ -7,7 +7,7 @@ import { BaseResponse, BaseResponseAdapter } from 'src/app/models/base-response/
 })
 export class ApiService {
   corsHeaders: HttpHeaders;
-  private uri = "https://955d-14-187-37-7.ngrok.io/fetch_data/api/v1";
+  private uri = "https://3f4e-14-186-166-185.ngrok.io/fetch_data/api/v1";
   constructor(private http: HttpClient, private baseResponseAdapter: BaseResponseAdapter) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
