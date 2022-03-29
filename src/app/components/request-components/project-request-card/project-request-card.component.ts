@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Project } from 'src/app/models/projects/project.model';
 
 @Component({
   selector: 'app-project-request-card',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./project-request-card.component.scss']
 })
 export class ProjectRequestCardComponent implements OnInit {
-
+@Input() projects?: Project;
   constructor() { }
 
   ngOnInit(): void {

@@ -15,6 +15,9 @@ var ProjectRequestCardComponent = /** @class */ (function () {
     };
     ProjectRequestCardComponent.prototype.viewDetails = function () {
     };
+    __decorate([
+        core_1.Input()
+    ], ProjectRequestCardComponent.prototype, "projects");
     ProjectRequestCardComponent = __decorate([
         core_1.Component({
             selector: 'app-project-request-card',

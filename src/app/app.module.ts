@@ -12,11 +12,11 @@ import { ComponentModule } from './components/component/component.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { ProjectModule } from './pages/project/project.module';
+import { ProjectRequestDetailModule } from './pages/manage-request/mod-project/project-request-detail/project-request-detail.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
+    AppComponent,LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +27,8 @@ import { ProjectModule } from './pages/project/project.module';
     HttpClientModule,
     HotToastModule.forRoot(),
     ProjectModule,
+    ProjectRequestDetailModule,
+    
 
   ],
   providers: [],

@@ -22,7 +22,7 @@ const routes: Routes = [
                 children: [
                     {
                         path: '', loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
-                    }, 
+                    },
                     {
                         path: 'organization-request-detail/:id', loadChildren: () =>
                             import('src/app/pages/manage-request/mod-organization/organization-request-details/organization-request-details.module').then(m => m.OrganizationRequestDetailsModule),
@@ -31,8 +31,18 @@ const routes: Routes = [
             },
             { path: 'manage-campaign', loadChildren: () => import('src/app/pages/campaigns/campaigns.module').then(m => m.CampaignsModule) },
             { path: 'manage-project', loadChildren: () => import('src/app/pages/project/project.module').then(m => m.ProjectModule) },
-            { path: 'campaign-request', loadChildren: () => import('src/app/pages/manage-request/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule) },
-            { path: 'project-request', loadChildren: () => import('src/app/pages/manage-request/project-request/project-request.module').then(m => m.ProjectRequestModule) },
+            {
+                path: 'campaign-request', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule), children: [
+                    { path: '', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule) }
+                    , { path: 'campaign-request-detail/:id', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request-detail/campaign-request-detail.module').then(m => m.CampaignRequestDetailModule), }
+                ]
+            },
+            {
+                path: 'project-request', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule), children: [
+                    { path: '', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule) },
+                    { path: 'project-request-detail/:id', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request-detail/project-request-detail.module').then(m => m.ProjectRequestDetailModule) },
+                ]
+            },
 
         ],
     },

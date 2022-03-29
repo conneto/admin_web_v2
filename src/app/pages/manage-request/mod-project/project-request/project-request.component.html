@@ -1,0 +1,15 @@
+<!-- <div class='container'>
+   <div>
+   
+        <app-project-request-card ></app-project-request-card>
+  
+   </div> -->
+<!-- </div> -->
+
+<div class='container'>
+   <div>
+   
+        <app-project-request-card *ngFor="let project of projects" [projects]='project'></app-project-request-card>
+  
+   </div>
+</div>

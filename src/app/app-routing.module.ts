@@ -13,6 +13,10 @@ const routes: Routes = [
     path: "admin", loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule),
   },
 
+  { path: 'project-detail', loadChildren: () => import('./pages/manage-request/mod-project/project-request-detail/project-request-detail.module').then(m => m.ProjectRequestDetailModule) },
+
+  { path: 'campagin-request-detail', loadChildren: () => import('./pages/manage-request/mod-campaign/campaign-request-detail/campaign-request-detail.module').then(m => m.CampaignRequestDetailModule) },
+
   
   
 ];

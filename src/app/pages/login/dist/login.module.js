@@ -10,6 +10,7 @@ exports.LoginModule = void 0;
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var angular_material_module_1 = require("src/app/angular-material.module");
+var component_module_1 = require("src/app/components/component/component.module");
 var LoginModule = /** @class */ (function () {
     function LoginModule() {
     }
@@ -18,6 +19,7 @@ var LoginModule = /** @class */ (function () {
             declarations: [],
             imports: [
                 common_1.CommonModule,
+                component_module_1.ComponentModule,
                 angular_material_module_1.AngularMaterialModule,
             ]
         })

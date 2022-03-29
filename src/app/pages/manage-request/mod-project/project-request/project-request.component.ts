@@ -17,6 +17,5 @@ export class ProjectRequestComponent implements OnInit {
   }
   async getAll(){
     this.projects=await this.api.getAll();
-    console.log(this.projects);
   }
 }

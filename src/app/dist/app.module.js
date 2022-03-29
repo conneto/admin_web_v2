@@ -24,8 +24,7 @@ var AppModule = /** @class */ (function () {
     AppModule = __decorate([
         core_1.NgModule({
             declarations: [
-                app_component_1.AppComponent,
-                login_component_1.LoginComponent,
+                app_component_1.AppComponent, login_component_1.LoginComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,

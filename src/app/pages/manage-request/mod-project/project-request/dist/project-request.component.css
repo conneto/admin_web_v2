@@ -1,0 +1,8 @@
+a {
+  text-decoration: none;
+}
+
+.container div {
+  display: flex;
+  justify-content: space-around;
+}

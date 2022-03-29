@@ -69,11 +69,14 @@ const materialModules = [
     MatDatepickerModule,
     MatTooltipModule,
     MatProgressBarModule,
+    MatIconModule,
+    MatFormFieldModule,
 ];
 
 @NgModule({
     imports: [
         CommonModule,
+        
         ...materialModules
     ],
     exports: [

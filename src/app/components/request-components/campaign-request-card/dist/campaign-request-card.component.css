@@ -28,6 +28,7 @@ mat-card-actions {
 }
 mat-card-actions button {
   width: 100%;
+  margin: 0 5px !important;
 }
 mat-card-actions :first-child {
   background-color: #8af495;

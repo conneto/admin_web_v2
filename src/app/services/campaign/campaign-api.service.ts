@@ -16,7 +16,11 @@ export class CampaignApiService {
     res.data = res.data?.map((item: any) =>
       this.campaignAdap.adapt(item)
     )
- 
+    
     return res.data || [];
+  }
+  async getById(id:string){
+    let res:any=await this.apiService.get(CampaignApiService.CAMPAIGN+"/"+`${id}`);
+    return res.data=this.campaignAdap.adapt(res.data)||[];
   }
 }

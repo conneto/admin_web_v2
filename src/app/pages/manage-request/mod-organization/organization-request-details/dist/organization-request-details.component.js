@@ -42,39 +42,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ProjectRequestComponent = void 0;
+exports.OrganizationRequestDetailsComponent = void 0;
 var core_1 = require("@angular/core");
-var ProjectRequestComponent = /** @class */ (function () {
-    function ProjectRequestComponent(api) {
-        this.api = api;
-        this.projects = [];
+var OrganizationRequestDetailsComponent = /** @class */ (function () {
+    function OrganizationRequestDetailsComponent(route, location, orgApi) {
+        this.route = route;
+        this.location = location;
+        this.orgApi = orgApi;
     }
-    ProjectRequestComponent.prototype.ngOnInit = function () {
-        this.getAll();
+    OrganizationRequestDetailsComponent.prototype.ngOnInit = function () {
+        this.getValueFromRoute();
     };
-    ProjectRequestComponent.prototype.getAll = function () {
+    OrganizationRequestDetailsComponent.prototype.getValueFromRoute = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
+            var id, _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
+                        id = this.route.snapshot.paramMap.get('id');
                         _a = this;
-                        return [4 /*yield*/, this.api.getAll()];
+                        return [4 /*yield*/, this.orgApi.getById("" + id)];
                     case 1:
-                        _a.projects = _b.sent();
-                        console.log(this.projects);
+                        _a.organization = _b.sent();
                         return [2 /*return*/];
                 }
             });
         });
     };
-    ProjectRequestComponent = __decorate([
+    OrganizationRequestDetailsComponent.prototype.goBack = function () {
+        this.location.back();
+    };
+    OrganizationRequestDetailsComponent = __decorate([
         core_1.Component({
-            selector: 'app-project-request',
-            templateUrl: './project-request.component.html',
-            styleUrls: ['./project-request.component.scss']
+            selector: 'app-organization-request-details',
+            templateUrl: './organization-request-details.component.html',
+            styleUrls: ['./organization-request-details.component.scss']
         })
-    ], ProjectRequestComponent);
-    return ProjectRequestComponent;
+    ], OrganizationRequestDetailsComponent);
+    return OrganizationRequestDetailsComponent;
 }());
-exports.ProjectRequestComponent = ProjectRequestComponent;
+exports.OrganizationRequestDetailsComponent = OrganizationRequestDetailsComponent;

@@ -17,4 +17,9 @@ export class ProjectApiService {
     )
     return res.data || []
   }
+  async getByID(id: string) {
+    let res: any = await this.api.get(ProjectApiService.PROJECT + "/" + `${id}`);
+    return res.data = this.projectAdap.adapt(res.data) || [];
+
+  }
 }

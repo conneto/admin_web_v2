@@ -62,7 +62,6 @@ var CampaignRequestComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.campaingApi.getAll()];
                     case 1:
                         _a.campaigns = _b.sent();
-                        console.log(this.campaigns);
                         return [2 /*return*/];
                 }
             });

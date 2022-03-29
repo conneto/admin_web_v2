@@ -63,7 +63,20 @@ var OrganizationApiService = /** @class */ (function () {
                         res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) {
                             return _this.adapter.adapt(item);
                         });
-                        console.log(res.data);
+                        return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
+    OrganizationApiService.prototype.getById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATION + "/" + id)];
+                    case 1:
+                        res = _a.sent();
+                        res.data = this.adapter.adapt(res.data);
                         return [2 /*return*/, res.data || []];
                 }
             });

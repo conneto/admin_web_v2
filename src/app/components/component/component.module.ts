@@ -11,7 +11,8 @@ import { CampaignRequestCardComponent } from '../request-components/campaign-req
 import { ProjectRequestCardComponent } from '../request-components/project-request-card/project-request-card.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { OrganizationInforCardComponent } from '../request-components/organization-infor-card/organization-infor-card.component';
-import { ApproveDeclineButtonComponent } from 'src/app/approve-decline-button/approve-decline-button.component';
+import { ApproveDeclineButtonComponent } from 'src/app/components/approve-decline-button/approve-decline-button.component';
+import { StatusComponent } from '../status/status.component';
 
 
 const componentModules = [
@@ -24,6 +25,7 @@ const componentModules = [
   ProjectRequestCardComponent,
   SearchBarComponent,
   ApproveDeclineButtonComponent,
+  StatusComponent,
 
 ]
 

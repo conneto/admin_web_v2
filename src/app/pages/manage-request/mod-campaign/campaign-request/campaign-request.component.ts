@@ -16,6 +16,8 @@ export class CampaignRequestComponent implements OnInit {
   }
   async getAll() {
     this.campaigns = await this.campaingApi.getAll();
-    console.log(this.campaigns);
   }
+
+
+
 }

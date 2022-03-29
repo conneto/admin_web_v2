@@ -1,4 +1,44 @@
 <div *ngIf="campaign">
+<a routerLink='campaign-request-detail/{{campaign.id}}'  style="text-decoration: none;">
+  <mat-card
+  title="Click to see more details"
+  (click)="viewDetails()"
+  class="moveFadein"
+>
+  <div class="image">
+    <img src="assets/image/sugar.png" />
+    <img mat-card-image src="assets/image/ddtt18_cover.png" />
+  </div>
+  <mat-card-title>
+    {{ campaign.name }}
+  </mat-card-title>
+
+  <div class="subtitle">
+    <img mat-card-avatar src="assets/image/sugar.png" />
+    <mat-card-subtitle class="organization-name"
+      >{{campaign.org_name}}</mat-card-subtitle
+    >
+  </div>
+  <div class="card-icon">
+    <div class="start-date">
+      <p>{{ campaign.startDate | date: "mediumDate" }}</p>
+      <mat-card-subtitle> Start Date </mat-card-subtitle>
+    </div>
+    <div class="budget-item">
+      <p>{{ campaign.target | currency: "VND" }}</p>
+      <mat-card-subtitle> Target </mat-card-subtitle>
+    </div>
+  </div>
+  <mat-card-actions>
+    <button title="Click to approve" mat-button>Approve</button>
+
+    <button title="Click to decline" mat-button>Decline</button>
+  </mat-card-actions>
+</mat-card>
+</a>
+</div>
+
+<!-- 
   <mat-card
     title="Click to see more details"
     (click)="viewDetails()"
@@ -9,7 +49,7 @@
       <img mat-card-image src="assets/image/ddtt18_cover.png" />
     </div>
     <mat-card-title>
-      {{ campaign.name }}
+     A
     </mat-card-title>
 
     <div class="subtitle">
@@ -20,11 +60,11 @@
     </div>
     <div class="card-icon">
       <div class="start-date">
-        <p>{{campaign.startDate | date:'mediumDate' }}</p>
+        <p>A</p>
         <mat-card-subtitle> Start Date </mat-card-subtitle>
       </div>
       <div class="budget-item">
-        <p>{{ campaign.target | currency: "VND" }}</p>
+        <p>A</p>
         <mat-card-subtitle> Budget </mat-card-subtitle>
       </div>
     </div>
@@ -34,4 +74,4 @@
       <button title="Click to decline" mat-button>Decline</button>
     </mat-card-actions>
   </mat-card>
-</div>
+ -->

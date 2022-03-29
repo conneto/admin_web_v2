@@ -13,10 +13,15 @@ var ApiService = /** @class */ (function () {
     function ApiService(http, baseResponseAdapter) {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
-        this.uri = "https://3f4e-14-186-166-185.ngrok.io/fetch_data/api/v1";
+        this.uri = "http://d4cd-14-186-147-88.ngrok.io/fetch_data/api/v1";
         this.corsHeaders = new http_1.HttpHeaders();
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
     }
+    // getOrg():Observable<Organization[]>{
+    //   return this.http.get<Organization[]>(this.uri+'/organizations').pipe(
+    //     tap(data=>console.log(data)),catchError(error=>of([]))
+    //   )
+    // }
     ApiService.prototype.getFullUri = function (api_name, params) {
         var url = this.uri + '/' + api_name;
         if (typeof params != 'undefined') {

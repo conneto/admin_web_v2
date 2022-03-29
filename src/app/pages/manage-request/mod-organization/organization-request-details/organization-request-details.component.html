@@ -1,56 +1,59 @@
-<div class="container">
-  <div class="box">
-    <button><mat-icon>close</mat-icon></button>
-    <div class="header">
-      <img src="/assets/cover/ddtt18.png" alt="" />
-    </div>
-    <div class="content">
-      <div class="content-information">
-        <div>
-          <div class="icon">
-            <img src="/assets/image/sugar.png" alt="" />
-          </div>
-          <div>
-            <p>Sugar Vietnam</p>
-          </div>
-        </div>
-        <div>
-          <p class="title">Create by</p>
-          <p>Tran Lam Khang</p>
-        </div>
-        <div>
-          <p class="title">Date created</p>
-          <p>24/03/2022</p>
-        </div>
-        <div>
-          <p>Non-profit organization</p>
-        </div>
+
+
+<div *ngIf='organization' >
+  <div class="container">
+    <div class="box">
+      <button (click)='goBack()'><mat-icon>close</mat-icon></button>
+      <div class="header">
+        <img src="{{organization.cover}}" alt="" />
       </div>
-      <div class="content-main">
-        <div class="content-introduce">
-          <div>Introduce:</div>
+      <div class="content">
+        <div class="content-information">
           <div>
-            SUGAR Vietnam is a non-profit organization established in 2008 by
-            Vietnamese international students in Singapore. We operate with a
-            mission to support children in shelters with the opportunity to
-            reintegrate into the community by many different ways such as
-            improving academic and social knowledge, soft skills, cultural
-            experiences, ... and help students understand the value of
-            volunteerism.
+            <div class="icon">
+              <img src="{{organization.cover}}" alt="" />
+            </div>
+            <div>
+              <p>{{organization.name}}</p>
+            </div>
+          </div>
+          <div>
+            <p class="title">Create by</p>
+            <p>aa</p>
+          </div>
+          <div>
+            <p class="title">Date created</p>
+            <p>{{organization.foundingDate |date:'mediumDate'}}</p>
+          </div>
+          <div>
+            <p>Non-profit organization</p>
           </div>
         </div>
-        <div class="content-field">
-          <div>Field:</div>
-          <div>Children</div>
-        </div>
-        <div class="content-area">
-          <div>Area of ​​operation:</div>
-          <div>Ho Chi Minh City</div>
-        </div>
-        <div class="content-button">
-          <app-approve-decline-button></app-approve-decline-button>
+        <div class="content-main">
+          <div class="content-introduce">
+            <div>Introduce:</div>
+            <div>
+              {{organization.description}}
+            </div>
+          </div>
+          <div class="content-field">
+            <div>Vision:</div>
+            <div>{{organization.vision}}</div>
+          </div>
+          <div class="content-area">
+            <div>Mission:</div>
+            <div>{{organization.mission?organization.mission:'Nothing'}}</div>
+          </div>
+          <div class="content-area">
+            <div>Website:</div>
+            <a href='{{organization.website}}'>{{organization.website}}</a>
+          </div>
+          <div class="content-button">
+            <app-approve-decline-button></app-approve-decline-button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  
 </div>

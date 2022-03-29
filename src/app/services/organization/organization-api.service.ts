@@ -12,12 +12,16 @@ export class OrganizationApiService {
   constructor(private apiService: ApiService, private adapter: OrganizationAdapter) { }
   async getAll() {
     let res: BaseResponse = await this.apiService.get(OrganizationApiService.ORGANIZATION);
-
     res.data = res.data?.map((item: any) =>
       this.adapter.adapt(item));
-    console.log(res.data);
     return res.data || [];
 
+  }
+
+  async getById(id: string) {
+    let res: any = await this.apiService.get(`${OrganizationApiService.ORGANIZATION}/${id}`);
+    res.data = this.adapter.adapt(res.data);
+    return res.data || [];
   }
 }
 

@@ -68,6 +68,19 @@ var CampaignApiService = /** @class */ (function () {
             });
         });
     };
+    CampaignApiService.prototype.getById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.get(CampaignApiService_1.CAMPAIGN + "/" + ("" + id))];
+                    case 1:
+                        res = _a.sent();
+                        return [2 /*return*/, res.data = this.campaignAdap.adapt(res.data) || []];
+                }
+            });
+        });
+    };
     var CampaignApiService_1;
     CampaignApiService.CAMPAIGN = 'campaigns';
     CampaignApiService = CampaignApiService_1 = __decorate([

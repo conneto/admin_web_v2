@@ -83,6 +83,8 @@ var materialModules = [
     datepicker_1.MatDatepickerModule,
     tooltip_1.MatTooltipModule,
     progress_bar_1.MatProgressBarModule,
+    icon_1.MatIconModule,
+    form_field_1.MatFormFieldModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {
