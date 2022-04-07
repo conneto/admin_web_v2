@@ -4,12 +4,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
+ 
 }
 
 
 :root {
   --heading-card-color: #9a9a9a;
+  overflow: hidden;
 }
 
 html {
@@ -30,7 +31,7 @@ html {
 .decoration {
   display: flex;
   flex-wrap: wrap;
-padding-bottom: 100px;
+  padding-bottom: 60px;
 
 }
 
@@ -60,7 +61,7 @@ padding-bottom: 100px;
 .success {
   background: rgb(145, 236, 145);
   color: black;
-  
+
 }
 
 .success button {
@@ -70,7 +71,7 @@ padding-bottom: 100px;
 
 .fail {
   background: rgb(241, 128, 128);
- 
+
   color: black;
 }
 

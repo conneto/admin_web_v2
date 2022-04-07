@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from 'src/app/guard/auth.guard';
+import { User } from 'src/app/models/user/user.model';
+import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { AdminComponent } from './admin.component';
 
 const routes: Routes = [
@@ -8,11 +11,14 @@ const routes: Routes = [
         path: '', component: AdminComponent,
         children: [
 
+        
             {
                 path: ''
-                , redirectTo: 'dashboard', pathMatch: 'full'
+                , redirectTo: 'manage-oraganization', pathMatch: 'full'
             },
-            { path: 'register', loadChildren: () => import('src/app/pages/register/register.module').then(m => m.RegisterModule) },
+            {
+                path: 'dashboard', canActivateChild: [AuthGuard], loadChildren: () => import('src/app/pages/dashboard/dashboard.module').then(((m) => m.DashboardModule)),
+            },
             {
                 path: 'manage-oraganization', loadChildren: () => import('src/app/pages/management/mod-organization/organizations/organizations.module').then(m => m.OrganizationsModule),
                 children: [
@@ -25,12 +31,10 @@ const routes: Routes = [
                     }
                 ]
             },
-            {
-                path: 'dashboard', loadChildren: () => import('src/app/pages/dashboard/dashboard.module').then(((m) => m.DashboardModule)),
-            },
+
             { path: 'user-management', loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule) },
             {
-                path: 'organization-request', loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
+                path: 'organization-request',canActivateChild: [AuthGuard], loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
                 children: [
                     {
                         path: '', loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
@@ -56,14 +60,14 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'campaign-request', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule),
+                path: 'campaign-request', canActivateChild: [AuthGuard],loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule),
                 children: [
                     { path: '', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule) }
                     , { path: 'campaign-request-detail/:id', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request-detail/campaign-request-detail.module').then(m => m.CampaignRequestDetailModule), }
                 ]
             },
             {
-                path: 'project-request', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule),
+                path: 'project-request', canActivateChild: [AuthGuard],loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule),
                 children: [
                     { path: '', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule) },
                     { path: 'project-request-detail/:id', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request-detail/project-request-detail.module').then(m => m.ProjectRequestDetailModule) },

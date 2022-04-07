@@ -10,32 +10,34 @@ import { OrganizationApiService } from 'src/app/services/organization/organizati
   styleUrls: ['./organization-request.component.scss']
 })
 @Injectable({
-  providedIn:'root',
+  providedIn: 'root',
 })
 export class OrganizationRequestComponent implements OnInit {
   organizations: Organization[] = [];
-  isRequest:boolean=false;
-  private listOrg:BehaviorSubject<any>;
+  isRequest: boolean = false;
+  isEmpty: boolean = false;
+  private listOrg: BehaviorSubject<any>;
   constructor(private organizationService: OrganizationApiService) {
-    this.listOrg=new BehaviorSubject<any>(this.getAll());
-    
-   }
- 
-   public getListOrg():any{
-     return this.listOrg.value;
-   }
+    this.listOrg = new BehaviorSubject<any>(this.getAll());
+  }
+
+  public getListOrg(): any {
+    return this.listOrg.value;
+  }
 
   ngOnInit(): void {
     this.getAll();
-    
+
   }
-  
+
   async getAll() {
     this.organizations = await this.organizationService.getAll();
-    this.organizations=this.organizations.filter(x => {
+    this.organizations = this.organizations.filter(x => {
       return x.result_code === 501;
     })
-    console.log(this.organizations);
+    if (this.organizations.length <= 0 || this.organizations==[]) {
+      this.isEmpty=true;
+    }
   }
 
 

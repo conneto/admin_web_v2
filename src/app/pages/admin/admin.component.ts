@@ -12,7 +12,7 @@ import { OrganizationsComponent } from '../management/mod-organization/organizat
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
+  title: string = '';
   menus: Array<Menu> = [
     {
       id: '1',
@@ -61,7 +61,7 @@ export class AdminComponent implements OnInit {
         subname: 'Project Request',
         path: 'project-request',
         icon: 'assets/icon/economic.png',
-      },]
+      },],
     },
     {
       id: '3',
@@ -86,9 +86,11 @@ export class AdminComponent implements OnInit {
     },
   ]
   user?: UserLoginResponse;
-  constructor(private authService: AuthServiceService, private router: Router,private orgApi:OrganizationsComponent,) { }
+  constructor(private authService: AuthServiceService, private router: Router, private orgApi: OrganizationsComponent,) {
+  }
   isExpaned: boolean = false;
   ngOnInit(): void {
+
     this.user = this.authService.currentUserValue;
     console.log(this.user?.id);
     if (this.user) {
@@ -99,7 +101,27 @@ export class AdminComponent implements OnInit {
       }
     }
   }
-
+  ngAfterContentChecked() {
+    this.getTitle();
+  }
+  getTitle() {
+    this.title = this.router.url.split('/')[this.router.url.split.length].trim();
+    if (this.title == 'organization-request' || this.title == 'project-request' || this.title == 'campaign-request') {
+      const tempMenu: any = this.menus.filter(x => {
+        return x.submenu;
+      })
+      tempMenu[0].submenu.forEach((x: any) => {
+        if (x.path == this.title) {
+          this.title = x.subname;
+        }
+      })
+    } else {
+      const tempMenu: any = this.menus.filter(x => {
+        return x.path === this.title;
+      })
+      this.title = tempMenu[0].name;
+    }
+  }
   isLargeScreen() {
     const width =
       window.innerWidth ||
@@ -112,19 +134,7 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  check() {
-    alert("ngu");
-  }
 
-  titleName?: string;
-  handleTitle(menu: Menu) {
-
-    this.titleName = menu.name;
-    if (this.titleName === 'MANAGE REQUEST') {
-      this.titleName = menu.submenu.subname;
-    }
-    return this.titleName;
-  }
 
   logout() {
     this.authService.logout();

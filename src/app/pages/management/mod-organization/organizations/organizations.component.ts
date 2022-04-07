@@ -20,7 +20,6 @@ export class OrganizationsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllOrganizations();
-
     this.userApi.currentUserValue;
   }
 
@@ -33,7 +32,6 @@ export class OrganizationsComponent implements OnInit {
       const check = this.organizations.every((x) => {
         return x.result_code === 511
       })
-
       if (check || this.organizations.length == 0) {
         this.organizations = [];
         this.noOrg = true;
@@ -43,7 +41,6 @@ export class OrganizationsComponent implements OnInit {
         });
       }
     } else this.organizations = this.organizations.filter((x => { return x.result_code === 510 }))
-
   }
 
 }

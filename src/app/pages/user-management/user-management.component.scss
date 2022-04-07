@@ -1,39 +1,53 @@
-
-app-user-card{
-    width:24%;
-    margin-left:10px;
+app-user-card {
+  width: 24%;
+  margin-left: 10px;
 }
 
 .search-box {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+
+  .search-item {
     display: flex;
-    flex-direction: row-reverse;
-    justify-content:space-between;
-  
-    .search-item {
-      display: flex;
-  
-      input {
-        padding: 7px;
-        border-radius: 5px;
-        border: 1px #ddd solid;
-        font-size:15px;
-      }
-      button{
-          border:none;
-          width:40px;
-          :hover{
-              opacity:0.5;
-          }
-      }
-    }
-    select{
+
+    input {
+      padding: 7px;
+      border-radius: 5px;
       border: 1px #ddd solid;
+      font-size: 15px;
+    }
+
+    button {
+      border: none;
+      width: 40px;
+
+      :hover {
+        opacity: 0.5;
+      }
     }
   }
-  .ordering-item{
-      display:flex;
-      font-size:15px;
-      
-      
+
+  select {
+    border: 1px #ddd solid;
   }
-  
+}
+
+.ordering-item {
+  display: flex;
+  font-size: 15px;
+
+
+}
+
+.button-showmore {
+  margin-top: 2em;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    color: rgb(253, 204, 5);
+    border: 3px solid rgb(245, 211, 74);
+  }
+}

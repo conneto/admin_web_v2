@@ -50,6 +50,7 @@ var OrganizationRequestComponent = /** @class */ (function () {
         this.organizationService = organizationService;
         this.organizations = [];
         this.isRequest = false;
+        this.isEmpty = false;
         this.listOrg = new rxjs_1.BehaviorSubject(this.getAll());
     }
     OrganizationRequestComponent.prototype.getListOrg = function () {
@@ -71,7 +72,9 @@ var OrganizationRequestComponent = /** @class */ (function () {
                         this.organizations = this.organizations.filter(function (x) {
                             return x.result_code === 501;
                         });
-                        console.log(this.organizations);
+                        if (this.organizations.length <= 0 || this.organizations == []) {
+                            this.isEmpty = true;
+                        }
                         return [2 /*return*/];
                 }
             });

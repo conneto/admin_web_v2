@@ -27,6 +27,7 @@ export class OrganizationInforCardComponent implements OnInit {
   @Input() organizations?: Organization;
   urlApi?:string;
   urlLogo?:string;
+  
   constructor(private loadingApi:LoadingServiceService,private proApi: ProjectRequestComponent, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
 
   }

@@ -14,7 +14,7 @@
 
 .mat-sidenav-content {
 
-  height: 100vh;
+  height: 95vh;
 }
 
 .content {
@@ -42,7 +42,9 @@
   border-bottom: 1px solid #ddd;
 
 }
-
+.toolbar-name{
+  float:right;
+}
 .toolbar-notification-button {
   width: 100%;
 }

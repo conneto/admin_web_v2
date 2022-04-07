@@ -56,7 +56,6 @@ var UserManagementComponent = /** @class */ (function () {
     }
     UserManagementComponent.prototype.ngOnInit = function () {
         this.getListMangerAndVolunteer();
-        this.checkShowMore();
     };
     UserManagementComponent.prototype.ngAfterViewInit = function () {
     };
@@ -105,13 +104,14 @@ var UserManagementComponent = /** @class */ (function () {
                 newLength = _this.oldUsers.length;
             }
             _this.users = _this.oldUsers.slice(0, newLength);
+            _this.checkShowMore();
             _this.loading.isLoading.next(false);
         }, 300);
     };
     UserManagementComponent.prototype.checkShowMore = function () {
         if (this.users.length > 8) {
             if (this.users.length == this.oldUsers.length) {
-                this.isNoMore = false;
+                this.isNoMore = true;
             }
         }
     };
@@ -120,22 +120,22 @@ var UserManagementComponent = /** @class */ (function () {
         var fullName = '';
         setTimeout(function () {
             if (e.target.value.length < 0 || e.target.value == '') {
-                _this.getListMangerAndVolunteer();
+                _this.users = _this.oldUsers.slice(0, 8);
                 _this.isEmpty = false;
+                _this.isNoMore = false;
             }
             else {
+                _this.isNoMore = true;
                 _this.users = _this.oldUsers;
                 _this.isEmpty = false;
                 _this.users = _.filter(_this.users, function (x) {
-                    console.log(e.target.value);
-                    _this.users = x.first_name.concat("" + x.last_name).toLowerCase().includes("" + e.target.value);
-                    return _this.users = x.first_name.concat("" + x.last_name).toLowerCase().includes("" + e.target.value);
+                    return _this.users = x.first_name.concat(" " + x.last_name).toLowerCase().includes(("" + e.target.value).toLowerCase().trim());
                 });
                 if (_this.users == [] || _this.users.length == 0) {
                     _this.isEmpty = true;
                 }
             }
-        }, 1600);
+        }, 0);
     };
     UserManagementComponent = __decorate([
         core_1.Component({

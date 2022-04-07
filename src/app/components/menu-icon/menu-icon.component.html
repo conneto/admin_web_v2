@@ -6,7 +6,7 @@
       mat-list-item
       [routerLink]="[menu.path]"
       [routerLinkActive]="['is-active', 'shadow']"
-      (click)="handleTitle()"
+     
     >
       <img src="{{ menu.icon }}" />
       <p>{{ menu.name }}</p>
@@ -28,7 +28,7 @@
         mat-list-item
         [routerLink]="[submenu.path]"
         [routerLinkActive]="['is-active', 'shadow']"
-        (click)="handleTitle()"
+      
       >
         {{ submenu.subname }}
       </a>

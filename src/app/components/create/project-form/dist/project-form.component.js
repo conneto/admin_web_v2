@@ -31,7 +31,8 @@ var ProjectFormComponent = /** @class */ (function () {
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
             created_by: [this.authApi.currentUserValue.id],
-            request_type: ['create']
+            request_type: ['create'],
+            cover: ['']
         });
     };
     ProjectFormComponent.prototype.noClick = function () {
@@ -39,7 +40,9 @@ var ProjectFormComponent = /** @class */ (function () {
     };
     ProjectFormComponent.prototype.yesClick = function () {
         if (this.projectForm.valid) {
-            this.dialogRef.close(this.projectForm.value);
+            var uploadData = new FormData();
+            uploadData.append('project', this.projectForm.value);
+            this.dialogRef.close(uploadData);
         }
     };
     ProjectFormComponent = __decorate([

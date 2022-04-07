@@ -7,7 +7,7 @@
 }
 
 .mat-sidenav-content {
-  height: 100vh;
+  height: 95vh;
 }
 
 .content {
@@ -28,6 +28,10 @@
 .mat-toolbar {
   background-color: rgba(246, 244, 234, 0.671);
   border-bottom: 1px solid #ddd;
+}
+
+.toolbar-name {
+  float: right;
 }
 
 .toolbar-notification-button {

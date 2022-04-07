@@ -72,6 +72,7 @@ var AuthServiceService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         md5 = new ts_md5_1.Md5();
+                        this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.apiService.post(AuthServiceService_1.ACCOUNTS + AuthServiceService_1.LOGIN, this.userRequest.adapt({
                                 username: username,
                                 // password: password,

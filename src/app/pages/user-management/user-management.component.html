@@ -23,8 +23,8 @@
     <div *ngFor="let user of users">
       <app-user-card [user]="user"> </app-user-card>
     </div>
-    <div *ngIf="!isNoMore">
-      <button (click)="showMore()">Show More</button>
+    <div class='button-showmore'*ngIf="!isNoMore">
+      <button mat-button (click)="showMore()">Show More</button>
     </div>
   </div>
 </div>

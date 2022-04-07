@@ -29,6 +29,7 @@ export class ProjectFormComponent implements OnInit {
       end_date: ['', Validators.required],
       created_by: [this.authApi.currentUserValue.id],
       request_type: ['create'],
+      cover:[''],
     })
   }
   noClick() {
@@ -37,7 +38,9 @@ export class ProjectFormComponent implements OnInit {
   }
   yesClick() {
     if (this.projectForm.valid) {
-      this.dialogRef.close(this.projectForm.value);
+      let uploadData=new FormData();
+      uploadData.append('project',this.projectForm.value);
+      this.dialogRef.close(uploadData);
     }
   }
 }

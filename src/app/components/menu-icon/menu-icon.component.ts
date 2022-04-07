@@ -22,12 +22,7 @@ export class MenuIconComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  
-  handleTitle() {
-   
-    this.getTitle.emit(this.menu);
-   
-  }
+
   check() {
     var a = document.querySelector('.sub-menu');
     console.log(a);

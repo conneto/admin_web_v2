@@ -4,12 +4,9 @@
       <mat-icon>menu</mat-icon>
     </button>
     <div class="toolbar-title">
-      <!-- <p>{{ titleName ? titleName : "DASHBOARD" }}</p> -->
+      <p>{{title}}</p>
     </div>
     <div class="toolbar-notification-button">
-      <span *ngIf="user">
-        Welcome {{ user.first_name + " " + user.last_name }}
-      </span>
       <a mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>
       </a>
@@ -26,6 +23,9 @@
       <a mat-button>
         <mat-icon matBadge="3">notifications</mat-icon>
       </a>
+      <span class="toolbar-name" *ngIf="user">
+        Hello, {{ user.first_name + " " + user.last_name }}
+      </span>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -39,14 +39,12 @@
       <app-menu-icon
         *ngFor="let item of menus"
         [menu]="item"
-        (getTitle)="handleTitle($event)"
+      
       >
       </app-menu-icon>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="content"><router-outlet></router-outlet>
-    
-    </div>
+    <div class="content"><router-outlet></router-outlet></div>
   </mat-sidenav-content>
 </mat-sidenav-container>

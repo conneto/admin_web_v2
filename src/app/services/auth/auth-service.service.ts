@@ -41,7 +41,7 @@ export class AuthServiceService {
 
   public async login(isSaveUser: boolean, username: string, password: string) {
     const md5 = new Md5();
-    
+    this.loadingService.isLoading.next(true);
     let res: BaseResponse = await this.apiService.post(
       AuthServiceService.ACCOUNTS + AuthServiceService.LOGIN,
       this.userRequest.adapt({

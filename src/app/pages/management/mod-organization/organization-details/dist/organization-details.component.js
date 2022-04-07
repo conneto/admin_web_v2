@@ -122,9 +122,9 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         if (!data) return [3 /*break*/, 2];
+                        console.log(data);
                         uploadData = new FormData();
                         data = __assign(__assign({}, data), { organization_id: (_a = this.organization) === null || _a === void 0 ? void 0 : _a.id });
-                        console.log(data);
                         uploadData.append('project', JSON.stringify(data));
                         return [4 /*yield*/, this.proApi.createProject(uploadData)];
                     case 1:

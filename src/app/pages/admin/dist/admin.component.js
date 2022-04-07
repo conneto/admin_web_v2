@@ -13,6 +13,7 @@ var AdminComponent = /** @class */ (function () {
         this.authService = authService;
         this.router = router;
         this.orgApi = orgApi;
+        this.title = '';
         this.menus = [
             {
                 id: '1',
@@ -99,6 +100,29 @@ var AdminComponent = /** @class */ (function () {
             }
         }
     };
+    AdminComponent.prototype.ngAfterContentChecked = function () {
+        this.getTitle();
+    };
+    AdminComponent.prototype.getTitle = function () {
+        var _this = this;
+        this.title = this.router.url.split('/')[this.router.url.split.length].trim();
+        if (this.title == 'organization-request' || this.title == 'project-request' || this.title == 'campaign-request') {
+            var tempMenu = this.menus.filter(function (x) {
+                return x.submenu;
+            });
+            tempMenu[0].submenu.forEach(function (x) {
+                if (x.path == _this.title) {
+                    _this.title = x.subname;
+                }
+            });
+        }
+        else {
+            var tempMenu = this.menus.filter(function (x) {
+                return x.path === _this.title;
+            });
+            this.title = tempMenu[0].name;
+        }
+    };
     AdminComponent.prototype.isLargeScreen = function () {
         var width = window.innerWidth ||
             document.documentElement.clientWidth ||
@@ -109,16 +133,6 @@ var AdminComponent = /** @class */ (function () {
         else {
             return false;
         }
-    };
-    AdminComponent.prototype.check = function () {
-        alert("ngu");
-    };
-    AdminComponent.prototype.handleTitle = function (menu) {
-        this.titleName = menu.name;
-        if (this.titleName === 'MANAGE REQUEST') {
-            this.titleName = menu.submenu.subname;
-        }
-        return this.titleName;
     };
     AdminComponent.prototype.logout = function () {
         this.authService.logout();

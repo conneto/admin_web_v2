@@ -9,18 +9,20 @@ exports.__esModule = true;
 exports.AppRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var auth_guard_1 = require("./guard/auth.guard");
 var login_component_1 = require("./pages/login/login.component");
 var routes = [
     { path: '', component: login_component_1.LoginComponent },
     {
-        path: "admin",
+        path: "admin", canActivate: [auth_guard_1.AuthGuard],
         loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
     },
     { path: 'register', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/register/register.module'); }).then(function (m) { return m.RegisterModule; }); } },
     {
-        path: 'manager',
+        path: 'manager', canActivate: [auth_guard_1.AuthGuard],
         loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
     },
+    { path: '**', redirectTo: '' },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {

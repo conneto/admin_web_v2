@@ -63,12 +63,13 @@ export class OrganizationDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
+        console.log(data);
         let uploadData = new FormData();
         data = {
           ...data,
           organization_id: this.organization?.id,
         }
-        console.log(data);
+        
         uploadData.append('project', JSON.stringify(data));
         let res: BaseResponse = await this.proApi.createProject(uploadData);
         if(res.resultCode==0)

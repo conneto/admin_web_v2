@@ -80,7 +80,7 @@ var LoginComponent = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 3:
                         if (!(this.authService.currentUserValue.role === 'admin')) return [3 /*break*/, 5];
-                        return [4 /*yield*/, this.router.navigate(['admin'])];
+                        return [4 /*yield*/, this.router.navigate(['admin/dashboard'])];
                     case 4:
                         _a.sent();
                         _a.label = 5;

@@ -9,10 +9,26 @@ exports.__esModule = true;
 exports.AuthGuard = void 0;
 var core_1 = require("@angular/core");
 var AuthGuard = /** @class */ (function () {
-    function AuthGuard() {
+    function AuthGuard(router, authApi) {
+        this.router = router;
+        this.authApi = authApi;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
-        return true;
+        var currentUser = this.authApi.currentUserValue;
+        if (currentUser) {
+            return true;
+        }
+        this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+        return false;
+    };
+    AuthGuard.prototype.canActivateChild = function (route, state) {
+        var currentUser = this.authApi.currentUserValue;
+        if (currentUser.role == 'admin') {
+            console.log(currentUser.role);
+            return true;
+        }
+        this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+        return false;
     };
     AuthGuard = __decorate([
         core_1.Injectable({

@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.AdminRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var auth_guard_1 = require("src/app/guard/auth.guard");
 var admin_component_1 = require("./admin.component");
 var routes = [
     {
@@ -16,9 +17,12 @@ var routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'dashboard', pathMatch: 'full'
+                redirectTo: 'manage-oraganization', pathMatch: 'full'
             },
-            { path: 'register', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/register/register.module'); }).then(function (m) { return m.RegisterModule; }); } },
+            {
+                path: 'dashboard', canActivateChild: [auth_guard_1.AuthGuard],
+                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/dashboard/dashboard.module'); }).then((function (m) { return m.DashboardModule; })); }
+            },
             {
                 path: 'manage-oraganization',
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-organization/organizations/organizations.module'); }).then(function (m) { return m.OrganizationsModule; }); },
@@ -35,13 +39,9 @@ var routes = [
                     }
                 ]
             },
-            {
-                path: 'dashboard',
-                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/dashboard/dashboard.module'); }).then((function (m) { return m.DashboardModule; })); }
-            },
             { path: 'user-management', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); } },
             {
-                path: 'organization-request',
+                path: 'organization-request', canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module'); }).then(function (m) { return m.OrganizationRequestModule; }); },
                 children: [
                     {
@@ -74,7 +74,7 @@ var routes = [
                 ]
             },
             {
-                path: 'campaign-request',
+                path: 'campaign-request', canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module'); }).then(function (m) { return m.CampaignRequestModule; }); },
                 children: [
                     { path: '', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module'); }).then(function (m) { return m.CampaignRequestModule; }); } },
@@ -82,7 +82,7 @@ var routes = [
                 ]
             },
             {
-                path: 'project-request',
+                path: 'project-request', canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-project/project-request/project-request.module'); }).then(function (m) { return m.ProjectRequestModule; }); },
                 children: [
                     { path: '', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-project/project-request/project-request.module'); }).then(function (m) { return m.ProjectRequestModule; }); } },

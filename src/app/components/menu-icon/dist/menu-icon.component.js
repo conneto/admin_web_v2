@@ -13,13 +13,8 @@ var MenuIconComponent = /** @class */ (function () {
         this.authApi = authApi;
         this.getTitle = new core_1.EventEmitter();
         this.isShowSubMenu = false;
-        this.role = 'ab';
-        var role = this.authApi.currentUserValue.role;
     }
     MenuIconComponent.prototype.ngOnInit = function () {
-    };
-    MenuIconComponent.prototype.handleTitle = function () {
-        this.getTitle.emit(this.menu);
     };
     MenuIconComponent.prototype.check = function () {
         var a = document.querySelector('.sub-menu');
