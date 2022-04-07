@@ -73,10 +73,45 @@ var CampaignApiService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(CampaignApiService_1.CAMPAIGN + "/" + ("" + id))];
+                    case 0: return [4 /*yield*/, this.apiService.get(CampaignApiService_1.CAMPAIGN + "/" + id)];
                     case 1:
                         res = _a.sent();
-                        return [2 /*return*/, res.data = this.campaignAdap.adapt(res.data) || []];
+                        res.data = this.campaignAdap.adapt(res.data);
+                        return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
+    CampaignApiService.prototype.createById = function (data, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log(id);
+                        return [4 /*yield*/, this.apiService.post(CampaignApiService_1.CAMPAIGN + "/" + id, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.resultCode != 0) {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
+    CampaignApiService.prototype.create = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.post("" + CampaignApiService_1.CAMPAIGN, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.resultCode != 0) {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/, res];
                 }
             });
         });

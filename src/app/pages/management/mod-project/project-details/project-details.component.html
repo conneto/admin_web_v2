@@ -1,0 +1,54 @@
+<div *ngIf="project">
+  <div class="container">
+    <div class="box">
+      <div class="closeButton">
+        <button (click)="goBack()"><mat-icon>close</mat-icon></button>
+      </div>
+      <div class="header">
+        <div class="header-content">
+          <div class="header-image">
+            <img src="assets/cover/ddtt18.png" alt="" />
+          </div>
+          <div class="header-information">
+            <div>
+              <img
+                class="logo"
+                src="https://scontent.fsgn13-2.fna.fbcdn.net/v/t1.6435-9/178544364_107519118154437_587515442243461044_n.png?_nc_cat=106&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=HpDq1z6uI1AAX_qZr2h&_nc_ht=scontent.fsgn13-2.fna&oh=00_AT_wF445zgWFFAp3-EM3SKzQh1mk0GzbDAyweGLg3sapjQ&oe=6257A43B"
+              />
+              <h4>{{ project.name }}</h4>
+              <app-status></app-status>
+            </div>
+
+            <p>
+              Đồng hành cùng dự án <br />
+              <span class="organization-name">{{project.organizationName}}</span>
+            </p>
+            <div class="card-icon">
+              <div class="start-date">
+                <p>{{ project.startDate | date: "mediumDate" }}</p>
+                <mat-card-subtitle> Start Date </mat-card-subtitle>
+              </div>
+              <div class="budget-item">
+                <p>{{ project.endDate | date: "mediumDate" }}</p>
+                <mat-card-subtitle> End Date </mat-card-subtitle>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="content-information">
+          <div class="content-description">
+            <span>Description:</span>
+            <p>
+              {{ project.description }}
+            </p>
+          </div>
+        </div>
+        <div *ngIf='!isAdmin'class="content-button">
+          <button (click)="openCampaignForm()" mat-raised-button color="accent">Create a campaign</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="container">
+  <form [formGroup]="organizationForm" action="">
+    <div class="login-form">
+      <div>
+        <input
+          class="input login"
+          type="text"
+          placeholder="Organization name"
+          required=""
+          formControlName="name"
+        />
+      </div>
+      <div class="login-name">
+        <input
+          class="input login"
+          type="text"
+          placeholder="English name (if have)"
+          required=""
+          formControlName="eng_name"
+        />
+      </div>
+      <div>
+        <textarea
+          class="input login"
+          type="text"
+          placeholder="Description"
+          required=""
+          formControlName="description"
+        ></textarea>
+      </div>
+      <div>
+        <textarea
+          class="input login"
+          type="text"
+          placeholder="Vision"
+          required=""
+          formControlName="vision"
+        ></textarea>
+      </div>
+      <div>
+        <input
+          class="input login"
+          type="text"
+          placeholder="Website"
+          required=""
+          formControlName="website"
+        >
+      </div>
+      <div>
+        <input
+          class="input login"
+          type="date"
+          placeholder="Description"
+          required=""
+          formControlName="founding_date"
+        />
+      </div>
+      <div>
+        <label style="width: 100px"> Cover image:</label>
+        <input
+          class="input login"
+          type="file"
+          accept="image/png, image/jpg,image/jpeg"
+          required=""
+          formControlName="cover"
+          (change)='onChangeCover($event);'
+        />
+      </div>
+      <div>
+        <label style="width: 100px"> Logo:</label>
+        <input
+          accept="image/png, image/jpg,image/jpeg"
+          class="input login"
+          type="file"
+          required=""
+          formControlName="logo"
+          (change)='onChangeLogo($event)'
+        />
+      </div>
+    </div>
+  </form>
+
+  <div class="login-button">
+    <button
+      [disabled]="organizationForm.invalid"
+      type="submit"
+      (click)="create()"
+    >
+      Create
+    </button>
+  </div>
+</div>

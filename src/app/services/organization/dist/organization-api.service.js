@@ -45,9 +45,11 @@ exports.__esModule = true;
 exports.OrganizationApiService = void 0;
 var core_1 = require("@angular/core");
 var OrganizationApiService = /** @class */ (function () {
-    function OrganizationApiService(apiService, adapter) {
+    function OrganizationApiService(apiService, adapter, authApi) {
         this.apiService = apiService;
         this.adapter = adapter;
+        this.authApi = authApi;
+        this.user = authApi.currentUserValue;
     }
     OrganizationApiService_1 = OrganizationApiService;
     OrganizationApiService.prototype.getAll = function () {
@@ -57,7 +59,7 @@ var OrganizationApiService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATION)];
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS)];
                     case 1:
                         res = _b.sent();
                         res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) {
@@ -73,7 +75,7 @@ var OrganizationApiService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATION + "/" + id)];
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id)];
                     case 1:
                         res = _a.sent();
                         res.data = this.adapter.adapt(res.data);
@@ -82,8 +84,44 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
+    OrganizationApiService.prototype.create = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.post("" + OrganizationApiService_1.ORGANIZATIONS, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.resultCode != 0) {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
+    OrganizationApiService.prototype.createById = function (data, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log(id);
+                        return [4 /*yield*/, this.apiService.post(OrganizationApiService_1.ORGANIZATIONS + "/" + id, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.resultCode != 0) {
+                            return [2 /*return*/, null];
+                        }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
     var OrganizationApiService_1;
-    OrganizationApiService.ORGANIZATION = 'organizations';
+    OrganizationApiService.ORGANIZATIONS = 'organizations';
+    OrganizationApiService.ORGANIZATION = 'organization';
+    OrganizationApiService.CREATE = 'create';
     OrganizationApiService = OrganizationApiService_1 = __decorate([
         core_1.Injectable({
             providedIn: 'root'

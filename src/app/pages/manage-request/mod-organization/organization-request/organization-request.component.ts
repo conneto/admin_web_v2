@@ -1,6 +1,6 @@
 import { identifierModuleUrl } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Organization } from 'src/app/models/organization/organization';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 
@@ -9,16 +9,34 @@ import { OrganizationApiService } from 'src/app/services/organization/organizati
   templateUrl: './organization-request.component.html',
   styleUrls: ['./organization-request.component.scss']
 })
+@Injectable({
+  providedIn:'root',
+})
 export class OrganizationRequestComponent implements OnInit {
   organizations: Organization[] = [];
-  constructor(private organizationService: OrganizationApiService) { }
+  isRequest:boolean=false;
+  private listOrg:BehaviorSubject<any>;
+  constructor(private organizationService: OrganizationApiService) {
+    this.listOrg=new BehaviorSubject<any>(this.getAll());
+    
+   }
+ 
+   public getListOrg():any{
+     return this.listOrg.value;
+   }
 
   ngOnInit(): void {
     this.getAll();
-  }
-  async getAll() {
-    this.organizations = await this.organizationService.getAll();
+    
   }
   
+  async getAll() {
+    this.organizations = await this.organizationService.getAll();
+    this.organizations=this.organizations.filter(x => {
+      return x.result_code === 501;
+    })
+    console.log(this.organizations);
+  }
+
 
 }

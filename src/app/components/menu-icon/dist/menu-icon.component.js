@@ -9,9 +9,12 @@ exports.__esModule = true;
 exports.MenuIconComponent = void 0;
 var core_1 = require("@angular/core");
 var MenuIconComponent = /** @class */ (function () {
-    function MenuIconComponent() {
+    function MenuIconComponent(authApi) {
+        this.authApi = authApi;
         this.getTitle = new core_1.EventEmitter();
         this.isShowSubMenu = false;
+        this.role = 'ab';
+        var role = this.authApi.currentUserValue.role;
     }
     MenuIconComponent.prototype.ngOnInit = function () {
     };

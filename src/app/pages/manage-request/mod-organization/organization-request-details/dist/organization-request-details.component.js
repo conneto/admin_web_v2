@@ -45,25 +45,31 @@ exports.__esModule = true;
 exports.OrganizationRequestDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationRequestDetailsComponent = /** @class */ (function () {
-    function OrganizationRequestDetailsComponent(route, location, orgApi) {
+    function OrganizationRequestDetailsComponent(loadingService, route, location, orgApi, orgComponent) {
+        this.loadingService = loadingService;
         this.route = route;
         this.location = location;
         this.orgApi = orgApi;
+        this.orgComponent = orgComponent;
+        this.uriApi = this.loadingService.getApiGetLink.value;
     }
     OrganizationRequestDetailsComponent.prototype.ngOnInit = function () {
         this.getValueFromRoute();
     };
     OrganizationRequestDetailsComponent.prototype.getValueFromRoute = function () {
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id, _e;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
                         id = this.route.snapshot.paramMap.get('id');
-                        _a = this;
+                        _e = this;
                         return [4 /*yield*/, this.orgApi.getById("" + id)];
                     case 1:
-                        _a.organization = _b.sent();
+                        _e.organization = _f.sent();
+                        this.urlLogo = (_b = (_a = this.organization) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                        this.urlCover = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];
                 }
             });

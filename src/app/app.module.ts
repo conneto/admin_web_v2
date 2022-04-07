@@ -11,12 +11,16 @@ import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { ComponentModule } from './components/component/component.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HotToastModule } from '@ngneat/hot-toast';
-import { ProjectModule } from './pages/project/project.module';
+import { ProjectModule } from './pages/management/mod-project/project/project.module';
 import { ProjectRequestDetailModule } from './pages/manage-request/mod-project/project-request-detail/project-request-detail.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OrganizationDetailsModule } from './pages/management/mod-organization/organization-details/organization-details.module';
+import { ProjectRequestComponent } from './pages/manage-request/mod-project/project-request/project-request.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent,LoginComponent
+    AppComponent, LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -26,10 +30,12 @@ import { ProjectRequestDetailModule } from './pages/manage-request/mod-project/p
     , ComponentModule,
     HttpClientModule,
     HotToastModule.forRoot(),
-    ProjectModule,
-    ProjectRequestDetailModule,
     
+  
 
+    ReactiveFormsModule,
+    FormsModule,
+  
   ],
   providers: [],
   bootstrap: [AppComponent],

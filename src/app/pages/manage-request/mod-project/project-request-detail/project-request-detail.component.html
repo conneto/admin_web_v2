@@ -18,14 +18,12 @@
               <h4>{{ project.name }}</h4>
               <app-status></app-status>
             </div>
-            <div class="button">
-              <button title="Click to approve" mat-button>Approve</button>
+         
 
-              <button title="Click to decline" mat-button>Decline</button>
-            </div>
-
-            <p>Đồng hành cùng dự án <br>
-              <span class='organization-name'>SUGAR VIETNAM</span></p>
+            <p>
+              Đồng hành cùng dự án <br />
+              <span class="organization-name">SUGAR VIETNAM</span>
+            </p>
             <div class="card-icon">
               <div class="start-date">
                 <p>{{ project.startDate | date: "mediumDate" }}</p>
@@ -36,7 +34,6 @@
                 <mat-card-subtitle> End Date </mat-card-subtitle>
               </div>
             </div>
-           
           </div>
         </div>
       </div>
@@ -48,6 +45,11 @@
               {{ project.description }}
             </p>
           </div>
+        </div>
+        <div >
+          <app-approve-decline-button
+            [project]="project"
+          ></app-approve-decline-button>
         </div>
       </div>
     </div>

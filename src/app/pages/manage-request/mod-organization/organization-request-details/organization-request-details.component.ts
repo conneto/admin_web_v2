@@ -1,7 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { OrganizationInforCardComponent } from 'src/app/components/request-components/organization-infor-card/organization-infor-card.component';
 import { Organization } from 'src/app/models/organization/organization';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 
 @Component({
@@ -11,7 +13,10 @@ import { OrganizationApiService } from 'src/app/services/organization/organizati
 })
 export class OrganizationRequestDetailsComponent implements OnInit {
   organization?: Organization;
-  constructor(private route: ActivatedRoute, private location: Location, private orgApi: OrganizationApiService) { }
+  uriApi = this.loadingService.getApiGetLink.value;
+  urlLogo?:string;
+  urlCover?:string;
+  constructor(private loadingService: LoadingServiceService, private route: ActivatedRoute, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) { }
 
   ngOnInit(): void {
     this.getValueFromRoute();
@@ -20,8 +25,12 @@ export class OrganizationRequestDetailsComponent implements OnInit {
   async getValueFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     this.organization = await this.orgApi.getById(`${id}`);
+   this.urlLogo= this.organization?.logo?.replace(/\\/g, '\/');
+   this.urlCover=this.organization?.cover?.replace(/\\/g,'\/');
   }
+
   goBack() {
     this.location.back();
   }
+
 }

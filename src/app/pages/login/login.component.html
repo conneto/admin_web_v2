@@ -1,4 +1,7 @@
 <div id="container">
+  <div class='loading-spinner'*ngIf="loadService.isLoading | async">
+    <mat-spinner></mat-spinner>
+  </div>
   <!-- <img class="image-background" src="assets/cover/login.png" /> -->
   <div class="login-box">
     <div class="login-padding">
@@ -6,15 +9,16 @@
         <h2>Conneto</h2>
         <p>Welcome back, please sign in !</p>
       </div>
-      <div class="login-form">
-        <mat-form-field>
+      <form [formGroup]="loginForm" action="">
+        <div class="login-form">
           <div>
             <mat-icon class="form-icon">person</mat-icon
             ><input
               class="input login"
               type="text"
               placeholder="Enter your account"
-              required
+              required=""
+              formControlName="username"
             />
           </div>
           <div>
@@ -23,14 +27,15 @@
               class="input password"
               [type]="hide ? 'password' : 'text'"
               placeholder="Enter your password"
-              required
+              required=""
+              formControlName="password"
             />
             <button class="hide-button" title="Hide" (click)="hide = !hide">
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
           </div>
-        </mat-form-field>
-      </div>
+        </div>
+      </form>
       <div class="login-footer">
         <div class="login-forget">
           <a href="#">Forget Password?</a>
@@ -41,7 +46,12 @@
         </div>
       </div>
       <div class="login-button">
-        <button mat-raised-button (click)="login()">Sign In</button>
+        <button [disabled]="loginForm.invalid" (click)="login()">
+          Sign In
+        </button>
+      </div>
+      <div class="register-button">
+        <a routerLink="/register">Create as organization manager</a>
       </div>
     </div>
   </div>

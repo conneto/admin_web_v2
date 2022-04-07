@@ -1,0 +1,6 @@
+::ng-deep .success {
+  background: green;
+}
+::ng-deep .fail {
+  background: red;
+}

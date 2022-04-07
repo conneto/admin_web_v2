@@ -1,0 +1,71 @@
+.a {
+  font-size: 20px;
+}
+
+.click-details {
+  border: none;
+}
+
+.click-details:hover {
+  opacity: 0.9;
+  box-shadow: 3px 5px 5px #ddd;
+}
+
+mat-card {
+  width: 380px;
+  margin: 5px;
+}
+mat-card a {
+  text-decoration: none;
+  color: black;
+}
+mat-card mat-card-title {
+  font-size: 20px;
+  height: 55px;
+}
+
+.container > div {
+  display: flex !important;
+  flex-wrap: wrap;
+}
+
+mat-card-actions {
+  display: flex !important;
+  justify-content: center;
+}
+mat-card-actions button {
+  width: 100%;
+}
+mat-card-actions :first-child {
+  background-color: #8af495;
+}
+mat-card-actions :nth-child(2) {
+  background-color: #f48a8a;
+}
+
+img {
+  width: 75px;
+  height: 75px;
+}
+
+.mat-card-avatar {
+  object-fit: fill;
+}
+
+.card-icon {
+  display: flex;
+  font-size: 15px !important;
+  justify-content: space-between;
+  margin-top: 9px;
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+.card-icon div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.margin-left {
+  margin-left: 5px;
+}

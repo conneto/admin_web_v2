@@ -1,35 +1,45 @@
 <div *ngIf="projects">
-  <a routerLink="project-request-detail/{{projects.id}}" style="text-decoration: none;">
   <mat-card
     title="Click to see more details"
     (click)="viewDetails()"
     class="moveFadein"
   >
-    <div class="image">
-      <img alt='Cover of this project' mat-card-image src="{{projects.cover}}" />
-    </div>
-    <mat-card-title> {{ projects.name }}</mat-card-title>
-    <div class="card-icon">
-      <div>
-        <mat-icon title="Request by">people</mat-icon
-        ><span class="margin-left">Khang Tran</span>
+    <a
+      routerLink="project-request-detail/{{ projects.id }}"
+      style="text-decoration: none;color:black"
+    >
+      <div class="image">
+        <img
+          alt="Cover of this project"
+          mat-card-image
+          src="{{ projects.cover }}"
+        />
       </div>
-      <div>
-        <mat-icon title="At">date_range</mat-icon
-        ><span class="margin-left">25/02/2012</span>
+      <mat-card-title> {{ projects.name }}</mat-card-title>
+      <div class="card-icon">
+        <div>
+          <mat-icon title="Request by">people</mat-icon
+          ><span class="margin-left">Khang Tran</span>
+        </div>
+        <div>
+          <mat-icon title="At">date_range</mat-icon
+          ><span class="margin-left">25/02/2012</span>
+        </div>
       </div>
-    </div>
+    </a>
     <mat-card-actions>
-      <button title="Click to approve" mat-button>Approve</button>
+      <button (click)="approve()" title="Click to approve" mat-button>
+        Approve
+      </button>
 
-      <button title="Click to decline" mat-button>Decline</button>
+      <button (click)="reject()" title="Click to decline" mat-button>
+        Decline
+      </button>
     </mat-card-actions>
   </mat-card>
-  </a>
 </div>
 
-
-  <!-- <a routerLink="project-request-detail/A" style="text-decoration: none;">
+<!-- <a routerLink="project-request-detail/A" style="text-decoration: none;">
   <mat-card
     title="Click to see more details"
     (click)="viewDetails()"

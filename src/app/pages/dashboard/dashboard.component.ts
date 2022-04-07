@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DashboardCardInformation } from 'src/app/models/card/dashboard-card-information';
+import { Dashboard } from 'src/app/models/dashboard/dashboard.model';
+import { UserApiService } from 'src/app/services/user/user-api.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,41 +8,17 @@ import { DashboardCardInformation } from 'src/app/models/card/dashboard-card-inf
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  
-  constructor() { }
-  cards: Array<DashboardCardInformation> = [
-    {
-      "title": "TOP DONATION 2",
-      "value": "100000",
-      "status": "Increase",
-      "date": "last month",
-      "icon": "assets/icon/donation-icon.png",
-    },
-    {
-      "title": "TOP DONATION 1",
-      "value": "100000",
-      "status": "Increase",
-      "date": "last year",
-      "icon": "assets/icon/project-icon.png",
-    },
-    {
-      "title": "TOP DONATION 3",
-      "value": "100000",
-      "status": "Increase",
-      "date": "last month",
-      "icon": "assets/icon/environment.png",
-    },
-    {
-      "title": "TOP DONATION",
-      "value": "100000",
-      "status": "Decrease",
-      "date": "last week",
-      "icon": "assets/icon/organization-icon.png",
-    },
-  ];
+
+  constructor(private userApi: UserApiService) { }
+  cards?: Dashboard;
+
 
 
   ngOnInit(): void {
+    this.getStatistics();
   }
-
+  async getStatistics() {
+    this.cards = await this.userApi.getStatistics();
+    console.log(this.cards);
+  }
 }

@@ -1,0 +1,68 @@
+<div id="container">
+  <!-- <img class="image-background" src="assets/cover/login.png" /> -->
+  <div class="login-box">
+    <div class="login-padding">
+      <div class="login-header">
+        <h2>Conneto</h2>
+        <p>Welcome, please sign up !</p>
+      </div>
+      <form [formGroup]="registerForm" action="">
+        <div class="login-form">
+          <div>
+            <input
+              class="input login"
+              type="text"
+              placeholder="Username"
+              required=""
+              formControlName="username"
+            />
+          </div>
+          <div class="login-name">
+            <input
+              class="input login"
+              type="text"
+              placeholder="First name"
+              required=""
+              formControlName="first_name"
+            />
+            <input
+              class="input login"
+              type="text"
+              placeholder="Last name"
+              required=""
+              formControlName="last_name"
+            />
+          </div>
+          <div>
+            <input
+              class="input login"
+              type="number"
+              placeholder="Mobile number"
+              required=""
+              formControlName="number_phone"
+            />
+          </div>
+          <div>
+            <input
+              class="input password"
+              [type]="hide ? 'password' : 'text'"
+              placeholder="New password"
+              required=""
+              formControlName="password"
+            />
+            <button class="hide-button" title="Hide" (click)="hide = !hide">
+              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="login-button">
+        <button [disabled]="registerForm.invalid" type='submit'(click)="register()">Sign Up</button>
+      </div>
+      <div class="register-button">
+        <a routerLink="/" href="login">Already have an account?</a>
+      </div>
+    </div>
+  </div>
+</div>

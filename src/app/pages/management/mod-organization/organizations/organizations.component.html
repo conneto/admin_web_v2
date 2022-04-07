@@ -1,0 +1,46 @@
+<div *ngIf="!isShow && noOrg">
+  <button (click)="isShow = !isShow" mat-button>
+    Create a new organization
+  </button>
+</div>
+
+<div *ngIf="isShow">
+    <app-organization-form [organizationId]='organizationId'></app-organization-form>
+  </div>
+
+
+<div>
+  <div class="container">
+    <div *ngIf="organizations">
+      <div *ngFor="let organization of organizations">
+        <mat-card title="Click to see more details" class="moveFadein">
+          <a
+            class="router"
+            routerLink="organization-request-detail/{{ organization.id }}"
+          >
+            <mat-card-title-group>
+              <mat-card-title> {{ organization.name }}</mat-card-title>
+              <mat-card-subtitle>Non-profit organization</mat-card-subtitle>
+
+              <img mat-card-avatar src="{{ organization.logo }}" />
+            </mat-card-title-group>
+            <div class="card-icon">
+              <div>
+                <mat-icon title="Request by">people</mat-icon
+                ><span class="margin-left">Khang Tran</span>
+              </div>
+              <div>
+                <mat-icon title="At">date_range</mat-icon
+                ><span class="margin-left">25/02/2012</span>
+              </div>
+            </div>
+          </a>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
+  <!-- <p *ngFor="let org of organizations">
+  {{ org.name }}
+</p> -->
+</div>

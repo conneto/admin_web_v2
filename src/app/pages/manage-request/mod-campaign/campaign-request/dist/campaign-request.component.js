@@ -50,7 +50,7 @@ var CampaignRequestComponent = /** @class */ (function () {
         this.campaigns = [];
     }
     CampaignRequestComponent.prototype.ngOnInit = function () {
-        this.getAll();
+        this.getRequest();
     };
     CampaignRequestComponent.prototype.getAll = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -62,6 +62,25 @@ var CampaignRequestComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.campaingApi.getAll()];
                     case 1:
                         _a.campaigns = _b.sent();
+                        console.log(this.campaigns);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CampaignRequestComponent.prototype.getRequest = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.campaingApi.getAll()];
+                    case 1:
+                        _a.campaigns = _b.sent();
+                        this.campaigns = this.campaigns.filter(function (x) {
+                            return x.result_code === 701;
+                        });
                         return [2 /*return*/];
                 }
             });
@@ -72,7 +91,8 @@ var CampaignRequestComponent = /** @class */ (function () {
             selector: 'app-campaign-request',
             templateUrl: './campaign-request.component.html',
             styleUrls: ['./campaign-request.component.scss']
-        })
+        }),
+        core_1.Injectable({ providedIn: 'root' })
     ], CampaignRequestComponent);
     return CampaignRequestComponent;
 }());

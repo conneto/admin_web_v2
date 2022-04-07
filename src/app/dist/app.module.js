@@ -17,7 +17,7 @@ var angular_material_module_1 = require("src/app/angular-material.module");
 var component_module_1 = require("./components/component/component.module");
 var http_1 = require("@angular/common/http");
 var hot_toast_1 = require("@ngneat/hot-toast");
-var project_module_1 = require("./pages/project/project.module");
+var forms_1 = require("@angular/forms");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -34,7 +34,8 @@ var AppModule = /** @class */ (function () {
                 component_module_1.ComponentModule,
                 http_1.HttpClientModule,
                 hot_toast_1.HotToastModule.forRoot(),
-                project_module_1.ProjectModule,
+                forms_1.ReactiveFormsModule,
+                forms_1.FormsModule,
             ],
             providers: [],
             bootstrap: [app_component_1.AppComponent],

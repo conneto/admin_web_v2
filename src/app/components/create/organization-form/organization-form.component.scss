@@ -1,0 +1,172 @@
+.container{
+    width: 500px;
+}
+.login-form {
+
+  input[type='text'],
+  input[type='password'] {}
+
+  ::placeholder {
+    /* Edge */
+
+    color: rgba(174, 174, 174, 1);
+
+  }
+
+  div {
+    display: flex;
+
+    align-items: center;
+
+  }
+
+  mat-form-filed {
+    width: 100%;
+
+  }
+
+  .input {
+    background-color: rgba(246, 246, 246, 1);
+
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    border: none;
+    margin: 10px auto;
+  }
+
+}
+
+
+.login-form {
+
+  position: relative;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form .form-icon {
+  position: absolute;
+  color: rgba(174, 174, 174, 1);
+  ;
+
+}
+
+.login-form form {
+  display: inline-grid;
+  width: 80%;
+
+}
+
+.login-form .mat-form-field {
+  width: 90%;
+}
+
+.form-text {
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.login-sub {
+  display: flex;
+  margin-left: -8px;
+  margin-right: -8px;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.login-remember-box {
+
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-forget {
+  width: 50%;
+}
+
+.login-forget a {
+  text-decoration: none;
+  color: rgba(255, 184, 0, 1);
+
+}
+
+.login-forget a:hover {
+  text-decoration: underline;
+
+}
+
+#checkbox {
+  margin-right: 4px;
+  width: 18px;
+  height: 18px;
+}
+
+.login-button {
+  text-align: center;
+  margin: 15px 0;
+
+}
+
+.login-button button {
+  width: 100%;
+  background: linear-gradient(to bottom left, rgba(254, 204, 78, 1), rgba(254, 223, 141, 1)) !important;
+  padding: 0 30px;
+  font-size: 17px;
+  border: none;
+  border-radius: 3px;
+}
+
+.login-button button:hover {
+  opacity: 0.7;
+}
+
+.image-background {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+.login-footer {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.hide-button {
+  height: 24px;
+  position: absolute;
+  right: 0;
+  outline: none;
+  border: none;
+  margin-right: 13px;
+  border-radius: 50%;
+  background-color: rgba(246, 246, 246, 1);
+}
+
+
+.register-button {
+  text-align: center;
+
+  a {
+    font-size: 17px;
+    text-decoration: none;
+
+  }
+}
+
+.login-name {
+  :first-child {
+    width: 47%;
+    margin: 0 !important;
+  }
+
+  :nth-child(2) {
+    width: 50%;
+    margin-right: 0px !important;
+  }
+}

@@ -1,34 +1,38 @@
-<mat-card>
-  <img
-    mat-card-image
-    src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-  />
+<div *ngIf="campaign">
+  <a routerLink="campaign-details/{{ campaign.id }}" style='text-decoration: none;color: black;'>
+    <mat-card>
+      <img
+        mat-card-image
+        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+      />
 
-  <mat-card-title>
-    Hỗ trợ 40 trẻ mồ côi do dịch Covid-19 và trẻ có hoàn cảnh khó khăn
-  </mat-card-title>
+      <mat-card-title>
+        {{ campaign.name }}
+      </mat-card-title>
 
-  <div class="subtitle">
-    <img mat-card-avatar src="assets/icon/donation-icon.png" />
-    <mat-card-subtitle class="organization-name"
-      >Vinacapital Foundation</mat-card-subtitle
-    >
-    <mat-card-subtitle class="days-left">1 month left</mat-card-subtitle>
-  </div>
-  <mat-card-content>
-    <p>
-      <span class="now">{{ current | currency: "VND" }}</span
-      >/{{ total | currency: "VND" }}
-    </p>
-    <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-  </mat-card-content>
-  <mat-card-actions>
-    <div>
-      <p><span>1,176</span> donations</p>
-    </div>
-    <div>
-      <p>Achieved:<span>100%</span></p>
-    </div>
-    <button mat-button>Compleated</button>
-  </mat-card-actions>
-</mat-card>
+      <div class="subtitle">
+        <img mat-card-avatar src="assets/icon/donation-icon.png" />
+        <mat-card-subtitle class="organization-name"
+          >Vinacapital Foundation</mat-card-subtitle
+        >
+        <mat-card-subtitle class="days-left">1 month left</mat-card-subtitle>
+      </div>
+      <mat-card-content>
+        <p>
+          <span class="now">{{ current | currency: "VND" }}</span
+          >/{{ total | currency: "VND" }}
+        </p>
+        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+      </mat-card-content>
+      <mat-card-actions>
+        <div>
+          <p><span>1,176</span> donations</p>
+        </div>
+        <div>
+          <p>Achieved:<span>100%</span></p>
+        </div>
+        <button mat-button>Compleated</button>
+      </mat-card-actions>
+    </mat-card>
+  </a>
+</div>

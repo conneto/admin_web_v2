@@ -1,0 +1,34 @@
+<div *ngIf="campaign">
+
+    <mat-card title="Click to see more details">
+   
+      <div class="image">
+        <img src="assets/image/sugar.png" />
+        <img mat-card-image src="assets/image/ddtt18_cover.png" />
+      </div>
+      <mat-card-title>
+        {{ campaign.name }}
+      </mat-card-title>
+
+      <div class="subtitle">
+        <img mat-card-avatar src='{{campaign.org_logo}}'>
+        <mat-card-subtitle class="organization-name">{{
+          campaign.org_name
+        }}</mat-card-subtitle>
+      </div>
+      <div class="card-icon">
+        <div class="start-date">
+          <p>{{ campaign.startDate | date: "mediumDate" }}</p>
+          <mat-card-subtitle> Start Date </mat-card-subtitle>
+        </div>
+        <div class="budget-item">
+          <p>{{ campaign.target | currency: "VND" }}</p>
+          <mat-card-subtitle> Target </mat-card-subtitle>
+        </div>
+      </div>
+    
+    
+    </mat-card>
+ 
+</div>
+

@@ -30,8 +30,8 @@ html {
 .decoration {
   display: flex;
   flex-wrap: wrap;
-  
-  
+padding-bottom: 100px;
+
 }
 
 @keyframes moveFadein {
@@ -55,4 +55,27 @@ html {
   animation-iteration-count: infinite;
   animation-delay: 0s;
   animation-timing-function: ease-in-out;
+}
+
+.success {
+  background: rgb(145, 236, 145);
+  color: black;
+  
+}
+
+.success button {
+
+  color: black;
+}
+
+.fail {
+  background: rgb(241, 128, 128);
+ 
+  color: black;
+}
+
+.fail button {
+
+
+  color: black;
 }

@@ -33,6 +33,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 const materialModules = [
@@ -71,12 +73,16 @@ const materialModules = [
     MatProgressBarModule,
     MatIconModule,
     MatFormFieldModule,
+    ReactiveFormsModule
+    , MatDialogModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
 ];
 
 @NgModule({
     imports: [
         CommonModule,
-        
+
         ...materialModules
     ],
     exports: [

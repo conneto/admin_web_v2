@@ -16,11 +16,27 @@ export class CampaignApiService {
     res.data = res.data?.map((item: any) =>
       this.campaignAdap.adapt(item)
     )
-    
+
     return res.data || [];
   }
-  async getById(id:string){
-    let res:any=await this.apiService.get(CampaignApiService.CAMPAIGN+"/"+`${id}`);
-    return res.data=this.campaignAdap.adapt(res.data)||[];
+  async getById(id: string) {
+    let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGN}/${id}`);
+    res.data = this.campaignAdap.adapt(res.data);
+    return res.data || [];
+  }
+  async createById(data: any, id: string) {
+    console.log(id);
+    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGN}/${id}`, data);
+    if (res.resultCode != 0) {
+      return null;
+    }
+    return res;
+  }
+  async create(data: any) {
+    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGN}`, data);
+    if (res.resultCode != 0) {
+      return null;
+    }
+    return res
   }
 }

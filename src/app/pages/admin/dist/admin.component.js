@@ -9,17 +9,20 @@ exports.__esModule = true;
 exports.AdminComponent = void 0;
 var core_1 = require("@angular/core");
 var AdminComponent = /** @class */ (function () {
-    function AdminComponent() {
+    function AdminComponent(authService, router, orgApi) {
+        this.authService = authService;
+        this.router = router;
+        this.orgApi = orgApi;
         this.menus = [
             {
                 id: '1',
-                name: 'DASHBOARD',
+                name: 'Dashboard',
                 path: 'dashboard',
                 icon: 'assets/icon/dashboard-icon.png'
             },
             {
                 id: '2',
-                name: 'USER MANAGEMENT',
+                name: 'User Management',
                 path: 'user-management',
                 icon: 'assets/icon/user-icon.png'
             },
@@ -41,47 +44,60 @@ var AdminComponent = /** @class */ (function () {
             // },
             {
                 id: '3',
-                name: 'MANAGE REQUEST',
+                name: 'Manage Request',
                 icon: 'assets/icon/economic.png',
                 submenu: [{
                         id: '3',
-                        subname: 'ORGANIZATION REQUEST',
+                        subname: 'Organization Request',
                         path: 'organization-request',
                         icon: 'assets/icon/economic.png'
                     }, {
                         id: '3',
-                        subname: 'CAMPAIGN REQUEST',
+                        subname: 'Campaign Request',
                         path: 'campaign-request',
                         icon: 'assets/icon/economic.png'
                     }, {
                         id: '3',
-                        subname: 'PROJECT REQUEST',
+                        subname: 'Project Request',
                         path: 'project-request',
                         icon: 'assets/icon/economic.png'
                     },]
             },
             {
                 id: '3',
-                name: 'ORGANIZATION MANAGEMENT',
+                name: 'Organization Management',
                 path: 'manage-oraganization',
-                icon: 'assets/icon/user-icon.png'
+                icon: 'assets/icon/user-icon.png',
+                role: 'organization_manager'
             },
             {
                 id: '3',
-                name: 'CAMPAIGN MANAGEMENT',
+                name: 'Campagin Management',
                 path: 'manage-campaign',
-                icon: 'assets/icon/user-icon.png'
+                icon: 'assets/icon/user-icon.png',
+                role: 'organization_manager'
             },
             {
                 id: '3',
-                name: 'PROJECT MANAGEMENT',
+                name: 'Project Management',
                 path: 'manage-project',
-                icon: 'assets/icon/user-icon.png'
+                icon: 'assets/icon/user-icon.png',
+                role: 'organization_manager'
             },
         ];
         this.isExpaned = false;
     }
     AdminComponent.prototype.ngOnInit = function () {
+        var _a;
+        this.user = this.authService.currentUserValue;
+        console.log((_a = this.user) === null || _a === void 0 ? void 0 : _a.id);
+        if (this.user) {
+            if (this.authService.currentUserValue.role === 'organization_manager') {
+                this.menus = this.menus.filter(function (x) {
+                    return x.role === 'organization_manager';
+                });
+            }
+        }
     };
     AdminComponent.prototype.isLargeScreen = function () {
         var width = window.innerWidth ||
@@ -103,6 +119,10 @@ var AdminComponent = /** @class */ (function () {
             this.titleName = menu.submenu.subname;
         }
         return this.titleName;
+    };
+    AdminComponent.prototype.logout = function () {
+        this.authService.logout();
+        this.router.navigateByUrl('/');
     };
     AdminComponent = __decorate([
         core_1.Component({

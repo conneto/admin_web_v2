@@ -61,7 +61,6 @@
 
 .login-form {
   position: relative;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -131,6 +130,8 @@
   background: linear-gradient(to bottom left, #fecc4e, #fedf8d) !important;
   padding: 0 30px;
   font-size: 17px;
+  border: none;
+  border-radius: 3px;
 }
 
 .login-button button:hover {
@@ -157,4 +158,25 @@
   margin-right: 13px;
   border-radius: 50%;
   background-color: #f6f6f6;
+}
+
+.register-button {
+  text-align: center;
+}
+.register-button a {
+  font-size: 17px;
+  text-decoration: none;
+}
+
+.loading-spinner {
+  display: flex;
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #333;
+  opacity: 0.5;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }

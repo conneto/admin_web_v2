@@ -10,10 +10,12 @@ exports.ApiService = void 0;
 var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var ApiService = /** @class */ (function () {
-    function ApiService(http, baseResponseAdapter) {
+    function ApiService(http, baseResponseAdapter, loadingService) {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
-        this.uri = "http://d4cd-14-186-147-88.ngrok.io/fetch_data/api/v1";
+        this.loadingService = loadingService;
+        this.uri = "http://f7d1-123-20-183-35.ngrok.io/fetch_data/api/v1";
+        this.postUri = 'http://5d6a-123-20-183-35.ngrok.io/core/api/v1';
         this.corsHeaders = new http_1.HttpHeaders();
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
     }
@@ -33,9 +35,59 @@ var ApiService = /** @class */ (function () {
         }
         return url;
     };
+    ApiService.prototype.getFullUriPost = function (api_name, params) {
+        var url = this.postUri + '/' + api_name;
+        if (typeof params != 'undefined') {
+            var array = [];
+            for (var prop in params) {
+                array.push(prop + '=' + params[prop]);
+            }
+            url += '?' + array.join('&');
+        }
+        return url;
+    };
+    ApiService.prototype.post = function (api_name, body, params, parse_json) {
+        var _this = this;
+        var api_uri = '';
+        console.log(body);
+        if (params) {
+            api_uri = this.getFullUriPost(api_name, body);
+        }
+        else {
+            api_uri = this.getFullUriPost(api_name);
+        }
+        if (localStorage.getItem('USER_TOKEN')) {
+            this.corsHeaders = this.corsHeaders.set('Authorization', 'Bearer ' + localStorage.getItem('USER_TOKEN'));
+        }
+        var options = {
+            headers: this.corsHeaders
+        };
+        return new Promise(function (resolve) {
+            _this.http.post(api_uri, body, options).subscribe(function (data) {
+                console.log(data);
+                resolve(_this.baseResponseAdapter.adapt(data));
+            }, function (err) {
+                console.log(err);
+                switch (err.status) {
+                    case 0:
+                        break;
+                    case 404:
+                        break;
+                    default:
+                        break;
+                }
+                err.status = 99;
+                resolve(err);
+            });
+        });
+    };
     ApiService.prototype.get = function (api_name, params) {
         var _this = this;
+        this.loadingService.getApiGetLink.next(this.uri);
         var api_uri = this.getFullUri(api_name, params);
+        if (localStorage.getItem('USER_TOKEN')) {
+            this.corsHeaders = this.corsHeaders.set('Authorization', 'Bearer ' + localStorage.getItem('USER_TOKEN'));
+        }
         var options = {
             headers: this.corsHeaders
         };

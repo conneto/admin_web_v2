@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DashboardCardInformation } from 'src/app/models/card/dashboard-card-information';
+import { TooltipPosition } from '@angular/material/tooltip';
+import { Dashboard } from 'src/app/models/dashboard/dashboard.model';
 
 @Component({
   selector: 'app-dashboard-card',
@@ -8,7 +9,12 @@ import { DashboardCardInformation } from 'src/app/models/card/dashboard-card-inf
 })
 export class DashboardCardComponent implements OnInit {
   @Input() isChange?: boolean;
-  @Input() card?: DashboardCardInformation;
+  @Input() card?: Dashboard;
+  @Input() title?: string;
+  @Input() isAmount?: boolean;
+  @Input() number?: number;
+  @Input() icon?:string;
+  positionTooltip: TooltipPosition = 'above';
   constructor() { }
 
   ngOnInit(): void {

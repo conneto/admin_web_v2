@@ -49,6 +49,8 @@ var radio_1 = require("@angular/material/radio");
 var datepicker_1 = require("@angular/material/datepicker");
 var tooltip_1 = require("@angular/material/tooltip");
 var progress_bar_1 = require("@angular/material/progress-bar");
+var forms_1 = require("@angular/forms");
+var dialog_1 = require("@angular/material/dialog");
 var materialModules = [
     tree_1.CdkTreeModule,
     autocomplete_1.MatAutocompleteModule,
@@ -85,6 +87,10 @@ var materialModules = [
     progress_bar_1.MatProgressBarModule,
     icon_1.MatIconModule,
     form_field_1.MatFormFieldModule,
+    forms_1.ReactiveFormsModule,
+    dialog_1.MatDialogModule,
+    snack_bar_1.MatSnackBarModule,
+    progress_spinner_1.MatProgressSpinnerModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {

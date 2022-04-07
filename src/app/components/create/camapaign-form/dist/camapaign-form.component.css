@@ -1,0 +1,34 @@
+h3 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+}
+
+.input input, .input select,
+.input textarea {
+  margin: 5px 5px;
+  width: 190px;
+}
+.input label {
+  font-weight: bold;
+  width: 100px;
+  font-size: 13px;
+}
+.input div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  margin: 5px 0 0 0;
+  display: flex;
+  justify-content: center;
+}

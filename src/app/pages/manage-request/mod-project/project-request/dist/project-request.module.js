@@ -12,6 +12,7 @@ var common_1 = require("@angular/common");
 var project_request_routing_module_1 = require("./project-request-routing.module");
 var project_request_component_1 = require("./project-request.component");
 var component_module_1 = require("src/app/components/component/component.module");
+var angular_material_module_1 = require("src/app/angular-material.module");
 var ProjectRequestModule = /** @class */ (function () {
     function ProjectRequestModule() {
     }
@@ -23,6 +24,7 @@ var ProjectRequestModule = /** @class */ (function () {
             imports: [
                 common_1.CommonModule,
                 project_request_routing_module_1.ProjectRequestRoutingModule,
+                angular_material_module_1.AngularMaterialModule,
                 component_module_1.ComponentModule,
             ]
         })

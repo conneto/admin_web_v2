@@ -9,13 +9,16 @@ exports.__esModule = true;
 exports.AppRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
-var dashboard_component_1 = require("./pages/dashboard/dashboard.component");
 var login_component_1 = require("./pages/login/login.component");
 var routes = [
     { path: '', component: login_component_1.LoginComponent },
-    { path: "dashboard", component: dashboard_component_1.DashboardComponent },
     {
         path: "admin",
+        loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
+    },
+    { path: 'register', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/register/register.module'); }).then(function (m) { return m.RegisterModule; }); } },
+    {
+        path: 'manager',
         loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
     },
 ];

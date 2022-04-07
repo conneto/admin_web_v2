@@ -81,6 +81,19 @@ var ProjectApiService = /** @class */ (function () {
             });
         });
     };
+    ProjectApiService.prototype.createProject = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.post(ProjectApiService_1.PROJECT, data)];
+                    case 1:
+                        res = _a.sent();
+                        return [2 /*return*/, res || []];
+                }
+            });
+        });
+    };
     var ProjectApiService_1;
     ProjectApiService.PROJECT = 'projects';
     ProjectApiService = ProjectApiService_1 = __decorate([

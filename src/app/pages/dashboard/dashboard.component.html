@@ -1,4 +1,6 @@
-<div class="box decoration">
-    <app-dashboard-card *ngFor="let card of cards" [card]="card"></app-dashboard-card>
+<div *ngIf='cards' class="box decoration">
+    <app-dashboard-card  [title]="'Total Organizations'" [number]='cards?.numOrg' [icon]="'apartment'"></app-dashboard-card>
+    <app-dashboard-card  [title]="'Total Projects'" [number]='cards?.numPro' [icon]="'business_center'"></app-dashboard-card>
+    <app-dashboard-card  [title]="'Total Campaigns'" [number]='cards?.numCam' [icon]="'campaign'"></app-dashboard-card>
 
 </div>

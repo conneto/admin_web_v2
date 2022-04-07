@@ -1,0 +1,115 @@
+mat-card-title {
+    text-align: center;
+    font-size: 18px;
+    margin: 10px 0 0;
+    color: rgba(255, 184, 0, 1);
+    height: 80px;
+  }
+  
+  mat-card {
+    width: 350px;
+    padding-top:0 !important;
+    margin:5px;
+   
+  }
+  
+  .image {
+  
+    :first-child {
+      margin-top: 5px;
+      position: absolute;
+      width: 40px;
+      height: 20px;
+    }
+  
+    :nth-child(2) {
+  
+      img {
+        height: 200px;
+        object-fit: fill;
+        border-radius: 10px 10px 0 0;
+        
+      }
+    }
+  }
+  
+  mat-card-actions {
+    display: flex !important;
+    justify-content: center;
+  
+    button {
+      width: 100%;
+      margin:0 5px!important;
+    }
+  
+    :first-child {
+      background-color: rgba(138, 244, 149, 1);
+  
+    }
+  
+    :nth-child(2) {
+      background-color: rgba(244, 138, 138, 1);
+    }
+  
+  }
+  
+  button:hover {
+  
+    opacity: 0.7 !important;
+  
+  }
+  
+  .subtitle {
+    display: flex;
+  
+    align-items: center;
+    text-align: center;
+  
+    mat-card-subtitle {
+      margin-left: 10px;
+      margin-bottom: 0 !important;
+      margin-top: 0 !important;
+    }
+  }
+  
+  .card-icon {
+    display: flex;
+    font-size: 15px !important;
+    justify-content: space-around;
+    margin: 10px 0 10px;
+  
+    mat-card-subtitle {
+    
+      margin-bottom: 0 !important;
+    
+    }
+  
+    .start-date,
+    .budget-item {
+      p {
+        font-weight: bold;
+      }
+      border-radius:5px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding: 10px;
+      border: 1px dotted #ccc !important;
+    }
+  
+    div {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+  }
+  
+  
+  
+  .margin-left {
+    margin-left: 5px;
+  }
+  
+  .mat-card-image{
+    border-radius: 10px 10px 0 0;
+  }

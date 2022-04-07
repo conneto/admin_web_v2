@@ -4,8 +4,8 @@
 }
 
 .mat-card {
-  margin-top: 10px;
-  width: 100%;
+  margin: 0px 5px;
+  width: 300px;
   max-width: 100%;
   display: inline-block;
   border-radius: 5px;

@@ -44,11 +44,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationRequestComponent = void 0;
 var core_1 = require("@angular/core");
+var rxjs_1 = require("rxjs");
 var OrganizationRequestComponent = /** @class */ (function () {
     function OrganizationRequestComponent(organizationService) {
         this.organizationService = organizationService;
         this.organizations = [];
+        this.isRequest = false;
+        this.listOrg = new rxjs_1.BehaviorSubject(this.getAll());
     }
+    OrganizationRequestComponent.prototype.getListOrg = function () {
+        return this.listOrg.value;
+    };
     OrganizationRequestComponent.prototype.ngOnInit = function () {
         this.getAll();
     };
@@ -62,6 +68,10 @@ var OrganizationRequestComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.organizationService.getAll()];
                     case 1:
                         _a.organizations = _b.sent();
+                        this.organizations = this.organizations.filter(function (x) {
+                            return x.result_code === 501;
+                        });
+                        console.log(this.organizations);
                         return [2 /*return*/];
                 }
             });
@@ -72,6 +82,9 @@ var OrganizationRequestComponent = /** @class */ (function () {
             selector: 'app-organization-request',
             templateUrl: './organization-request.component.html',
             styleUrls: ['./organization-request.component.scss']
+        }),
+        core_1.Injectable({
+            providedIn: 'root'
         })
     ], OrganizationRequestComponent);
     return OrganizationRequestComponent;

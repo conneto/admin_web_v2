@@ -7,18 +7,20 @@ import { LoginComponent } from './pages/login/login.component';
 const routes: Routes = [
 
   { path: '', component: LoginComponent },
-  { path: "dashboard", component: DashboardComponent, }
-  ,
   {
     path: "admin", loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule),
   },
 
-  { path: 'project-detail', loadChildren: () => import('./pages/manage-request/mod-project/project-request-detail/project-request-detail.module').then(m => m.ProjectRequestDetailModule) },
+  { path: 'register', loadChildren: () => import('./pages/register/register.module').then(m => m.RegisterModule) },
+  {
+    path: 'manager',  loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule),
+  },
 
-  { path: 'campagin-request-detail', loadChildren: () => import('./pages/manage-request/mod-campaign/campaign-request-detail/campaign-request-detail.module').then(m => m.CampaignRequestDetailModule) },
+  { path: 'campaign-details', loadChildren: () => import('./pages/management/mod-campaign/campaign-details/campaign-details.module').then(m => m.CampaignDetailsModule) },
 
-  
-  
+
+
+
 ];
 
 @NgModule({

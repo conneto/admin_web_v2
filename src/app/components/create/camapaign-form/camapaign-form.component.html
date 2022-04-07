@@ -1,0 +1,62 @@
+<div class="container">
+  <div>
+    <h3 mat-dialog-title>{{ data.title }}</h3>
+  </div>
+  <div class="content">
+    <form class="form" [formGroup]="campaignForm">
+      <div class="input">
+        <div>
+          <label> Campaign name: </label>
+          <input formControlName="name" />
+        </div>
+        <div>
+          <label> Description: </label>
+          <textarea formControlName="description"></textarea>
+        </div>
+        <div>
+          <label> Start Date: </label>
+          <input type="date" formControlName="start_date" />
+        </div>
+        <div>
+          <label> End Date: </label>
+          <input type="date" formControlName="end_date" />
+        </div>
+        <div>
+          <label> Type: </label>
+          <select formControlName="type">
+            <option value="donation">Donation</option>
+            <option value="recruitment">Recruitment</option>
+          </select>
+        </div>
+        <div>
+          <label> Target: </label>
+          <input type='number'formControlName="target_number" />
+        </div>
+        <div>
+          <label> Job Requirement: </label>
+          <input formControlName="job_requirement">
+        </div>
+        <div>
+          <label> Job Description: </label>
+          <textarea formControlName="job_description"></textarea>
+        </div>
+        <div>
+          <label> Job Benefit: </label>
+          <textarea formControlName="job_benefit"></textarea>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="button">
+    <button
+      mat-button
+      [disabled]="campaignForm.invalid"
+      mat-dialog-close
+      color="primary"
+      (click)="yesClick()"
+    >
+      Create
+    </button>
+    <button mat-button (click)="noClick()">Cancel</button>
+  </div>
+</div>

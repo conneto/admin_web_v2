@@ -10,6 +10,7 @@ exports.DashboardCardComponent = void 0;
 var core_1 = require("@angular/core");
 var DashboardCardComponent = /** @class */ (function () {
     function DashboardCardComponent() {
+        this.positionTooltip = 'above';
     }
     DashboardCardComponent.prototype.ngOnInit = function () {
     };
@@ -19,6 +20,18 @@ var DashboardCardComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], DashboardCardComponent.prototype, "card");
+    __decorate([
+        core_1.Input()
+    ], DashboardCardComponent.prototype, "title");
+    __decorate([
+        core_1.Input()
+    ], DashboardCardComponent.prototype, "isAmount");
+    __decorate([
+        core_1.Input()
+    ], DashboardCardComponent.prototype, "number");
+    __decorate([
+        core_1.Input()
+    ], DashboardCardComponent.prototype, "icon");
     DashboardCardComponent = __decorate([
         core_1.Component({
             selector: 'app-dashboard-card',

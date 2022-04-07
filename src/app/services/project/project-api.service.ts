@@ -12,7 +12,7 @@ export class ProjectApiService {
 
   async getAll() {
     let res: BaseResponse = await this.api.get(ProjectApiService.PROJECT);
-    res.data = res.data?.map((item: unknown) =>
+    res.data = res.data?.map((item: any) =>
       this.projectAdap.adapt(item)
     )
     return res.data || []
@@ -21,5 +21,9 @@ export class ProjectApiService {
     let res: any = await this.api.get(ProjectApiService.PROJECT + "/" + `${id}`);
     return res.data = this.projectAdap.adapt(res.data) || [];
 
+  }
+  async createProject(data: any) {
+    let res: BaseResponse = await this.api.post(ProjectApiService.PROJECT, data);
+    return res || [];
   }
 }

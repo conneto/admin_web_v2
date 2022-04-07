@@ -13,6 +13,9 @@ var UserCardComponent = /** @class */ (function () {
     }
     UserCardComponent.prototype.ngOnInit = function () {
     };
+    __decorate([
+        core_1.Input()
+    ], UserCardComponent.prototype, "user");
     UserCardComponent = __decorate([
         core_1.Component({
             selector: 'app-user-card',

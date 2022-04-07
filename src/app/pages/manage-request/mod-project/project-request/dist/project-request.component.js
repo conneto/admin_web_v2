@@ -50,7 +50,7 @@ var ProjectRequestComponent = /** @class */ (function () {
         this.projects = [];
     }
     ProjectRequestComponent.prototype.ngOnInit = function () {
-        this.getAll();
+        this.getRequest();
     };
     ProjectRequestComponent.prototype.getAll = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -67,11 +67,29 @@ var ProjectRequestComponent = /** @class */ (function () {
             });
         });
     };
+    ProjectRequestComponent.prototype.getRequest = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.getAll()];
+                    case 1:
+                        _a.sent();
+                        this.projects = this.projects.filter(function (x) {
+                            return x.resultCode === 601;
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     ProjectRequestComponent = __decorate([
         core_1.Component({
             selector: 'app-project-request',
             templateUrl: './project-request.component.html',
             styleUrls: ['./project-request.component.scss']
+        }),
+        core_1.Injectable({
+            providedIn: 'root'
         })
     ], ProjectRequestComponent);
     return ProjectRequestComponent;

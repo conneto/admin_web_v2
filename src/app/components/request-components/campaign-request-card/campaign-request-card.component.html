@@ -1,41 +1,46 @@
 <div *ngIf="campaign">
-<a routerLink='campaign-request-detail/{{campaign.id}}'  style="text-decoration: none;">
-  <mat-card
-  title="Click to see more details"
-  (click)="viewDetails()"
-  class="moveFadein"
->
-  <div class="image">
-    <img src="assets/image/sugar.png" />
-    <img mat-card-image src="assets/image/ddtt18_cover.png" />
-  </div>
-  <mat-card-title>
-    {{ campaign.name }}
-  </mat-card-title>
 
-  <div class="subtitle">
-    <img mat-card-avatar src="assets/image/sugar.png" />
-    <mat-card-subtitle class="organization-name"
-      >{{campaign.org_name}}</mat-card-subtitle
+    <mat-card title="Click to see more details">
+      <a
+      routerLink="campaign-request-detail/{{ campaign.id }}"
+      style="text-decoration: none;color:black"
     >
-  </div>
-  <div class="card-icon">
-    <div class="start-date">
-      <p>{{ campaign.startDate | date: "mediumDate" }}</p>
-      <mat-card-subtitle> Start Date </mat-card-subtitle>
-    </div>
-    <div class="budget-item">
-      <p>{{ campaign.target | currency: "VND" }}</p>
-      <mat-card-subtitle> Target </mat-card-subtitle>
-    </div>
-  </div>
-  <mat-card-actions>
-    <button title="Click to approve" mat-button>Approve</button>
+      <div class="image">
+        <img src="assets/image/sugar.png" />
+        <img mat-card-image src="assets/image/ddtt18_cover.png" />
+      </div>
+      <mat-card-title>
+        {{ campaign.name }}
+      </mat-card-title>
 
-    <button title="Click to decline" mat-button>Decline</button>
-  </mat-card-actions>
-</mat-card>
-</a>
+      <div class="subtitle">
+        <img mat-card-avatar src='{{campaign.org_logo}}'>
+        <mat-card-subtitle class="organization-name">{{
+          campaign.org_name
+        }}</mat-card-subtitle>
+      </div>
+      <div class="card-icon">
+        <div class="start-date">
+          <p>{{ campaign.startDate | date: "mediumDate" }}</p>
+          <mat-card-subtitle> Start Date </mat-card-subtitle>
+        </div>
+        <div class="budget-item">
+          <p>{{ campaign.target | currency: "VND" }}</p>
+          <mat-card-subtitle> Target </mat-card-subtitle>
+        </div>
+      </div>
+    </a>
+      <mat-card-actions>
+        <button (click)="approve()" title="Click to approve" mat-button>
+          Approve
+        </button>
+  
+        <button (click)="reject()" title="Click to decline" mat-button>
+          Decline
+        </button>
+      </mat-card-actions>
+    </mat-card>
+ 
 </div>
 
 <!-- 

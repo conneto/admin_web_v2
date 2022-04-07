@@ -15,6 +15,9 @@ var CampaignCardInfoComponent = /** @class */ (function () {
     }
     CampaignCardInfoComponent.prototype.ngOnInit = function () {
     };
+    __decorate([
+        core_1.Input()
+    ], CampaignCardInfoComponent.prototype, "campaign");
     CampaignCardInfoComponent = __decorate([
         core_1.Component({
             selector: 'app-campaign-card-info',

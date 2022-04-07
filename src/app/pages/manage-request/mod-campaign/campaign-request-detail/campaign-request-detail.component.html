@@ -19,11 +19,7 @@
                 <h4>{{ campaign.name }}</h4>
                 <app-status></app-status>
               </div>
-              <div class="button">
-                <button title="Click to approve" mat-button>Approve</button>
-  
-                <button title="Click to decline" mat-button>Decline</button>
-              </div>
+           
   
               <p>Đồng hành cùng chiến dịch<br>
                 <span class='organization-name'>{{campaign.org_name}}</span></p>
@@ -59,6 +55,11 @@
                   {{ campaign.type }}
                 </p>
               </div>
+          </div>
+          <div >
+            <app-approve-decline-button
+              [campaign]="campaign"
+            ></app-approve-decline-button>
           </div>
         </div>
       </div>

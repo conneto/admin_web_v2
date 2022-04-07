@@ -7,6 +7,9 @@
       <!-- <p>{{ titleName ? titleName : "DASHBOARD" }}</p> -->
     </div>
     <div class="toolbar-notification-button">
+      <span *ngIf="user">
+        Welcome {{ user.first_name + " " + user.last_name }}
+      </span>
       <a mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>
       </a>
@@ -15,7 +18,7 @@
           <mat-icon>settings</mat-icon>
           Settings
         </a>
-        <a mat-menu-item>
+        <a mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           Logout
         </a>
@@ -29,7 +32,6 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side" opened="true">
     <mat-nav-list>
-      
       <div class="sidenav-heading">
         <p>Conneto</p>
         <hr />
@@ -43,6 +45,8 @@
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="content"><router-outlet></router-outlet></div>
+    <div class="content"><router-outlet></router-outlet>
+    
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

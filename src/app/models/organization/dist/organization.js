@@ -9,19 +9,27 @@ exports.__esModule = true;
 exports.OrganizationAdapter = exports.Organization = void 0;
 var core_1 = require("@angular/core");
 var Organization = /** @class */ (function () {
-    function Organization(cover, description, eng_name, foundingDate, id, is_active, logo, mission, name, operating_license, vision, website) {
-        this.cover = cover;
-        this.description = description;
-        this.eng_name = eng_name;
-        this.foundingDate = foundingDate;
+    function Organization(id, category, type, name, description, founding_date, eng_name, is_active, logo, mission, cover, operating_license, vision, website, approved_by, approved_date, created_by, result_code, result_message, result_note) {
         this.id = id;
+        this.category = category;
+        this.type = type;
+        this.name = name;
+        this.description = description;
+        this.founding_date = founding_date;
+        this.eng_name = eng_name;
         this.is_active = is_active;
         this.logo = logo;
         this.mission = mission;
-        this.name = name;
+        this.cover = cover;
         this.operating_license = operating_license;
         this.vision = vision;
         this.website = website;
+        this.approved_by = approved_by;
+        this.approved_date = approved_date;
+        this.created_by = created_by;
+        this.result_code = result_code;
+        this.result_message = result_message;
+        this.result_note = result_note;
     }
     return Organization;
 }());
@@ -30,7 +38,7 @@ var OrganizationAdapter = /** @class */ (function () {
     function OrganizationAdapter() {
     }
     OrganizationAdapter.prototype.adapt = function (item) {
-        return new Organization(item.cover, item.description, item.eng_name, item.founding_date, item.id, item.is_active, item.logo, item.mission, item.name, item.operating_license, item.vision, item.website);
+        return new Organization(item.id, item.category, item.type, item.name, item.description, item.founding_date, item.eng_name, item.is_active, item.logo, item.mission, item.cover, item.operating_license, item.vision, item.website, item.approved_by, item.approved_date, item.created_by, item.result_code, item.result_message, item.result_note);
     };
     OrganizationAdapter = __decorate([
         core_1.Injectable({
