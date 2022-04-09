@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
+import { Route } from '@angular/compiler/src/core';
 import { Component, Injectable, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { ProjectFormComponent } from 'src/app/components/create/project-form/project-form.component';
 import { OrganizationInforCardComponent } from 'src/app/components/request-components/organization-infor-card/organization-infor-card.component';
@@ -10,6 +11,7 @@ import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Organization } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectApiService } from 'src/app/services/project/project-api.service';
 
@@ -24,8 +26,11 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
 export class OrganizationDetailsComponent implements OnInit {
   organization?: Organization;
   user?: User;
-  isAdmin=true;
-  constructor(private snackBar:SnackBarMessageComponent,private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
+  isAdmin = true;
+  urlApi = this.loadingService.getApiGetLink.value;
+  urlCover?: string;
+  urlLogo?: string;
+  constructor(private router:Router,private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
 
@@ -42,7 +47,9 @@ export class OrganizationDetailsComponent implements OnInit {
   async getValueFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     this.organization = await this.orgApi.getById(`${id}`);
-
+    this.loadingService.getOrganizationId.next(`${id}`);
+    this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
+    this.urlCover = this.organization?.cover?.replace(/\\/g, '\/');
   }
   goBack() {
     this.location.back();
@@ -63,20 +70,16 @@ export class OrganizationDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
-        console.log(data);
-        let uploadData = new FormData();
-        data = {
-          ...data,
-          organization_id: this.organization?.id,
-        }
-        
-        uploadData.append('project', JSON.stringify(data));
-        let res: BaseResponse = await this.proApi.createProject(uploadData);
-        if(res.resultCode==0)
-        {
-          this.snackBar.showMessage("Create success !")
-        }else {
-          this.snackBar.showMessage("Error . Please try again !")
+        this.loadingService.isLoading.next(true);
+        let res: BaseResponse = await this.proApi.createProject(data);
+        if (res.status == 0) {
+          this.loadingService.isLoading.next(false);
+          this.snackBar.showMessage(res.message, true)
+          this.router.navigate(['/manager/manage-project']);
+      
+        } else {
+          this.loadingService.isLoading.next(false);
+          this.snackBar.showMessage(res.message, false)
         }
       }
     })

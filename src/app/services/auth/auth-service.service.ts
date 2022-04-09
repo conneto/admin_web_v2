@@ -50,9 +50,9 @@ export class AuthServiceService {
         password: md5.appendStr(password.concat(AuthServiceService.KEY)).end(),
       })
     );
-    if (res.resultCode == 0) {
+    if (res.status == 0) {
       this.loadingService.isLoading.next(false);
-      this.snackBar.showMessage(`Đăng Nhập ${res.resultMessage}`,true);
+      this.snackBar.showMessage(`Đăng Nhập ${res.message}`,true);
       let userLoginResponse: UserLoginResponse =
         this.userResponse.adapt(res.data);
       localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
@@ -60,9 +60,9 @@ export class AuthServiceService {
       localStorage.setItem('USER_TOKEN', userLoginResponse.token);
       this.curUserSubject.next(userLoginResponse);
 
-    } else if (res.resultCode == 6) {
+    } else if (res.status == 6) {
       this.loadingService.isLoading.next(false);
-      this.snackBar.showMessage(res.resultMessage,false);
+      this.snackBar.showMessage(res.message,false);
     }else {
       return null;
     }
@@ -77,7 +77,7 @@ export class AuthServiceService {
     let res: BaseResponse = await this.apiService.post(AuthServiceService.ACCOUNTS + AuthServiceService.REGISTER, data
     );
 
-    if (res.resultCode != 0) {
+    if (res.status != 0) {
       return null;
     }
 
@@ -92,7 +92,7 @@ export class AuthServiceService {
 
   async updateRequestByAdmin(data: any) {
     let res: BaseResponse = await this.apiService.post(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEMENTS, data);
-    if (res.resultCode != 0) {
+    if (res.status != 0) {
       return null;
     }
     return res;

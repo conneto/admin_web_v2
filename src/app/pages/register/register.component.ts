@@ -39,15 +39,15 @@ export class RegisterComponent implements OnInit {
       let res: BaseResponse | null = await this.authService.register(
         uploadData
       )
-      console.log(res?.resultCode);
-      if (res?.resultCode == 0) {
+      console.log(res?.status);
+      if (res?.status == 0) {
         this.snackBar.showMessage("Create success !")
         let baseResponse: BaseResponse | null = await this.authService.login(
           false,
           this.registerForm.value.username,
           oldPass,
         );
-        if (baseResponse?.resultCode == 0) {
+        if (baseResponse?.status == 0) {
 
           await this.router.navigate(['admin']);
         }

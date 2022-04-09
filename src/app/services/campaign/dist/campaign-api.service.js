@@ -92,7 +92,7 @@ var CampaignApiService = /** @class */ (function () {
                         return [4 /*yield*/, this.apiService.post(CampaignApiService_1.CAMPAIGN + "/" + id, data)];
                     case 1:
                         res = _a.sent();
-                        if (res.resultCode != 0) {
+                        if (res.status != 0) {
                             return [2 /*return*/, null];
                         }
                         return [2 /*return*/, res];
@@ -108,8 +108,8 @@ var CampaignApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.post("" + CampaignApiService_1.CAMPAIGN, data)];
                     case 1:
                         res = _a.sent();
-                        if (res.resultCode != 0) {
-                            return [2 /*return*/, null];
+                        if (res.status != 0) {
+                            return [2 /*return*/, res];
                         }
                         return [2 /*return*/, res];
                 }

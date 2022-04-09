@@ -9,9 +9,9 @@ exports.__esModule = true;
 exports.BaseResponseAdapter = exports.BaseResponse = void 0;
 var core_1 = require("@angular/core");
 var BaseResponse = /** @class */ (function () {
-    function BaseResponse(resultCode, resultMessage, data) {
-        this.resultCode = resultCode;
-        this.resultMessage = resultMessage;
+    function BaseResponse(status, message, data) {
+        this.status = status;
+        this.message = message;
         this.data = data;
     }
     return BaseResponse;

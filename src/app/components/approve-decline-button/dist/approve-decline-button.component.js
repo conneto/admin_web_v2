@@ -56,6 +56,7 @@ var ApproveDeclineButtonComponent = /** @class */ (function () {
     }
     ApproveDeclineButtonComponent.prototype.ngOnInit = function () {
         this.check();
+        console.log(this.router.url);
     };
     ApproveDeclineButtonComponent.prototype.check = function () {
         if (this.organization) {

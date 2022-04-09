@@ -49,36 +49,49 @@ var CampaignsComponent = /** @class */ (function () {
         this.api = api;
         this.authApi = authApi;
         this.campaigns = [];
+        this.isEmpty = false;
     }
     CampaignsComponent.prototype.ngOnInit = function () {
         this.check();
     };
     CampaignsComponent.prototype.check = function () {
-        var _a;
+        var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function () {
-            var _b, _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var _f, i, _g, i;
+            return __generator(this, function (_h) {
+                switch (_h.label) {
                     case 0:
                         this.user = this.authApi.currentUserValue;
                         if (!(((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) === 'organization_manager')) return [3 /*break*/, 2];
-                        _b = this;
+                        _f = this;
                         return [4 /*yield*/, this.api.getAll()];
                     case 1:
-                        _b.campaigns = _d.sent();
+                        _f.campaigns = _h.sent();
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_c = (_b = this.campaigns[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
+                        }
                         this.campaigns = this.campaigns.filter(function (x) {
                             return x.result_code !== 711;
                         });
+                        if (this.campaigns == [] || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
                         return [3 /*break*/, 4];
                     case 2:
-                        _c = this;
+                        _g = this;
                         return [4 /*yield*/, this.api.getAll()];
                     case 3:
-                        _c.campaigns = _d.sent();
+                        _g.campaigns = _h.sent();
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_e = (_d = this.campaigns[i]) === null || _d === void 0 ? void 0 : _d.cover) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
+                        }
                         this.campaigns = this.campaigns.filter(function (x) {
                             return x.result_code === 710;
                         });
-                        _d.label = 4;
+                        if (this.campaigns == [] || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        _h.label = 4;
                     case 4: return [2 /*return*/];
                 }
             });

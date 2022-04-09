@@ -1,8 +1,9 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { _SnackBarContainer } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { CamapaignFormComponent } from 'src/app/components/create/camapaign-form/camapaign-form.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
@@ -10,6 +11,7 @@ import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { ProjectApiService } from 'src/app/services/project/project-api.service';
 
 @Component({
@@ -17,16 +19,23 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
   templateUrl: './project-details.component.html',
   styleUrls: ['./project-details.component.scss']
 })
+@Injectable({providedIn:'root'})
 export class ProjectDetailsComponent implements OnInit {
-
+  
   project?: Project;
   user?: User;
   isAdmin = true;
-  constructor(private snackBar:SnackBarMessageComponent,private auth: AuthServiceService, private location: Location, private proApi: ProjectApiService, private campApi: CampaignApiService, private actived: ActivatedRoute, private dialog: MatDialog) { }
+  urlApi:string='';
+  urlLogo?:string='';
+  urlCover?:string='';
+  constructor(private router:Router,private loadingService:LoadingServiceService,private snackBar:SnackBarMessageComponent,private auth: AuthServiceService, private location: Location, private proApi: ProjectApiService, private campApi: CampaignApiService, private actived: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getByID();
     this.check();
+    this.urlApi=this.loadingService.getApiGetLink.value;
+ 
+   
   }
   check() {
     this.user = this.auth.currentUserValue;
@@ -38,7 +47,11 @@ export class ProjectDetailsComponent implements OnInit {
 
     const id = this.actived.snapshot.paramMap.get('id');
     this.project = await this.proApi.getByID(`${id}`);
-    console.log(this.project);
+    this.loadingService.projectId.next(`${id}`);
+    this.urlLogo= this.project?.logo?.replace(/\\/g, '\/');
+    this.urlCover=this.project?.cover?.replace(/\\/g,'\/');
+
+
   }
   goBack() {
     this.location.back();
@@ -53,19 +66,16 @@ export class ProjectDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
-        let uploadData = new FormData();
-        data = {
-          ...data,
-          project_id: this.project?.id,
-        }
-        console.log(data);
-        uploadData.append('campaign', JSON.stringify(data));
-        let res: BaseResponse | null = await this.campApi.create(uploadData);
-        if(res?.resultCode==0)
+        this.loadingService.isLoading.next(true);
+        let res: BaseResponse | null = await this.campApi.create(data);
+        if(res?.status==0)
         {
-          this.snackBar.showMessage("Create success !")
+          this.loadingService.isLoading.next(false);
+          this.router.navigate(['/manager/manage-campaign']);
+          this.snackBar.showMessage(res.message,true)
         }else {
-          this.snackBar.showMessage("Error . Please try again !")
+          this.loadingService.isLoading.next(false);
+          this.snackBar.showMessage(`${res?.message}`,false)
         }
       }
     })

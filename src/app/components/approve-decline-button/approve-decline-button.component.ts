@@ -28,6 +28,7 @@ export class ApproveDeclineButtonComponent implements OnInit {
 
   ngOnInit(): void {
     this.check();
+    console.log(this.router.url);
   }
 
   check() {

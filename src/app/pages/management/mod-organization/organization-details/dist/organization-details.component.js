@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,7 +46,9 @@ exports.OrganizationDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var OrganizationDetailsComponent = /** @class */ (function () {
-    function OrganizationDetailsComponent(snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
+    function OrganizationDetailsComponent(router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
+        this.router = router;
+        this.loadingService = loadingService;
         this.snackBar = snackBar;
         this.auth = auth;
         this.dialog = dialog;
@@ -67,6 +58,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.orgApi = orgApi;
         this.orgComponent = orgComponent;
         this.isAdmin = true;
+        this.urlApi = this.loadingService.getApiGetLink.value;
     }
     OrganizationDetailsComponent.prototype.ngOnInit = function () {
         this.getValueFromRoute();
@@ -80,16 +72,20 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id, _e;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
                         id = this.route.snapshot.paramMap.get('id');
-                        _a = this;
+                        _e = this;
                         return [4 /*yield*/, this.orgApi.getById("" + id)];
                     case 1:
-                        _a.organization = _b.sent();
+                        _e.organization = _f.sent();
+                        this.loadingService.getOrganizationId.next("" + id);
+                        this.urlLogo = (_b = (_a = this.organization) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                        this.urlCover = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];
                 }
             });
@@ -116,26 +112,25 @@ var OrganizationDetailsComponent = /** @class */ (function () {
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
-            var uploadData, res;
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         if (!data) return [3 /*break*/, 2];
-                        console.log(data);
-                        uploadData = new FormData();
-                        data = __assign(__assign({}, data), { organization_id: (_a = this.organization) === null || _a === void 0 ? void 0 : _a.id });
-                        uploadData.append('project', JSON.stringify(data));
-                        return [4 /*yield*/, this.proApi.createProject(uploadData)];
+                        this.loadingService.isLoading.next(true);
+                        return [4 /*yield*/, this.proApi.createProject(data)];
                     case 1:
-                        res = _b.sent();
-                        if (res.resultCode == 0) {
-                            this.snackBar.showMessage("Create success !");
+                        res = _a.sent();
+                        if (res.status == 0) {
+                            this.loadingService.isLoading.next(false);
+                            this.snackBar.showMessage(res.message, true);
+                            this.router.navigate(['/manager/manage-project']);
                         }
                         else {
-                            this.snackBar.showMessage("Error . Please try again !");
+                            this.loadingService.isLoading.next(false);
+                            this.snackBar.showMessage(res.message, false);
                         }
-                        _b.label = 2;
+                        _a.label = 2;
                     case 2: return [2 /*return*/];
                 }
             });

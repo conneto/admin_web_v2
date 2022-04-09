@@ -12,8 +12,8 @@ import { LoadingServiceService } from '../loading/loading-service.service';
 export class ApiService {
   corsHeaders: HttpHeaders;
 
-  private uri = "http://f7d1-123-20-183-35.ngrok.io/fetch_data/api/v1";
-  private postUri = 'http://5d6a-123-20-183-35.ngrok.io/core/api/v1';
+  private uri = "http://88d6-113-161-77-92.ngrok.io/fetch_data/api/v1";
+  private postUri = 'http://0fc3-113-161-77-92.ngrok.io/core/api/v1';
   constructor(private http: HttpClient, private baseResponseAdapter: BaseResponseAdapter,public loadingService:LoadingServiceService) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');

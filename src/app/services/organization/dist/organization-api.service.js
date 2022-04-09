@@ -92,7 +92,7 @@ var OrganizationApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.post("" + OrganizationApiService_1.ORGANIZATIONS, data)];
                     case 1:
                         res = _a.sent();
-                        if (res.resultCode != 0) {
+                        if (res.status != 0) {
                             return [2 /*return*/, null];
                         }
                         return [2 /*return*/, res];
@@ -110,8 +110,8 @@ var OrganizationApiService = /** @class */ (function () {
                         return [4 /*yield*/, this.apiService.post(OrganizationApiService_1.ORGANIZATIONS + "/" + id, data)];
                     case 1:
                         res = _a.sent();
-                        if (res.resultCode != 0) {
-                            return [2 /*return*/, null];
+                        if (res.status == 0) {
+                            return [2 /*return*/, res];
                         }
                         return [2 /*return*/, res];
                 }

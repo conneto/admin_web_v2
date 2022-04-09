@@ -64,7 +64,6 @@ var OrganizationInforCardComponent = /** @class */ (function () {
         this.urlLogo = (_b = (_a = this.organizations) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
     };
     OrganizationInforCardComponent.prototype.viewDetails = function (id) {
-        console.log(id);
         this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);
     };
     OrganizationInforCardComponent.prototype.approve = function (id, checkType) {
@@ -86,6 +85,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                         switch (_b.label) {
                             case 0:
                                 if (!data) return [3 /*break*/, 2];
+                                this.loadingApi.isLoading.next(true);
                                 data1 = {
                                     object_id: ((_a = this.organizations) === null || _a === void 0 ? void 0 : _a.id) || id,
                                     object_type: checkType == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
@@ -96,9 +96,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 return [4 /*yield*/, this.authApi.updateRequestByAdmin(data1)];
                             case 1:
                                 res = _b.sent();
-                                console.log(res === null || res === void 0 ? void 0 : res.resultCode);
-                                if ((res === null || res === void 0 ? void 0 : res.resultCode) == 0) {
-                                    this.snackBar.showMessage("Your action is success");
+                                if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                                    this.loadingApi.isLoading.next(false);
+                                    this.snackBar.showMessage("Your action is success", true);
                                     if (checkType == 'org') {
                                         this.org.getAll();
                                     }
@@ -110,9 +110,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     }
                                 }
                                 else {
-                                    this.snackBar.showMessage("Error.Please try  again");
+                                    this.loadingApi.isLoading.next(false);
+                                    this.snackBar.showMessage("Error.Please try  again", false);
                                 }
-                                console.log('approved');
                                 _b.label = 2;
                             case 2: return [2 /*return*/];
                         }
@@ -141,6 +141,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                         switch (_b.label) {
                             case 0:
                                 if (!data) return [3 /*break*/, 2];
+                                this.loadingApi.isLoading.next(true);
                                 data1 = {
                                     object_id: ((_a = this.organizations) === null || _a === void 0 ? void 0 : _a.id) || id,
                                     object_type: checkType == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
@@ -148,11 +149,12 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     status: auth_service_service_1.AuthServiceService.REJECT,
                                     note: 'Reject this'
                                 };
-                                console.log("data1" + data1.toString());
                                 return [4 /*yield*/, this.authApi.updateRequestByAdmin(data1)];
                             case 1:
                                 res = _b.sent();
-                                if ((res === null || res === void 0 ? void 0 : res.resultCode) === 0) {
+                                this.loadingApi.isLoading.next(true);
+                                if ((res === null || res === void 0 ? void 0 : res.status) === 0) {
+                                    this.loadingApi.isLoading.next(false);
                                     if (checkType == 'org') {
                                         this.org.getAll();
                                     }
@@ -162,13 +164,13 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     else {
                                         this.camApi.getRequest();
                                     }
-                                    this.snackBar.showMessage("Your action is success");
+                                    this.snackBar.showMessage("Your action is success", true);
                                 }
                                 else {
-                                    this.snackBar.showMessage("Error.Please try  again");
+                                    this.loadingApi.isLoading.next(false);
+                                    this.snackBar.showMessage("Error.Please try  again", false);
                                 }
                                 this.org.getAll();
-                                console.log('rejected');
                                 _b.label = 2;
                             case 2: return [2 /*return*/];
                         }

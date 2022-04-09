@@ -54,13 +54,13 @@ var AdminComponent = /** @class */ (function () {
                         icon: 'assets/icon/economic.png'
                     }, {
                         id: '3',
-                        subname: 'Campaign Request',
-                        path: 'campaign-request',
+                        subname: 'Project Request',
+                        path: 'project-request',
                         icon: 'assets/icon/economic.png'
                     }, {
                         id: '3',
-                        subname: 'Project Request',
-                        path: 'project-request',
+                        subname: 'Campaign Request',
+                        path: 'campaign-request',
                         icon: 'assets/icon/economic.png'
                     },]
             },
@@ -73,15 +73,15 @@ var AdminComponent = /** @class */ (function () {
             },
             {
                 id: '3',
-                name: 'Campagin Management',
-                path: 'manage-campaign',
+                name: 'Project Management',
+                path: 'manage-project',
                 icon: 'assets/icon/user-icon.png',
                 role: 'organization_manager'
             },
             {
                 id: '3',
-                name: 'Project Management',
-                path: 'manage-project',
+                name: 'Campagin Management',
+                path: 'manage-campaign',
                 icon: 'assets/icon/user-icon.png',
                 role: 'organization_manager'
             },

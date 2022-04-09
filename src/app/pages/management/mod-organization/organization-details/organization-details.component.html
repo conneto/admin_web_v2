@@ -3,13 +3,13 @@
     <div class="box">
       <button class='close-button'(click)="goBack()"><mat-icon>close</mat-icon></button>
       <div class="header">
-        <img src="{{ organization.cover }}" alt="" />
+        <img src="{{urlApi}}/show/images?p={{urlCover}}" alt="" />
       </div>
       <div class="content">
         <div class="content-information">
           <div>
             <div class="icon">
-              <img src="{{ organization.cover }}" alt="" />
+              <img src="{{urlApi}}/show/images?p={{urlLogo}}" alt="" />
             </div>
             <div>
               <p>{{ organization.name }}</p>

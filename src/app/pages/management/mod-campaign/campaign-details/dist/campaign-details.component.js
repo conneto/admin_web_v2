@@ -45,25 +45,30 @@ exports.__esModule = true;
 exports.CampaignDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignDetailsComponent = /** @class */ (function () {
-    function CampaignDetailsComponent(location, activated, campaignApi) {
+    function CampaignDetailsComponent(loadingService, location, activated, campaignApi) {
+        this.loadingService = loadingService;
         this.location = location;
         this.activated = activated;
         this.campaignApi = campaignApi;
+        this.urlApi = this.loadingService.getApiGetLink.value;
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
     };
     CampaignDetailsComponent.prototype.getByID = function () {
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id, _e;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
                         id = this.activated.snapshot.paramMap.get('id');
-                        _a = this;
+                        _e = this;
                         return [4 /*yield*/, this.campaignApi.getById("" + id)];
                     case 1:
-                        _a.campaign = _b.sent();
+                        _e.campaign = _f.sent();
+                        this.urlLogo = (_b = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                        this.urlCover = (_d = (_c = this.campaign) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];
                 }
             });

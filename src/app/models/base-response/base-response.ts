@@ -4,8 +4,8 @@ import { Adapter } from 'src/app/interface/adapter';
 
 export class BaseResponse {
     constructor(
-        public resultCode: number,
-        public resultMessage: string,
+        public status: number,
+        public message: string,
         public data?: any
     ) { }
 }

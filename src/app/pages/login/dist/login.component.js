@@ -71,8 +71,7 @@ var LoginComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.authService.login(this.isChecked, this.loginForm.value.username, this.loginForm.value.password)];
                     case 1:
                         baseResponse = _a.sent();
-                        if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.resultCode) == 0)) return [3 /*break*/, 6];
-                        console.log(this.authService.currentUserValue.role);
+                        if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 0)) return [3 /*break*/, 6];
                         if (!(this.authService.currentUserValue.role === 'organization_manager')) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.router.navigate(['manager'])];
                     case 2:
@@ -86,7 +85,7 @@ var LoginComponent = /** @class */ (function () {
                         _a.label = 5;
                     case 5: return [3 /*break*/, 7];
                     case 6:
-                        if ((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.resultCode) == 6) {
+                        if ((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 6) {
                             this.isError = true;
                         }
                         _a.label = 7;

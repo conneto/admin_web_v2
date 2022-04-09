@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Organization } from 'src/app/models/organization/organization';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
 
@@ -20,7 +21,7 @@ export class OrganizationFormComponent implements OnInit {
   logoFile?: File;
   coverFile?: File;
   public static readonly CREATE = 'create';
-  constructor(private location:Location,private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
+  constructor(private loadingService: LoadingServiceService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
 
   ngOnInit(): void {
     this.initFormBuilder();
@@ -30,24 +31,39 @@ export class OrganizationFormComponent implements OnInit {
     if (this.organizationForm.valid) {
       let uploadData: any = new FormData();
       uploadData.append('organization', JSON.stringify(this.organizationForm.value));
-      uploadData.append('logo',this.logoFile,this.logoFile?.name);
-      uploadData.append('cover',this.coverFile,this.coverFile?.name);
+      uploadData.append('logo', this.logoFile, this.logoFile?.name);
+      uploadData.append('cover', this.coverFile, this.coverFile?.name);
       if (this.organizationId) {
+        this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.createById(uploadData, `${this.organizationId}`);
-        console.log(res?.resultCode);
-        if (res?.resultCode == 0) {
-          this.snackBar.showMessage("Create success !", true);
-          this.location.back();
+
+        if (res?.status == 0) {
+          this.snackBar.showMessage(`${res?.message}`, true);
+          this.loadingService.isLoading.next(false);
+          window.location.reload();
+          this.router.navigateByUrl('/manager');
         } else {
-          this.snackBar.showMessage("Error ! Please try again", false);
+          this.snackBar.showMessage(`${res?.message}`, false);
+
+          this.loadingService.isLoading.next(false);
+
+
         }
       } else {
+        this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.create(uploadData);
-        if (res?.resultCode == 0) {
-          this.snackBar.showMessage("Create success !", true);
-          this.location.back();
+
+        if (res?.status == 0) {
+          this.snackBar.showMessage(`${res?.message}`, true);
+          this.loadingService.isLoading.next(false);
+          window.location.reload();
+          this.router.navigateByUrl('/manager');
         } else {
-          this.snackBar.showMessage("Error ! Please try again", false);
+          this.snackBar.showMessage(`${res?.message}`, false);
+          this.loadingService.isLoading.next(false);
+
+
+
         }
       }
     }
@@ -58,11 +74,12 @@ export class OrganizationFormComponent implements OnInit {
       name: ['', Validators.required],
       eng_name: ['', Validators.required],
       description: ['', Validators.required],
-      vision:['',Validators.required],
-      website:['',Validators.required],
+      vision: ['', Validators.required],
+      website: ['', Validators.required],
       founding_date: ['', Validators.required],
       created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
       request_type: [OrganizationFormComponent.CREATE],
+      mission: [''],
       logo: [''],
       cover: [''],
     })

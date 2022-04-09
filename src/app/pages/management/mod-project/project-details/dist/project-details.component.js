@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -57,7 +46,9 @@ exports.ProjectDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
 var ProjectDetailsComponent = /** @class */ (function () {
-    function ProjectDetailsComponent(snackBar, auth, location, proApi, campApi, actived, dialog) {
+    function ProjectDetailsComponent(router, loadingService, snackBar, auth, location, proApi, campApi, actived, dialog) {
+        this.router = router;
+        this.loadingService = loadingService;
         this.snackBar = snackBar;
         this.auth = auth;
         this.location = location;
@@ -66,10 +57,14 @@ var ProjectDetailsComponent = /** @class */ (function () {
         this.actived = actived;
         this.dialog = dialog;
         this.isAdmin = true;
+        this.urlApi = '';
+        this.urlLogo = '';
+        this.urlCover = '';
     }
     ProjectDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
         this.check();
+        this.urlApi = this.loadingService.getApiGetLink.value;
     };
     ProjectDetailsComponent.prototype.check = function () {
         var _a;
@@ -79,17 +74,20 @@ var ProjectDetailsComponent = /** @class */ (function () {
         }
     };
     ProjectDetailsComponent.prototype.getByID = function () {
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var id, _e;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
                         id = this.actived.snapshot.paramMap.get('id');
-                        _a = this;
+                        _e = this;
                         return [4 /*yield*/, this.proApi.getByID("" + id)];
                     case 1:
-                        _a.project = _b.sent();
-                        console.log(this.project);
+                        _e.project = _f.sent();
+                        this.loadingService.projectId.next("" + id);
+                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                        this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];
                 }
             });
@@ -107,26 +105,25 @@ var ProjectDetailsComponent = /** @class */ (function () {
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
-            var uploadData, res;
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
                     case 0:
                         if (!data) return [3 /*break*/, 2];
-                        uploadData = new FormData();
-                        data = __assign(__assign({}, data), { project_id: (_a = this.project) === null || _a === void 0 ? void 0 : _a.id });
-                        console.log(data);
-                        uploadData.append('campaign', JSON.stringify(data));
-                        return [4 /*yield*/, this.campApi.create(uploadData)];
+                        this.loadingService.isLoading.next(true);
+                        return [4 /*yield*/, this.campApi.create(data)];
                     case 1:
-                        res = _b.sent();
-                        if ((res === null || res === void 0 ? void 0 : res.resultCode) == 0) {
-                            this.snackBar.showMessage("Create success !");
+                        res = _a.sent();
+                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                            this.loadingService.isLoading.next(false);
+                            this.router.navigate(['/manager/manage-campaign']);
+                            this.snackBar.showMessage(res.message, true);
                         }
                         else {
-                            this.snackBar.showMessage("Error . Please try again !");
+                            this.loadingService.isLoading.next(false);
+                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
                         }
-                        _b.label = 2;
+                        _a.label = 2;
                     case 2: return [2 /*return*/];
                 }
             });
@@ -137,7 +134,8 @@ var ProjectDetailsComponent = /** @class */ (function () {
             selector: 'app-project-details',
             templateUrl: './project-details.component.html',
             styleUrls: ['./project-details.component.scss']
-        })
+        }),
+        core_1.Injectable({ providedIn: 'root' })
     ], ProjectDetailsComponent);
     return ProjectDetailsComponent;
 }());

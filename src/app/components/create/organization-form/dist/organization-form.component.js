@@ -46,7 +46,8 @@ exports.OrganizationFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var OrganizationFormComponent = /** @class */ (function () {
-    function OrganizationFormComponent(location, router, snackBar, formBuilder, orgApi, user) {
+    function OrganizationFormComponent(loadingService, location, router, snackBar, formBuilder, orgApi, user) {
+        this.loadingService = loadingService;
         this.location = location;
         this.router = router;
         this.snackBar = snackBar;
@@ -71,27 +72,35 @@ var OrganizationFormComponent = /** @class */ (function () {
                         uploadData.append('logo', this.logoFile, (_a = this.logoFile) === null || _a === void 0 ? void 0 : _a.name);
                         uploadData.append('cover', this.coverFile, (_b = this.coverFile) === null || _b === void 0 ? void 0 : _b.name);
                         if (!this.organizationId) return [3 /*break*/, 2];
+                        this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.createById(uploadData, "" + this.organizationId)];
                     case 1:
                         res = _c.sent();
-                        console.log(res === null || res === void 0 ? void 0 : res.resultCode);
-                        if ((res === null || res === void 0 ? void 0 : res.resultCode) == 0) {
-                            this.snackBar.showMessage("Create success !", true);
-                            this.location.back();
+                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
+                            this.loadingService.isLoading.next(false);
+                            window.location.reload();
+                            this.router.navigateByUrl('/manager');
                         }
                         else {
-                            this.snackBar.showMessage("Error ! Please try again", false);
+                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
+                            this.loadingService.isLoading.next(false);
                         }
                         return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.orgApi.create(uploadData)];
+                    case 2:
+                        this.loadingService.isLoading.next(true);
+                        return [4 /*yield*/, this.orgApi.create(uploadData)];
                     case 3:
                         res = _c.sent();
-                        if ((res === null || res === void 0 ? void 0 : res.resultCode) == 0) {
-                            this.snackBar.showMessage("Create success !", true);
-                            this.location.back();
+                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
+                            this.loadingService.isLoading.next(false);
+                            window.location.reload();
+                            this.router.navigateByUrl('/manager');
                         }
                         else {
-                            this.snackBar.showMessage("Error ! Please try again", false);
+                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
+                            this.loadingService.isLoading.next(false);
                         }
                         _c.label = 4;
                     case 4: return [2 /*return*/];
@@ -109,6 +118,7 @@ var OrganizationFormComponent = /** @class */ (function () {
             founding_date: ['', forms_1.Validators.required],
             created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
             request_type: [OrganizationFormComponent_1.CREATE],
+            mission: [''],
             logo: [''],
             cover: ['']
         });

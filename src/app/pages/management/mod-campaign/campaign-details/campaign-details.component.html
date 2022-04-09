@@ -1,34 +1,63 @@
+
 <div *ngIf="campaign">
+  <div class="container">
+    <div class="box">
+      <div class="closeButton">
+        <button (click)="goBack()"><mat-icon>close</mat-icon></button>
+      </div>
+      <div class="header">
+        <div class="header-content">
+          <div class="header-image">
+            <img src="{{urlApi}}/show/images?p={{urlCover}}" alt="" />
+          </div>
+          <div class="header-information">
+            <div>
+              <img
+                class="logo"
+                src="{{urlApi}}/show/images?p={{urlLogo}}"
+              />
+              <h4>{{ campaign.name }}</h4>
+              <app-status></app-status>
+            </div>
+         
 
-    <mat-card title="Click to see more details">
-   
-      <div class="image">
-        <img src="assets/image/sugar.png" />
-        <img mat-card-image src="assets/image/ddtt18_cover.png" />
-      </div>
-      <mat-card-title>
-        {{ campaign.name }}
-      </mat-card-title>
-
-      <div class="subtitle">
-        <img mat-card-avatar src='{{campaign.org_logo}}'>
-        <mat-card-subtitle class="organization-name">{{
-          campaign.org_name
-        }}</mat-card-subtitle>
-      </div>
-      <div class="card-icon">
-        <div class="start-date">
-          <p>{{ campaign.startDate | date: "mediumDate" }}</p>
-          <mat-card-subtitle> Start Date </mat-card-subtitle>
-        </div>
-        <div class="budget-item">
-          <p>{{ campaign.target | currency: "VND" }}</p>
-          <mat-card-subtitle> Target </mat-card-subtitle>
+            <p>Đồng hành cùng chiến dịch<br>
+              <span class='organization-name'>{{campaign.org_name}}</span></p>
+            <div class="card-icon">
+              <div class="start-date">
+                <p>{{ campaign.startDate | date: "mediumDate" }}</p>
+                <mat-card-subtitle> Start Date </mat-card-subtitle>
+              </div>
+              <div class="budget-item">
+                <p>{{ campaign.endDate | date: "mediumDate" }}</p>
+                <mat-card-subtitle> End Date </mat-card-subtitle>
+              </div>
+              <div class="budget-item">
+                  <p>{{ campaign.target | currency:'VND'}}</p>
+                  <mat-card-subtitle>Target </mat-card-subtitle>
+                </div>
+            </div>
+         
+          </div>
         </div>
       </div>
-    
-    
-    </mat-card>
- 
+      <div class="content">
+        <div class="content-information">
+          <div class="content-description">
+            <span>Description:</span>
+            <p>
+              {{ campaign.description }}
+            </p>
+          </div>
+          <div class="content-type">
+              <span>Type:</span>
+              <p>
+                {{ campaign.type }}
+              </p>
+            </div>
+        </div>
+     
+      </div>
+    </div>
+  </div>
 </div>
-

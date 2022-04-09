@@ -25,7 +25,12 @@
         </div>
         <div>
           <label> Cover image: </label>
-          <input type="file" accept='image/jpg'formControlName="cover" />
+          <input type="file" accept="image/png,image/jpg,image/jpeg" formControlName="cover" (change)="onChange($event)"/>
+         
+        </div>
+        <div>
+          <label> Logo : </label>
+          <input type="file" accept="image/png,image/jpg,image/jpeg" formControlName="logo" (change)="onChangeCover($event)"/>
          
         </div>
       </div>

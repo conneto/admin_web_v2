@@ -10,7 +10,7 @@
             <img
               alt="Cover of this project"
               mat-card-image
-              src="{{ project.cover }}"
+              src="{{urlApi}}/show/images?p={{project.cover}}"
             />
           </div>
           <mat-card-title> {{ project.name }}</mat-card-title>
@@ -21,11 +21,14 @@
             </div>
             <div>
               <mat-icon title="At">date_range</mat-icon
-              ><span class="margin-left">25/02/2012</span>
+              ><span class="margin-left">{{project.created_at | date:'mediumDate'}}</span>
             </div>
           </div>
         </mat-card>
       </a>
     </div>
   </div>
+</div>
+<div *ngIf='isEmpty'>
+  Nothing here !
 </div>

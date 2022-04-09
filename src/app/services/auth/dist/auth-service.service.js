@@ -80,17 +80,17 @@ var AuthServiceService = /** @class */ (function () {
                             }))];
                     case 1:
                         res = _a.sent();
-                        if (res.resultCode == 0) {
+                        if (res.status == 0) {
                             this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage("\u0110\u0103ng Nh\u1EADp " + res.resultMessage, true);
+                            this.snackBar.showMessage("\u0110\u0103ng Nh\u1EADp " + res.message, true);
                             userLoginResponse = this.userResponse.adapt(res.data);
                             localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
                             localStorage.setItem('USER_TOKEN', userLoginResponse.token);
                             this.curUserSubject.next(userLoginResponse);
                         }
-                        else if (res.resultCode == 6) {
+                        else if (res.status == 6) {
                             this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage(res.resultMessage, false);
+                            this.snackBar.showMessage(res.message, false);
                         }
                         else {
                             return [2 /*return*/, null];
@@ -110,7 +110,7 @@ var AuthServiceService = /** @class */ (function () {
                         return [4 /*yield*/, this.apiService.post(AuthServiceService_1.ACCOUNTS + AuthServiceService_1.REGISTER, data)];
                     case 1:
                         res = _a.sent();
-                        if (res.resultCode != 0) {
+                        if (res.status != 0) {
                             return [2 /*return*/, null];
                         }
                         return [2 /*return*/, res];
@@ -131,7 +131,7 @@ var AuthServiceService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.post(AuthServiceService_1.ADMIN + '/' + AuthServiceService_1.APPROVEMENTS, data)];
                     case 1:
                         res = _a.sent();
-                        if (res.resultCode != 0) {
+                        if (res.status != 0) {
                             return [2 /*return*/, null];
                         }
                         return [2 /*return*/, res];

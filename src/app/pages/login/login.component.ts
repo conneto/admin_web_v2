@@ -38,14 +38,14 @@ export class LoginComponent implements OnInit {
         this.loginForm.value.username,
         this.loginForm.value.password
       );
-      if (baseResponse?.resultCode == 0) {
-        console.log(this.authService.currentUserValue.role);
+      if (baseResponse?.status == 0) {
+     
         if (this.authService.currentUserValue.role === 'organization_manager') {
           await this.router.navigate(['manager']);
         } else if (this.authService.currentUserValue.role === 'admin') {
           await this.router.navigate(['admin/dashboard']);
         }
-      } else if(baseResponse?.resultCode==6){
+      } else if(baseResponse?.status==6){
         this.isError = true;
       }
     }

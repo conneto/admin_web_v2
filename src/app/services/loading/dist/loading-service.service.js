@@ -13,6 +13,8 @@ var LoadingServiceService = /** @class */ (function () {
     function LoadingServiceService() {
         this.isLoading = new rxjs_1.BehaviorSubject(false);
         this.getApiGetLink = new rxjs_1.BehaviorSubject('');
+        this.getOrganizationId = new rxjs_1.BehaviorSubject('');
+        this.projectId = new rxjs_1.BehaviorSubject('');
     }
     LoadingServiceService = __decorate([
         core_1.Injectable({

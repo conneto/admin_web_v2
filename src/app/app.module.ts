@@ -16,6 +16,7 @@ import { ProjectRequestDetailModule } from './pages/manage-request/mod-project/p
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OrganizationDetailsModule } from './pages/management/mod-organization/organization-details/organization-details.module';
 import { ProjectRequestComponent } from './pages/manage-request/mod-project/project-request/project-request.component';
+import { MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -37,7 +38,10 @@ import { ProjectRequestComponent } from './pages/manage-request/mod-project/proj
     FormsModule,
   
   ],
-  providers: [],
+  providers: [
+  
+
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

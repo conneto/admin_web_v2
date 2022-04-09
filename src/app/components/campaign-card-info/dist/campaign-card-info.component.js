@@ -9,11 +9,13 @@ exports.__esModule = true;
 exports.CampaignCardInfoComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignCardInfoComponent = /** @class */ (function () {
-    function CampaignCardInfoComponent() {
+    function CampaignCardInfoComponent(loadingService) {
+        this.loadingService = loadingService;
         this.current = 60000000;
         this.total = 120000000;
     }
     CampaignCardInfoComponent.prototype.ngOnInit = function () {
+        this.urlApi = this.loadingService.getApiGetLink.value;
     };
     __decorate([
         core_1.Input()

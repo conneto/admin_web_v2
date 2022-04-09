@@ -44,6 +44,10 @@
           <label> Job Benefit: </label>
           <textarea formControlName="job_benefit"></textarea>
         </div>
+        <div>
+          <label> Cover image: </label>
+          <input multiple type='file' accept='image/jpg,image/jpeg,image/png'formControlName="cover" (change)='onChange($event)'>
+        </div>
       </div>
     </form>
   </div>

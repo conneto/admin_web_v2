@@ -27,15 +27,15 @@ export class CampaignApiService {
   async createById(data: any, id: string) {
     console.log(id);
     let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGN}/${id}`, data);
-    if (res.resultCode != 0) {
+    if (res.status != 0) {
       return null;
     }
     return res;
   }
   async create(data: any) {
     let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGN}`, data);
-    if (res.resultCode != 0) {
-      return null;
+    if (res.status != 0) {
+      return res;
     }
     return res
   }

@@ -9,7 +9,7 @@ exports.__esModule = true;
 exports.ProjectAdapter = exports.Project = void 0;
 var core_1 = require("@angular/core");
 var Project = /** @class */ (function () {
-    function Project(id, name, description, logo, cover, startDate, endDate, resultCode, resultMessage, is_active, approvedBy, approvedDate, category, result_note, start_date, type, updated_at, organizationId, organizationName, organizationLogo) {
+    function Project(id, name, description, logo, cover, startDate, endDate, resultCode, resultMessage, is_active, approvedBy, approvedDate, category, result_note, created_at, type, updated_at, organizationId, organizationName, organizationLogo) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -24,7 +24,7 @@ var Project = /** @class */ (function () {
         this.approvedDate = approvedDate;
         this.category = category;
         this.result_note = result_note;
-        this.start_date = start_date;
+        this.created_at = created_at;
         this.type = type;
         this.updated_at = updated_at;
         this.organizationId = organizationId;
@@ -38,7 +38,7 @@ var ProjectAdapter = /** @class */ (function () {
     function ProjectAdapter() {
     }
     ProjectAdapter.prototype.adapt = function (item) {
-        return new Project(item.id, item.name, item.description, item.logo, item.cover, item.start_date, item.end_date, item.result_code, item.result_message, item.is_active, item.approved_by, item.approved_date, item.category, item.result_note, item.start_date, item.type, item.updated_at, item.organization_id, item.organization_name, item.organization_logo);
+        return new Project(item.id, item.name, item.description, item.logo, item.cover, item.start_date, item.end_date, item.result_code, item.result_message, item.is_active, item.approved_by, item.approved_date, item.category, item.result_note, item.created_at, item.type, item.updated_at, item.organization_id, item.organization_name, item.organization_logo);
     };
     ProjectAdapter = __decorate([
         core_1.Injectable({

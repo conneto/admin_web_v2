@@ -35,7 +35,7 @@ export class OrganizationApiService {
   async create(data: any) {
 
     let res: BaseResponse = await this.apiService.post(`${OrganizationApiService.ORGANIZATIONS}`, data);
-    if (res.resultCode != 0) {
+    if (res.status != 0) {
       return null;
     }
     return res;
@@ -43,8 +43,8 @@ export class OrganizationApiService {
   async createById(data: any, id: string) {
     console.log(id);
     let res: BaseResponse = await this.apiService.post(`${OrganizationApiService.ORGANIZATIONS}/${id}`, data);
-    if (res.resultCode != 0) {
-      return null;
+    if (res.status == 0) {
+      return res;
     }
     return res;
   }

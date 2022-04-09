@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Organization } from 'src/app/models/organization/organization';
 import { OrganizationDetailsComponent } from 'src/app/pages/management/mod-organization/organization-details/organization-details.component';
 
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 
 
 @Component({
@@ -13,12 +15,13 @@ import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
-  constructor(public authApi: AuthServiceService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  constructor(private router:Router,public organizationId: LoadingServiceService, private authApi: AuthServiceService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
   projectForm!: FormGroup;
-  
+  coverImage?: File;
+  logo?:File;
   ngOnInit(): void {
     this.initForm();
-  
+
   }
 
   initForm() {
@@ -28,19 +31,35 @@ export class ProjectFormComponent implements OnInit {
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       created_by: [this.authApi.currentUserValue.id],
+      organization_id: [this.organizationId.getOrganizationId.value],
       request_type: ['create'],
-      cover:[''],
+      cover: [''],
+      logo:[''],
     })
   }
   noClick() {
+   
     this.dialogRef.close(false);
 
   }
   yesClick() {
     if (this.projectForm.valid) {
-      let uploadData=new FormData();
-      uploadData.append('project',this.projectForm.value);
+      let uploadData: any = new FormData();
+      uploadData.append('cover', this.coverImage, this.coverImage?.name);
+      uploadData.append('logo',this.logo,this.logo?.name);
+      uploadData.append('project', JSON.stringify(this.projectForm.value));
       this.dialogRef.close(uploadData);
     }
+  }
+  onChange(e: any) {
+    if (e.target.files && e.target.files.length > 0) {
+      this.coverImage = e.target.files[0];
+    }
+  }
+  onChangeCover(e: any) {
+    if (e.target.files && e.target.files.length > 0) {
+      this.logo = e.target.files[0];
+    }
+
   }
 }

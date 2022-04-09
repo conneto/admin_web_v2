@@ -14,7 +14,9 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var ProjectFormComponent = /** @class */ (function () {
-    function ProjectFormComponent(authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+    function ProjectFormComponent(router, organizationId, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+        this.router = router;
+        this.organizationId = organizationId;
         this.authApi = authApi;
         this.dialogRef = dialogRef;
         this.data = data;
@@ -31,18 +33,33 @@ var ProjectFormComponent = /** @class */ (function () {
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
             created_by: [this.authApi.currentUserValue.id],
+            organization_id: [this.organizationId.getOrganizationId.value],
             request_type: ['create'],
-            cover: ['']
+            cover: [''],
+            logo: ['']
         });
     };
     ProjectFormComponent.prototype.noClick = function () {
         this.dialogRef.close(false);
     };
     ProjectFormComponent.prototype.yesClick = function () {
+        var _a, _b;
         if (this.projectForm.valid) {
             var uploadData = new FormData();
-            uploadData.append('project', this.projectForm.value);
+            uploadData.append('cover', this.coverImage, (_a = this.coverImage) === null || _a === void 0 ? void 0 : _a.name);
+            uploadData.append('logo', this.logo, (_b = this.logo) === null || _b === void 0 ? void 0 : _b.name);
+            uploadData.append('project', JSON.stringify(this.projectForm.value));
             this.dialogRef.close(uploadData);
+        }
+    };
+    ProjectFormComponent.prototype.onChange = function (e) {
+        if (e.target.files && e.target.files.length > 0) {
+            this.coverImage = e.target.files[0];
+        }
+    };
+    ProjectFormComponent.prototype.onChangeCover = function (e) {
+        if (e.target.files && e.target.files.length > 0) {
+            this.logo = e.target.files[0];
         }
     };
     ProjectFormComponent = __decorate([
@@ -51,7 +68,7 @@ var ProjectFormComponent = /** @class */ (function () {
             templateUrl: './project-form.component.html',
             styleUrls: ['./project-form.component.scss']
         }),
-        __param(2, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
+        __param(4, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
     ], ProjectFormComponent);
     return ProjectFormComponent;
 }());

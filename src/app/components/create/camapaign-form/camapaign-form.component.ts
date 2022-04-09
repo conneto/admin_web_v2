@@ -2,7 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OrganizationDetailsComponent } from 'src/app/pages/management/mod-organization/organization-details/organization-details.component';
+import { ProjectDetailsComponent } from 'src/app/pages/management/mod-project/project-details/project-details.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 
 @Component({
   selector: 'app-camapaign-form',
@@ -10,13 +12,16 @@ import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
   styleUrls: ['./camapaign-form.component.scss']
 })
 export class CamapaignFormComponent implements OnInit {
-
-  constructor(public authApi: AuthServiceService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  coverImage?: File;
+  constructor(public loadingService: LoadingServiceService, public authApi: AuthServiceService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
   campaignForm!: FormGroup;
-  
+
   ngOnInit(): void {
     this.initForm();
-  
+    let uploadData: any = new FormData();
+    uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
+    console.log(this.loadingService.projectId.value);
+    console.log(uploadData.get('campaign'))
   }
 
   initForm() {
@@ -26,20 +31,38 @@ export class CamapaignFormComponent implements OnInit {
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       request_type: ['create'],
-      type: ['',Validators.required],
-      target_number: ['',Validators.required],
-      job_requirement: ['',Validators.required],
-      job_description: ['',Validators.required],
-      job_benefit: ['',Validators.required],
+      type: ['', Validators.required],
+      target_number: ['', Validators.required],
+      job_requirement: ['', Validators.required],
+      job_description: ['', Validators.required],
+      job_benefit: ['', Validators.required],
+      project_id: [this.loadingService.projectId.value],
+      cover: [''],
     })
   }
   noClick() {
     this.dialogRef.close(false);
 
   }
+  uploadData: any = new FormData();
   yesClick() {
     if (this.campaignForm.valid) {
-      this.dialogRef.close(this.campaignForm.value);
+  
+      this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
+      // uploadData.append('cover', this.coverImage, this.coverImage?.name);
+      console.log(this.uploadData.getAll('cover'));
+      console.log(this.uploadData.getAll('campaign'))
+      this.dialogRef.close(this.uploadData);
+    }
+  }
+  onChange(e: any) {
+  
+
+    if (e.target.files && e.target.files.length > 0) {
+      for(let i=0;i<e.target.files.length;i++){
+        this.uploadData.append('cover', e.target.files[i], e.target.files[i].name);
+      }
+      // this.coverImage = e.target.files[0];
     }
   }
 }

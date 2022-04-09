@@ -45,41 +45,57 @@ exports.__esModule = true;
 exports.ProjectComponent = void 0;
 var core_1 = require("@angular/core");
 var ProjectComponent = /** @class */ (function () {
-    function ProjectComponent(api, authApi) {
+    function ProjectComponent(loadingService, api, authApi) {
+        this.loadingService = loadingService;
         this.api = api;
         this.authApi = authApi;
         this.projects = [];
+        this.isEmpty = false;
     }
     ProjectComponent.prototype.ngOnInit = function () {
         this.check();
+        this.urlApi = this.loadingService.getApiGetLink.value;
     };
     ProjectComponent.prototype.check = function () {
-        var _a, _b;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         return __awaiter(this, void 0, void 0, function () {
-            var _c, _d;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            var _k, i, _l, i;
+            return __generator(this, function (_m) {
+                switch (_m.label) {
                     case 0:
                         this.user = this.authApi.currentUserValue;
-                        console.log((_a = this.user) === null || _a === void 0 ? void 0 : _a.role);
-                        if (!(((_b = this.user) === null || _b === void 0 ? void 0 : _b.role) === 'organization_manager')) return [3 /*break*/, 2];
-                        _c = this;
+                        if (!(((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) === 'organization_manager')) return [3 /*break*/, 2];
+                        _k = this;
                         return [4 /*yield*/, this.api.getAll()];
                     case 1:
-                        _c.projects = _e.sent();
+                        _k.projects = _m.sent();
+                        for (i = 0; i < this.projects.length; i++) {
+                            this.projects[i].cover = (_c = (_b = this.projects[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
+                            this.projects[i].logo = (_e = (_d = this.projects[i]) === null || _d === void 0 ? void 0 : _d.logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
+                        }
                         this.projects = this.projects.filter(function (x) {
                             return x.resultCode !== 611;
                         });
+                        if (this.projects == [] || this.projects.length <= 0) {
+                            this.isEmpty = true;
+                        }
                         return [3 /*break*/, 4];
                     case 2:
-                        _d = this;
+                        _l = this;
                         return [4 /*yield*/, this.api.getAll()];
                     case 3:
-                        _d.projects = _e.sent();
+                        _l.projects = _m.sent();
+                        for (i = 0; i < this.projects.length; i++) {
+                            this.projects[i].cover = (_g = (_f = this.projects[i]) === null || _f === void 0 ? void 0 : _f.cover) === null || _g === void 0 ? void 0 : _g.replace(/\\/g, '\/');
+                            this.projects[i].logo = (_j = (_h = this.projects[i]) === null || _h === void 0 ? void 0 : _h.logo) === null || _j === void 0 ? void 0 : _j.replace(/\\/g, '\/');
+                        }
                         this.projects = this.projects.filter(function (x) {
                             return x.resultCode === 610;
                         });
-                        _e.label = 4;
+                        if (this.projects == [] || this.projects.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        _m.label = 4;
                     case 4: return [2 /*return*/];
                 }
             });

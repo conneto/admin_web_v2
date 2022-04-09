@@ -35,10 +35,10 @@ export class OrganizationInforCardComponent implements OnInit {
   ngOnInit(): void {
     this.urlApi=this.loadingApi.getApiGetLink.value;
      this.urlLogo=this.organizations?.logo?.replace(/\\/g,'\/');
+  
   }
 
   viewDetails(id: string) {
-    console.log(id);
     this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);
   }
 
@@ -52,7 +52,9 @@ export class OrganizationInforCardComponent implements OnInit {
     })
 
     diaglogRef.afterClosed().subscribe(async (data) => {
+     
       if (data) {
+        this.loadingApi.isLoading.next(true);
         const data1 = {
           object_id: this.organizations?.id || id,
           object_type: checkType == 'org' ? AuthServiceService.ORGANIZATION
@@ -60,10 +62,12 @@ export class OrganizationInforCardComponent implements OnInit {
           status: AuthServiceService.APPROVE,
           note: 'Approve this',
         }
+        
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
-        console.log(res?.resultCode);
-        if (res?.resultCode == 0) {
-          this.snackBar.showMessage("Your action is success");
+    
+        if (res?.status == 0) {
+          this.loadingApi.isLoading.next(false);
+          this.snackBar.showMessage("Your action is success",true);
           if (checkType == 'org') {
             this.org.getAll();
           } else if (checkType == 'pro') {
@@ -72,10 +76,9 @@ export class OrganizationInforCardComponent implements OnInit {
             this.camApi.getRequest();
           }
         } else {
-          this.snackBar.showMessage("Error.Please try  again");
+          this.loadingApi.isLoading.next(false);
+          this.snackBar.showMessage("Error.Please try  again",false);
         }
-
-        console.log('approved');
       }
     })
   }
@@ -88,20 +91,21 @@ export class OrganizationInforCardComponent implements OnInit {
         message: AuthServiceService.REJECT,
       }
     })
-
     diaglogRef.afterClosed().subscribe(async data => {
+      
       if (data) {
+        this.loadingApi.isLoading.next(true);
         const data1 = {
-
           object_id: this.organizations?.id || id,
           object_type: checkType == 'org' ? AuthServiceService.ORGANIZATION
             : checkType == 'cam' ? AuthServiceService.CAMPAIGN : checkType == 'pro' ? AuthServiceService.PROJECT : AuthServiceService.ORGANIZATION,
           status: AuthServiceService.REJECT,
           note: 'Reject this',
         }
-        console.log("data1" + data1.toString());
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
-        if (res?.resultCode === 0) {
+        this.loadingApi.isLoading.next(true);
+        if (res?.status === 0) {
+          this.loadingApi.isLoading.next(false);
           if (checkType == 'org') {
             this.org.getAll();
           } else if (checkType == 'pro') {
@@ -109,13 +113,13 @@ export class OrganizationInforCardComponent implements OnInit {
           } else {
             this.camApi.getRequest();
           }
-          this.snackBar.showMessage("Your action is success");
-
+          this.snackBar.showMessage("Your action is success",true);
         } else {
-          this.snackBar.showMessage("Error.Please try  again");
+          this.loadingApi.isLoading.next(false);
+          this.snackBar.showMessage("Error.Please try  again",false);
         }
         this.org.getAll();
-        console.log('rejected');
+ 
       }
     })
   }

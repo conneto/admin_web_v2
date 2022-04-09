@@ -45,29 +45,35 @@ exports.__esModule = true;
 exports.OrganizationsComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationsComponent = /** @class */ (function () {
-    function OrganizationsComponent(service, userApi) {
+    function OrganizationsComponent(loading, getUser, service, userApi) {
+        this.loading = loading;
+        this.getUser = getUser;
         this.service = service;
         this.userApi = userApi;
         this.organizations = [];
         this.isShow = false;
         this.noOrg = false;
+        this.users = [];
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
         this.getAllOrganizations();
         this.userApi.currentUserValue;
+        this.urlApi = this.loading.getApiGetLink.value;
     };
     OrganizationsComponent.prototype.getAllOrganizations = function () {
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var _a, i, check;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _c, i, check;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        _a = this;
+                        _c = this;
                         return [4 /*yield*/, this.service.getAll()];
                     case 1:
-                        _a.organizations = _b.sent();
+                        _c.organizations = _d.sent();
                         for (i = 0; i < this.organizations.length; i++) {
                             this.organizationId = this.organizations[i].id;
+                            this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         }
                         if (this.userApi.currentUserValue.role === 'organization_manager') {
                             check = this.organizations.every(function (x) {

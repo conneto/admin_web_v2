@@ -77,13 +77,13 @@ var RegisterComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.authService.register(uploadData)];
                     case 1:
                         res = _a.sent();
-                        console.log(res === null || res === void 0 ? void 0 : res.resultCode);
-                        if (!((res === null || res === void 0 ? void 0 : res.resultCode) == 0)) return [3 /*break*/, 5];
+                        console.log(res === null || res === void 0 ? void 0 : res.status);
+                        if (!((res === null || res === void 0 ? void 0 : res.status) == 0)) return [3 /*break*/, 5];
                         this.snackBar.showMessage("Create success !");
                         return [4 /*yield*/, this.authService.login(false, this.registerForm.value.username, oldPass)];
                     case 2:
                         baseResponse = _a.sent();
-                        if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.resultCode) == 0)) return [3 /*break*/, 4];
+                        if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 0)) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.router.navigate(['admin'])];
                     case 3:
                         _a.sent();
