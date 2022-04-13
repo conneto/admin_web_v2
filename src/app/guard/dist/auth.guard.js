@@ -24,7 +24,6 @@ var AuthGuard = /** @class */ (function () {
     AuthGuard.prototype.canActivateChild = function (route, state) {
         var currentUser = this.authApi.currentUserValue;
         if (currentUser.role == 'admin') {
-            console.log(currentUser.role);
             return true;
         }
         this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });

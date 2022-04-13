@@ -20,6 +20,9 @@ import { CamapaignFormComponent } from '../create/camapaign-form/camapaign-form.
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
 import { ProjectRequestComponent } from 'src/app/pages/manage-request/mod-project/project-request/project-request.component';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
+import { TabgroupComponent } from '../tab-group/tabgroup.component';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+
 
 
 const componentModules = [
@@ -38,6 +41,8 @@ const componentModules = [
   CamapaignFormComponent,
   SnackBarMessageComponent,
   LoadingSpinnerComponent,
+  TabgroupComponent,
+  SearchBarComponent,
 ]
 
 @NgModule({

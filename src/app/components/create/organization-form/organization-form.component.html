@@ -69,8 +69,8 @@
         <input
           class="input login"
           type="file"
-          accept="image/png, image/jpg,image/jpeg"
-          required=""
+          accept="image/png,image/jpg,image/jpeg"
+     
           formControlName="cover"
           (change)='onChangeCover($event);'
         />
@@ -78,10 +78,10 @@
       <div>
         <label style="width: 100px"> Logo:</label>
         <input
-          accept="image/png, image/jpg,image/jpeg"
+          accept="image/png,image/jpg,image/jpeg"
           class="input login"
           type="file"
-          required=""
+
           formControlName="logo"
           (change)='onChangeLogo($event)'
         />

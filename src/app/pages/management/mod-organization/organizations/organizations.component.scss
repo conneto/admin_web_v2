@@ -23,16 +23,15 @@ mat-card {
   mat-card-title {
     font-size: 20px;
     height: 55px;
-  }
-
-}
-
-.container{
-  >div{
     display: flex !important;
-  flex-wrap: wrap;
+    align-content: center !important;
+    align-items: center !important;
   }
+
 }
+
+
+
 mat-card-actions {
   display: flex !important;
   justify-content: center;
@@ -84,4 +83,33 @@ img {
 
 .margin-left {
   margin-left: 5px;
+}
+
+.request-component {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.box{
+  display: flex;
+  flex-wrap:wrap;
+  align-items: center;
+}
+
+.name{
+  display: flex;
+  align-items: center;
+  margin-top:20px;
+  >p{
+  
+    font-size:15px;
+    margin-left:5px;
+    margin-bottom: 0 !important;
+  }
+}
+
+.search-bar{
+  display:flex;
+  justify-content: space-between;
+  align-items:flex-end;
 }

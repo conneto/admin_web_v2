@@ -10,10 +10,13 @@ import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/s
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Organization } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
+import { UserManagementComponent } from 'src/app/pages/user-management/user-management.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { OrganizationsComponent } from '../organizations/organizations.component';
 
 @Component({
   selector: 'app-organization-details',
@@ -26,17 +29,21 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
 export class OrganizationDetailsComponent implements OnInit {
   organization?: Organization;
   user?: User;
+  users?: User[] = [];
   isAdmin = true;
   urlApi = this.loadingService.getApiGetLink.value;
   urlCover?: string;
   urlLogo?: string;
-  constructor(private router:Router,private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
+  idGeneral?: any;
+  constructor(private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
 
   ngOnInit(): void {
+
     this.getValueFromRoute();
     this.check();
+    this.getName();
   }
   check() {
     this.user = this.auth.currentUserValue;
@@ -52,7 +59,13 @@ export class OrganizationDetailsComponent implements OnInit {
     this.urlCover = this.organization?.cover?.replace(/\\/g, '\/');
   }
   goBack() {
+    
     this.location.back();
+    
+  }
+
+  getName() {
+    this.usersCom.getNameById(`${this.organization?.created_by}`);
   }
   public get getId() {
     this.getValueFromRoute();
@@ -75,8 +88,9 @@ export class OrganizationDetailsComponent implements OnInit {
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage(res.message, true)
+          this.getEntityService.getByEntity('pro');
           this.router.navigate(['/manager/manage-project']);
-      
+
         } else {
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage(res.message, false)

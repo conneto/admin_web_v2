@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
@@ -9,6 +9,9 @@ import { CampaignApiService } from 'src/app/services/campaign/campaign-api.servi
   templateUrl: './campaigns.component.html',
   styleUrls: ['./campaigns.component.scss']
 })
+@Injectable({
+  providedIn:'root',
+})
 export class CampaignsComponent implements OnInit {
   campaigns: Campaign[] = [];
   user?: User;
@@ -17,6 +20,11 @@ export class CampaignsComponent implements OnInit {
 
   ngOnInit(): void {
     this.check();
+  }
+  ngOnDestroy():void{
+  
+    localStorage.removeItem('reject');
+    localStorage.removeItem('pending');
   }
   async check() {
     this.user = this.authApi.currentUserValue;

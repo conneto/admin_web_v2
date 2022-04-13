@@ -47,7 +47,8 @@ var core_1 = require("@angular/core");
 var auth_service_service_1 = require("src/app/services/auth/auth-service.service");
 var dialog_confirm_component_1 = require("../../dialog-confirm/dialog-confirm.component");
 var OrganizationInforCardComponent = /** @class */ (function () {
-    function OrganizationInforCardComponent(loadingApi, proApi, camApi, location, snackBar, router, dialog, authApi, org) {
+    function OrganizationInforCardComponent(orga, loadingApi, proApi, camApi, location, snackBar, router, dialog, authApi, org) {
+        this.orga = orga;
         this.loadingApi = loadingApi;
         this.proApi = proApi;
         this.camApi = camApi;
@@ -99,10 +100,10 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                                     this.loadingApi.isLoading.next(false);
                                     this.snackBar.showMessage("Your action is success", true);
-                                    if (checkType == 'org') {
-                                        this.org.getAll();
+                                    if (this.checkType == 'org') {
+                                        this.orga.checkToGetData();
                                     }
-                                    else if (checkType == 'pro') {
+                                    else if (this.checkType == 'pro') {
                                         this.proApi.getRequest();
                                     }
                                     else {
@@ -155,10 +156,10 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 this.loadingApi.isLoading.next(true);
                                 if ((res === null || res === void 0 ? void 0 : res.status) === 0) {
                                     this.loadingApi.isLoading.next(false);
-                                    if (checkType == 'org') {
-                                        this.org.getAll();
+                                    if (this.checkType == 'org') {
+                                        this.orga.checkToGetData();
                                     }
-                                    else if (checkType == 'pro') {
+                                    else if (this.checkType == 'pro') {
                                         this.proApi.getRequest();
                                     }
                                     else {
@@ -170,7 +171,6 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     this.loadingApi.isLoading.next(false);
                                     this.snackBar.showMessage("Error.Please try  again", false);
                                 }
-                                this.org.getAll();
                                 _b.label = 2;
                             case 2: return [2 /*return*/];
                         }
@@ -183,6 +183,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], OrganizationInforCardComponent.prototype, "organizations");
+    __decorate([
+        core_1.Input()
+    ], OrganizationInforCardComponent.prototype, "checkType");
     OrganizationInforCardComponent = __decorate([
         core_1.Component({
             selector: 'app-organization-infor-card',

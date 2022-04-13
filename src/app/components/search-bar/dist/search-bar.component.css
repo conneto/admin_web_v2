@@ -1,0 +1,20 @@
+.search-item {
+  display: flex;
+}
+.search-item input {
+  padding: 7px;
+  border-radius: 5px;
+  border: 1px #ddd solid;
+  font-size: 15px;
+}
+.search-item button {
+  border: none;
+  width: 40px;
+}
+.search-item button :hover {
+  opacity: 0.5;
+}
+
+select {
+  border: 1px #ddd solid;
+}

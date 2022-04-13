@@ -5,7 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Organization } from 'src/app/models/organization/organization';
+import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
@@ -21,7 +23,7 @@ export class OrganizationFormComponent implements OnInit {
   logoFile?: File;
   coverFile?: File;
   public static readonly CREATE = 'create';
-  constructor(private loadingService: LoadingServiceService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
+  constructor(private org:OrganizationsComponent,private getEntityService:LoadingDataService,private loadingService: LoadingServiceService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
 
   ngOnInit(): void {
     this.initFormBuilder();
@@ -36,12 +38,13 @@ export class OrganizationFormComponent implements OnInit {
       if (this.organizationId) {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.createById(uploadData, `${this.organizationId}`);
-
         if (res?.status == 0) {
           this.snackBar.showMessage(`${res?.message}`, true);
           this.loadingService.isLoading.next(false);
-          window.location.reload();
+          
           this.router.navigateByUrl('/manager');
+          this.org.checkToGetData();
+       
         } else {
           this.snackBar.showMessage(`${res?.message}`, false);
 
@@ -50,14 +53,15 @@ export class OrganizationFormComponent implements OnInit {
 
         }
       } else {
+        console.log(uploadData.get('organization'));
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.create(uploadData);
-
         if (res?.status == 0) {
           this.snackBar.showMessage(`${res?.message}`, true);
           this.loadingService.isLoading.next(false);
-          window.location.reload();
           this.router.navigateByUrl('/manager');
+          this.org.checkToGetData();
+   
         } else {
           this.snackBar.showMessage(`${res?.message}`, false);
           this.loadingService.isLoading.next(false);

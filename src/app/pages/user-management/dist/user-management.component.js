@@ -53,11 +53,12 @@ var UserManagementComponent = /** @class */ (function () {
         this.oldUsers = [];
         this.isEmpty = false;
         this.isNoMore = false;
+        this.isLoaded = false;
     }
     UserManagementComponent.prototype.ngOnInit = function () {
         this.getListMangerAndVolunteer();
     };
-    UserManagementComponent.prototype.ngAfterViewInit = function () {
+    UserManagementComponent.prototype.ngAfterContentChecked = function () {
     };
     UserManagementComponent.prototype.getListUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -70,6 +71,24 @@ var UserManagementComponent = /** @class */ (function () {
                     case 1:
                         _a.users = _b.sent();
                         return [2 /*return*/];
+                }
+            });
+        });
+    };
+    UserManagementComponent.prototype.getNameById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.userApi.getListUsers()];
+                    case 1:
+                        _a.users = _b.sent();
+                        return [2 /*return*/, this.users = this.users.filter(function (x) {
+                                console.log(x.id, id);
+                                return x.id == id;
+                            })];
                 }
             });
         });
@@ -88,6 +107,7 @@ var UserManagementComponent = /** @class */ (function () {
                             return x.role_id === 'organization_manager' || x.role_id === 'volunteer';
                         });
                         this.oldUsers = this.users;
+                        this.isLoaded = true;
                         this.users = this.users.slice(0, 8);
                         return [2 /*return*/];
                 }
@@ -117,9 +137,8 @@ var UserManagementComponent = /** @class */ (function () {
     };
     UserManagementComponent.prototype.searchName = function (e) {
         var _this = this;
-        var fullName = '';
         setTimeout(function () {
-            if (e.target.value.length < 0 || e.target.value == '') {
+            if (e.target.value.length <= 0 || e.target.value == '') {
                 _this.users = _this.oldUsers.slice(0, 8);
                 _this.isEmpty = false;
                 _this.isNoMore = false;
@@ -135,13 +154,16 @@ var UserManagementComponent = /** @class */ (function () {
                     _this.isEmpty = true;
                 }
             }
-        }, 0);
+        }, 500);
     };
     UserManagementComponent = __decorate([
         core_1.Component({
             selector: 'app-user-management',
             templateUrl: './user-management.component.html',
             styleUrls: ['./user-management.component.scss']
+        }),
+        core_1.Injectable({
+            providedIn: 'root'
         })
     ], UserManagementComponent);
     return UserManagementComponent;

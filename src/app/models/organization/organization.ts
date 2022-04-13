@@ -24,6 +24,7 @@ export class Organization {
     public result_code?: number,
     public result_message?: string,
     public result_note?: string,
+    public created_at?: number,
 
 
   ) { }
@@ -55,7 +56,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.result_code,
       item.result_message,
       item.result_note,
-    
+      item.created_at,
 
     );
   }

@@ -2,9 +2,8 @@ mat-card {
   width: 350px;
   max-width: 100%;
 }
-
-img {
-  height: auto;
+mat-card .mat-card-image {
+  height: 300px !important;
 }
 
 mat-card-title {
