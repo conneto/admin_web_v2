@@ -47,7 +47,9 @@ var core_1 = require("@angular/core");
 var auth_service_service_1 = require("src/app/services/auth/auth-service.service");
 var dialog_confirm_component_1 = require("../../dialog-confirm/dialog-confirm.component");
 var OrganizationInforCardComponent = /** @class */ (function () {
-    function OrganizationInforCardComponent(orga, loadingApi, proApi, camApi, location, snackBar, router, dialog, authApi, org) {
+    function OrganizationInforCardComponent(pro, cam, orga, loadingApi, proApi, camApi, location, snackBar, router, dialog, authApi, org) {
+        this.pro = pro;
+        this.cam = cam;
         this.orga = orga;
         this.loadingApi = loadingApi;
         this.proApi = proApi;
@@ -104,10 +106,10 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                         this.orga.checkToGetData();
                                     }
                                     else if (this.checkType == 'pro') {
-                                        this.proApi.getRequest();
+                                        this.pro.checkToGetData();
                                     }
                                     else {
-                                        this.camApi.getRequest();
+                                        this.cam.checkToGetData();
                                     }
                                 }
                                 else {

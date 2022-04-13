@@ -60,7 +60,9 @@ var TabgroupComponent = /** @class */ (function () {
                     case 'org':
                         this.org.getAllOrganizationByStatus('approve', this.organizations);
                         break;
-                    case 'cam': break;
+                    case 'cam':
+                        this.camp.getAllCampaignsByStatus('approve', this.object);
+                        break;
                     case 'pro':
                         this.pro.getAllProjectsByStatus('approve', this.object);
                         break;
@@ -75,7 +77,9 @@ var TabgroupComponent = /** @class */ (function () {
                     case 'org':
                         this.org.getAllOrganizationByStatus('pending', this.organizations);
                         break;
-                    case 'cam': break;
+                    case 'cam':
+                        this.camp.getAllCampaignsByStatus('pending', this.object);
+                        break;
                     case 'pro':
                         this.pro.getAllProjectsByStatus('pending', this.object);
                         break;
@@ -90,7 +94,9 @@ var TabgroupComponent = /** @class */ (function () {
                     case 'org':
                         this.org.getAllOrganizationByStatus('reject', this.organizations);
                         break;
-                    case 'cam': break;
+                    case 'cam':
+                        this.camp.getAllCampaignsByStatus('reject', this.object);
+                        break;
                     case 'pro':
                         this.pro.getAllProjectsByStatus('reject', this.object);
                         break;

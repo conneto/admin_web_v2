@@ -4,7 +4,7 @@ mat-card {
   max-width: 100%;
 
   .mat-card-image {
-    height: 300px !important;
+    height: 200px !important;
   }
 
 }
@@ -12,7 +12,12 @@ mat-card {
 
 mat-card-title {
   font-size: 16px;
+  height: 70px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
+
 
 mat-card-actions {
   display: flex;
@@ -27,12 +32,12 @@ mat-card-actions span {
 }
 
 mat-card-content p {
-  margin: 10px 0px;
+
   float: left;
   font-size: 1.2em;
   color: rgb(145, 138, 138);
   padding: 0;
-
+  flex-grow: 1;
   span {
     color: rgb(245, 187, 120);
     font-weight: bold;
@@ -49,18 +54,26 @@ mat-card-content p {
 }
 
 .organization-name {
-  margin-left: -35px !important;
-  font-size: 12px;
+  p {
+    margin-bottom: 0 !important;
+    text-align: start;
+  }
+
+  margin-left:5px;
+  flex-grow: 1;
+  display: flex;
   color: rgba(255, 184, 0, 1);
 }
 
 .day-left {
   font-size: 10px;
-
+  display: flex;
 }
 
 .subtitle>mat-card-subtitle {
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 
@@ -72,4 +85,27 @@ mat-card-content p {
 button {
   background-color: rgb(175, 245, 175);
   border: 2px solid #ddd;
+}
+
+.campaign__type {
+  font-weight: bold;
+  text-align: center;
+  z-index: 1;
+  text-transform: uppercase;
+  border: 1px solid #ddd;
+}
+
+.campaign {
+  &__date {
+    display: flex;
+    margin-top:10px !important;
+  }
+  &__progress-bar{
+    margin-bottom: 10px;
+  }
+}
+
+mat-card-subtitle{
+  display: flex;
+  align-items: center;
 }

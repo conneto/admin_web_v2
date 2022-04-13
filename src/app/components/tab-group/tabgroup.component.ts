@@ -70,9 +70,11 @@ export class TabgroupComponent implements OnInit {
           case 'org':
             this.org.getAllOrganizationByStatus('approve', this.organizations);
             break;
-          case 'cam': break;
+          case 'cam':
+            this.camp.getAllCampaignsByStatus('approve', this.object);
+            break;
           case 'pro':
-            this.pro.getAllProjectsByStatus('approve',this.object);
+            this.pro.getAllProjectsByStatus('approve', this.object);
             break;
         }
         break;
@@ -85,8 +87,10 @@ export class TabgroupComponent implements OnInit {
           case 'org':
             this.org.getAllOrganizationByStatus('pending', this.organizations);
             break;
-          case 'cam': break;
-          case 'pro': this.pro.getAllProjectsByStatus('pending',this.object); break;
+          case 'cam':
+            this.camp.getAllCampaignsByStatus('pending', this.object);
+            break;
+          case 'pro': this.pro.getAllProjectsByStatus('pending', this.object); break;
         }
         break;
       case 'reject':
@@ -98,8 +102,10 @@ export class TabgroupComponent implements OnInit {
           case 'org':
             this.org.getAllOrganizationByStatus('reject', this.organizations);
             break;
-          case 'cam': break;
-          case 'pro': this.pro.getAllProjectsByStatus('reject',this.object); break;
+          case 'cam':
+            this.camp.getAllCampaignsByStatus('reject', this.object);
+            break;
+          case 'pro': this.pro.getAllProjectsByStatus('reject', this.object); break;
         }
         break;
 

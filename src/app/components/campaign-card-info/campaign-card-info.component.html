@@ -1,37 +1,78 @@
 <div *ngIf="campaign">
-  <a routerLink="campaign-details/{{ campaign.id }}" style='text-decoration: none;color: black;'>
+  <a
+    routerLink="campaign-details/{{ campaign.id }}"
+    style="text-decoration: none; color: black"
+  >
     <mat-card>
       <img
         mat-card-image
-        src="{{urlApi}}/show/images?p={{campaign.cover}}"
+        src="{{ urlApi }}/show/images?p={{ campaign.cover }}"
       />
 
       <mat-card-title>
         {{ campaign.name }}
       </mat-card-title>
-
+      <div class="campaign__type">
+        <span>{{ campaign.type }}</span>
+      </div>
       <div class="subtitle">
-        <img mat-card-avatar src="assets/icon/donation-icon.png" />
-        <mat-card-subtitle class="organization-name"
-          >Vinacapital Foundation</mat-card-subtitle
-        >
-        <mat-card-subtitle class="days-left">1 month left</mat-card-subtitle>
+        <img
+          mat-card-avatar
+          src="{{ urlApi }}/show/images?p={{ campaign.org_logo }}"
+        />
+        <div class="organization-name">
+          <p>{{ campaign.org_name }}</p>
+        </div>
       </div>
       <mat-card-content>
-        <p>
-          <span class="now">{{ current | currency: "VND" }}</span
-          >/{{ total | currency: "VND" }}
-        </p>
-        <mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+        <div class="campaign__date">
+          <div
+            *ngIf="
+              campaign.type == 'Quyên Góp';
+              then donation;
+              else recruitment
+            "
+          ></div>
+          <ng-template #donation>
+            <p>
+              <span class="now">{{
+                campaign.totalDonated | currency: "VND"
+              }}</span
+              >/{{ campaign.target | currency: "VND" }}
+            </p>
+          </ng-template>
+          <ng-template #recruitment>
+            <p>
+              <span class="now">{{ campaign.totalPaticipant }}</span
+              >/{{ campaign.target }}
+            </p>
+          </ng-template>
+          <div class="days-left">
+            <mat-card-subtitle>
+              <mat-icon>date_range</mat-icon>
+              {{ campaign.createdDate | date: "dd/MM/yyyy" }}</mat-card-subtitle
+            >
+          </div>
+        </div>
       </mat-card-content>
+      <div class="campaign__progress-bar">
+        <mat-progress-bar
+          mode="determinate"
+          value="{{valueNumber}}"
+        ></mat-progress-bar>
+      </div>
       <mat-card-actions>
         <div>
-          <p><span>1,176</span> donations</p>
+          <p>
+            Lượt tham gia: <span>{{ campaign.totalPaticipant }}</span>
+          </p>
         </div>
         <div>
-          <p>Achieved:<span>100%</span></p>
+          <p>
+            Đạt được: <span>{{ campaign.org_id | percent: "1.0-2" }}</span>
+          </p>
         </div>
-        <button mat-button>Compleated</button>
+        <!-- <button mat-button>Compleated</button> -->
       </mat-card-actions>
     </mat-card>
   </a>

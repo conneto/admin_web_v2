@@ -3,11 +3,15 @@ mat-card {
   max-width: 100%;
 }
 mat-card .mat-card-image {
-  height: 300px !important;
+  height: 200px !important;
 }
 
 mat-card-title {
   font-size: 16px;
+  height: 70px;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }
 
 mat-card-actions {
@@ -23,11 +27,11 @@ mat-card-actions span {
 }
 
 mat-card-content p {
-  margin: 10px 0px;
   float: left;
   font-size: 1.2em;
   color: #918a8a;
   padding: 0;
+  flex-grow: 1;
 }
 mat-card-content p span {
   color: #f5bb78;
@@ -43,17 +47,25 @@ mat-card-content p span {
 }
 
 .organization-name {
-  margin-left: -35px !important;
-  font-size: 12px;
+  margin-left: 5px;
+  flex-grow: 1;
+  display: flex;
   color: #ffb800;
+}
+.organization-name p {
+  margin-bottom: 0 !important;
+  text-align: start;
 }
 
 .day-left {
   font-size: 10px;
+  display: flex;
 }
 
 .subtitle > mat-card-subtitle {
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .mat-button {
@@ -63,4 +75,25 @@ mat-card-content p span {
 button {
   background-color: #aff5af;
   border: 2px solid #ddd;
+}
+
+.campaign__type {
+  font-weight: bold;
+  text-align: center;
+  z-index: 1;
+  text-transform: uppercase;
+  border: 1px solid #ddd;
+}
+
+.campaign__date {
+  display: flex;
+  margin-top: 10px !important;
+}
+.campaign__progress-bar {
+  margin-bottom: 10px;
+}
+
+mat-card-subtitle {
+  display: flex;
+  align-items: center;
 }

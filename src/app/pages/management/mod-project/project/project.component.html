@@ -17,9 +17,9 @@
       </ng-template>
 
       <app-search-bar
-      (getItem)="getData($event)"
-      [entity]="passData"
-      [entityCopy]="oldData"
+        (getItem)="getData($event)"
+        [entity]="passData"
+        [entityCopy]="oldData"
       ></app-search-bar>
     </div>
     <div class="request-component">
@@ -46,9 +46,11 @@
           </div>
         </ng-template>
 
-        <app-search-bar      (getItem)="getData($event)"
-        [entity]="passData"
-        [entityCopy]="oldData"></app-search-bar>
+        <app-search-bar
+          (getItem)="getData($event)"
+          [entity]="passData"
+          [entityCopy]="oldData"
+        ></app-search-bar>
       </div>
       <div class="container">
         <div *ngFor="let project of projects">

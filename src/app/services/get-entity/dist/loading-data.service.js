@@ -26,7 +26,7 @@ var LoadingDataService = /** @class */ (function () {
                 this.project.checkToGetData(), this.proRequest.getRequest();
                 break;
             case 'cam':
-                this.campRequest.getRequest(), this.campaign.check();
+                this.campaign.checkToGetData();
                 break;
         }
     };

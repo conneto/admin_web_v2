@@ -113,6 +113,7 @@ var ProjectComponent = /** @class */ (function () {
                 }
                 switch (status) {
                     case 'approve':
+                        this.isLoaded = true;
                         this.isRequest = false;
                         for (i = 0; i < this.projects.length; i++) {
                             this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
@@ -129,6 +130,7 @@ var ProjectComponent = /** @class */ (function () {
                         }
                         break;
                     case 'reject':
+                        this.isLoaded = true;
                         this.isRequest = false;
                         for (i = 0; i < this.projects.length; i++) {
                             this.projects[i].cover = (_h = (_g = this.projects[i]) === null || _g === void 0 ? void 0 : _g.cover) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
@@ -145,6 +147,7 @@ var ProjectComponent = /** @class */ (function () {
                         }
                         break;
                     case 'pending':
+                        this.isLoaded = true;
                         for (i = 0; i < this.projects.length; i++) {
                             this.projects[i].cover = (_p = (_o = this.projects[i]) === null || _o === void 0 ? void 0 : _o.cover) === null || _p === void 0 ? void 0 : _p.replace(/\\/g, '\/');
                             this.projects[i].logo = (_r = (_q = this.projects[i]) === null || _q === void 0 ? void 0 : _q.logo) === null || _r === void 0 ? void 0 : _r.replace(/\\/g, '\/');
@@ -167,7 +170,6 @@ var ProjectComponent = /** @class */ (function () {
                         break;
                 }
                 this.number = this.projects.length;
-                this.isLoaded = true;
                 return [2 /*return*/];
             });
         });

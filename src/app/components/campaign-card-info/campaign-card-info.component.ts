@@ -9,12 +9,14 @@ import { LoadingServiceService } from 'src/app/services/loading/loading-service.
 })
 export class CampaignCardInfoComponent implements OnInit {
 @Input() campaign?:Campaign;
+@Input() valueNumber?:any;
 urlApi?:string;
   constructor(private loadingService:LoadingServiceService) { }
-  current=60000000;
-  total = 120000000;
+  
   ngOnInit(): void {
     this.urlApi=this.loadingService.getApiGetLink.value;
+    this.valueNumber=(Number(this.campaign?.org_id)*100).toFixed(2);
+    console.log(this.valueNumber);
   }
 
 }

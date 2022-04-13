@@ -7,7 +7,9 @@ import { Organization } from 'src/app/models/organization/organization';
 import { CampaignRequestComponent } from 'src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.component';
 import { OrganizationRequestComponent } from 'src/app/pages/manage-request/mod-organization/organization-request/organization-request.component';
 import { ProjectRequestComponent } from 'src/app/pages/manage-request/mod-project/project-request/project-request.component';
+import { CampaignsComponent } from 'src/app/pages/management/mod-campaign/campaigns/campaigns.component';
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
+import { ProjectComponent } from 'src/app/pages/management/mod-project/project/project.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
@@ -26,17 +28,17 @@ import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-mess
 })
 export class OrganizationInforCardComponent implements OnInit {
   @Input() organizations?: Organization;
-  urlApi?:string;
-  urlLogo?:string;
+  urlApi?: string;
+  urlLogo?: string;
   @Input() checkType?: any;
-  constructor(private orga:OrganizationsComponent,private loadingApi:LoadingServiceService,private proApi: ProjectRequestComponent, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
+  constructor(private pro: ProjectComponent, private cam: CampaignsComponent, private orga: OrganizationsComponent, private loadingApi: LoadingServiceService, private proApi: ProjectRequestComponent, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
 
   }
 
   ngOnInit(): void {
-    this.urlApi=this.loadingApi.getApiGetLink.value;
-     this.urlLogo=this.organizations?.logo?.replace(/\\/g,'\/');
-  
+    this.urlApi = this.loadingApi.getApiGetLink.value;
+    this.urlLogo = this.organizations?.logo?.replace(/\\/g, '\/');
+
   }
 
   viewDetails(id: string) {
@@ -53,7 +55,7 @@ export class OrganizationInforCardComponent implements OnInit {
     })
 
     diaglogRef.afterClosed().subscribe(async (data) => {
-     
+
       if (data) {
         this.loadingApi.isLoading.next(true);
         const data1 = {
@@ -63,22 +65,22 @@ export class OrganizationInforCardComponent implements OnInit {
           status: AuthServiceService.APPROVE,
           note: 'Approve this',
         }
-        
+
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
-    
+
         if (res?.status == 0) {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Your action is success",true);
+          this.snackBar.showMessage("Your action is success", true);
           if (this.checkType == 'org') {
             this.orga.checkToGetData();
           } else if (this.checkType == 'pro') {
-            this.proApi.getRequest();
+            this.pro.checkToGetData();
           } else {
-            this.camApi.getRequest();
+            this.cam.checkToGetData();
           }
         } else {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Error.Please try  again",false);
+          this.snackBar.showMessage("Error.Please try  again", false);
         }
       }
     })
@@ -93,7 +95,7 @@ export class OrganizationInforCardComponent implements OnInit {
       }
     })
     diaglogRef.afterClosed().subscribe(async data => {
-      
+
       if (data) {
         this.loadingApi.isLoading.next(true);
         const data1 = {
@@ -114,13 +116,13 @@ export class OrganizationInforCardComponent implements OnInit {
           } else {
             this.camApi.getRequest();
           }
-          this.snackBar.showMessage("Your action is success",true);
+          this.snackBar.showMessage("Your action is success", true);
         } else {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Error.Please try  again",false);
+          this.snackBar.showMessage("Error.Please try  again", false);
         }
-  
- 
+
+
       }
     })
   }

@@ -26,7 +26,7 @@ export class LoadingDataService {
         break;
       case 'pro': this.project.checkToGetData(), this.proRequest.getRequest();
         break;
-      case 'cam': this.campRequest.getRequest(), this.campaign.check();
+      case 'cam': this.campaign.checkToGetData()
         break;
     }
   }

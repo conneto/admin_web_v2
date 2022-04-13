@@ -74,12 +74,14 @@ export class ProjectComponent implements OnInit {
     switch (status) {
 
       case 'approve':
+        this.isLoaded = true;
         this.isRequest = false;
         for (var i = 0; i < this.projects.length; i++) {
           this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
           this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
         }
+       
         this.projects = this.projects.filter(x => {
           return x.resultCode == 610;
         })
@@ -90,13 +92,14 @@ export class ProjectComponent implements OnInit {
         }
         break;
       case 'reject':
-
+        this.isLoaded = true;
         this.isRequest = false;
         for (var i = 0; i < this.projects.length; i++) {
           this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
           this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
         }
+  
         this.projects = this.projects.filter(x => {
           return x.resultCode == 611;
         })
@@ -107,12 +110,13 @@ export class ProjectComponent implements OnInit {
         }
         break;
       case 'pending':
-
+        this.isLoaded = true;
         for (var i = 0; i < this.projects.length; i++) {
           this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
           this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
         }
+   
         this.projects = this.projects.filter(x => {
           return x.resultCode == 601;
         })
@@ -131,7 +135,7 @@ export class ProjectComponent implements OnInit {
 
     }
     this.number = this.projects.length;
-    this.isLoaded = true;
+ 
   }
 
   async getAll() {

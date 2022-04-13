@@ -1,9 +1,70 @@
-<div class='container'> 
-    <div *ngFor='let cam of campaigns'>
-        <app-campaign-card-info [campaign]='cam'></app-campaign-card-info>
+<div *ngIf="isLoaded">
+  <app-tabgroup [entity]="'cam'" [object]="passData"></app-tabgroup>
+
+  <ng-template #noRequest>
+    <div *ngIf="!isEmpty">
+      <div class="search-bar">
+        <div *ngIf="!noResultBySearch; then name; else result"></div>
+        <div>
+          <ng-template #name>
+            <div class="name">
+              <h3>Chiến Dịch</h3>
+              <p>({{ number ? number : "" }})</p>
+            </div>
+          </ng-template>
+          <ng-template #result>
+            <div class="name">
+              <h3>Không tìm thấy kết quả phù hợp</h3>
+            </div>
+          </ng-template>
+        </div>
+        <div>
+          <app-search-bar
+            (getItem)="getData($event)"
+            [entity]="passData"
+            [entityCopy]="oldData"
+          ></app-search-bar>
+        </div>
+      </div>
+
+      <div class="container">
+        <div *ngFor="let cam of campaigns">
+          <app-campaign-card-info [valueNumber]='value'[campaign]="cam"></app-campaign-card-info>
+        </div>
+      </div>
     </div>
-   
-</div>
-<div *ngIf='isEmpty'>
-    Nothing here !
+  </ng-template>
+  <div *ngIf="isEmpty">Nothing here !</div>
+  <div *ngIf="isRequest; then request; else noRequest"></div>
+  <ng-template #request>
+    <div *ngIf="!isEmpty">
+      <div class="search-bar">
+        <div *ngIf="!noResultBySearch; then name; else result"></div>
+        <ng-template #name>
+          <div class="name">
+            <h3>Chiến Dịch</h3>
+            <p>({{ number ? number : "" }})</p>
+          </div>
+        </ng-template>
+        <ng-template #result>
+          <div class="name">
+            <h3>Không tìm thấy kết quả phù hợp</h3>
+          </div>
+        </ng-template>
+
+        <app-search-bar
+          (getItem)="getData($event)"
+          [entity]="passData"
+          [entityCopy]="oldData"
+        ></app-search-bar>
+      </div>
+    </div>
+    <div class="container">
+      <div *ngFor="let campaign of campaigns">
+        <app-campaign-request-card
+          [campaign]="campaign"
+        ></app-campaign-request-card>
+      </div>
+    </div>
+  </ng-template>
 </div>

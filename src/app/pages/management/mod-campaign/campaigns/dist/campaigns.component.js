@@ -49,55 +49,141 @@ var CampaignsComponent = /** @class */ (function () {
         this.api = api;
         this.authApi = authApi;
         this.campaigns = [];
+        this.passData = [];
+        this.oldData = [];
         this.isEmpty = false;
     }
     CampaignsComponent.prototype.ngOnInit = function () {
-        this.check();
+        this.checkToGetData();
     };
     CampaignsComponent.prototype.ngOnDestroy = function () {
         localStorage.removeItem('reject');
         localStorage.removeItem('pending');
     };
-    CampaignsComponent.prototype.check = function () {
-        var _a, _b, _c, _d, _e;
+    CampaignsComponent.prototype.getData = function (e) {
+        if (e == null || e.length <= 0) {
+            this.noResultBySearch = true;
+            this.campaigns = e;
+        }
+        else {
+            this.campaigns = e;
+            this.noResultBySearch = false;
+        }
+    };
+    CampaignsComponent.prototype.checkToGetData = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _f, i, _g, i;
-            return __generator(this, function (_h) {
-                switch (_h.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        this.user = this.authApi.currentUserValue;
-                        if (!(((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) === 'organization_manager')) return [3 /*break*/, 2];
-                        _f = this;
+                        _a = this;
                         return [4 /*yield*/, this.api.getAll()];
                     case 1:
-                        _f.campaigns = _h.sent();
-                        for (i = 0; i < this.campaigns.length; i++) {
-                            this.campaigns[i].cover = (_c = (_b = this.campaigns[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
+                        _a.campaigns = _b.sent();
+                        this.passData = this.campaigns;
+                        if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+                            && !localStorage.getItem('pending')) {
+                            this.getAllCampaignsByStatus('approve');
+                            localStorage.setItem('approve', 'true');
                         }
-                        this.campaigns = this.campaigns.filter(function (x) {
-                            return x.result_code !== 711;
-                        });
-                        if (this.campaigns == [] || this.campaigns.length <= 0) {
-                            this.isEmpty = true;
+                        else {
+                            if (localStorage.getItem('reject')) {
+                                this.getAllCampaignsByStatus('reject');
+                            }
+                            else if (localStorage.getItem('approve')) {
+                                this.getAllCampaignsByStatus('approve');
+                            }
+                            else if (localStorage.getItem('pending')) {
+                                this.getAllCampaignsByStatus('pending');
+                            }
                         }
-                        return [3 /*break*/, 4];
-                    case 2:
-                        _g = this;
-                        return [4 /*yield*/, this.api.getAll()];
-                    case 3:
-                        _g.campaigns = _h.sent();
-                        for (i = 0; i < this.campaigns.length; i++) {
-                            this.campaigns[i].cover = (_e = (_d = this.campaigns[i]) === null || _d === void 0 ? void 0 : _d.cover) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
-                        }
-                        this.campaigns = this.campaigns.filter(function (x) {
-                            return x.result_code === 710;
-                        });
-                        if (this.campaigns == [] || this.campaigns.length <= 0) {
-                            this.isEmpty = true;
-                        }
-                        _h.label = 4;
-                    case 4: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
+            });
+        });
+    };
+    CampaignsComponent.prototype.getAllCampaignsByStatus = function (status, pro) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+        return __awaiter(this, void 0, void 0, function () {
+            var i, a, b, c, i, i;
+            return __generator(this, function (_o) {
+                this.user = this.authApi.currentUserValue;
+                if (pro) {
+                    this.campaigns = pro;
+                }
+                switch (status) {
+                    case 'approve':
+                        this.isLoaded = true;
+                        this.isRequest = false;
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                            this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                            switch (this.campaigns[i].type) {
+                                case 'donation':
+                                    this.campaigns[i].type = 'Quyên Góp';
+                                    this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
+                                    console.log(this.campaigns[i].org_id);
+                                    break;
+                                case 'recruitment':
+                                    this.campaigns[i].type = 'Thiện Nguyện';
+                                    this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
+                                    console.log(this.campaigns[i].org_id);
+                                    break;
+                            }
+                            a = Date.parse("" + this.campaigns[i].startDate);
+                            b = Date.parse("" + this.campaigns[i].endDate);
+                            c = Date.now();
+                            // console.log((b - c) / (1000 * 60 * 60 * 24));
+                        }
+                        this.campaigns = this.campaigns.filter(function (x) {
+                            return x.result_code == 710;
+                        });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 710; });
+                        this.isEmpty = false;
+                        if (this.campaigns == [] || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        break;
+                    case 'reject':
+                        this.isLoaded = true;
+                        this.isRequest = false;
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_f = (_e = this.campaigns[i]) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                            this.campaigns[i].org_logo = (_h = (_g = this.campaigns[i]) === null || _g === void 0 ? void 0 : _g.org_logo) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
+                        }
+                        this.campaigns = this.campaigns.filter(function (x) {
+                            return x.result_code == 711;
+                        });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 711; });
+                        this.isEmpty = false;
+                        if (this.campaigns == null || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        break;
+                    case 'pending':
+                        this.isLoaded = true;
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_k = (_j = this.campaigns[i]) === null || _j === void 0 ? void 0 : _j.cover) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
+                            this.campaigns[i].org_logo = (_m = (_l = this.campaigns[i]) === null || _l === void 0 ? void 0 : _l.org_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
+                        }
+                        this.campaigns = this.campaigns.filter(function (x) {
+                            return x.result_code == 701;
+                        });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 701; });
+                        if (this.authApi.currentUserValue.role == 'admin') {
+                            this.isRequest = true;
+                        }
+                        else {
+                            this.isRequest = false;
+                        }
+                        this.isEmpty = false;
+                        if (this.campaigns == null || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        break;
+                }
+                this.number = this.campaigns.length;
+                return [2 /*return*/];
             });
         });
     };
