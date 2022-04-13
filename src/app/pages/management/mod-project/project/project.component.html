@@ -1,34 +1,95 @@
-<div *ngIf="projects">
-  <div class="container">
-    <div *ngFor="let project of projects">
-      <a
-        routerLink="project-request-detail/{{ project.id }}"
-        style="text-decoration: none"
-      >
-        <mat-card>
-          <div class="image">
-            <img
-              alt="Cover of this project"
-              mat-card-image
-              src="{{urlApi}}/show/images?p={{project.cover}}"
-            />
-          </div>
-          <mat-card-title> {{ project.name }}</mat-card-title>
-          <div class="card-icon">
-            <div>
-              <mat-icon title="Request by">people</mat-icon
-              ><span class="margin-left">Khang Tran</span>
-            </div>
-            <div>
-              <mat-icon title="At">date_range</mat-icon
-              ><span class="margin-left">{{project.created_at | date:'mediumDate'}}</span>
-            </div>
-          </div>
-        </mat-card>
-      </a>
+<div *ngIf="isLoaded">
+  <app-tabgroup [entity]="'pro'" [object]="passData"></app-tabgroup>
+
+  <div *ngIf="isRequest">
+    <div class="search-bar" *ngIf="!isEmpty">
+      <div *ngIf="!noResultBySearch; then name; else result"></div>
+      <ng-template #name>
+        <div class="name">
+          <h3>Dự Án</h3>
+          <p>({{ number ? number : "" }})</p>
+        </div>
+      </ng-template>
+      <ng-template #result>
+        <div class="name">
+          <h3>Không tìm thấy kết quả phù hợp</h3>
+        </div>
+      </ng-template>
+
+      <app-search-bar
+      (getItem)="getData($event)"
+      [entity]="passData"
+      [entityCopy]="oldData"
+      ></app-search-bar>
+    </div>
+    <div class="request-component">
+      <app-project-request-card
+        *ngFor="let project of projects"
+        [projects]="project"
+      ></app-project-request-card>
     </div>
   </div>
-</div>
-<div *ngIf='isEmpty'>
-  Nothing here !
+
+  <div *ngIf="!isRequest">
+    <div *ngIf="projects">
+      <div class="search-bar" *ngIf="!isEmpty">
+        <div *ngIf="!noResultBySearch; then name; else result"></div>
+        <ng-template #name>
+          <div class="name">
+            <h3>Dự Án</h3>
+            <p>({{ number ? number : "" }})</p>
+          </div>
+        </ng-template>
+        <ng-template #result>
+          <div class="name">
+            <h3>Không tìm thấy kết quả phù hợp</h3>
+          </div>
+        </ng-template>
+
+        <app-search-bar      (getItem)="getData($event)"
+        [entity]="passData"
+        [entityCopy]="oldData"></app-search-bar>
+      </div>
+      <div class="container">
+        <div *ngFor="let project of projects">
+          <a
+            routerLink="project-request-detail/{{ project.id }}"
+            style="text-decoration: none"
+          >
+            <mat-card>
+              <div class="image">
+                <img
+                  loading="lazy"
+                  alt="Cover of this project"
+                  mat-card-image
+                  src="{{ urlApi }}/show/images?p={{ project.cover }}"
+                />
+              </div>
+              <mat-card-title> {{ project.name }}</mat-card-title>
+              <div class="card-icon">
+                <div>
+                  <img
+                    loading="lazy"
+                    src="{{ urlApi }}/show/images?p={{
+                      project.organizationLogo
+                    }}"
+                  />
+                  <span class="margin-left">{{
+                    project.organizationName
+                  }}</span>
+                </div>
+                <div>
+                  <mat-icon title="At">date_range</mat-icon
+                  ><span class="margin-left">{{
+                    project.created_at | date: "dd/MM/yyyy"
+                  }}</span>
+                </div>
+              </div>
+            </mat-card>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="isEmpty">Nothing here !</div>
 </div>

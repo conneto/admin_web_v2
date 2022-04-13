@@ -22,7 +22,9 @@ export class CampaignDetailsComponent implements OnInit {
   }
   async getByID(){
     const id=this.activated.snapshot.paramMap.get('id');
+  
     this.campaign=await this.campaignApi.getById(`${id}`);
+    console.log(this.campaign);
     this.urlLogo = this.campaign?.org_logo?.replace(/\\/g, '\/');
     this.urlCover = this.campaign?.cover?.replace(/\\/g, '\/');
    

@@ -47,7 +47,9 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var ts_md5_1 = require("ts-md5");
 var RegisterComponent = /** @class */ (function () {
-    function RegisterComponent(snackBar, router, authService, formBuilder) {
+    function RegisterComponent(userComponent, loadingService, snackBar, router, authService, formBuilder) {
+        this.userComponent = userComponent;
+        this.loadingService = loadingService;
         this.snackBar = snackBar;
         this.router = router;
         this.authService = authService;
@@ -61,36 +63,47 @@ var RegisterComponent = /** @class */ (function () {
     };
     RegisterComponent.prototype.register = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var md5, uploadData, oldPass, res, baseResponse;
+            var md5, uploadData, oldPass, oldPhone, res, baseResponse;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         this.isSubmited = true;
+                        this.loadingService.isLoading.next(true);
                         if (!this.registerForm.valid) return [3 /*break*/, 6];
                         md5 = new ts_md5_1.Md5();
                         uploadData = new FormData();
                         oldPass = this.registerForm.value.password;
-                        this.registerForm.value.number_phone = '0' + "" + this.registerForm.value.number_phone;
+                        oldPhone = this.registerForm.value.number_phone;
+                        this.registerForm.value.number_phone = "0" + "" + oldPhone;
+                        // this.registerForm.patchValue({ password: md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end() });
                         this.registerForm.value.password = md5.appendStr(this.registerForm.value.password.concat(RegisterComponent_1.KEY)).end();
+                        console.log(this.registerForm.value.password);
                         uploadData.append('account', JSON.stringify(this.registerForm.value));
                         console.log(uploadData.get('account'));
                         return [4 /*yield*/, this.authService.register(uploadData)];
                     case 1:
                         res = _a.sent();
-                        console.log(res === null || res === void 0 ? void 0 : res.status);
                         if (!((res === null || res === void 0 ? void 0 : res.status) == 0)) return [3 /*break*/, 5];
-                        this.snackBar.showMessage("Create success !");
+                        this.userComponent.getListMangerAndVolunteer();
+                        this.loadingService.isLoading.next(false);
+                        this.snackBar.showMessage(res.message, true);
                         return [4 /*yield*/, this.authService.login(false, this.registerForm.value.username, oldPass)];
                     case 2:
                         baseResponse = _a.sent();
                         if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 0)) return [3 /*break*/, 4];
+                        this.snackBar.showMessage(res.message, true);
                         return [4 /*yield*/, this.router.navigate(['admin'])];
                     case 3:
                         _a.sent();
                         _a.label = 4;
                     case 4: return [3 /*break*/, 6];
                     case 5:
-                        this.snackBar.showMessage("Error . Please try again !");
+                        this.registerForm.setValue({
+                            username: this.registerForm.value.username, password: oldPass, first_name: this.registerForm.value.first_name,
+                            last_name: this.registerForm.value.last_name, number_phone: oldPhone, role: 'organization_manager'
+                        });
+                        this.loadingService.isLoading.next(false);
+                        this.snackBar.showMessage(res.message, false);
                         _a.label = 6;
                     case 6: return [2 /*return*/];
                 }

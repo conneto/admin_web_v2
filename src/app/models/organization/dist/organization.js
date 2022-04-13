@@ -9,7 +9,7 @@ exports.__esModule = true;
 exports.OrganizationAdapter = exports.Organization = void 0;
 var core_1 = require("@angular/core");
 var Organization = /** @class */ (function () {
-    function Organization(id, category, type, name, description, founding_date, eng_name, is_active, logo, mission, cover, operating_license, vision, website, approved_by, approved_date, created_by, result_code, result_message, result_note) {
+    function Organization(id, category, type, name, description, founding_date, eng_name, is_active, logo, mission, cover, operating_license, vision, website, approved_by, approved_date, created_by, result_code, result_message, result_note, created_at) {
         this.id = id;
         this.category = category;
         this.type = type;
@@ -30,6 +30,7 @@ var Organization = /** @class */ (function () {
         this.result_code = result_code;
         this.result_message = result_message;
         this.result_note = result_note;
+        this.created_at = created_at;
     }
     return Organization;
 }());
@@ -38,7 +39,7 @@ var OrganizationAdapter = /** @class */ (function () {
     function OrganizationAdapter() {
     }
     OrganizationAdapter.prototype.adapt = function (item) {
-        return new Organization(item.id, item.category, item.type, item.name, item.description, item.founding_date, item.eng_name, item.is_active, item.logo, item.mission, item.cover, item.operating_license, item.vision, item.website, item.approved_by, item.approved_date, item.created_by, item.result_code, item.result_message, item.result_note);
+        return new Organization(item.id, item.category, item.type, item.name, item.description, item.founding_date, item.eng_name, item.is_active, item.logo, item.mission, item.cover, item.operating_license, item.vision, item.website, item.approved_by, item.approved_date, item.created_by, item.result_code, item.result_message, item.result_note, item.created_at);
     };
     OrganizationAdapter = __decorate([
         core_1.Injectable({

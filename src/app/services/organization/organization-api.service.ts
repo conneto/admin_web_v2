@@ -36,7 +36,7 @@ export class OrganizationApiService {
 
     let res: BaseResponse = await this.apiService.post(`${OrganizationApiService.ORGANIZATIONS}`, data);
     if (res.status != 0) {
-      return null;
+      return res;
     }
     return res;
   }
