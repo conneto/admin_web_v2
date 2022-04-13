@@ -1,14 +1,11 @@
 <div *ngIf="organizations">
   <mat-card title="Click to see more details" class="moveFadein">
-    <a
-      class="router"
-      routerLink="organization-request-detail/{{ organizations.id }}"
-    >
+    <a class='router'routerLink="organization-request-detail/{{ organizations.id }}">
       <mat-card-title-group>
         <mat-card-title> {{ organizations.name }}</mat-card-title>
-        <mat-card-subtitle>{{ organizations.type }}</mat-card-subtitle>
+        <mat-card-subtitle>Non-profit organization</mat-card-subtitle>
 
-        <img mat-card-avatar src="{{ urlApi }}/show/images?p={{ urlLogo }}" />
+        <img mat-card-avatar src="{{urlApi}}/show/images?p={{urlLogo}}" />
       </mat-card-title-group>
       <div class="card-icon">
         <div>
@@ -17,10 +14,7 @@
         </div>
         <div>
           <mat-icon title="At">date_range</mat-icon
-          ><span
-            class="margin-left"
-            >{{organizations.created_at|date:'shortDate'}}</span
-          >
+          ><span class="margin-left">25/02/2012</span>
         </div>
       </div>
     </a>
@@ -36,3 +30,34 @@
   </mat-card>
 </div>
 
+<div *ngIf="!organizations">
+  <mat-card title="Click to see more details" class="moveFadein">
+    <a class='router'routerLink="organization-request-detail/hihi">
+      <mat-card-title-group>
+        <mat-card-title> Hihih</mat-card-title>
+        <mat-card-subtitle>Non-profit organization</mat-card-subtitle>
+
+        <img mat-card-avatar src="" />
+      </mat-card-title-group>
+      <div class="card-icon">
+        <div>
+          <mat-icon title="Request by">people</mat-icon
+          ><span class="margin-left">Khang Tran</span>
+        </div>
+        <div>
+          <mat-icon title="At">date_range</mat-icon
+          ><span class="margin-left">25/02/2012</span>
+        </div>
+      </div>
+    </a>
+    <mat-card-actions>
+      <button (click)="approve()" title="Click to approve" mat-button>
+        Approve
+      </button>
+
+      <button (click)="reject()" title="Click to decline" mat-button>
+        Decline
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

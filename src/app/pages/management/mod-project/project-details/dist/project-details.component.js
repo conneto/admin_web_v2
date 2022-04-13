@@ -46,8 +46,7 @@ exports.ProjectDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
 var ProjectDetailsComponent = /** @class */ (function () {
-    function ProjectDetailsComponent(getEntityService, router, loadingService, snackBar, auth, location, proApi, campApi, actived, dialog) {
-        this.getEntityService = getEntityService;
+    function ProjectDetailsComponent(router, loadingService, snackBar, auth, location, proApi, campApi, actived, dialog) {
         this.router = router;
         this.loadingService = loadingService;
         this.snackBar = snackBar;
@@ -117,7 +116,6 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         res = _a.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.loadingService.isLoading.next(false);
-                            this.getEntityService.getByEntity('cam');
                             this.router.navigate(['/manager/manage-campaign']);
                             this.snackBar.showMessage(res.message, true);
                         }

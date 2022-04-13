@@ -51,162 +51,16 @@ var OrganizationsComponent = /** @class */ (function () {
         this.service = service;
         this.userApi = userApi;
         this.organizations = [];
-        this.oldData = [];
         this.isShow = false;
+        this.noOrg = false;
         this.users = [];
-        this.isRequest = false;
-        this.isActivated = false;
-        this.passData = [];
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
-        this.checkToGetData();
+        this.getAllOrganizations();
         this.userApi.currentUserValue;
         this.urlApi = this.loading.getApiGetLink.value;
     };
-    OrganizationsComponent.prototype.ngOnDestroy = function () {
-    };
-    OrganizationsComponent.prototype.getState = function (e) {
-        this.isChangeState = e;
-    };
-    OrganizationsComponent.prototype.getData = function (e) {
-        if (e == null || e.length <= 0) {
-            this.noResultBySearch = true;
-            this.organizations = e;
-        }
-        else {
-            this.organizations = e;
-            this.noResultBySearch = false;
-        }
-    };
-    OrganizationsComponent.prototype.checkToGetData = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.service.getAll()];
-                    case 1:
-                        _a.organizations = _b.sent();
-                        this.passData = this.organizations;
-                        if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-                            && !localStorage.getItem('pending')) {
-                            this.getAllOrganizationByStatus('approve');
-                            localStorage.setItem('approve', 'true');
-                        }
-                        else {
-                            if (localStorage.getItem('reject')) {
-                                this.getAllOrganizationByStatus('reject');
-                            }
-                            else if (localStorage.getItem('approve')) {
-                                this.getAllOrganizationByStatus('approve');
-                            }
-                            else if (localStorage.getItem('pending')) {
-                                this.getAllOrganizationByStatus('pending');
-                            }
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    OrganizationsComponent.prototype.getAllOrganizationByStatus = function (status, org) {
-        var _a, _b, _c, _d, _e, _f;
-        return __awaiter(this, void 0, void 0, function () {
-            var i, i, i;
-            return __generator(this, function (_g) {
-                this.status = status;
-                if (org) {
-                    this.organizations = org;
-                }
-                if (status) {
-                    switch (status) {
-                        case 'approve':
-                            this.isRequest = false;
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-                            }
-                            this.user;
-                            if (this.userApi.currentUserValue.role == 'organization_manager') {
-                                if (this.organizations.length <= 0 || this.organizations == null) {
-                                    this.organizations = [];
-                                    this.noOrg = true;
-                                    this.isLoaded = true;
-                                }
-                                else {
-                                    this.isLoaded = true;
-                                    this.organizations = this.organizations.filter(function (x) {
-                                        return x.result_code == 510;
-                                    });
-                                    this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
-                                    this.noOrg = false;
-                                    this.isEmpty = false;
-                                    if (this.organizations.length <= 0 || this.organizations == null) {
-                                        this.isEmpty = true;
-                                    }
-                                }
-                            }
-                            else if (this.userApi.currentUserValue.role == 'admin') {
-                                this.isLoaded = true;
-                                this.isEmpty = false;
-                                this.noOrg = false;
-                                this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
-                                this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
-                            }
-                            break;
-                        case 'reject':
-                            this.isLoaded = true;
-                            this.isRequest = false;
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-                            }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code === 511; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 511; });
-                            this.isEmpty = false;
-                            if (this.organizations == null || this.organizations.length <= 0) {
-                                this.isEmpty = true;
-                            }
-                            break;
-                        case 'pending':
-                            this.isLoaded = true;
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-                            }
-                            if (this.userApi.currentUserValue.role == 'admin') {
-                                this.isRequest = true;
-                            }
-                            else {
-                                this.isRequest = false;
-                            }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code === 501; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 501; });
-                            this.isEmpty = false;
-                            this.isLoaded = true;
-                            if (this.organizations == null || this.organizations.length <= 0) {
-                                this.isEmpty = true;
-                                this.isLoaded = true;
-                            }
-                            break;
-                    }
-                    this.number = this.organizations.length;
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
-    OrganizationsComponent.prototype.getAllOrganization = function () {
+    OrganizationsComponent.prototype.getAllOrganizations = function () {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
             var _c, i, check;
@@ -217,9 +71,6 @@ var OrganizationsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.service.getAll()];
                     case 1:
                         _c.organizations = _d.sent();
-                        if (this.organizations == null || this.organizations.length <= 0) {
-                            this.noOrg = true;
-                        }
                         for (i = 0; i < this.organizations.length; i++) {
                             this.organizationId = this.organizations[i].id;
                             this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
@@ -233,23 +84,18 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.noOrg = true;
                             }
                             else {
-                                this.noOrg = false;
                                 this.organizations = this.organizations.filter(function (x) {
                                     return x.result_code !== 511;
                                 });
                             }
                         }
                         else
-                            this.noOrg = false;
-                        this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
+                            this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
                         return [2 /*return*/];
                 }
             });
         });
     };
-    __decorate([
-        core_1.ViewChild('tabGroup')
-    ], OrganizationsComponent.prototype, "tabGroup");
     OrganizationsComponent = __decorate([
         core_1.Component({
             selector: 'app-organizations',

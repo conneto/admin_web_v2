@@ -33,8 +33,6 @@ var project_form_component_1 = require("../create/project-form/project-form.comp
 var camapaign_form_component_1 = require("../create/camapaign-form/camapaign-form.component");
 var snack_bar_message_component_1 = require("../snack-bar-message/snack-bar-message.component");
 var loading_spinner_component_1 = require("../loading-spinner/loading-spinner.component");
-var tabgroup_component_1 = require("../tab-group/tabgroup.component");
-var search_bar_component_1 = require("../search-bar/search-bar.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -51,8 +49,6 @@ var componentModules = [
     camapaign_form_component_1.CamapaignFormComponent,
     snack_bar_message_component_1.SnackBarMessageComponent,
     loading_spinner_component_1.LoadingSpinnerComponent,
-    tabgroup_component_1.TabgroupComponent,
-    search_bar_component_1.SearchBarComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

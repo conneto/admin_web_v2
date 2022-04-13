@@ -54,10 +54,6 @@ var CampaignsComponent = /** @class */ (function () {
     CampaignsComponent.prototype.ngOnInit = function () {
         this.check();
     };
-    CampaignsComponent.prototype.ngOnDestroy = function () {
-        localStorage.removeItem('reject');
-        localStorage.removeItem('pending');
-    };
     CampaignsComponent.prototype.check = function () {
         var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function () {
@@ -121,9 +117,6 @@ var CampaignsComponent = /** @class */ (function () {
             selector: 'app-campaigns',
             templateUrl: './campaigns.component.html',
             styleUrls: ['./campaigns.component.scss']
-        }),
-        core_1.Injectable({
-            providedIn: 'root'
         })
     ], CampaignsComponent);
     return CampaignsComponent;

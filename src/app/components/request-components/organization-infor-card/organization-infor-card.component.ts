@@ -7,7 +7,6 @@ import { Organization } from 'src/app/models/organization/organization';
 import { CampaignRequestComponent } from 'src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.component';
 import { OrganizationRequestComponent } from 'src/app/pages/manage-request/mod-organization/organization-request/organization-request.component';
 import { ProjectRequestComponent } from 'src/app/pages/manage-request/mod-project/project-request/project-request.component';
-import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
@@ -28,8 +27,8 @@ export class OrganizationInforCardComponent implements OnInit {
   @Input() organizations?: Organization;
   urlApi?:string;
   urlLogo?:string;
-  @Input() checkType?: any;
-  constructor(private orga:OrganizationsComponent,private loadingApi:LoadingServiceService,private proApi: ProjectRequestComponent, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
+  
+  constructor(private loadingApi:LoadingServiceService,private proApi: ProjectRequestComponent, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
 
   }
 
@@ -69,9 +68,9 @@ export class OrganizationInforCardComponent implements OnInit {
         if (res?.status == 0) {
           this.loadingApi.isLoading.next(false);
           this.snackBar.showMessage("Your action is success",true);
-          if (this.checkType == 'org') {
-            this.orga.checkToGetData();
-          } else if (this.checkType == 'pro') {
+          if (checkType == 'org') {
+            this.org.getAll();
+          } else if (checkType == 'pro') {
             this.proApi.getRequest();
           } else {
             this.camApi.getRequest();
@@ -107,9 +106,9 @@ export class OrganizationInforCardComponent implements OnInit {
         this.loadingApi.isLoading.next(true);
         if (res?.status === 0) {
           this.loadingApi.isLoading.next(false);
-          if (this.checkType == 'org') {
-            this.orga.checkToGetData();
-          } else if (this.checkType == 'pro') {
+          if (checkType == 'org') {
+            this.org.getAll();
+          } else if (checkType == 'pro') {
             this.proApi.getRequest();
           } else {
             this.camApi.getRequest();
@@ -119,7 +118,7 @@ export class OrganizationInforCardComponent implements OnInit {
           this.loadingApi.isLoading.next(false);
           this.snackBar.showMessage("Error.Please try  again",false);
         }
-  
+        this.org.getAll();
  
       }
     })

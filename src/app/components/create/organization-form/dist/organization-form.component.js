@@ -46,9 +46,7 @@ exports.OrganizationFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var OrganizationFormComponent = /** @class */ (function () {
-    function OrganizationFormComponent(org, getEntityService, loadingService, location, router, snackBar, formBuilder, orgApi, user) {
-        this.org = org;
-        this.getEntityService = getEntityService;
+    function OrganizationFormComponent(loadingService, location, router, snackBar, formBuilder, orgApi, user) {
         this.loadingService = loadingService;
         this.location = location;
         this.router = router;
@@ -81,8 +79,8 @@ var OrganizationFormComponent = /** @class */ (function () {
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
                             this.loadingService.isLoading.next(false);
+                            window.location.reload();
                             this.router.navigateByUrl('/manager');
-                            this.org.checkToGetData();
                         }
                         else {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
@@ -90,7 +88,6 @@ var OrganizationFormComponent = /** @class */ (function () {
                         }
                         return [3 /*break*/, 4];
                     case 2:
-                        console.log(uploadData.get('organization'));
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.create(uploadData)];
                     case 3:
@@ -98,8 +95,8 @@ var OrganizationFormComponent = /** @class */ (function () {
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
                             this.loadingService.isLoading.next(false);
+                            window.location.reload();
                             this.router.navigateByUrl('/manager');
-                            this.org.checkToGetData();
                         }
                         else {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);

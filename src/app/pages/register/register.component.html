@@ -4,7 +4,7 @@
     <div class="login-padding">
       <div class="login-header">
         <h2>Conneto</h2>
-        <p>Đăng ký nhanh chóng và dễ dàng.</p>
+        <p>Welcome, please sign up !</p>
       </div>
       <form [formGroup]="registerForm" action="">
         <div class="login-form">
@@ -12,7 +12,7 @@
             <input
               class="input login"
               type="text"
-              placeholder="Tài khoản"
+              placeholder="Username"
               required=""
               formControlName="username"
             />
@@ -21,14 +21,14 @@
             <input
               class="input login"
               type="text"
-              placeholder="Họ"
+              placeholder="First name"
               required=""
               formControlName="first_name"
             />
             <input
               class="input login"
               type="text"
-              placeholder="Tên"
+              placeholder="Last name"
               required=""
               formControlName="last_name"
             />
@@ -37,7 +37,7 @@
             <input
               class="input login"
               type="number"
-              placeholder="Số điện thoại"
+              placeholder="Mobile number"
               required=""
               formControlName="number_phone"
             />
@@ -46,7 +46,7 @@
             <input
               class="input password"
               [type]="hide ? 'password' : 'text'"
-              placeholder="Mật khẩu mới"
+              placeholder="New password"
               required=""
               formControlName="password"
             />
@@ -58,10 +58,10 @@
       </form>
 
       <div class="login-button">
-        <button [disabled]="registerForm.invalid" type='submit'(click)="register()">Đăng ký</button>
+        <button [disabled]="registerForm.invalid" type='submit'(click)="register()">Sign Up</button>
       </div>
       <div class="register-button">
-        <a routerLink="/" href="login">Đã có tài khoản?</a>
+        <a routerLink="/" href="login">Already have an account?</a>
       </div>
     </div>
   </div>

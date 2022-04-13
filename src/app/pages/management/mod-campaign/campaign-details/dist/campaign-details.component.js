@@ -67,7 +67,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.campaignApi.getById("" + id)];
                     case 1:
                         _e.campaign = _f.sent();
-                        console.log(this.campaign);
                         this.urlLogo = (_b = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         this.urlCover = (_d = (_c = this.campaign) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];

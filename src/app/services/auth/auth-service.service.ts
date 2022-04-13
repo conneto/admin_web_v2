@@ -64,7 +64,7 @@ export class AuthServiceService {
       this.loadingService.isLoading.next(false);
       this.snackBar.showMessage(res.message,false);
     }else {
-      return res;
+      return null;
     }
 
 
@@ -78,7 +78,7 @@ export class AuthServiceService {
     );
 
     if (res.status != 0) {
-      return res;
+      return null;
     }
 
     return res;
@@ -87,16 +87,13 @@ export class AuthServiceService {
   logout() {
     localStorage.removeItem('USER_WEB');
     localStorage.removeItem('USER_TOKEN');
-    localStorage.removeItem('approve');
-    localStorage.removeItem('reject');
-    localStorage.removeItem('pending');
     this.curUserSubject.next(null);
   }
 
   async updateRequestByAdmin(data: any) {
     let res: BaseResponse = await this.apiService.post(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEMENTS, data);
     if (res.status != 0) {
-      return res;
+      return null;
     }
     return res;
   }

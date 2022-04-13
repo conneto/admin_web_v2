@@ -50,125 +50,54 @@ var ProjectComponent = /** @class */ (function () {
         this.api = api;
         this.authApi = authApi;
         this.projects = [];
-        this.passData = [];
-        this.oldData = [];
-        this.isRequest = false;
+        this.isEmpty = false;
     }
     ProjectComponent.prototype.ngOnInit = function () {
-        this.checkToGetData();
+        this.check();
         this.urlApi = this.loadingService.getApiGetLink.value;
     };
-    ProjectComponent.prototype.ngOnDestroy = function () {
-    };
-    ProjectComponent.prototype.getData = function (e) {
-        if (e == null || e.length <= 0) {
-            this.noResultBySearch = true;
-            this.projects = e;
-        }
-        else {
-            this.projects = e;
-            this.noResultBySearch = false;
-        }
-    };
-    ProjectComponent.prototype.checkToGetData = function () {
+    ProjectComponent.prototype.check = function () {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j;
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _k, i, _l, i;
+            return __generator(this, function (_m) {
+                switch (_m.label) {
                     case 0:
-                        _a = this;
+                        this.user = this.authApi.currentUserValue;
+                        if (!(((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) === 'organization_manager')) return [3 /*break*/, 2];
+                        _k = this;
                         return [4 /*yield*/, this.api.getAll()];
                     case 1:
-                        _a.projects = _b.sent();
-                        this.passData = this.projects;
-                        if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-                            && !localStorage.getItem('pending')) {
-                            this.getAllProjectsByStatus('approve');
-                            localStorage.setItem('approve', 'true');
-                        }
-                        else {
-                            if (localStorage.getItem('reject')) {
-                                this.getAllProjectsByStatus('reject');
-                            }
-                            else if (localStorage.getItem('approve')) {
-                                this.getAllProjectsByStatus('approve');
-                            }
-                            else if (localStorage.getItem('pending')) {
-                                this.getAllProjectsByStatus('pending');
-                            }
-                        }
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
-    ProjectComponent.prototype.getAllProjectsByStatus = function (status, pro) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
-        return __awaiter(this, void 0, void 0, function () {
-            var i, i, i;
-            return __generator(this, function (_u) {
-                this.user = this.authApi.currentUserValue;
-                if (pro) {
-                    this.projects = pro;
-                }
-                switch (status) {
-                    case 'approve':
-                        this.isRequest = false;
+                        _k.projects = _m.sent();
                         for (i = 0; i < this.projects.length; i++) {
-                            this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                            this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                            this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                            this.projects[i].cover = (_c = (_b = this.projects[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
+                            this.projects[i].logo = (_e = (_d = this.projects[i]) === null || _d === void 0 ? void 0 : _d.logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.resultCode == 610;
+                            return x.resultCode !== 611;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.resultCode == 610; });
-                        this.isEmpty = false;
                         if (this.projects == [] || this.projects.length <= 0) {
                             this.isEmpty = true;
                         }
-                        break;
-                    case 'reject':
-                        this.isRequest = false;
+                        return [3 /*break*/, 4];
+                    case 2:
+                        _l = this;
+                        return [4 /*yield*/, this.api.getAll()];
+                    case 3:
+                        _l.projects = _m.sent();
                         for (i = 0; i < this.projects.length; i++) {
-                            this.projects[i].cover = (_h = (_g = this.projects[i]) === null || _g === void 0 ? void 0 : _g.cover) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
-                            this.projects[i].logo = (_k = (_j = this.projects[i]) === null || _j === void 0 ? void 0 : _j.logo) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
-                            this.projects[i].organizationLogo = (_m = (_l = this.projects[i]) === null || _l === void 0 ? void 0 : _l.organizationLogo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
+                            this.projects[i].cover = (_g = (_f = this.projects[i]) === null || _f === void 0 ? void 0 : _f.cover) === null || _g === void 0 ? void 0 : _g.replace(/\\/g, '\/');
+                            this.projects[i].logo = (_j = (_h = this.projects[i]) === null || _h === void 0 ? void 0 : _h.logo) === null || _j === void 0 ? void 0 : _j.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.resultCode == 611;
+                            return x.resultCode === 610;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.resultCode == 611; });
-                        this.isEmpty = false;
-                        if (this.projects == null || this.projects.length <= 0) {
+                        if (this.projects == [] || this.projects.length <= 0) {
                             this.isEmpty = true;
                         }
-                        break;
-                    case 'pending':
-                        for (i = 0; i < this.projects.length; i++) {
-                            this.projects[i].cover = (_p = (_o = this.projects[i]) === null || _o === void 0 ? void 0 : _o.cover) === null || _p === void 0 ? void 0 : _p.replace(/\\/g, '\/');
-                            this.projects[i].logo = (_r = (_q = this.projects[i]) === null || _q === void 0 ? void 0 : _q.logo) === null || _r === void 0 ? void 0 : _r.replace(/\\/g, '\/');
-                            this.projects[i].organizationLogo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organizationLogo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
-                        }
-                        this.projects = this.projects.filter(function (x) {
-                            return x.resultCode == 601;
-                        });
-                        this.oldData = this.passData.filter(function (x) { return x.resultCode == 601; });
-                        if (this.authApi.currentUserValue.role == 'admin') {
-                            this.isRequest = true;
-                        }
-                        else {
-                            this.isRequest = false;
-                        }
-                        this.isEmpty = false;
-                        if (this.projects == null || this.projects.length <= 0) {
-                            this.isEmpty = true;
-                        }
-                        break;
+                        _m.label = 4;
+                    case 4: return [2 /*return*/];
                 }
-                this.number = this.projects.length;
-                this.isLoaded = true;
-                return [2 /*return*/];
             });
         });
     };
@@ -182,6 +111,7 @@ var ProjectComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.api.getAll()];
                     case 1:
                         _a.projects = _b.sent();
+                        console.log(this.projects);
                         return [2 /*return*/];
                 }
             });
@@ -192,9 +122,6 @@ var ProjectComponent = /** @class */ (function () {
             selector: 'app-project',
             templateUrl: './project.component.html',
             styleUrls: ['./project.component.scss']
-        }),
-        core_1.Injectable({
-            providedIn: 'root'
         })
     ], ProjectComponent);
     return ProjectComponent;

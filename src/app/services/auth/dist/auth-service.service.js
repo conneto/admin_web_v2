@@ -93,7 +93,7 @@ var AuthServiceService = /** @class */ (function () {
                             this.snackBar.showMessage(res.message, false);
                         }
                         else {
-                            return [2 /*return*/, res];
+                            return [2 /*return*/, null];
                         }
                         return [2 /*return*/, res];
                 }
@@ -111,7 +111,7 @@ var AuthServiceService = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
-                            return [2 /*return*/, res];
+                            return [2 /*return*/, null];
                         }
                         return [2 /*return*/, res];
                 }
@@ -121,9 +121,6 @@ var AuthServiceService = /** @class */ (function () {
     AuthServiceService.prototype.logout = function () {
         localStorage.removeItem('USER_WEB');
         localStorage.removeItem('USER_TOKEN');
-        localStorage.removeItem('approve');
-        localStorage.removeItem('reject');
-        localStorage.removeItem('pending');
         this.curUserSubject.next(null);
     };
     AuthServiceService.prototype.updateRequestByAdmin = function (data) {
@@ -135,7 +132,7 @@ var AuthServiceService = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
-                            return [2 /*return*/, res];
+                            return [2 /*return*/, null];
                         }
                         return [2 /*return*/, res];
                 }

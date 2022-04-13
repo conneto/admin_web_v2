@@ -25,6 +25,7 @@ export class AuthGuard implements CanActivate {
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authApi.currentUserValue;
     if (currentUser.role == 'admin') {
+      console.log(currentUser.role);
       return true;
     }
     this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });

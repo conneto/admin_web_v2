@@ -46,10 +46,7 @@ exports.OrganizationDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var OrganizationDetailsComponent = /** @class */ (function () {
-    function OrganizationDetailsComponent(org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
-        this.org = org;
-        this.usersCom = usersCom;
-        this.getEntityService = getEntityService;
+    function OrganizationDetailsComponent(router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
         this.router = router;
         this.loadingService = loadingService;
         this.snackBar = snackBar;
@@ -60,14 +57,12 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.location = location;
         this.orgApi = orgApi;
         this.orgComponent = orgComponent;
-        this.users = [];
         this.isAdmin = true;
         this.urlApi = this.loadingService.getApiGetLink.value;
     }
     OrganizationDetailsComponent.prototype.ngOnInit = function () {
         this.getValueFromRoute();
         this.check();
-        this.getName();
     };
     OrganizationDetailsComponent.prototype.check = function () {
         var _a;
@@ -99,10 +94,6 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     OrganizationDetailsComponent.prototype.goBack = function () {
         this.location.back();
     };
-    OrganizationDetailsComponent.prototype.getName = function () {
-        var _a;
-        this.usersCom.getNameById("" + ((_a = this.organization) === null || _a === void 0 ? void 0 : _a.created_by));
-    };
     Object.defineProperty(OrganizationDetailsComponent.prototype, "getId", {
         get: function () {
             this.getValueFromRoute();
@@ -133,7 +124,6 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         if (res.status == 0) {
                             this.loadingService.isLoading.next(false);
                             this.snackBar.showMessage(res.message, true);
-                            this.getEntityService.getByEntity('pro');
                             this.router.navigate(['/manager/manage-project']);
                         }
                         else {
