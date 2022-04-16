@@ -11,25 +11,25 @@ import { LoadingServiceService } from 'src/app/services/loading/loading-service.
   styleUrls: ['./campaign-details.component.scss']
 })
 export class CampaignDetailsComponent implements OnInit {
-  campaign?:Campaign;
+  campaign?: Campaign;
   urlApi = this.loadingService.getApiGetLink.value;
   urlCover?: string;
   urlLogo?: string;
-  constructor(private loadingService:LoadingServiceService,private location:Location,private activated :ActivatedRoute,private campaignApi:CampaignApiService) { }
+  constructor(private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
     this.getByID();
   }
-  async getByID(){
-    const id=this.activated.snapshot.paramMap.get('id');
-  
-    this.campaign=await this.campaignApi.getById(`${id}`);
+  async getByID() {
+    const id = this.activated.snapshot.paramMap.get('id');
+
+    this.campaign = await this.campaignApi.getById(`${id}`);
     console.log(this.campaign);
     this.urlLogo = this.campaign?.org_logo?.replace(/\\/g, '\/');
     this.urlCover = this.campaign?.cover?.replace(/\\/g, '\/');
-   
+
   }
-  goBack(){
+  goBack() {
     this.location.back();
   }
 }

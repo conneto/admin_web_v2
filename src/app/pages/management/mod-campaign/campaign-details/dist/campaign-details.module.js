@@ -9,10 +9,10 @@ exports.__esModule = true;
 exports.CampaignDetailsModule = void 0;
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
-var campaign_details_routing_module_1 = require("./campaign-details-routing.module");
-var campaign_details_component_1 = require("./campaign-details.component");
 var component_module_1 = require("src/app/components/component/component.module");
 var angular_material_module_1 = require("src/app/angular-material.module");
+var campaign_details_component_1 = require("./campaign-details.component");
+var campaign_details_routing_module_1 = require("./campaign-details-routing.module");
 var CampaignDetailsModule = /** @class */ (function () {
     function CampaignDetailsModule() {
     }

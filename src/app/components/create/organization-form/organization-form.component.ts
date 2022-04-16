@@ -20,6 +20,7 @@ import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-mess
 export class OrganizationFormComponent implements OnInit {
   organizationForm!: FormGroup;
   @Input() organizationId?: any;
+  isSubmitted?:boolean;
   logoFile?: File;
   coverFile?: File;
   public static readonly CREATE = 'create';
@@ -30,6 +31,7 @@ export class OrganizationFormComponent implements OnInit {
   }
 
   async create() {
+    this.isSubmitted=true;
     if (this.organizationForm.valid) {
       let uploadData: any = new FormData();
       uploadData.append('organization', JSON.stringify(this.organizationForm.value));
@@ -42,9 +44,10 @@ export class OrganizationFormComponent implements OnInit {
           this.snackBar.showMessage(`${res?.message}`, true);
           this.loadingService.isLoading.next(false);
           
-          this.router.navigateByUrl('/manager');
-          this.org.checkToGetData();
-       
+          this.router.navigate(['/manager/manage-organization']);
+          this.org.checkToGetData('pending');
+         
+     
         } else {
           this.snackBar.showMessage(`${res?.message}`, false);
 
@@ -59,14 +62,13 @@ export class OrganizationFormComponent implements OnInit {
         if (res?.status == 0) {
           this.snackBar.showMessage(`${res?.message}`, true);
           this.loadingService.isLoading.next(false);
-          this.router.navigateByUrl('/manager');
-          this.org.checkToGetData();
+         
+          this.router.navigate(['/manager/manage-organization']);
+          this.org.checkToGetData('pending');
    
         } else {
           this.snackBar.showMessage(`${res?.message}`, false);
           this.loadingService.isLoading.next(false);
-
-
 
         }
       }
@@ -75,15 +77,15 @@ export class OrganizationFormComponent implements OnInit {
 
   initFormBuilder() {
     this.organizationForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      eng_name: ['', Validators.required],
-      description: ['', Validators.required],
-      vision: ['', Validators.required],
-      website: ['', Validators.required],
+      name: ['',[ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
+      eng_name: [''],
+      description: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
+      vision: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
+      website: [''],
       founding_date: ['', Validators.required],
       created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
       request_type: [OrganizationFormComponent.CREATE],
-      mission: [''],
+      mission: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
       logo: [''],
       cover: [''],
     })
@@ -97,5 +99,8 @@ export class OrganizationFormComponent implements OnInit {
     if (e.target.files && e.target.files.length > 0) {
       this.logoFile = e.target.files[0];
     }
+  }
+  get organizationControl(){
+    return this.organizationForm.controls;
   }
 }

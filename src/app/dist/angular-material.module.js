@@ -51,6 +51,7 @@ var tooltip_1 = require("@angular/material/tooltip");
 var progress_bar_1 = require("@angular/material/progress-bar");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
+var core_3 = require("@angular/material/core");
 var materialModules = [
     tree_1.CdkTreeModule,
     autocomplete_1.MatAutocompleteModule,
@@ -91,6 +92,7 @@ var materialModules = [
     dialog_1.MatDialogModule,
     snack_bar_1.MatSnackBarModule,
     progress_spinner_1.MatProgressSpinnerModule,
+    core_3.MatNativeDateModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {

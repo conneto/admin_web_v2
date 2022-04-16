@@ -23,8 +23,8 @@ export class AuthServiceService {
   public static readonly ROLE = 'organization_manager';
   public static readonly ADMIN = 'admins';
   public static readonly APPROVEMENTS = 'approvements';
-  public static readonly APPROVE = 'approve';
-  public static readonly REJECT = 'reject';
+  public static readonly APPROVE = 'Chấp nhận';
+  public static readonly REJECT = 'Từ chối';
   public static readonly PROJECT = 'project';
   public static readonly ORGANIZATION = 'organization';
   public static readonly CAMPAIGN = 'campaign';
@@ -52,7 +52,7 @@ export class AuthServiceService {
     );
     if (res.status == 0) {
       this.loadingService.isLoading.next(false);
-      this.snackBar.showMessage(`Đăng Nhập ${res.message}`,true);
+      this.snackBar.showMessage('Đăng nhập thành công',true);
       let userLoginResponse: UserLoginResponse =
         this.userResponse.adapt(res.data);
       localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));

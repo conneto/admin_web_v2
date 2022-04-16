@@ -19,6 +19,7 @@ export class ProjectFormComponent implements OnInit {
   projectForm!: FormGroup;
   coverImage?: File;
   logo?:File;
+  isSubmitted?:boolean;
   ngOnInit(): void {
     this.initForm();
 
@@ -26,8 +27,8 @@ export class ProjectFormComponent implements OnInit {
 
   initForm() {
     this.projectForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
+      name: ['', [ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
+      description: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       created_by: [this.authApi.currentUserValue.id],
@@ -43,6 +44,7 @@ export class ProjectFormComponent implements OnInit {
 
   }
   yesClick() {
+    this.isSubmitted=true;
     if (this.projectForm.valid) {
       let uploadData: any = new FormData();
       uploadData.append('cover', this.coverImage, this.coverImage?.name);
@@ -61,5 +63,8 @@ export class ProjectFormComponent implements OnInit {
       this.logo = e.target.files[0];
     }
 
+  }
+  get projectControl(){
+    return this.projectForm.controls;
   }
 }

@@ -32,16 +32,16 @@ var CamapaignFormComponent = /** @class */ (function () {
     };
     CamapaignFormComponent.prototype.initForm = function () {
         this.campaignForm = this.formBuilder.group({
-            name: ['', forms_1.Validators.required],
-            description: ['', forms_1.Validators.required],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
             request_type: ['create'],
             type: ['', forms_1.Validators.required],
             target_number: ['', forms_1.Validators.required],
-            job_requirement: ['', forms_1.Validators.required],
-            job_description: ['', forms_1.Validators.required],
-            job_benefit: ['', forms_1.Validators.required],
+            job_requirement: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            job_description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            job_benefit: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
             project_id: [this.loadingService.projectId.value],
             cover: ['']
         });
@@ -50,6 +50,7 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.dialogRef.close(false);
     };
     CamapaignFormComponent.prototype.yesClick = function () {
+        this.isSubmitted = true;
         if (this.campaignForm.valid) {
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
             // uploadData.append('cover', this.coverImage, this.coverImage?.name);
@@ -66,6 +67,13 @@ var CamapaignFormComponent = /** @class */ (function () {
             // this.coverImage = e.target.files[0];
         }
     };
+    Object.defineProperty(CamapaignFormComponent.prototype, "campaignControl", {
+        get: function () {
+            return this.campaignForm.controls;
+        },
+        enumerable: false,
+        configurable: true
+    });
     CamapaignFormComponent = __decorate([
         core_1.Component({
             selector: 'app-camapaign-form',

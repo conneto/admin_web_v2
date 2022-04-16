@@ -78,7 +78,7 @@ var OrganizationsComponent = /** @class */ (function () {
             this.noResultBySearch = false;
         }
     };
-    OrganizationsComponent.prototype.checkToGetData = function () {
+    OrganizationsComponent.prototype.checkToGetData = function (getStatus) {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
@@ -89,7 +89,11 @@ var OrganizationsComponent = /** @class */ (function () {
                     case 1:
                         _a.organizations = _b.sent();
                         this.passData = this.organizations;
-                        if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+                        if (getStatus == 'pending') {
+                            this.getAllOrganizationByStatus('pending');
+                            localStorage.setItem('pending', 'true');
+                        }
+                        else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
                             && !localStorage.getItem('pending')) {
                             this.getAllOrganizationByStatus('approve');
                             localStorage.setItem('approve', 'true');

@@ -12,11 +12,28 @@
             <input
               class="input login"
               type="text"
-              placeholder="Tài khoản"
+              placeholder="Tên tài khoản"
               required=""
               formControlName="username"
             />
           </div>
+          <!-- <span
+            *ngIf="   (registerFormControl.username.touched || isSubmited) &&
+            registerFormControl.username.errors?.required &&
+            registerFormControl.username.errors?.['minlength']
+            "
+            class="text-danger"
+            >Tên tài khoản bắt buộc và có độ dài tối thiểu 8, tối đa 50</span
+          > -->
+          <span
+            *ngIf="  ( registerFormControl.username.touched||isSubmited) &&
+            registerFormControl.username.errors?.required|| registerFormControl.username.errors?.pattern
+            ||
+          registerFormControl.username.errors?.['minlength'] ||   registerFormControl.username.errors?.['maxlength']
+          "
+            class="text-danger"
+            >Tên tài khoản bắt buộc và có độ dài tối thiểu 8, tối đa 50</span
+          >
           <div class="login-name">
             <input
               class="input login"
@@ -33,15 +50,46 @@
               formControlName="last_name"
             />
           </div>
+          <span
+            *ngIf="
+              (registerFormControl.first_name.touched || isSubmited) &&
+              registerFormControl.first_name.errors?.required|| registerFormControl.first_name.errors?.pattern     ||
+              registerFormControl.first_name.errors?.['minlength'] ||   registerFormControl.first_name.errors?.['maxlength']
+            "
+            class="text-danger"
+            >Họ bắt buộc,độ dài tối thiếu 2</span
+          >
+      
+          <span
+            *ngIf="
+              ((isSubmited || registerFormControl.last_name.touched) &&
+                registerFormControl.last_name.errors?.required) ||
+              registerFormControl.last_name.errors?.pattern     ||
+              registerFormControl.last_name.errors?.['minlength'] ||   registerFormControl.last_name.errors?.['maxlength']
+            "
+            class="text-danger"
+          >
+          <br>
+            Tên bắt buộc, độ dài tối thiếu 2</span
+          >
           <div>
             <input
               class="input login"
-              type="number"
+              type="text"
               placeholder="Số điện thoại"
               required=""
               formControlName="number_phone"
             />
           </div>
+          <span
+            *ngIf="
+              ((registerFormControl.number_phone.touched || isSubmited) &&
+                registerFormControl.number_phone.errors?.required) ||
+              registerFormControl.number_phone.errors?.pattern
+            "
+            class="text-danger"
+            >Số điện thoại phải là số,có 10 số và bắt đầu bằng 0</span
+          >
           <div>
             <input
               class="input password"
@@ -54,11 +102,20 @@
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
           </div>
+          <span
+            *ngIf="
+              ((registerFormControl.password.touched || isSubmited) &&
+                registerFormControl.password.errors?.required) ||
+              registerFormControl.password.errors?.pattern
+            "
+            class="text-danger"
+            >Mật khẩu có độ dài tối thiểu là 8, có ít nhất 1 chữ và 1 số</span
+          >
         </div>
       </form>
 
       <div class="login-button">
-        <button [disabled]="registerForm.invalid" type='submit'(click)="register()">Đăng ký</button>
+        <button type="submit" (click)="register()">Đăng ký</button>
       </div>
       <div class="register-button">
         <a routerLink="/" href="login">Đã có tài khoản?</a>

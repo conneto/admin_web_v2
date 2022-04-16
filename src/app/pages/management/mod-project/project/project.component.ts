@@ -17,7 +17,7 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
 export class ProjectComponent implements OnInit {
   projects: Project[] = [];
   passData: Project[] = [];
-  oldData:any[]=[];
+  oldData: any[] = [];
   user?: User;
   urlApi?: string;
   isEmpty?: boolean;
@@ -46,11 +46,14 @@ export class ProjectComponent implements OnInit {
     }
 
   }
-  async checkToGetData() {
+  async checkToGetData(status?: string) {
     this.projects = await this.api.getAll();
 
     this.passData = this.projects;
-    if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+    if (status == 'pending') {
+      this.getAllProjectsByStatus('pending', this.projects);
+      localStorage.setItem('pending', 'true');
+    }else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
       && !localStorage.getItem('pending')
     ) {
       this.getAllProjectsByStatus('approve');
@@ -81,7 +84,7 @@ export class ProjectComponent implements OnInit {
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
           this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
         }
-       
+
         this.projects = this.projects.filter(x => {
           return x.resultCode == 610;
         })
@@ -99,7 +102,7 @@ export class ProjectComponent implements OnInit {
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
           this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
         }
-  
+
         this.projects = this.projects.filter(x => {
           return x.resultCode == 611;
         })
@@ -116,7 +119,7 @@ export class ProjectComponent implements OnInit {
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
           this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
         }
-   
+
         this.projects = this.projects.filter(x => {
           return x.resultCode == 601;
         })
@@ -135,7 +138,7 @@ export class ProjectComponent implements OnInit {
 
     }
     this.number = this.projects.length;
- 
+
   }
 
   async getAll() {

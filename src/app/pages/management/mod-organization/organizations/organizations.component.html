@@ -15,11 +15,14 @@
     ></app-organization-form>
   </div>
 
+ 
+
   <ng-template #createOrganization>
-    <button (click)="isShow = !isShow" mat-button>
-      Create a new organization
+    <button (click)="isShow = !isShow" mat-raised-button color='primary'>
+      Tạo tổ chức
     </button>
   </ng-template>
+
 
   <div *ngIf="isRequest">
     <div class="search-bar" *ngIf="!isEmpty">
@@ -102,7 +105,7 @@
                 <div>
                   <mat-icon title="Request by">people</mat-icon
                   ><span class="margin-left">{{
-                    organization.created_by
+                    organization.created_name
                   }}</span>
                 </div>
                 <div>

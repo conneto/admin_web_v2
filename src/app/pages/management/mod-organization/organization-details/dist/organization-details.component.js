@@ -46,7 +46,8 @@ exports.OrganizationDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var OrganizationDetailsComponent = /** @class */ (function () {
-    function OrganizationDetailsComponent(org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
+    function OrganizationDetailsComponent(pro, org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
+        this.pro = pro;
         this.org = org;
         this.usersCom = usersCom;
         this.getEntityService = getEntityService;
@@ -77,20 +78,23 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _e;
-            return __generator(this, function (_f) {
-                switch (_f.label) {
+            var id, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
                     case 0:
                         id = this.route.snapshot.paramMap.get('id');
-                        _e = this;
+                        _f = this;
                         return [4 /*yield*/, this.orgApi.getById("" + id)];
                     case 1:
-                        _e.organization = _f.sent();
+                        _f.organization = _g.sent();
+                        if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
+                            this.isApproved = true;
+                        }
                         this.loadingService.getOrganizationId.next("" + id);
-                        this.urlLogo = (_b = (_a = this.organization) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                        this.urlCover = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                        this.urlLogo = (_c = (_b = this.organization) === null || _b === void 0 ? void 0 : _b.logo) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
+                        this.urlCover = (_e = (_d = this.organization) === null || _d === void 0 ? void 0 : _d.cover) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
                         return [2 /*return*/];
                 }
             });
@@ -115,9 +119,9 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     OrganizationDetailsComponent.prototype.openProjectForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-            width: '350px',
+            width: '700px',
             data: {
-                title: 'Project Form'
+                title: 'Tạo dự án'
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
@@ -132,11 +136,17 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         res = _a.sent();
                         if (res.status == 0) {
                             this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage(res.message, true);
-                            this.getEntityService.getByEntity('pro');
+                            this.snackBar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
                             this.router.navigate(['/manager/manage-project']);
+                            this.pro.checkToGetData('pending');
                         }
                         else {
+                            this.dialog.open(project_form_component_1.ProjectFormComponent, {
+                                width: '700px',
+                                data: {
+                                    title: 'Tạo dự án'
+                                }
+                            });
                             this.loadingService.isLoading.next(false);
                             this.snackBar.showMessage(res.message, false);
                         }

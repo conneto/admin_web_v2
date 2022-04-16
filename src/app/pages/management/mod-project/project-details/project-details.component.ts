@@ -29,6 +29,7 @@ export class ProjectDetailsComponent implements OnInit {
   urlApi:string='';
   urlLogo?:string='';
   urlCover?:string='';
+  isApproved?:boolean;
   constructor(private getEntityService:LoadingDataService,private router:Router,private loadingService:LoadingServiceService,private snackBar:SnackBarMessageComponent,private auth: AuthServiceService, private location: Location, private proApi: ProjectApiService, private campApi: CampaignApiService, private actived: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -48,7 +49,11 @@ export class ProjectDetailsComponent implements OnInit {
 
     const id = this.actived.snapshot.paramMap.get('id');
     this.project = await this.proApi.getByID(`${id}`);
+   
     this.loadingService.projectId.next(`${id}`);
+    if(this.project.resultCode==610){
+      this.isApproved=true;
+    }
     this.urlLogo= this.project?.logo?.replace(/\\/g, '\/');
     this.urlCover=this.project?.cover?.replace(/\\/g,'\/');
 
@@ -59,9 +64,9 @@ export class ProjectDetailsComponent implements OnInit {
   }
   openCampaignForm() {
     const dialogRef = this.dialog.open(CamapaignFormComponent, {
-      width: '350px',
+      width: '700px',
       data: {
-        title: 'Campaign Form',
+        title: 'Tạo chiến dịch',
       }
     })
 

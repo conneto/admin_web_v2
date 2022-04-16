@@ -62,7 +62,7 @@ export class OrganizationInforCardComponent implements OnInit {
           object_id: this.organizations?.id || id,
           object_type: checkType == 'org' ? AuthServiceService.ORGANIZATION
             : checkType == 'cam' ? AuthServiceService.CAMPAIGN : checkType == 'pro' ? AuthServiceService.PROJECT : AuthServiceService.ORGANIZATION,
-          status: AuthServiceService.APPROVE,
+          status: 'approve',
           note: 'Approve this',
         }
 
@@ -70,17 +70,17 @@ export class OrganizationInforCardComponent implements OnInit {
 
         if (res?.status == 0) {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Your action is success", true);
-          if (this.checkType == 'org') {
-            this.orga.checkToGetData();
-          } else if (this.checkType == 'pro') {
-            this.pro.checkToGetData();
+          this.snackBar.showMessage("Chấp nhận thành công !", true);
+          if (checkType == 'org'|| this.checkType=='org') {
+            this.orga.checkToGetData('pending');
+          } else if (checkType == 'pro'|| this.checkType=='pro') {
+            this.pro.checkToGetData('pending');
           } else {
             this.cam.checkToGetData();
           }
         } else {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Error.Please try  again", false);
+          this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
         }
       }
     })
@@ -102,24 +102,24 @@ export class OrganizationInforCardComponent implements OnInit {
           object_id: this.organizations?.id || id,
           object_type: checkType == 'org' ? AuthServiceService.ORGANIZATION
             : checkType == 'cam' ? AuthServiceService.CAMPAIGN : checkType == 'pro' ? AuthServiceService.PROJECT : AuthServiceService.ORGANIZATION,
-          status: AuthServiceService.REJECT,
+          status: 'reject',
           note: 'Reject this',
         }
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
         this.loadingApi.isLoading.next(true);
         if (res?.status === 0) {
           this.loadingApi.isLoading.next(false);
-          if (this.checkType == 'org') {
-            this.orga.checkToGetData();
-          } else if (this.checkType == 'pro') {
-            this.proApi.getRequest();
-          } else {
-            this.camApi.getRequest();
+          if (checkType == 'org'|| this.checkType=='org') {
+            this.orga.checkToGetData('pending');
+          } else if (checkType == 'pro'|| this.checkType=='pro') {
+            this.pro.checkToGetData('pending');
+          } else if  (checkType == 'cam'|| this.checkType=='cam') {
+            this.cam.checkToGetData();
           }
-          this.snackBar.showMessage("Your action is success", true);
+          this.snackBar.showMessage("Từ chối thành công", true);
         } else {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Error.Please try  again", false);
+          this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
         }
 
 

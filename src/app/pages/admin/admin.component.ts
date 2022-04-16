@@ -50,7 +50,7 @@ export class AdminComponent implements OnInit {
     {
       id: '3',
       name: 'Quản Lý Tổ Chức',
-      path: 'manage-oraganization',
+      path: 'manage-organization',
       icon: 'assets/icon/user-icon.png',
       role: 'organization_manager',
     },

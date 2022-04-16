@@ -36,10 +36,13 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 const materialModules = [
     CdkTreeModule,
     MatAutocompleteModule,
+    
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -77,6 +80,8 @@ const materialModules = [
     , MatDialogModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    MatNativeDateModule,
+  
 ];
 
 @NgModule({

@@ -12,6 +12,10 @@
   transition: width 0.3s ease-in;
 }
 
+.mat-card-title {
+  font-size: 20px;
+}
+
 .mat-card:hover {
   animation: moveFadein;
   animation-duration: 1s;

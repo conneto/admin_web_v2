@@ -17,14 +17,14 @@ var routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'manage-oraganization', pathMatch: 'full'
+                redirectTo: 'manage-organization', pathMatch: 'full'
             },
             {
                 path: 'dashboard', canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/dashboard/dashboard.module'); }).then((function (m) { return m.DashboardModule; })); }
             },
             {
-                path: 'manage-oraganization',
+                path: 'manage-organization',
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-organization/organizations/organizations.module'); }).then(function (m) { return m.OrganizationsModule; }); },
                 children: [
                     {

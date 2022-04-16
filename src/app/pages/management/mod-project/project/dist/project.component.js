@@ -70,7 +70,7 @@ var ProjectComponent = /** @class */ (function () {
             this.noResultBySearch = false;
         }
     };
-    ProjectComponent.prototype.checkToGetData = function () {
+    ProjectComponent.prototype.checkToGetData = function (status) {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
@@ -81,7 +81,11 @@ var ProjectComponent = /** @class */ (function () {
                     case 1:
                         _a.projects = _b.sent();
                         this.passData = this.projects;
-                        if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+                        if (status == 'pending') {
+                            this.getAllProjectsByStatus('pending', this.projects);
+                            localStorage.setItem('pending', 'true');
+                        }
+                        else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
                             && !localStorage.getItem('pending')) {
                             this.getAllProjectsByStatus('approve');
                             localStorage.setItem('approve', 'true');

@@ -1,14 +1,13 @@
-<div class='container'>
-  <div>
-    <h3 mat-dialog-title >{{ data.title }}</h3>
-   
+
+  <!-- <div>
+    <h3 mat-dialog-title>{{ data.title }}</h3>
   </div>
   <div class="content">
     <form class="form" [formGroup]="projectForm">
       <div class="input">
         <div>
           <label> Project name: </label>
-          <input formControlName="name" />
+          <input formControlName="name"  [value]='data.name' />
         </div>
         <div>
           <label> Description: </label>
@@ -21,17 +20,24 @@
         <div>
           <label> End Date: </label>
           <input type="date" formControlName="end_date" />
-         
         </div>
         <div>
           <label> Cover image: </label>
-          <input type="file" accept="image/png,image/jpg,image/jpeg" formControlName="cover" (change)="onChange($event)"/>
-         
+          <input
+            type="file"
+            accept="image/png,image/jpg,image/jpeg"
+            formControlName="cover"
+            (change)="onChange($event)"
+          />
         </div>
         <div>
           <label> Logo : </label>
-          <input type="file" accept="image/png,image/jpg,image/jpeg" formControlName="logo" (change)="onChangeCover($event)"/>
-         
+          <input
+            type="file"
+            accept="image/png,image/jpg,image/jpeg"
+            formControlName="logo"
+            (change)="onChangeCover($event)"
+          />
         </div>
       </div>
     </form>
@@ -40,15 +46,113 @@
     <button
       mat-button
       [disabled]="projectForm.invalid"
-      mat-dialog-close
+      [mat-dialog-close]="data"
       color="primary"
-     
       (click)="yesClick()"
     >
-     Create 
+      Create
     </button>
-    <button mat-button (click)="noClick()">
-      Cancel
-    </button>
+    <button mat-button (click)="noClick()">Cancel</button>
   </div>
+</div> -->
+<div class="container">
+  <div>
+    <h3 mat-dialog-title>{{ data.title }}</h3>
+  </div>
+  <form [formGroup]="projectForm" action="">
+    <div class="login-form">
+      <div>
+        <input
+          class="input login"
+          type="text"
+          placeholder="Tên dự án"
+          required=""
+          formControlName="name"
+        />
+      </div>
+      <span
+        *ngIf="  ( projectControl.name.touched||isSubmitted) &&
+            projectControl.name.errors?.required
+            ||
+            projectControl.name.errors?.['minlength'] ||   projectControl.name.errors?.['maxlength']
+          "
+        class="text-danger"
+        >Tên dự án bắt buộc và có độ dài tối thiểu 8, tối đa 128 kí tự</span
+      >
+
+      <div>
+        <textarea
+          class="input login"
+          type="text"
+          placeholder="Giới thiệu về dự án"
+          required=""
+          formControlName="description"
+        ></textarea>
+      </div>
+      <span
+        *ngIf="  ( projectControl.description.touched||isSubmitted) &&
+      projectControl.description.errors?.required
+      ||
+      projectControl.description.errors?.['minlength'] ||   projectControl.description.errors?.['maxlength']
+    "
+        class="text-danger"
+        >Giới thiệu về dự án bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí
+        tứ</span
+      >
+
+      <div>
+        <mat-label style="width: 130px">Ngày bắt đầu</mat-label>
+
+        <input
+          class="input login"
+          type="date"
+          required=""
+          formControlName="start_date"
+        />
+      </div>
+      <div>
+        <mat-label style="width: 130px">Ngày kết thúc</mat-label>
+
+        <input
+          class="input login"
+          type="date"
+          required=""
+          formControlName="end_date"
+        />
+      </div>
+      <div>
+        <label style="width: 100px"> Ảnh bìa:</label>
+        <input
+          type="file"
+          accept="image/png,image/jpg,image/jpeg"
+          formControlName="cover"
+          (change)="onChange($event)"
+        />
+      </div>
+      <div>
+        <label style="width: 100px"> Logo:</label>
+        <input
+          type="file"
+          accept="image/png,image/jpg,image/jpeg"
+          formControlName="logo"
+          (change)="onChangeCover($event)"
+        />
+      </div>
+    </div>
+  </form>
+
+  
+  <div class="login-button">
+
+    <button
+    mat-button
+    
+ 
+    color="primary"
+    (click)="yesClick()"
+  >
+    Tạo
+  </button>
+  </div>
+  <button class='cancel'mat-button (click)="noClick()">Hủy</button>
 </div>

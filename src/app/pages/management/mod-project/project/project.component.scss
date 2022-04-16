@@ -7,10 +7,12 @@ mat-card-title {
     font-size: 20px;
     margin: 20px 0 20px;
     color:rgba(255, 184, 0, 1);
+    height:50px;
   }
   
   mat-card {
-    width: 350px;
+    max-width: 100%;
+    width: 380px;
     margin:5px 10px;
   }
   
@@ -57,6 +59,7 @@ mat-card-title {
   
   .margin-left {
     margin-left: 5px;
+    width:180px;
   }
   .request-component{
     display:flex;

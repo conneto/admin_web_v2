@@ -68,6 +68,7 @@ var OrganizationFormComponent = /** @class */ (function () {
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
+                        this.isSubmitted = true;
                         if (!this.organizationForm.valid) return [3 /*break*/, 4];
                         uploadData = new FormData();
                         uploadData.append('organization', JSON.stringify(this.organizationForm.value));
@@ -81,8 +82,8 @@ var OrganizationFormComponent = /** @class */ (function () {
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
                             this.loadingService.isLoading.next(false);
-                            this.router.navigateByUrl('/manager');
-                            this.org.checkToGetData();
+                            this.router.navigate(['/manager/manage-organization']);
+                            this.org.checkToGetData('pending');
                         }
                         else {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
@@ -98,8 +99,8 @@ var OrganizationFormComponent = /** @class */ (function () {
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
                             this.loadingService.isLoading.next(false);
-                            this.router.navigateByUrl('/manager');
-                            this.org.checkToGetData();
+                            this.router.navigate(['/manager/manage-organization']);
+                            this.org.checkToGetData('pending');
                         }
                         else {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
@@ -113,15 +114,15 @@ var OrganizationFormComponent = /** @class */ (function () {
     };
     OrganizationFormComponent.prototype.initFormBuilder = function () {
         this.organizationForm = this.formBuilder.group({
-            name: ['', forms_1.Validators.required],
-            eng_name: ['', forms_1.Validators.required],
-            description: ['', forms_1.Validators.required],
-            vision: ['', forms_1.Validators.required],
-            website: ['', forms_1.Validators.required],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            eng_name: [''],
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            vision: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            website: [''],
             founding_date: ['', forms_1.Validators.required],
             created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
             request_type: [OrganizationFormComponent_1.CREATE],
-            mission: [''],
+            mission: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
             logo: [''],
             cover: ['']
         });
@@ -136,6 +137,13 @@ var OrganizationFormComponent = /** @class */ (function () {
             this.logoFile = e.target.files[0];
         }
     };
+    Object.defineProperty(OrganizationFormComponent.prototype, "organizationControl", {
+        get: function () {
+            return this.organizationForm.controls;
+        },
+        enumerable: false,
+        configurable: true
+    });
     var OrganizationFormComponent_1;
     OrganizationFormComponent.CREATE = 'create';
     __decorate([

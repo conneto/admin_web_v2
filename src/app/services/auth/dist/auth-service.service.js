@@ -82,7 +82,7 @@ var AuthServiceService = /** @class */ (function () {
                         res = _a.sent();
                         if (res.status == 0) {
                             this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage("\u0110\u0103ng Nh\u1EADp " + res.message, true);
+                            this.snackBar.showMessage('Đăng nhập thành công', true);
                             userLoginResponse = this.userResponse.adapt(res.data);
                             localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
                             localStorage.setItem('USER_TOKEN', userLoginResponse.token);
@@ -150,8 +150,8 @@ var AuthServiceService = /** @class */ (function () {
     AuthServiceService.ROLE = 'organization_manager';
     AuthServiceService.ADMIN = 'admins';
     AuthServiceService.APPROVEMENTS = 'approvements';
-    AuthServiceService.APPROVE = 'approve';
-    AuthServiceService.REJECT = 'reject';
+    AuthServiceService.APPROVE = 'Chấp nhận';
+    AuthServiceService.REJECT = 'Từ chối';
     AuthServiceService.PROJECT = 'project';
     AuthServiceService.ORGANIZATION = 'organization';
     AuthServiceService.CAMPAIGN = 'campaign';

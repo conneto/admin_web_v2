@@ -93,7 +93,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     object_id: ((_a = this.organizations) === null || _a === void 0 ? void 0 : _a.id) || id,
                                     object_type: checkType == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
                                         : checkType == 'cam' ? auth_service_service_1.AuthServiceService.CAMPAIGN : checkType == 'pro' ? auth_service_service_1.AuthServiceService.PROJECT : auth_service_service_1.AuthServiceService.ORGANIZATION,
-                                    status: auth_service_service_1.AuthServiceService.APPROVE,
+                                    status: 'approve',
                                     note: 'Approve this'
                                 };
                                 return [4 /*yield*/, this.authApi.updateRequestByAdmin(data1)];
@@ -101,12 +101,12 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 res = _b.sent();
                                 if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                                     this.loadingApi.isLoading.next(false);
-                                    this.snackBar.showMessage("Your action is success", true);
-                                    if (this.checkType == 'org') {
-                                        this.orga.checkToGetData();
+                                    this.snackBar.showMessage("Chấp nhận thành công !", true);
+                                    if (checkType == 'org' || this.checkType == 'org') {
+                                        this.orga.checkToGetData('pending');
                                     }
-                                    else if (this.checkType == 'pro') {
-                                        this.pro.checkToGetData();
+                                    else if (checkType == 'pro' || this.checkType == 'pro') {
+                                        this.pro.checkToGetData('pending');
                                     }
                                     else {
                                         this.cam.checkToGetData();
@@ -114,7 +114,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 }
                                 else {
                                     this.loadingApi.isLoading.next(false);
-                                    this.snackBar.showMessage("Error.Please try  again", false);
+                                    this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
                                 }
                                 _b.label = 2;
                             case 2: return [2 /*return*/];
@@ -149,7 +149,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     object_id: ((_a = this.organizations) === null || _a === void 0 ? void 0 : _a.id) || id,
                                     object_type: checkType == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
                                         : checkType == 'cam' ? auth_service_service_1.AuthServiceService.CAMPAIGN : checkType == 'pro' ? auth_service_service_1.AuthServiceService.PROJECT : auth_service_service_1.AuthServiceService.ORGANIZATION,
-                                    status: auth_service_service_1.AuthServiceService.REJECT,
+                                    status: 'reject',
                                     note: 'Reject this'
                                 };
                                 return [4 /*yield*/, this.authApi.updateRequestByAdmin(data1)];
@@ -158,20 +158,20 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 this.loadingApi.isLoading.next(true);
                                 if ((res === null || res === void 0 ? void 0 : res.status) === 0) {
                                     this.loadingApi.isLoading.next(false);
-                                    if (this.checkType == 'org') {
-                                        this.orga.checkToGetData();
+                                    if (checkType == 'org' || this.checkType == 'org') {
+                                        this.orga.checkToGetData('pending');
                                     }
-                                    else if (this.checkType == 'pro') {
-                                        this.proApi.getRequest();
+                                    else if (checkType == 'pro' || this.checkType == 'pro') {
+                                        this.pro.checkToGetData('pending');
                                     }
-                                    else {
-                                        this.camApi.getRequest();
+                                    else if (checkType == 'cam' || this.checkType == 'cam') {
+                                        this.cam.checkToGetData();
                                     }
-                                    this.snackBar.showMessage("Your action is success", true);
+                                    this.snackBar.showMessage("Từ chối thành công", true);
                                 }
                                 else {
                                     this.loadingApi.isLoading.next(false);
-                                    this.snackBar.showMessage("Error.Please try  again", false);
+                                    this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
                                 }
                                 _b.label = 2;
                             case 2: return [2 /*return*/];

@@ -20,7 +20,7 @@ export class SnackBarMessageComponent implements OnInit {
     this.snackBar.open(message,'OK', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration:3000,
+      duration:5000,
       panelClass: isSuccess ? ['success'] : ['fail'],
     })
   }

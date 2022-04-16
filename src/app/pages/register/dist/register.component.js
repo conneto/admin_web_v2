@@ -68,8 +68,8 @@ var RegisterComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.isSubmited = true;
-                        this.loadingService.isLoading.next(true);
                         if (!this.registerForm.valid) return [3 /*break*/, 6];
+                        this.loadingService.isLoading.next(true);
                         md5 = new ts_md5_1.Md5();
                         uploadData = new FormData();
                         oldPass = this.registerForm.value.password;
@@ -86,12 +86,11 @@ var RegisterComponent = /** @class */ (function () {
                         if (!((res === null || res === void 0 ? void 0 : res.status) == 0)) return [3 /*break*/, 5];
                         this.userComponent.getListMangerAndVolunteer();
                         this.loadingService.isLoading.next(false);
-                        this.snackBar.showMessage(res.message, true);
+                        this.snackBar.showMessage('Đăng ký thành công. Đi tới đăng nhập', true);
                         return [4 /*yield*/, this.authService.login(false, this.registerForm.value.username, oldPass)];
                     case 2:
                         baseResponse = _a.sent();
                         if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 0)) return [3 /*break*/, 4];
-                        this.snackBar.showMessage(res.message, true);
                         return [4 /*yield*/, this.router.navigate(['admin'])];
                     case 3:
                         _a.sent();
@@ -113,14 +112,21 @@ var RegisterComponent = /** @class */ (function () {
     RegisterComponent.prototype.initRegisterForm = function () {
         var md5 = new ts_md5_1.Md5();
         this.registerForm = this.formBuilder.group({
-            username: ['', forms_1.Validators.required],
-            password: ['', forms_1.Validators.required],
-            first_name: ['', forms_1.Validators.required],
-            last_name: ['', forms_1.Validators.required],
-            number_phone: ['', forms_1.Validators.required,],
+            username: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(50), forms_1.Validators.pattern('^[a-zA-Z0-9_]*$')]],
+            password: ['', [forms_1.Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&]*)[A-Za-z\\d@$!%*#?&]{8,}$'), forms_1.Validators.required, forms_1.Validators.minLength(8)]],
+            first_name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2), forms_1.Validators.maxLength(50)]],
+            last_name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2), forms_1.Validators.maxLength(50)]],
+            number_phone: ['', [forms_1.Validators.required, forms_1.Validators.pattern('(0)+([0-9]{9})\\b')]],
             role: ['organization_manager']
         });
     };
+    Object.defineProperty(RegisterComponent.prototype, "registerFormControl", {
+        get: function () {
+            return this.registerForm.controls;
+        },
+        enumerable: false,
+        configurable: true
+    });
     var RegisterComponent_1;
     RegisterComponent.KEY = '_CoNn3t0Se(R3T';
     RegisterComponent = RegisterComponent_1 = __decorate([

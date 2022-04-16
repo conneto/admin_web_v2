@@ -48,9 +48,9 @@
             <div>Website:</div>
             <a href="{{ organization.website }}">{{ organization.website }}</a>
           </div>
-          <div *ngIf='!isAdmin'class="content-button">
+          <div *ngIf='!isAdmin && isApproved'class="content-button">
             <div>
-              <button (click)="openProjectForm()"mat-raised-button color='primary'>Create a project</button>
+              <button (click)="openProjectForm()"mat-raised-button color='primary'>Tạo mới một dự án</button>
             </div>
           
           </div>

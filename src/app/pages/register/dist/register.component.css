@@ -44,9 +44,6 @@
   display: flex;
   align-items: center;
 }
-.login-form mat-form-filed {
-  width: 100%;
-}
 .login-form .input {
   background-color: #f6f6f6;
   width: 100%;
@@ -171,4 +168,8 @@
 .login-name :nth-child(2) {
   width: 50%;
   margin-right: 0px !important;
+}
+
+.text-danger {
+  color: red;
 }

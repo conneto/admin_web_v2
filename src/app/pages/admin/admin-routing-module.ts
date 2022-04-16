@@ -10,17 +10,15 @@ const routes: Routes = [
 
         path: '', component: AdminComponent,
         children: [
-
-        
             {
                 path: ''
-                , redirectTo: 'manage-oraganization', pathMatch: 'full'
+                , redirectTo: 'manage-organization', pathMatch: 'full'
             },
             {
                 path: 'dashboard', canActivateChild: [AuthGuard], loadChildren: () => import('src/app/pages/dashboard/dashboard.module').then(((m) => m.DashboardModule)),
             },
             {
-                path: 'manage-oraganization', loadChildren: () => import('src/app/pages/management/mod-organization/organizations/organizations.module').then(m => m.OrganizationsModule),
+                path: 'manage-organization', loadChildren: () => import('src/app/pages/management/mod-organization/organizations/organizations.module').then(m => m.OrganizationsModule),
                 children: [
                     {
                         path: '', loadChildren: () => import('src/app/pages/management/mod-organization/organizations/organizations.module').then((m) => m.OrganizationsModule),

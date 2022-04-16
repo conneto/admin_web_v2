@@ -5,17 +5,26 @@
         <input
           class="input login"
           type="text"
-          placeholder="Organization name"
+          placeholder="Tên tổ chức"
           required=""
           formControlName="name"
         />
       </div>
+      <span
+            *ngIf="  ( organizationControl.name.touched||isSubmitted) &&
+            organizationControl.name.errors?.required|| organizationControl.name.errors?.pattern
+            ||
+            organizationControl.name.errors?.['minlength'] ||   organizationControl.name.errors?.['maxlength']
+          "
+            class="text-danger"
+            >Tên tổ chức bắt buộc và có độ dài tối thiểu 8, tối đa 128 kí tự</span
+          >
       <div class="login-name">
         <input
           class="input login"
           type="text"
-          placeholder="English name (if have)"
-          required=""
+          placeholder="Tên tiếng anh ( nếu có )"
+         
           formControlName="eng_name"
         />
       </div>
@@ -23,39 +32,69 @@
         <textarea
           class="input login"
           type="text"
-          placeholder="Description"
+          placeholder="Giới thiệu"
           required=""
           formControlName="description"
         ></textarea>
       </div>
+      <span
+      *ngIf="  ( organizationControl.description.touched||isSubmitted) &&
+      organizationControl.description.errors?.required|| organizationControl.description.errors?.pattern
+      ||
+      organizationControl.description.errors?.['minlength'] ||   organizationControl.description.errors?.['maxlength']
+    "
+      class="text-danger"
+      >Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí tứ</span
+    >
       <div>
         <textarea
           class="input login"
           type="text"
-          placeholder="Vision"
+          placeholder="Tầm nhìn của tổ chức"
           required=""
           formControlName="vision"
         ></textarea>
       </div>
+      <span
+      *ngIf="  ( organizationControl.vision.touched||isSubmitted) &&
+      organizationControl.vision.errors?.required|| organizationControl.vision.errors?.pattern
+      ||
+      organizationControl.vision.errors?.['minlength'] ||   organizationControl.vision.errors?.['maxlength']
+    "
+      class="text-danger"
+      >Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí tứ</span
+    >
       <div>
         <input
           class="input login"
           type="text"
-          placeholder="Mission"
+          placeholder="Sứ mệnh của tổ chức"
           required=""
           formControlName="mission"
         />
       </div>
+      <span
+      *ngIf="  ( organizationControl.mission.touched||isSubmitted) &&
+      organizationControl.mission.errors?.required|| organizationControl.mission.errors?.pattern
+      ||
+      organizationControl.mission.errors?.['minlength'] ||   organizationControl.mission.errors?.['maxlength']
+    "
+      class="text-danger"
+      >Sứ mệnh bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí tứ</span
+    >
       <div>
         <input
           class="input login"
           type="text"
           placeholder="Website"
-          required=""
+         
           formControlName="website"
         >
       </div>
       <div>
+     
+          <mat-label style='width:130px;'>Ngày thành lập</mat-label>
+       
         <input
           class="input login"
           type="date"
@@ -65,7 +104,7 @@
         />
       </div>
       <div>
-        <label style="width: 100px"> Cover image:</label>
+        <label style="width: 100px"> Ảnh bìa:</label>
         <input
           class="input login"
           type="file"
@@ -91,7 +130,7 @@
 
   <div class="login-button">
     <button
-      [disabled]="organizationForm.invalid"
+   
       type="submit"
       (click)="create()"
     >

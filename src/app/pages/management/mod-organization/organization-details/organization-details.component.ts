@@ -16,6 +16,7 @@ import { LoadingDataService } from 'src/app/services/get-entity/loading-data.ser
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectComponent } from '../../mod-project/project/project.component';
 import { OrganizationsComponent } from '../organizations/organizations.component';
 
 @Component({
@@ -35,7 +36,8 @@ export class OrganizationDetailsComponent implements OnInit {
   urlCover?: string;
   urlLogo?: string;
   idGeneral?: any;
-  constructor(private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
+  isApproved?:boolean
+  constructor(private pro:ProjectComponent,private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
 
@@ -54,14 +56,17 @@ export class OrganizationDetailsComponent implements OnInit {
   async getValueFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     this.organization = await this.orgApi.getById(`${id}`);
+    if(this.organization?.result_code==510){
+      this.isApproved=true;
+    }
     this.loadingService.getOrganizationId.next(`${id}`);
     this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
     this.urlCover = this.organization?.cover?.replace(/\\/g, '\/');
   }
   goBack() {
-    
+
     this.location.back();
-    
+
   }
 
   getName() {
@@ -75,9 +80,9 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   openProjectForm() {
     const dialogRef = this.dialog.open(ProjectFormComponent, {
-      width: '350px',
+      width: '700px',
       data: {
-        title: 'Project Form',
+        title: 'Tạo dự án',
       }
     })
 
@@ -87,11 +92,18 @@ export class OrganizationDetailsComponent implements OnInit {
         let res: BaseResponse = await this.proApi.createProject(data);
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
-          this.snackBar.showMessage(res.message, true)
-          this.getEntityService.getByEntity('pro');
+          this.snackBar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true)
+          
           this.router.navigate(['/manager/manage-project']);
+          this.pro.checkToGetData('pending');
 
         } else {
+          this.dialog.open(ProjectFormComponent, {
+            width: '700px',
+            data: {
+              title: 'Tạo dự án',
+            }
+          })
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage(res.message, false)
         }

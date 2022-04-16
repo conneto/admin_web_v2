@@ -24,7 +24,7 @@ export class LoadingDataService {
     switch (entity) {
       case 'org': this.organization.checkToGetData();
         break;
-      case 'pro': this.project.checkToGetData(), this.proRequest.getRequest();
+      case 'pro': this.project.checkToGetData();
         break;
       case 'cam': this.campaign.checkToGetData()
         break;

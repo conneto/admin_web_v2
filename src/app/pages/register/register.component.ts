@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   isSubmited: boolean = false;
 
   public static readonly KEY = '_CoNn3t0Se(R3T';
-  constructor(private userComponent:UserManagementComponent,private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private router: Router, private authService: AuthServiceService, private formBuilder: FormBuilder,) { }
+  constructor(private userComponent: UserManagementComponent, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private router: Router, private authService: AuthServiceService, private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.initRegisterForm();
@@ -30,18 +30,19 @@ export class RegisterComponent implements OnInit {
   async register() {
     this.isSubmited = true;
 
-    this.loadingService.isLoading.next(true);
+
 
     if (this.registerForm.valid) {
+      this.loadingService.isLoading.next(true);
       const md5 = new Md5()
       let uploadData: any = new FormData();
 
 
       const oldPass = this.registerForm.value.password;
       const oldPhone = this.registerForm.value.number_phone;
-      this.registerForm.value.number_phone="0"+""+oldPhone;
+      this.registerForm.value.number_phone = "0" + "" + oldPhone;
       // this.registerForm.patchValue({ password: md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end() });
-      this.registerForm.value.password=md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end();
+      this.registerForm.value.password = md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end();
       console.log(this.registerForm.value.password);
       uploadData.append('account', JSON.stringify(this.registerForm.value));
       console.log(uploadData.get('account'));
@@ -52,19 +53,19 @@ export class RegisterComponent implements OnInit {
       if (res?.status == 0) {
         this.userComponent.getListMangerAndVolunteer();
         this.loadingService.isLoading.next(false);
-        this.snackBar.showMessage(res.message, true);
+        this.snackBar.showMessage('Đăng ký thành công. Đi tới đăng nhập', true);
         let baseResponse: BaseResponse = await this.authService.login(
           false,
           this.registerForm.value.username,
           oldPass,
         );
         if (baseResponse?.status == 0) {
-          this.snackBar.showMessage(res.message, true);
+         
           await this.router.navigate(['admin']);
         }
       } else {
         this.registerForm.setValue({
-          username: this.registerForm.value.username, password:oldPass, first_name: this.registerForm.value.first_name,
+          username: this.registerForm.value.username, password: oldPass, first_name: this.registerForm.value.first_name,
           last_name: this.registerForm.value.last_name, number_phone: oldPhone, role: 'organization_manager'
         })
         this.loadingService.isLoading.next(false);
@@ -76,12 +77,15 @@ export class RegisterComponent implements OnInit {
   initRegisterForm() {
     const md5 = new Md5();
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-      first_name: ['', Validators.required],
-      last_name: ['', Validators.required],
-      number_phone: ['', Validators.required,],
+      username: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9_]*$')]],
+      password: ['', [Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&]*)[A-Za-z\\d@$!%*#?&]{8,}$'), Validators.required, Validators.minLength(8)]],
+      first_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      last_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      number_phone: ['', [Validators.required, Validators.pattern('(0)+([0-9]{9})\\b')]],
       role: ['organization_manager'],
     })
+  }
+  get registerFormControl() {
+    return this.registerForm.controls;
   }
 }

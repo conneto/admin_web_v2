@@ -87,6 +87,9 @@ var ProjectDetailsComponent = /** @class */ (function () {
                     case 1:
                         _e.project = _f.sent();
                         this.loadingService.projectId.next("" + id);
+                        if (this.project.resultCode == 610) {
+                            this.isApproved = true;
+                        }
                         this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];
@@ -100,9 +103,9 @@ var ProjectDetailsComponent = /** @class */ (function () {
     ProjectDetailsComponent.prototype.openCampaignForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
-            width: '350px',
+            width: '700px',
             data: {
-                title: 'Campaign Form'
+                title: 'Tạo chiến dịch'
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

@@ -23,7 +23,7 @@ var LoadingDataService = /** @class */ (function () {
                 this.organization.checkToGetData();
                 break;
             case 'pro':
-                this.project.checkToGetData(), this.proRequest.getRequest();
+                this.project.checkToGetData();
                 break;
             case 'cam':
                 this.campaign.checkToGetData();

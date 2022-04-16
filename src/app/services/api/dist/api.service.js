@@ -14,8 +14,8 @@ var ApiService = /** @class */ (function () {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
         this.loadingService = loadingService;
-        this.uri = "http://e8b3-123-21-31-124.ngrok.io/fetch_data/api/v1";
-        this.postUri = 'http://8754-123-21-31-124.ngrok.io/core/api/v1';
+        this.uri = "http://50c4-123-21-11-180.ngrok.io/fetch_data/api/v1";
+        this.postUri = 'http://6f1a-123-21-11-180.ngrok.io/core/api/v1';
         this.corsHeaders = new http_1.HttpHeaders();
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
     }

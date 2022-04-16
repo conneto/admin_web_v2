@@ -28,8 +28,8 @@ var ProjectFormComponent = /** @class */ (function () {
     };
     ProjectFormComponent.prototype.initForm = function () {
         this.projectForm = this.formBuilder.group({
-            name: ['', forms_1.Validators.required],
-            description: ['', forms_1.Validators.required],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
             created_by: [this.authApi.currentUserValue.id],
@@ -44,6 +44,7 @@ var ProjectFormComponent = /** @class */ (function () {
     };
     ProjectFormComponent.prototype.yesClick = function () {
         var _a, _b;
+        this.isSubmitted = true;
         if (this.projectForm.valid) {
             var uploadData = new FormData();
             uploadData.append('cover', this.coverImage, (_a = this.coverImage) === null || _a === void 0 ? void 0 : _a.name);
@@ -62,6 +63,13 @@ var ProjectFormComponent = /** @class */ (function () {
             this.logo = e.target.files[0];
         }
     };
+    Object.defineProperty(ProjectFormComponent.prototype, "projectControl", {
+        get: function () {
+            return this.projectForm.controls;
+        },
+        enumerable: false,
+        configurable: true
+    });
     ProjectFormComponent = __decorate([
         core_1.Component({
             selector: 'app-project-form',

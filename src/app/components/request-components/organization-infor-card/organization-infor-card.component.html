@@ -13,24 +13,24 @@
       <div class="card-icon">
         <div>
           <mat-icon title="Request by">people</mat-icon
-          ><span class="margin-left">Khang Tran</span>
+          ><span class="margin-left">{{organizations.created_name}}</span>
         </div>
         <div>
           <mat-icon title="At">date_range</mat-icon
           ><span
             class="margin-left"
-            >{{organizations.created_at|date:'shortDate'}}</span
+            >{{organizations.created_at|date:'dd/MM/yyyy'}}</span
           >
         </div>
       </div>
     </a>
     <mat-card-actions>
       <button (click)="approve()" title="Click to approve" mat-button>
-        Approve
+        Chấp nhận
       </button>
 
       <button (click)="reject()" title="Click to decline" mat-button>
-        Decline
+        Từ chối
       </button>
     </mat-card-actions>
   </mat-card>

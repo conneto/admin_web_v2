@@ -15,6 +15,7 @@ export class CamapaignFormComponent implements OnInit {
   coverImage?: File;
   constructor(public loadingService: LoadingServiceService, public authApi: AuthServiceService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
   campaignForm!: FormGroup;
+  isSubmitted?:boolean;
 
   ngOnInit(): void {
     this.initForm();
@@ -26,16 +27,16 @@ export class CamapaignFormComponent implements OnInit {
 
   initForm() {
     this.campaignForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
+      name: ['', [ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
+      description: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       request_type: ['create'],
       type: ['', Validators.required],
       target_number: ['', Validators.required],
-      job_requirement: ['', Validators.required],
-      job_description: ['', Validators.required],
-      job_benefit: ['', Validators.required],
+      job_requirement: ['', [ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
+      job_description: ['', [ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
+      job_benefit: ['', [ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
       project_id: [this.loadingService.projectId.value],
       cover: [''],
     })
@@ -46,6 +47,7 @@ export class CamapaignFormComponent implements OnInit {
   }
   uploadData: any = new FormData();
   yesClick() {
+    this.isSubmitted=true;
     if (this.campaignForm.valid) {
   
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
@@ -64,5 +66,8 @@ export class CamapaignFormComponent implements OnInit {
       }
       // this.coverImage = e.target.files[0];
     }
+  }
+  get campaignControl(){
+    return this.campaignForm.controls;
   }
 }

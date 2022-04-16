@@ -45,8 +45,8 @@
             </p>
           </div>
         </div>
-        <div *ngIf='!isAdmin'class="content-button">
-          <button (click)="openCampaignForm()" mat-raised-button color="accent">Create a campaign</button>
+        <div *ngIf='!isAdmin && isApproved'class="content-button">
+          <button (click)="openCampaignForm()" mat-raised-button color="accent">Tạo mới một chiến dịch</button>
         </div>
       </div>
     </div>

@@ -34,7 +34,7 @@ export class OrganizationsComponent implements OnInit {
   passData: Organization[] = [];
   isChangeState?: boolean;
   number?: any;
-  noResultBySearch?:boolean;
+  noResultBySearch?: boolean;
 
 
 
@@ -45,7 +45,7 @@ export class OrganizationsComponent implements OnInit {
     this.checkToGetData();
     this.userApi.currentUserValue;
     this.urlApi = this.loading.getApiGetLink.value;
- 
+
 
   }
 
@@ -69,11 +69,14 @@ export class OrganizationsComponent implements OnInit {
 
   }
 
-  async checkToGetData() {
+  async checkToGetData(getStatus?: string) {
     this.organizations = await this.service.getAll();
 
     this.passData = this.organizations;
-    if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+    if (getStatus == 'pending') {
+      this.getAllOrganizationByStatus('pending');
+      localStorage.setItem('pending', 'true');
+    } else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
       && !localStorage.getItem('pending')
     ) {
       this.getAllOrganizationByStatus('approve');

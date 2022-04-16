@@ -46,7 +46,10 @@
 .login-form {
 
   input[type='text'],
-  input[type='password'] {}
+  input[type='password'] {
+
+  }
+
 
   ::placeholder {
     /* Edge */
@@ -62,10 +65,9 @@
 
   }
 
-  mat-form-filed {
-    width: 100%;
-
-  }
+  
+ 
+  
 
   .input {
     background-color: rgba(246, 246, 246, 1);
@@ -211,4 +213,9 @@
     width: 50%;
     margin-right:0px !important;
   }
+}
+
+.text-danger{
+  color:red;
+  
 }

@@ -72,11 +72,13 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
+           
             "production": {
               "browserTarget": "adminWebV2:build:production"
             },
             "development": {
-              "browserTarget": "adminWebV2:build:development"
+              "browserTarget": "adminWebV2:build:development",
+              "disableHostCheck": true
             }
           },
           "defaultConfiguration": "development"
