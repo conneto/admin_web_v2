@@ -7,7 +7,7 @@ import { ApiService } from '../api/api.service';
   providedIn: 'root'
 })
 export class CampaignApiService {
-  private static readonly CAMPAIGN = 'campaigns'
+  public static readonly CAMPAIGN = 'campaigns'
   constructor(private apiService: ApiService, private campaignAdap: CampaignAdapter) {
 
   }

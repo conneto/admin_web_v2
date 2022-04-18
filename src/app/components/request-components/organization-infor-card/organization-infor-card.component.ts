@@ -76,7 +76,7 @@ export class OrganizationInforCardComponent implements OnInit {
           } else if (checkType == 'pro'|| this.checkType=='pro') {
             this.pro.checkToGetData('pending');
           } else {
-            this.cam.checkToGetData();
+            this.cam.checkToGetData('pending');
           }
         } else {
           this.loadingApi.isLoading.next(false);
@@ -114,7 +114,7 @@ export class OrganizationInforCardComponent implements OnInit {
           } else if (checkType == 'pro'|| this.checkType=='pro') {
             this.pro.checkToGetData('pending');
           } else if  (checkType == 'cam'|| this.checkType=='cam') {
-            this.cam.checkToGetData();
+            this.cam.checkToGetData('pending');
           }
           this.snackBar.showMessage("Từ chối thành công", true);
         } else {

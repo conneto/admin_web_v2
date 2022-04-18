@@ -32,7 +32,7 @@ const routes: Routes = [
 
             { path: 'user-management', loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule) },
             {
-                path: 'organization-request',canActivateChild: [AuthGuard], loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
+                path: 'organization-request', canActivateChild: [AuthGuard], loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
                 children: [
                     {
                         path: '', loadChildren: () => import('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module').then((m) => m.OrganizationRequestModule),
@@ -58,14 +58,14 @@ const routes: Routes = [
                 ]
             },
             {
-                path: 'campaign-request', canActivateChild: [AuthGuard],loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule),
+                path: 'campaign-request', canActivateChild: [AuthGuard], loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule),
                 children: [
                     { path: '', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module').then(m => m.CampaignRequestModule) }
                     , { path: 'campaign-request-detail/:id', loadChildren: () => import('src/app/pages/manage-request/mod-campaign/campaign-request-detail/campaign-request-detail.module').then(m => m.CampaignRequestDetailModule), }
                 ]
             },
             {
-                path: 'project-request', canActivateChild: [AuthGuard],loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule),
+                path: 'project-request', canActivateChild: [AuthGuard], loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule),
                 children: [
                     { path: '', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request/project-request.module').then(m => m.ProjectRequestModule) },
                     { path: 'project-request-detail/:id', loadChildren: () => import('src/app/pages/manage-request/mod-project/project-request-detail/project-request-detail.module').then(m => m.ProjectRequestDetailModule) },

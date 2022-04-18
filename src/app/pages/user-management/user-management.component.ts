@@ -34,13 +34,7 @@ export class UserManagementComponent implements OnInit {
     this.users = await this.userApi.getListUsers();
 
   }
-  async getNameById(id: string) {
-    this.users = await this.userApi.getListUsers();
-    return this.users = this.users.filter(x => {
-      console.log(x.id, id);
-      return x.id == id;
-    });
-  }
+
 
   async getListMangerAndVolunteer() {
     this.users = await this.userApi.getListUsers();

@@ -70,7 +70,7 @@ var CampaignsComponent = /** @class */ (function () {
             this.noResultBySearch = false;
         }
     };
-    CampaignsComponent.prototype.checkToGetData = function () {
+    CampaignsComponent.prototype.checkToGetData = function (pending) {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
             return __generator(this, function (_b) {
@@ -81,6 +81,10 @@ var CampaignsComponent = /** @class */ (function () {
                     case 1:
                         _a.campaigns = _b.sent();
                         this.passData = this.campaigns;
+                        if (pending == 'pending') {
+                            this.getAllCampaignsByStatus('pending');
+                            localStorage.setItem('pending', 'true');
+                        }
                         if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
                             && !localStorage.getItem('pending')) {
                             this.getAllCampaignsByStatus('approve');
@@ -122,12 +126,10 @@ var CampaignsComponent = /** @class */ (function () {
                                 case 'donation':
                                     this.campaigns[i].type = 'Quyên Góp';
                                     this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
-                                    console.log(this.campaigns[i].org_id);
                                     break;
                                 case 'recruitment':
                                     this.campaigns[i].type = 'Thiện Nguyện';
                                     this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
-                                    console.log(this.campaigns[i].org_id);
                                     break;
                             }
                             a = Date.parse("" + this.campaigns[i].startDate);

@@ -18,6 +18,9 @@ export class CampaignRequestCardComponent implements OnInit {
   isPro: string = '';
   isOrg: string = '';
   isCam: string = '';
+  urlLogo?:string;
+  urlApi?:string;
+  urlCover?:string;
   constructor(private dialogConfirm:OrganizationInforCardComponent) { }
 
   ngOnInit(): void {

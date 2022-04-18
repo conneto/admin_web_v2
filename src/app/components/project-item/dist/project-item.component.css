@@ -16,7 +16,7 @@ mat-card-title {
 mat-card {
   max-width: 100%;
   width: 380px;
-  margin: 5px 10px;
+  margin: 20px 0 0 0;
 }
 
 mat-card:hover {
@@ -81,4 +81,13 @@ button:hover {
   font-size: 15px;
   margin-left: 5px;
   margin-bottom: 0 !important;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.box__item {
+  margin: 0 10px;
 }

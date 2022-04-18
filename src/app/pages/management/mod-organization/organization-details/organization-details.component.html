@@ -1,61 +1,141 @@
 <div *ngIf="organization">
   <div class="container">
     <div class="box">
-      <button class='close-button'(click)="goBack()"><mat-icon>close</mat-icon></button>
+      <button class="close-button" (click)="goBack()">
+        <mat-icon>close</mat-icon>
+      </button>
       <div class="header">
-        <img loading='lazy' src="{{urlApi}}/show/images?p={{urlCover}}" alt="" />
+        <img
+          loading="lazy"
+          src="{{ urlApi }}/show/images?p={{ urlCover }}"
+          alt=""
+        />
       </div>
+      <div class="content__tab">
+        <ul>
+          <li
+            [class.content__tab-active]="isInformation"
+            (click)="getTab('infor')"
+          >
+            Thông tin
+          </li>
+          <li [class.content__tab-active]="isProjects" (click)="getTab('pro')">
+            Dự án
+          </li>
+          <li [class.content__tab-active]="isCampaigns" (click)="getTab('cam')">
+            Chiến dịch
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="isInformation" class="box box__content">
       <div class="content">
         <div class="content-information">
           <div>
             <div class="icon">
-              <img loading='lazy' src="{{urlApi}}/show/images?p={{urlLogo}}" alt="" />
+              <img
+                loading="lazy"
+                src="{{ urlApi }}/show/images?p={{ urlLogo }}"
+                alt=""
+              />
             </div>
             <div>
-              <p>{{ organization.name }}</p>
+              <p>{{ organization.name ? organization.name : "Anh Phuc" }}</p>
             </div>
           </div>
           <div>
-            <p class="title">Create by</p>
-            <p>aa</p>
+            <p class="title">Được tạo bởi</p>
+            <p>
+              {{
+                organization.created_name
+                  ? organization.created_name
+                  : "Anh Phuc"
+              }}
+            </p>
           </div>
           <div>
-            <p class="title">Date created</p>
-            <p>{{ organization.founding_date | date: "mediumDate" }}</p>
+            <p class="title">Ngày thành lập</p>
+            <p>
+              {{ organization.founding_date | date: "dd/MM/yyyy" }}
+            </p>
           </div>
           <div>
-            <p>Non-profit organization</p>
+            <p>{{ organization.type ? organization.type : "" }}</p>
           </div>
         </div>
         <div class="content-main">
           <div class="content-introduce">
-            <div>Introduce:</div>
+            <div>Giới thiệu tổ chức:</div>
             <div>
-              {{ organization.description }}
+              {{ organization.description ? organization.description : "" }}
             </div>
           </div>
           <div class="content-field">
-            <div>Vision:</div>
-            <div>{{ organization.vision }}</div>
+            <div>Tầm nhin của tổ chức:</div>
+            <div>{{ organization.vision ? organization.vision : "" }}</div>
           </div>
           <div class="content-area">
-            <div>Mission:</div>
+            <div>Nhiệm vụ của tổ chức:</div>
             <div>
               {{ organization.mission ? organization.mission : "Nothing" }}
             </div>
           </div>
           <div class="content-area">
             <div>Website:</div>
-            <a href="{{ organization.website }}">{{ organization.website }}</a>
+            <a
+              href="{{
+                organization.website ? organization.website : 'google.com'
+              }}"
+              >{{ organization.website ? organization.website : "Null" }}</a
+            >
           </div>
-          <div *ngIf='!isAdmin && isApproved'class="content-button">
+          <div *ngIf="!isAdmin && isApproved" class="content-button">
             <div>
-              <button (click)="openProjectForm()"mat-raised-button color='primary'>Tạo mới một dự án</button>
+              <button
+                (click)="openProjectForm()"
+                mat-raised-button
+                color="primary"
+              >
+                Tạo mới một dự án
+              </button>
             </div>
-          
           </div>
         </div>
       </div>
+    </div>
+    <div class="container" *ngIf="isCampaigns">
+      <div *ngFor="let cam of campaigns">
+        <app-campaign-card-info [campaign]="cam"></app-campaign-card-info>
+      </div>
+    </div>
+    <div class="project__list-item" *ngIf="isProjects">
+      <div *ngIf="projects?.length!>0">
+        <div class="search-bar">
+          <div *ngIf="!noResultBySearch; then name; else result"></div>
+          <div>
+            <ng-template #name>
+              <div class="name">
+                <h3>Dự Án</h3>
+                <p>{{ status ? status : "" }}</p>
+              </div>
+            </ng-template>
+            <ng-template #result>
+              <div class="name">
+                <h3>Không tìm thấy kết quả phù hợp</h3>
+              </div>
+            </ng-template>
+          </div>
+          <div>
+            <app-search-bar
+              (getItem)="getData($event)"
+              [entity]="passData"
+              [entityCopy]="oldData"
+            ></app-search-bar>
+          </div>
+        </div>
+      </div>
+
+      <app-project-item [projects]="projects"></app-project-item>
     </div>
   </div>
 </div>

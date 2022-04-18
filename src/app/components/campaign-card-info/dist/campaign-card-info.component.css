@@ -1,6 +1,7 @@
 mat-card {
   width: 350px;
   max-width: 100%;
+  margin: 15px 10px 0;
 }
 mat-card .mat-card-image {
   height: 200px !important;

@@ -1,191 +1,237 @@
 .button {
 
-    display: flex;
-    position: absolute;
-    right: 0%;
-    top: 3em;
-    text-align: center;
-  
-    button {
-      margin-right: 1em;
-      width: 100px;
-    }
-  
-    :first-child {
-      background-color: rgba(138, 244, 149, 1);
-  
-    }
-  
-    :nth-child(2) {
-      background-color: rgba(244, 138, 138, 1);
-    }
+  display: flex;
+  position: absolute;
+  right: 0%;
+  top: 3em;
+  text-align: center;
+
+  button {
+    margin-right: 1em;
+    width: 100px;
   }
-  
-  .logo {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 5px;
+
+  :first-child {
+    background-color: rgba(138, 244, 149, 1);
+
   }
-  
-  .container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
+
+  :nth-child(2) {
+    background-color: rgba(244, 138, 138, 1);
+  }
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.container {
+  width: 100%;
+
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+  font-size: 15px;
+  cursor: default;
+
+  .box {
+    background-color: #fff;
+    box-shadow: 0 5px 5px 0.2px #ddd;
+    border-radius: 15px;
+
+    &__content {
+      margin-top: 15px;
+    }
+
     position: relative;
-    font-size: 15px;
-    cursor: default;
-  
-    .box {
-      width: 90%;
-      box-shadow: 0 0 10px 5px #ddd;
-      // box-shadow: 5px 5px 5px 0.2px #ddd;
-  
-  
+
+    .closeButton {
+
+      button {
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        height: 24px;
+        width: 24px;
+        margin: 3px 3px 0 0;
+        border: none;
+        outline: none;
+        background: unset;
+
+      }
+
+      button:hover {
+        background-color: #ccc;
+        opacity: 0.6;
+        border-radius: 100%;
+
+      }
+    }
+
+
+
+    .header {
+      &-content {
+        display: flex;
+
+      }
+
       position: relative;
-  
-      .closeButton {
-  
-        button {
-          position: absolute;
-          z-index: 1;
-          right: 0;
-          height: 24px;
-          width: 24px;
-          margin: 3px 3px 0 0;
-          border: none;
-          outline: none;
-          background: unset;
-  
-        }
-  
-        button:hover {
-          background-color: #ccc;
-          opacity: 0.6;
-          border-radius: 100%;
-  
-        }
-      }
-  
-  
-  
-      .header {
-        &-content {
+
+      &-information {
+        padding: 0px 15px 0;
+
+        >div {
           display: flex;
-          padding: 20px;
+          align-items: center;
         }
-  
-        position: relative;
-  
-        &-information {
-          padding: 0px 15px 0;
-  
-          >div {
-            display: flex;
-            align-items: center;
-          }
-  
-  
-        }
-  
-        &-image {
-          width: 35%;
-  
-          img {
-            width: 100%;
-            height: 300px;
-  
-  
-          }
-        }
-  
-  
+
+
       }
-  
-  
-      .content {
-        padding: 10px;
-  
-        &-description {
-          display: flex;
-          
-          :first-child {
-            width: 12%;
-            display: flex;
-            font-weight: bold;
-            justify-content: flex-end;
-          }
-  
-          :nth-child(2) {
-            margin-left: 10px;
-            width: 88%;
-          }
-        }
-  
-  
-  
-        &-information {
-          margin-top: 5px;
-  
-  
-  
-  
-          &-button {
-            align-items: center;
-            display: flex;
-            justify-content: space-around;
-          }
-  
-  
-  
-        }
-        &-button{
-            display: flex;
-            justify-content: center;
+
+      &-image {
+        width: 100%;
+
+        img {
+          width: 100%;
+          height: 300px;
+          object-fit: fill;
+
         }
       }
+
+
     }
-  
-    .card-icon {
-      display: flex;
-      font-size: 15px !important;
-  
-      margin: 10px 0 10px;
-  
-      mat-card-subtitle {
-  
-        margin-bottom: 0 !important;
-  
-      }
-  
-      .start-date,
-      .budget-item {
-        p {
-          font-weight: bold;
-        }
-  
-        margin:0 10px 0 0;
-        border-radius:5px;
+
+
+
+  }
+
+  .content {
+    padding: 10px;
+
+    &__tab {
+      font-size: 15px;
+
+      ul {
         display: flex;
+        margin-bottom: 0px !important;
         justify-content: center;
-        flex-direction: column;
-        padding: 10px;
-        border: 1px dotted #ccc !important;
-      }
-  
-      div {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
+
+
+        li {
+          list-style: none;
+          padding: 10px;
+          color: #A1A5B7;
+          font-weight: 600;
+          cursor: pointer;
+          margin: 0 10px;
+
+        }
+
       }
     }
-  
-    .location {
+
+    &__tab li:hover {
+      border-bottom: 1px solid #009EF7;
+    }
+
+    &__tab-active {
+      color: #009EF7 !important;
+      border-bottom: 1px solid #009EF7;
+
+    }
+
+    &-description {
       display: flex;
+
+      :first-child {
+        width: 15%;
+        display: flex;
+        font-weight: bold;
+        justify-content: flex-end;
+      }
+
+      :nth-child(2) {
+        margin-left: 10px;
+        width: 88%;
+      }
+    }
+
+
+
+    &-information {
+      margin-top: 5px;
+
+
+
+
+      &-button {
+        align-items: center;
+        display: flex;
+        justify-content: space-around;
+      }
+
+
+
+    }
+
+    &-button {
+      display: flex;
+      justify-content: center;
     }
   }
-  .organization-name{
-    color:orange;
-    font-weight:700;
+
+  .card-icon {
+    display: flex;
+    font-size: 15px !important;
+
+    margin: 10px 0 10px;
+
+    mat-card-subtitle {
+
+      margin-bottom: 0 !important;
+
+    }
+
+    .start-date,
+    .budget-item {
+      p {
+        font-weight: bold;
+      }
+
+      margin:0 10px 0 0;
+      border-radius:5px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      padding: 10px;
+      border: 1px dotted #ccc !important;
+    }
+
+    div {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
   }
+
+  .location {
+    display: flex;
+  }
+}
+
+.organization-name {
+  color: orange;
+  font-weight: 700;
+}
+
+.organization__avatar {
+  width: 30px !important;
+  height: 30px !important;
+  object-fit: fill;
+  margin-right: 10px;
+}

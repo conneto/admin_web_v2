@@ -61,11 +61,14 @@ var ProjectDetailsComponent = /** @class */ (function () {
         this.urlApi = '';
         this.urlLogo = '';
         this.urlCover = '';
+        this.campaigns = [];
     }
     ProjectDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
         this.check();
         this.urlApi = this.loadingService.getApiGetLink.value;
+        this.isInformation = true;
+        this.getCampaigns();
     };
     ProjectDetailsComponent.prototype.check = function () {
         var _a;
@@ -73,6 +76,40 @@ var ProjectDetailsComponent = /** @class */ (function () {
         if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) === 'organization_manager') {
             this.isAdmin = false;
         }
+    };
+    ProjectDetailsComponent.prototype.getCampaigns = function () {
+        var _a, _b, _c, _d;
+        return __awaiter(this, void 0, void 0, function () {
+            var _e, i;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
+                    case 0:
+                        _e = this;
+                        return [4 /*yield*/, this.proApi.getCampaignsByProjectId("" + this.actived.snapshot.paramMap.get('id'))];
+                    case 1:
+                        _e.campaigns = _f.sent();
+                        if (this.campaigns) {
+                            for (i = 0; i < this.campaigns.length; i++) {
+                                {
+                                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                                    switch (this.campaigns[i].type) {
+                                        case 'donation':
+                                            this.campaigns[i].type = 'Quyên Góp';
+                                            this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
+                                            break;
+                                        case 'recruitment':
+                                            this.campaigns[i].type = 'Thiện Nguyện';
+                                            this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     ProjectDetailsComponent.prototype.getByID = function () {
         var _a, _b, _c, _d;
@@ -90,7 +127,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         if (this.project.resultCode == 610) {
                             this.isApproved = true;
                         }
-                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.organizationLogo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];
                 }
@@ -99,6 +136,18 @@ var ProjectDetailsComponent = /** @class */ (function () {
     };
     ProjectDetailsComponent.prototype.goBack = function () {
         this.location.back();
+    };
+    ProjectDetailsComponent.prototype.getTab = function (id) {
+        switch (id) {
+            case 'infor':
+                this.isInformation = true;
+                this.isCampaigns = false;
+                break;
+            case 'cam':
+                this.isCampaigns = true;
+                this.isInformation = false;
+                break;
+        }
     };
     ProjectDetailsComponent.prototype.openCampaignForm = function () {
         var _this = this;

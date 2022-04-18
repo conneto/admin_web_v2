@@ -11,6 +11,8 @@
   box-shadow: 3px 5px 5px #ddd;
 }
 
+
+
 mat-card {
   width: 380px;
   margin: 5px;
@@ -30,7 +32,16 @@ mat-card {
 
 }
 
+.box__item:hover {
 
+  transform: scale(1.12);
+  z-index: 1;
+
+  mat-card-title {
+    overflow: visible;
+    white-space: normal;
+  }
+}
 
 mat-card-actions {
   display: flex !important;
@@ -90,26 +101,29 @@ img {
   align-items: center;
   flex-wrap: wrap;
 }
-.box{
+
+.box {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
 }
 
-.name{
+.name {
   display: flex;
   align-items: center;
-  margin-top:20px;
-  >p{
-  
-    font-size:15px;
-    margin-left:5px;
+  margin-top: 20px;
+
+  >p {
+
+    font-size: 15px;
+    margin-left: 5px;
     margin-bottom: 0 !important;
   }
 }
 
-.search-bar{
-  display:flex;
+.search-bar {
+  display: flex;
   justify-content: space-between;
-  align-items:flex-end;
+  align-items: flex-end;
 }

@@ -109,7 +109,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                         this.pro.checkToGetData('pending');
                                     }
                                     else {
-                                        this.cam.checkToGetData();
+                                        this.cam.checkToGetData('pending');
                                     }
                                 }
                                 else {
@@ -165,7 +165,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                         this.pro.checkToGetData('pending');
                                     }
                                     else if (checkType == 'cam' || this.checkType == 'cam') {
-                                        this.cam.checkToGetData();
+                                        this.cam.checkToGetData('pending');
                                     }
                                     this.snackBar.showMessage("Từ chối thành công", true);
                                 }
