@@ -14,8 +14,8 @@ var ApiService = /** @class */ (function () {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
         this.loadingService = loadingService;
-        this.uri = "http://f747-123-20-22-176.ngrok.io/fetch_data/api/v1";
-        this.postUri = 'http://3698-123-20-22-176.ngrok.io/core/api/v1';
+        this.uri = "http://conneto.org:5001/fetch_data/api/v1";
+        this.postUri = 'https://8729-14-224-131-108.ngrok.io/core/api/v1';
         this.corsHeaders = new http_1.HttpHeaders();
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
     }

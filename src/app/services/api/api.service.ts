@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { error } from '@angular/compiler/src/util';
+
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+
 import { BaseResponse, BaseResponseAdapter } from 'src/app/models/base-response/base-response';
-import { Organization } from 'src/app/models/organization/organization';
+
 import { LoadingServiceService } from '../loading/loading-service.service';
 
 @Injectable({
@@ -12,8 +12,8 @@ import { LoadingServiceService } from '../loading/loading-service.service';
 export class ApiService {
   corsHeaders: HttpHeaders;
 
-  private uri = "http://f747-123-20-22-176.ngrok.io/fetch_data/api/v1";
-  private postUri = 'http://3698-123-20-22-176.ngrok.io/core/api/v1';
+  private uri = "http://conneto.org:5001/fetch_data/api/v1";
+  private postUri = 'https://8729-14-224-131-108.ngrok.io/core/api/v1';
   constructor(private http: HttpClient, private baseResponseAdapter: BaseResponseAdapter,public loadingService:LoadingServiceService) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');

@@ -18,7 +18,7 @@ export class OrganizationApiService {
   public static readonly ORGANIZATION = 'organization';
   public static readonly CREATE = 'create';
   user?: UserLoginResponse
-  constructor(private campaignAdapter:CampaignAdapter,private projectAdapter: ProjectAdapter, private apiService: ApiService, private adapter: OrganizationAdapter, private authApi: AuthServiceService) {
+  constructor(private campaignAdapter: CampaignAdapter, private projectAdapter: ProjectAdapter, private apiService: ApiService, private adapter: OrganizationAdapter, private authApi: AuthServiceService) {
     this.user = authApi.currentUserValue;
   }
 
@@ -36,15 +36,15 @@ export class OrganizationApiService {
 
       return this.projectAdapter.adapt(item);
     })
-    console.log(res.data);
+    
     return res.data || [];
   }
-  async getCampaignsByOrgId(id:string){
-    let res:BaseResponse=await this.apiService.get(`${OrganizationApiService.ORGANIZATIONS}/${id}/${CampaignApiService.CAMPAIGN}`)
-    res.data=res.data.map((item:any)=>{
+  async getCampaignsByOrgId(id: string) {
+    let res: BaseResponse = await this.apiService.get(`${OrganizationApiService.ORGANIZATIONS}/${id}/${CampaignApiService.CAMPAIGN}`)
+    res.data = res.data.map((item: any) => {
       return this.campaignAdapter.adapt(item);
     })
-    return res.data||[];
+    return res.data || [];
   }
   async getById(id: string) {
     let res: any = await this.apiService.get(`${OrganizationApiService.ORGANIZATIONS}/${id}`);
@@ -52,6 +52,14 @@ export class OrganizationApiService {
     return res.data || [];
   }
   async create(data: any) {
+
+    let res: BaseResponse = await this.apiService.post(`${OrganizationApiService.ORGANIZATIONS}`, data);
+    if (res.status != 0) {
+      return res;
+    }
+    return res;
+  }
+  async delete(data: any) {
 
     let res: BaseResponse = await this.apiService.post(`${OrganizationApiService.ORGANIZATIONS}`, data);
     if (res.status != 0) {

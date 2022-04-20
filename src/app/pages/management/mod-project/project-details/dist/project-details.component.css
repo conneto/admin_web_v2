@@ -75,7 +75,7 @@
 .container .box .header-image img {
   width: 100%;
   height: 300px;
-  object-fit: fill;
+  object-fit: cover;
 }
 .container .content {
   padding: 10px;
@@ -107,14 +107,14 @@
   display: flex;
 }
 .container .content-description :first-child {
-  width: 15%;
+  width: 200px;
   display: flex;
   font-weight: bold;
   justify-content: flex-end;
 }
 .container .content-description :nth-child(2) {
   margin-left: 10px;
-  width: 88%;
+  width: 950px;
 }
 .container .content-information {
   margin-top: 5px;
@@ -169,4 +169,31 @@
   height: 30px !important;
   object-fit: fill;
   margin-right: 10px;
+}
+
+.search_bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.name {
+  display: flex;
+  align-items: baseline;
+  flex-grow: 1;
+}
+
+.container__item {
+  display: flex;
+  padding-bottom: 50px;
+}
+
+.campaigns__button {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-top: 15px;
+}
+.campaigns__button-create {
+  margin-left: 8px;
 }

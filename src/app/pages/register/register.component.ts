@@ -40,10 +40,10 @@ export class RegisterComponent implements OnInit {
 
       const oldPass = this.registerForm.value.password;
       const oldPhone = this.registerForm.value.number_phone;
-      this.registerForm.value.number_phone = "0" + "" + oldPhone;
+      // this.registerForm.value.number_phone = "0" + "" + oldPhone;
       // this.registerForm.patchValue({ password: md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end() });
       this.registerForm.value.password = md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end();
-      console.log(this.registerForm.value.password);
+     
       uploadData.append('account', JSON.stringify(this.registerForm.value));
       console.log(uploadData.get('account'));
       let res: BaseResponse = await this.authService.register(

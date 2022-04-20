@@ -65,6 +65,9 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.isAdmin = true;
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.projects = [];
+        this.projectsCopy = [];
+        this.campaignsCopy = [];
+        this.campaigns = [];
         this.isGetPro = false;
         this.isGetCam = false;
     }
@@ -76,7 +79,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     OrganizationDetailsComponent.prototype.check = function () {
         var _a;
         this.user = this.auth.currentUserValue;
-        if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) === 'organization_manager') {
+        if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) == 'organization_manager') {
             this.isAdmin = false;
         }
     };
@@ -142,22 +145,22 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getCampaigns = function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var _g, i;
-            return __generator(this, function (_h) {
-                switch (_h.label) {
+            var _e, i;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
-                        _g = this;
+                        _e = this;
                         return [4 /*yield*/, this.orgApi.getCampaignsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
                     case 1:
-                        _g.campaigns = _h.sent();
+                        _e.campaignsCopy = _f.sent();
+                        this.campaigns = this.campaignsCopy;
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 {
                                     this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                    this.campaigns[i].logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                                    this.campaigns[i].organizationLogo = (_f = (_e = this.campaigns[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                                     switch (this.campaigns[i].type) {
                                         case 'donation':
                                             this.campaigns[i].type = 'Quyên Góp';
@@ -170,8 +173,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            this.oldData = this.campaigns;
-                            this.passData = this.campaigns;
+                            this.passDataCampaigns = this.campaignsCopy;
                         }
                         return [2 /*return*/];
                 }
@@ -188,7 +190,8 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         _g = this;
                         return [4 /*yield*/, this.orgApi.getProjectsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
                     case 1:
-                        _g.projects = _h.sent();
+                        _g.projectsCopy = _h.sent();
+                        this.projects = this.projectsCopy;
                         if (this.projects) {
                             for (i = 0; i < this.projects.length; i++) {
                                 {
@@ -197,8 +200,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                                     this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                                 }
                             }
-                            this.oldData = this.projects;
-                            this.passData = this.projects;
+                            this.passDataProjects = this.projectsCopy;
                         }
                         return [2 /*return*/];
                 }
@@ -256,12 +258,24 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     };
     OrganizationDetailsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {
-            this.noResultBySearch = true;
-            this.projects = e;
+            if (this.isProjects) {
+                this.noResultBySearch = true;
+                this.projects = e;
+            }
+            else {
+                this.noResultBySearch = true;
+                this.campaigns = e;
+            }
         }
         else {
-            this.noResultBySearch = false;
-            this.projects = e;
+            if (this.isProjects) {
+                this.noResultBySearch = false;
+                this.projects = e;
+            }
+            else {
+                this.noResultBySearch = false;
+                this.campaigns = e;
+            }
         }
     };
     OrganizationDetailsComponent = __decorate([

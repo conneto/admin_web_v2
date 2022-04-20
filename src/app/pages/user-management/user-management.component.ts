@@ -50,7 +50,7 @@ export class UserManagementComponent implements OnInit {
     this.loading.isLoading.next(true);
     setTimeout(() => {
       let newLength = this.users.length + 8;
-      console.log(newLength);
+   
       if (newLength > this.oldUsers.length) {
         newLength = this.oldUsers.length;
       }

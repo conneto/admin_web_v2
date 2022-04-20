@@ -36,6 +36,12 @@ var loading_spinner_component_1 = require("../loading-spinner/loading-spinner.co
 var tabgroup_component_1 = require("../tab-group/tabgroup.component");
 var search_bar_component_1 = require("../search-bar/search-bar.component");
 var project_item_component_1 = require("../project-item/project-item.component");
+var campaign_item_component_1 = require("../campaign-item/campaign-item.component");
+var table_rank_component_1 = require("../table-rank/table-rank.component");
+var formatnumber_pipe_1 = require("src/app/pipes/FormatNumber/formatnumber.pipe");
+var delete_entity_component_1 = require("../delete-entity/delete-entity.component");
+var chip_category_component_1 = require("../chip-category/chip-category.component");
+var skeletion_loading_component_1 = require("../skeletion-loading/skeletion-loading.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -55,13 +61,18 @@ var componentModules = [
     tabgroup_component_1.TabgroupComponent,
     search_bar_component_1.SearchBarComponent,
     project_item_component_1.ProjectItemComponent,
+    campaign_item_component_1.CampaignItemComponent,
+    table_rank_component_1.TableRankComponent,
+    delete_entity_component_1.DeleteEntityComponent,
+    chip_category_component_1.ChipCategoryComponent,
+    skeletion_loading_component_1.SkeletionLoadingComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {
     }
     ComponentModule = __decorate([
         core_1.NgModule({
-            declarations: __spreadArrays(componentModules),
+            declarations: __spreadArrays(componentModules, [formatnumber_pipe_1.FormatnumberPipe]),
             imports: [
                 router_1.RouterModule,
                 common_1.CommonModule, angular_material_module_1.AngularMaterialModule,

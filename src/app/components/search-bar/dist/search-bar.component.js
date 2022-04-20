@@ -38,9 +38,6 @@ var SearchBarComponent = /** @class */ (function () {
         document.getElementById(('myInput')).value = '';
     };
     SearchBarComponent.prototype.searchName = function (e, status, entity) {
-        if (this.entity) {
-            entity = this.entity;
-        }
         if (e.target.value.length <= 0 || e.target.value == '') {
             this.isEmpty = false;
             this.organization = this.entityCopy;

@@ -3,6 +3,7 @@ import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { DashboardApdater } from 'src/app/models/dashboard/dashboard.model';
 import { UserAdapter } from 'src/app/models/user/user.model';
 import { ApiService } from '../api/api.service';
+import { CampaignApiService } from '../campaign/campaign-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,15 @@ export class UserApiService {
     res.data = this.dashboardAdapter.adapt(res.data);
     return res.data || [];
   }
-
+  async getRanking(type?: string) {
+    let res!: BaseResponse;
+    if (type == 'recruitment') {
+      res = await this.api.get(`${CampaignApiService.CAMPAIGN}/top_volunteers?type=participate`);
+    } else {
+      res = await this.api.get(`${CampaignApiService.CAMPAIGN}/top_volunteers?type=donate`);
+    }
+    return res.data || [];
+  }
   async getListUsers() {
     let res: BaseResponse = await this.api.get(UserApiService.ACCOUNTS);
 

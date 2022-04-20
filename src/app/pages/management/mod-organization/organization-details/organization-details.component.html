@@ -89,33 +89,23 @@
               >{{ organization.website ? organization.website : "Null" }}</a
             >
           </div>
-          <div *ngIf="!isAdmin && isApproved" class="content-button">
+
+          <div *ngIf="isApproved" class="content-button">
             <div>
-              <button
-                (click)="openProjectForm()"
-                mat-raised-button
-                color="primary"
-              >
-                Tạo mới một dự án
-              </button>
+              <app-delete-entity [entity]="organization"></app-delete-entity>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="container" *ngIf="isCampaigns">
-      <div *ngFor="let cam of campaigns">
-        <app-campaign-card-info [campaign]="cam"></app-campaign-card-info>
-      </div>
-    </div>
-    <div class="project__list-item" *ngIf="isProjects">
-      <div *ngIf="projects?.length!>0">
-        <div class="search-bar">
+      <div *ngIf="campaignsCopy?.length! > 0">
+        <div class="search_bar search-bar">
           <div *ngIf="!noResultBySearch; then name; else result"></div>
           <div>
             <ng-template #name>
               <div class="name">
-                <h3>Dự Án</h3>
+                <h3>Chiến Dịch</h3>
                 <p>{{ status ? status : "" }}</p>
               </div>
             </ng-template>
@@ -128,9 +118,54 @@
           <div>
             <app-search-bar
               (getItem)="getData($event)"
-              [entity]="passData"
-              [entityCopy]="oldData"
+              [entityCopy]="passDataCampaigns"
             ></app-search-bar>
+          </div>
+        </div>
+      </div>
+      <div class="container__item">
+        <div *ngFor="let cam of campaigns">
+          <app-campaign-item [campaign]="cam"></app-campaign-item>
+        </div>
+      </div>
+    </div>
+    <div class="project__list-item" *ngIf="isProjects">
+      <div class="project__button">
+        <div *ngIf="!isAdmin && isApproved">
+          <div class='project__button-create'>
+           
+            <button
+              (click)="openProjectForm()"
+              mat-raised-button
+              color="primary"
+            >
+            <mat-icon>add</mat-icon>
+              Tạo mới một dự án
+            </button>
+          </div>
+        </div>
+        <div class='search_bar'*ngIf="projectsCopy?.length! > 0">
+          <div class="search_bar">
+            <div *ngIf="!noResultBySearch; then name; else result"></div>
+            <div>
+              <ng-template #name>
+                <div class="name">
+                  <h3>Dự Án</h3>
+                  <p>{{ status ? status : "" }}</p>
+                </div>
+              </ng-template>
+              <ng-template #result>
+                <div class="name">
+                  <h3>Không tìm thấy kết quả phù hợp</h3>
+                </div>
+              </ng-template>
+            </div>
+            <div>
+              <app-search-bar
+                (getItem)="getData($event)"
+                [entityCopy]="passDataProjects"
+              ></app-search-bar>
+            </div>
           </div>
         </div>
       </div>

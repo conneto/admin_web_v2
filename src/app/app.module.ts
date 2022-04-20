@@ -9,10 +9,11 @@ import { ComponentModule } from './components/component/component.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 @NgModule({
   declarations: [
-    AppComponent, LoginComponent
+    AppComponent, LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -24,6 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HotToastModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+   
+  
   ],
   providers: [
   ],

@@ -86,6 +86,7 @@ export class OrganizationFormComponent implements OnInit {
       created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
       request_type: [OrganizationFormComponent.CREATE],
       mission: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
+      category:[''],
       logo: [''],
       cover: [''],
     })

@@ -44,6 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.UserApiService = void 0;
 var core_1 = require("@angular/core");
+var campaign_api_service_1 = require("../campaign/campaign-api.service");
 var UserApiService = /** @class */ (function () {
     function UserApiService(api, dashboardAdapter, userAdapter) {
         this.api = api;
@@ -62,6 +63,26 @@ var UserApiService = /** @class */ (function () {
                         console.log(res.data);
                         res.data = this.dashboardAdapter.adapt(res.data);
                         return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
+    UserApiService.prototype.getRanking = function (type) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(type == 'recruitment')) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.api.get(campaign_api_service_1.CampaignApiService.CAMPAIGN + "/top_volunteers?type=participate")];
+                    case 1:
+                        res = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.api.get(campaign_api_service_1.CampaignApiService.CAMPAIGN + "/top_volunteers?type=donate")];
+                    case 3:
+                        res = _a.sent();
+                        _a.label = 4;
+                    case 4: return [2 /*return*/, res.data || []];
                 }
             });
         });

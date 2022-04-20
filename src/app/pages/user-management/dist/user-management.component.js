@@ -101,7 +101,6 @@ var UserManagementComponent = /** @class */ (function () {
         this.loading.isLoading.next(true);
         setTimeout(function () {
             var newLength = _this.users.length + 8;
-            console.log(newLength);
             if (newLength > _this.oldUsers.length) {
                 newLength = _this.oldUsers.length;
             }

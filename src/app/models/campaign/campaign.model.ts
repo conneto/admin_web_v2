@@ -23,11 +23,12 @@ export class Campaign {
         public org_logo?: string,
         public pro_id?: string,
         public pro_name?: string,
-        public pro_code?: string,
+        public pro_logo?: string,
         public result_note?: string,
         public result_name?: string,
         public result_code?:number,
         public createdDate?:number,
+        public category?:string,
     ) {
 
     }
@@ -60,11 +61,12 @@ export class CampaignAdapter implements Adapter<Campaign>{
             item.organization_logo,
             item.project_id,
             item.project_name,
-            item.project_code,
+            item.project_logo,
             item.result_note,
             item.result_message,
             item.result_code,
             item.created_at,
+            item.category,
         )
     }
 

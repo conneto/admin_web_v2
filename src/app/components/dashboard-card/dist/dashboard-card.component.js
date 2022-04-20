@@ -10,7 +10,15 @@ exports.DashboardCardComponent = void 0;
 var core_1 = require("@angular/core");
 var DashboardCardComponent = /** @class */ (function () {
     function DashboardCardComponent() {
+        var _this = this;
+        this.numberShow = 0;
         this.positionTooltip = 'above';
+        this.counting = setInterval(function () {
+            _this.numberShow++;
+            if (_this.numberShow == _this.number) {
+                clearInterval(_this.counting);
+            }
+        }, 40);
     }
     DashboardCardComponent.prototype.ngOnInit = function () {
     };

@@ -6,7 +6,12 @@
   box-sizing: border-box;
  
 }
-
+.skeleton{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content: space-evenly;
+  margin-top:30px;
+}
 
 :root {
   --heading-card-color: #9a9a9a;
@@ -79,4 +84,7 @@ html {
 
 
   color: black;
+}
+.search-bar{
+  margin-top:15px;
 }

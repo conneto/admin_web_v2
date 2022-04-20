@@ -23,8 +23,8 @@ export class AuthServiceService {
   public static readonly ROLE = 'organization_manager';
   public static readonly ADMIN = 'admins';
   public static readonly APPROVEMENTS = 'approvements';
-  public static readonly APPROVE = 'Chấp nhận';
-  public static readonly REJECT = 'Từ chối';
+  public static readonly APPROVE = 'chấp nhận';
+  public static readonly REJECT = 'từ chối';
   public static readonly PROJECT = 'project';
   public static readonly ORGANIZATION = 'organization';
   public static readonly CAMPAIGN = 'campaign';

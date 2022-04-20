@@ -65,6 +65,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
         var _a, _b;
         this.urlApi = this.loadingApi.getApiGetLink.value;
         this.urlLogo = (_b = (_a = this.organizations) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+        console.log(this.urlLogo);
     };
     OrganizationInforCardComponent.prototype.viewDetails = function (id) {
         this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);
@@ -77,7 +78,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '300px',
                     data: {
-                        button: auth_service_service_1.AuthServiceService.APPROVE,
+                        button: 'Chấp nhận',
                         message: auth_service_service_1.AuthServiceService.APPROVE
                     }
                 });
@@ -133,7 +134,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '300px',
                     data: {
-                        button: auth_service_service_1.AuthServiceService.REJECT,
+                        button: 'Từ chối',
                         message: auth_service_service_1.AuthServiceService.REJECT
                     }
                 });

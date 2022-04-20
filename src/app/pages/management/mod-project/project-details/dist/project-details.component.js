@@ -62,6 +62,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
         this.urlLogo = '';
         this.urlCover = '';
         this.campaigns = [];
+        this.campaignsCopy = [];
     }
     ProjectDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
@@ -87,7 +88,8 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         _e = this;
                         return [4 /*yield*/, this.proApi.getCampaignsByProjectId("" + this.actived.snapshot.paramMap.get('id'))];
                     case 1:
-                        _e.campaigns = _f.sent();
+                        _e.campaignsCopy = _f.sent();
+                        this.campaigns = this.campaignsCopy;
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 {
@@ -106,10 +108,21 @@ var ProjectDetailsComponent = /** @class */ (function () {
                                 }
                             }
                         }
+                        this.passData = this.campaignsCopy;
                         return [2 /*return*/];
                 }
             });
         });
+    };
+    ProjectDetailsComponent.prototype.getData = function (e) {
+        if (e == null || e.length <= 0) {
+            this.noResultBySearch = true;
+            this.campaigns = e;
+        }
+        else {
+            this.noResultBySearch = false;
+            this.campaigns = e;
+        }
     };
     ProjectDetailsComponent.prototype.getByID = function () {
         var _a, _b, _c, _d;

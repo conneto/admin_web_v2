@@ -62,20 +62,43 @@
             </p>
           </div>
         </div>
-        <div *ngIf="!isAdmin && isApproved" class="content-button">
-          <button (click)="openCampaignForm()" mat-raised-button color="accent">
-            Tạo mới một chiến dịch
-          </button>
-        </div>
       </div>
     </div>
     <div *ngIf="isCampaigns">
-      <div class="container">
+     <div class="campaigns__button">
+     <div class="campaigns__button-create">
+      <button (click)="openCampaignForm()" mat-raised-button color="accent">
+        <mat-icon>add</mat-icon>
+        Tạo mới một chiến dịch
+      </button>
+     </div>
+      <div style='width:100%'*ngIf="campaignsCopy?.length! > 0">
+        <div class=" search_bar">
+          <div *ngIf="!noResultBySearch; then name; else result"></div>
+          <div  >
+            <ng-template #name>
+              <div class="name">
+                <h3>Chiến dịch</h3>
+              </div>
+            </ng-template>
+            <ng-template #result>
+              <div class="name">
+                <h3>Không tìm thấy kết quả phù hợp</h3>
+              </div>
+            </ng-template>
+          </div>
+          <div>
+            <app-search-bar
+              (getItem)="getData($event)"
+              [entityCopy]="passData"
+            ></app-search-bar>
+          </div>
+        </div>
+      </div>
+     </div>
+      <div class="container__item">
         <div *ngFor="let cam of campaigns">
-          <app-campaign-card-info
-           
-            [campaign]="cam"
-          ></app-campaign-card-info>
+          <app-campaign-item [campaign]="cam"></app-campaign-item>
         </div>
       </div>
     </div>

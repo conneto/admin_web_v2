@@ -8,6 +8,7 @@ import { ProjectFormComponent } from 'src/app/components/create/project-form/pro
 import { OrganizationInforCardComponent } from 'src/app/components/request-components/organization-infor-card/organization-infor-card.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
+import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
@@ -46,10 +47,14 @@ export class OrganizationDetailsComponent implements OnInit {
   passData: any;
   noResultBySearch?: boolean;
   projects?: Project[] = [];
+  projectsCopy?: Project[] = [];
+  campaignsCopy?: Campaign[] = [];
   status?: any;
-  campaigns?: any;
+  campaigns?: Campaign[]=[];
   isGetPro?: boolean = false;
   isGetCam?: boolean = false;
+  passDataCampaigns:any;
+  passDataProjects:any;
   constructor(private pro: ProjectComponent, private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
@@ -63,7 +68,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   check() {
     this.user = this.auth.currentUserValue;
-    if (this.user?.role === 'organization_manager') {
+    if (this.user?.role == 'organization_manager') {
       this.isAdmin = false;
     }
   }
@@ -117,13 +122,14 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   async getCampaigns() {
-    this.campaigns = await this.orgApi.getCampaignsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.campaigns = this.campaignsCopy;
     if (this.campaigns) {
       for (var i = 0; i < this.campaigns.length; i++) {
         {
           this.campaigns[i].cover = this.campaigns[i]?.cover?.replace(/\\/g, '\/');
-          this.campaigns[i].logo = this.campaigns[i]?.logo?.replace(/\\/g, '\/');
-          this.campaigns[i].organizationLogo = this.campaigns[i]?.organizationLogo?.replace(/\\/g, '\/');
+       
+          this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(/\\/g, '\/');
           switch (this.campaigns[i].type) {
             case 'donation': this.campaigns[i].type = 'Quyên Góp';
               this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
@@ -135,13 +141,14 @@ export class OrganizationDetailsComponent implements OnInit {
         }
       }
 
-      this.oldData = this.campaigns;
-      this.passData = this.campaigns;
+
+      this.passDataCampaigns = this.campaignsCopy;
 
     }
   }
   async getProjects() {
-    this.projects = await this.orgApi.getProjectsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.projectsCopy = await this.orgApi.getProjectsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.projects = this.projectsCopy;
     if (this.projects) {
       for (var i = 0; i < this.projects.length; i++) {
         {
@@ -151,8 +158,8 @@ export class OrganizationDetailsComponent implements OnInit {
         }
       }
 
-      this.oldData = this.projects;
-      this.passData = this.projects;
+
+      this.passDataProjects = this.projectsCopy;
     }
   }
   public get getId() {
@@ -195,11 +202,21 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {
-      this.noResultBySearch = true;
-      this.projects = e;
+      if (this.isProjects) {
+        this.noResultBySearch = true;
+        this.projects = e;
+      } else {
+        this.noResultBySearch = true;
+        this.campaigns = e;
+      }
     } else {
-      this.noResultBySearch = false;
-      this.projects = e;
+      if (this.isProjects) {
+        this.noResultBySearch = false;
+        this.projects = e;
+      } else {
+        this.noResultBySearch = false;
+        this.campaigns = e;
+      }
     }
   }
 }

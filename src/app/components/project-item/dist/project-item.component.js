@@ -9,16 +9,25 @@ exports.__esModule = true;
 exports.ProjectItemComponent = void 0;
 var core_1 = require("@angular/core");
 var ProjectItemComponent = /** @class */ (function () {
-    function ProjectItemComponent(router, loadingService) {
+    function ProjectItemComponent(userApi, router, loadingService) {
+        this.userApi = userApi;
         this.router = router;
         this.loadingService = loadingService;
         this.projects = [];
     }
     ProjectItemComponent.prototype.ngOnInit = function () {
         this.urlApi = this.loadingService.getApiGetLink.value;
+        if (this.userApi.currentUserValue.role == 'admin') {
+            this.isAdmin = true;
+        }
     };
     ProjectItemComponent.prototype.goToDetail = function (id) {
-        this.router.navigate(["/manager/manage-project/project-request-detail/" + id]);
+        if (this.isAdmin) {
+            this.router.navigate(["/admin/manage-project/project-request-detail/" + id]);
+        }
+        else {
+            this.router.navigate(["/manager/manage-project/project-request-detail/" + id]);
+        }
     };
     __decorate([
         core_1.Input()

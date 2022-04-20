@@ -52,6 +52,7 @@ var progress_bar_1 = require("@angular/material/progress-bar");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var core_3 = require("@angular/material/core");
+var ngx_skeleton_loader_1 = require("ngx-skeleton-loader");
 var materialModules = [
     tree_1.CdkTreeModule,
     autocomplete_1.MatAutocompleteModule,
@@ -93,6 +94,7 @@ var materialModules = [
     snack_bar_1.MatSnackBarModule,
     progress_spinner_1.MatProgressSpinnerModule,
     core_3.MatNativeDateModule,
+    ngx_skeleton_loader_1.NgxSkeletonLoaderModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {

@@ -86,7 +86,6 @@ var OrganizationApiService = /** @class */ (function () {
                         res.data = res.data.map(function (item) {
                             return _this.projectAdapter.adapt(item);
                         });
-                        console.log(res.data);
                         return [2 /*return*/, res.data || []];
                 }
             });
@@ -124,6 +123,22 @@ var OrganizationApiService = /** @class */ (function () {
         });
     };
     OrganizationApiService.prototype.create = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.post("" + OrganizationApiService_1.ORGANIZATIONS, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status != 0) {
+                            return [2 /*return*/, res];
+                        }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
+    OrganizationApiService.prototype["delete"] = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {

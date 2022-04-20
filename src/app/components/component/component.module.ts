@@ -24,6 +24,12 @@ import { TabgroupComponent } from '../tab-group/tabgroup.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 
 import { ProjectItemComponent } from '../project-item/project-item.component';
+import { CampaignItemComponent } from '../campaign-item/campaign-item.component';
+import { TableRankComponent } from '../table-rank/table-rank.component';
+import { FormatnumberPipe } from 'src/app/pipes/FormatNumber/formatnumber.pipe';
+import { DeleteEntityComponent } from '../delete-entity/delete-entity.component';
+import { ChipCategoryComponent } from '../chip-category/chip-category.component';
+import { SkeletionLoadingComponent } from '../skeletion-loading/skeletion-loading.component';
 
 
 const componentModules = [
@@ -45,11 +51,16 @@ const componentModules = [
   TabgroupComponent,
   SearchBarComponent,
   ProjectItemComponent,
-  
+   CampaignItemComponent,
+  TableRankComponent, 
+  DeleteEntityComponent,
+   ChipCategoryComponent,
+   SkeletionLoadingComponent,
+
 ]
 
 @NgModule({
-  declarations: [...componentModules],
+  declarations: [...componentModules, FormatnumberPipe],
   imports: [
     RouterModule,
     CommonModule, AngularMaterialModule,

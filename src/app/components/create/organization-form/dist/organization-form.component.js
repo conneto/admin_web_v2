@@ -123,6 +123,7 @@ var OrganizationFormComponent = /** @class */ (function () {
             created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
             request_type: [OrganizationFormComponent_1.CREATE],
             mission: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            category: [''],
             logo: [''],
             cover: ['']
         });

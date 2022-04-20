@@ -1,0 +1,19 @@
+table{
+    
+    td.mat-cell{
+        text-align: center;
+    }
+    th.mat-header-cell{
+        text-align: center;
+    }
+}
+
+.container{
+    display:flex;
+    &__participate,&__donate{
+        width:50%;
+        >table{
+            width:98%;
+        }
+    }
+}

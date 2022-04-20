@@ -34,6 +34,9 @@ export class ProjectDetailsComponent implements OnInit {
   isInformation?: boolean;
   isCampaigns?: boolean;
   campaigns: Campaign[] = [];
+  campaignsCopy: Campaign[] = [];
+  noResultBySearch?: boolean;
+  passData?: any;
   constructor(private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private location: Location, private proApi: ProjectApiService, private campApi: CampaignApiService, private actived: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -51,12 +54,13 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
   async getCampaigns() {
-    this.campaigns = await this.proApi.getCampaignsByProjectId(`${this.actived.snapshot.paramMap.get('id')}`);
+    this.campaignsCopy = await this.proApi.getCampaignsByProjectId(`${this.actived.snapshot.paramMap.get('id')}`);
+    this.campaigns = this.campaignsCopy;
     if (this.campaigns) {
       for (var i = 0; i < this.campaigns.length; i++) {
         {
           this.campaigns[i].cover = this.campaigns[i]?.cover?.replace(/\\/g, '\/');
-       
+
           this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(/\\/g, '\/');
           switch (this.campaigns[i].type) {
             case 'donation': this.campaigns[i].type = 'Quyên Góp';
@@ -68,66 +72,74 @@ export class ProjectDetailsComponent implements OnInit {
           }
         }
       }
-
-
-
     }
-
+    this.passData = this.campaignsCopy;
   }
+  getData(e: any) {
+    if (e == null || e.length <= 0) {
+      this.noResultBySearch = true;
+      this.campaigns = e;
+    }else {
+      this.noResultBySearch = false;
+      this.campaigns = e;
+    }
+  }
+
+
   async getByID() {
 
-    const id = this.actived.snapshot.paramMap.get('id');
-    this.project = await this.proApi.getByID(`${id}`);
+  const id = this.actived.snapshot.paramMap.get('id');
+  this.project = await this.proApi.getByID(`${id}`);
 
-    this.loadingService.projectId.next(`${id}`);
-    if (this.project.resultCode == 610) {
-      this.isApproved = true;
+  this.loadingService.projectId.next(`${id}`);
+  if (this.project.resultCode == 610) {
+    this.isApproved = true;
+  }
+  this.urlLogo = this.project?.organizationLogo?.replace(/\\/g, '\/');
+  this.urlCover = this.project?.cover?.replace(/\\/g, '\/');
+
+
+}
+goBack() {
+  this.location.back();
+}
+getTab(id: any) {
+  switch (id) {
+    case 'infor':
+      this.isInformation = true;
+      this.isCampaigns = false;
+
+      break;
+
+    case 'cam':
+      this.isCampaigns = true;
+      this.isInformation = false;
+
+      break;
+  }
+}
+openCampaignForm() {
+  const dialogRef = this.dialog.open(CamapaignFormComponent, {
+    width: '700px',
+    data: {
+      title: 'Tạo chiến dịch',
     }
-    this.urlLogo = this.project?.organizationLogo?.replace(/\\/g, '\/');
-    this.urlCover = this.project?.cover?.replace(/\\/g, '\/');
+  })
 
-
-  }
-  goBack() {
-    this.location.back();
-  }
-  getTab(id: any) {
-    switch (id) {
-      case 'infor':
-        this.isInformation = true;
-        this.isCampaigns = false;
-
-        break;
-
-      case 'cam':
-        this.isCampaigns = true;
-        this.isInformation = false;
-
-        break;
+  dialogRef.afterClosed().subscribe(async data => {
+    if (data) {
+      this.loadingService.isLoading.next(true);
+      let res: BaseResponse | null = await this.campApi.create(data);
+      if (res?.status == 0) {
+        this.loadingService.isLoading.next(false);
+        this.getEntityService.getByEntity('cam');
+        this.router.navigate(['/manager/manage-campaign']);
+        this.snackBar.showMessage(res.message, true)
+      } else {
+        this.loadingService.isLoading.next(false);
+        this.snackBar.showMessage(`${res?.message}`, false)
+      }
     }
-  }
-  openCampaignForm() {
-    const dialogRef = this.dialog.open(CamapaignFormComponent, {
-      width: '700px',
-      data: {
-        title: 'Tạo chiến dịch',
-      }
-    })
-
-    dialogRef.afterClosed().subscribe(async data => {
-      if (data) {
-        this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.campApi.create(data);
-        if (res?.status == 0) {
-          this.loadingService.isLoading.next(false);
-          this.getEntityService.getByEntity('cam');
-          this.router.navigate(['/manager/manage-campaign']);
-          this.snackBar.showMessage(res.message, true)
-        } else {
-          this.loadingService.isLoading.next(false);
-          this.snackBar.showMessage(`${res?.message}`, false)
-        }
-      }
-    })
-  }
+  })
+}
 }

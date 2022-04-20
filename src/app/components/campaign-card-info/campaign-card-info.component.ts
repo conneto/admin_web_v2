@@ -16,7 +16,7 @@ urlApi?:string;
   ngOnInit(): void {
     this.urlApi=this.loadingService.getApiGetLink.value;
     this.valueNumber=(Number(this.campaign?.org_id)*100).toFixed(2);
-    console.log(this.valueNumber);
+ 
   }
 
 }
