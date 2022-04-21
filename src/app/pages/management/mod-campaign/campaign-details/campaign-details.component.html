@@ -19,15 +19,12 @@
               Thông tin
             </li>
             <li
-              [class.content__tab-active]="isInformation"
-              (click)="getTab('infor')"
+              [class.content__tab-active]="isDocument"
+              (click)="getTab('doc')"
             >
               Tài liệu
             </li>
-            <li
-              [class.content__tab-active]="isInformation"
-              (click)="getTab('infor')"
-            >
+            <li [class.content__tab-active]="isAnother" (click)="getTab('ano')">
               {{
                 campaign.type == "Quyên Góp"
                   ? "Lịch sử quyên góp"
@@ -94,6 +91,9 @@
           </div>
         </div>
       </div>
+    </div>
+    <div *ngIf="isDocument">
+      <input type='file' multiple mat-button (click)='uploadAll()'>Tải lên tài liệu
     </div>
   </div>
 </div>

@@ -162,7 +162,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             setTimeout(function () {
                                 _this.loading.isSkeleton.next(false);
                                 _this.isLoaded = true;
-                            }, 3000);
+                            }, 1000);
                             break;
                         case 'reject':
                             this.isRequest = false;
@@ -182,7 +182,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             setTimeout(function () {
                                 _this.loading.isSkeleton.next(false);
                                 _this.isLoaded = true;
-                            }, 3000);
+                            }, 1000);
                             break;
                         case 'pending':
                             for (i = 0; i < this.organizations.length; i++) {
@@ -208,7 +208,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             setTimeout(function () {
                                 _this.loading.isSkeleton.next(false);
                                 _this.isLoaded = true;
-                            }, 3000);
+                            }, 1000);
                             break;
                     }
                     this.number = this.organizations.length;

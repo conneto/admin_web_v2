@@ -138,7 +138,7 @@ export class OrganizationsComponent implements OnInit {
           setTimeout(() => {
             this.loading.isSkeleton.next(false);
             this.isLoaded = true;
-          }, 3000)
+          }, 1000)
           break;
         case 'reject':
 
@@ -162,7 +162,7 @@ export class OrganizationsComponent implements OnInit {
           setTimeout(() => {
             this.loading.isSkeleton.next(false);
             this.isLoaded = true;
-          }, 3000)
+          }, 1000)
           break;
         case 'pending':
 
@@ -191,7 +191,7 @@ export class OrganizationsComponent implements OnInit {
           setTimeout(() => {
             this.loading.isSkeleton.next(false);
             this.isLoaded = true;
-          }, 3000)
+          }, 1000)
           break;
       }
       this.number = this.organizations.length;

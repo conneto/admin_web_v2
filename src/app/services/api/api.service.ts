@@ -13,18 +13,14 @@ export class ApiService {
   corsHeaders: HttpHeaders;
 
   private uri = "http://conneto.org:5001/fetch_data/api/v1";
-  private postUri = 'https://8729-14-224-131-108.ngrok.io/core/api/v1';
-  constructor(private http: HttpClient, private baseResponseAdapter: BaseResponseAdapter,public loadingService:LoadingServiceService) {
+  private postUri = 'http://conneto.org:5000/core/api/v1';
+  constructor(private http: HttpClient, private baseResponseAdapter: BaseResponseAdapter, public loadingService: LoadingServiceService) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
+    this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
   }
 
-  // getOrg():Observable<Organization[]>{
-  //   return this.http.get<Organization[]>(this.uri+'/organizations').pipe(
-  //     tap(data=>console.log(data)),catchError(error=>of([]))
 
-  //   )
-  // }
   getFullUri(api_name: string, params?: any) {
     let url = this.uri + '/' + api_name;
 
@@ -62,13 +58,13 @@ export class ApiService {
     parse_json?: boolean
   ): any {
     let api_uri = '';
-    console.log(body);
+
     if (params) {
       api_uri = this.getFullUriPost(api_name, body);
     } else {
       api_uri = this.getFullUriPost(api_name);
     }
-
+    console.log(localStorage.getItem('USER_TOKEN'))
     if (localStorage.getItem('USER_TOKEN')) {
       this.corsHeaders = this.corsHeaders.set(
         'Authorization',
@@ -115,6 +111,92 @@ export class ApiService {
 
     return new Promise((resolve) => {
       this.http.get(api_uri, options).subscribe(
+        (data) => {
+          console.log(data);
+          resolve(this.baseResponseAdapter.adapt(data));
+        },
+        (err) => {
+          console.log(err);
+          switch (err.status) {
+            case 0:
+              break;
+            case 404:
+              break;
+            default:
+              break;
+          }
+          err.status = 99;
+          resolve(err);
+        }
+      );
+    });
+  }
+  delete(api_name: string, params?: any): any {
+    let api_uri = this.getFullUriPost(api_name, params);
+    if (localStorage.getItem('USER_TOKEN')) {
+      this.corsHeaders = this.corsHeaders.set('Authorization', `Bearer ${localStorage.getItem('USER_TOKEN')}`);
+
+    }
+    let options = {
+      headers: this.corsHeaders,
+    };
+    return new Promise((resolve) => {
+      console.log(api_uri, options);
+      this.http.delete(api_uri, options).subscribe(
+        (data) => {
+          resolve(this.baseResponseAdapter.adapt(data));
+        },
+        (err) => {
+          console.log(err);
+          switch (err.status) {
+            case 0:
+              break;
+            case 404:
+              break;
+            default:
+              break;
+          }
+          err.status = 99;
+          resolve(err);
+        }
+      );
+    });
+  }
+
+  put(
+    api_name: string,
+    body?: any,
+    params?: boolean,
+    parse_json?: boolean
+  ): any {
+    let api_uri = '';
+
+    if (params) {
+      api_uri = this.getFullUriPost(api_name, body);
+    } else {
+      api_uri = this.getFullUriPost(api_name);
+    }
+
+    if (localStorage.getItem('USER_TOKEN')) {
+      this.corsHeaders = this.corsHeaders.set(
+        'Authorization',
+        'Bearer ' + localStorage.getItem('USER_TOKEN')
+      );
+    }
+
+    if (localStorage.getItem('USER_TOKEN')) {
+      this.corsHeaders.set(
+        'Authorization',
+        'Bearer ' + localStorage.getItem('USER_TOKEN')
+      );
+    }
+
+    let options = {
+      headers: this.corsHeaders,
+    };
+
+    return new Promise((resolve) => {
+      this.http.put(api_uri, body, options).subscribe(
         (data) => {
           console.log(data);
           resolve(this.baseResponseAdapter.adapt(data));

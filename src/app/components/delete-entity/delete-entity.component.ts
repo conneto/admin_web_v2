@@ -16,7 +16,7 @@ export class DeleteEntityComponent implements OnInit {
   e: any;
   ngOnInit(): void {
   }
-  delete() {
+  async delete() {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       width: '300px',
       data: {
@@ -26,18 +26,12 @@ export class DeleteEntityComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
-        const entity = {
-          organization_id: this.entity.id,
-          request_tyoe: 'delete',
-
-        }
-        console.log(entity);
-        const passData = new FormData();
-        passData.append('organization', JSON.stringify(entity));
-        let res: BaseResponse = await this.orgApi.delete(passData);
-        if (res.status == 0) {
-          this.snackBar.showMessage('vô hiệu hóa thành công ', true);
-        }
+        // let res: BaseResponse = 
+        await this.orgApi.delete(`${this.entity.id}`);
+    
+        // if (res.status == 0) {
+        //   this.snackBar.showMessage('Xóa thành công', true);
+        // }
       }
     })
   }

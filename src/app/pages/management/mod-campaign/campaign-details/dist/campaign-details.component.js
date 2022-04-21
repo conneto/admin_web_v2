@@ -93,11 +93,21 @@ var CampaignDetailsComponent = /** @class */ (function () {
         switch (id) {
             case 'infor':
                 this.isInformation = true;
+                this.isDocument = false;
+                this.isAnother = false;
                 break;
             case 'doc':
+                this.isDocument = true;
                 this.isInformation = false;
+                this.isAnother = false;
                 break;
+            case 'ano':
+                this.isAnother = true;
+                this.isDocument = false;
+                this.isInformation = false;
         }
+    };
+    CampaignDetailsComponent.prototype.uploadAll = function () {
     };
     CampaignDetailsComponent = __decorate([
         core_1.Component({

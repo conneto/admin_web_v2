@@ -15,8 +15,10 @@ export class CampaignDetailsComponent implements OnInit {
   urlApi = this.loadingService.getApiGetLink.value;
   urlCover?: string;
   urlLogo?: string;
-  urlProjectLogo?:string;
+  urlProjectLogo?: string;
   isInformation?: boolean;
+  isDocument?: boolean;
+  isAnother?: boolean
   constructor(private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
@@ -49,15 +51,21 @@ export class CampaignDetailsComponent implements OnInit {
     switch (id) {
       case 'infor':
         this.isInformation = true;
-
-
+        this.isDocument = false;
+        this.isAnother = false;
         break;
-
       case 'doc':
-
+        this.isDocument = true;
         this.isInformation = false;
-
+        this.isAnother = false;
         break;
+      case 'ano':
+        this.isAnother = true;
+        this.isDocument = false;
+        this.isInformation = false;
     }
+  }
+  uploadAll(){
+    
   }
 }

@@ -54,38 +54,35 @@ var DeleteEntityComponent = /** @class */ (function () {
     DeleteEntityComponent.prototype.ngOnInit = function () {
     };
     DeleteEntityComponent.prototype["delete"] = function () {
-        var _this = this;
-        var dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-            width: '300px',
-            data: {
-                button: 'Vô hiệu hóa',
-                message: 'vô hiệu hóa'
-            }
-        });
-        dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
-            var entity, passData, res;
+        return __awaiter(this, void 0, void 0, function () {
+            var dialogRef;
+            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!data) return [3 /*break*/, 2];
-                        entity = {
-                            organization_id: this.entity.id,
-                            request_tyoe: 'delete'
-                        };
-                        console.log(entity);
-                        passData = new FormData();
-                        passData.append('organization', JSON.stringify(entity));
-                        return [4 /*yield*/, this.orgApi["delete"](passData)];
-                    case 1:
-                        res = _a.sent();
-                        if (res.status == 0) {
-                            this.snackBar.showMessage('vô hiệu hóa thành công ', true);
+                dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
+                    width: '300px',
+                    data: {
+                        button: 'Vô hiệu hóa',
+                        message: 'vô hiệu hóa'
+                    }
+                });
+                dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                if (!data) return [3 /*break*/, 2];
+                                // let res: BaseResponse = 
+                                return [4 /*yield*/, this.orgApi["delete"]("" + this.entity.id)];
+                            case 1:
+                                // let res: BaseResponse = 
+                                _a.sent();
+                                _a.label = 2;
+                            case 2: return [2 /*return*/];
                         }
-                        _a.label = 2;
-                    case 2: return [2 /*return*/];
-                }
+                    });
+                }); });
+                return [2 /*return*/];
             });
-        }); });
+        });
     };
     __decorate([
         core_1.Input()

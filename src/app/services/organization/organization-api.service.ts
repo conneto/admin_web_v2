@@ -36,7 +36,7 @@ export class OrganizationApiService {
 
       return this.projectAdapter.adapt(item);
     })
-    
+
     return res.data || [];
   }
   async getCampaignsByOrgId(id: string) {
@@ -59,12 +59,10 @@ export class OrganizationApiService {
     }
     return res;
   }
-  async delete(data: any) {
+  async delete(id: any) {
 
-    let res: BaseResponse = await this.apiService.post(`${OrganizationApiService.ORGANIZATIONS}`, data);
-    if (res.status != 0) {
-      return res;
-    }
+    let res: BaseResponse = await this.apiService.delete(`${OrganizationApiService.ORGANIZATIONS}/${id}`);
+    
     return res;
   }
   async createById(data: any, id: string) {
@@ -75,6 +73,12 @@ export class OrganizationApiService {
     }
     return res;
   }
+  async updateById(data: any, id: string) {
+    let res: BaseResponse = await this.apiService.put(`${OrganizationApiService.ORGANIZATIONS}/${id}`, data);
+    return res;
+  }
+
+ 
 }
 
 
