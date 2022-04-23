@@ -8,7 +8,7 @@
         <input
           class="input login"
           type="text"
-          placeholder="Tên dự án"
+          placeholder="Tên chiến dịch"
           required=""
           formControlName="name"
         />
@@ -28,7 +28,7 @@
         <textarea
           class="input login"
           type="text"
-          placeholder="Giới thiệu về dự án"
+          placeholder="Giới thiệu về chiến dịch"
           required=""
           formControlName="description"
         ></textarea>
@@ -52,70 +52,86 @@
           formControlName="target_number"
         />
       </div>
-      <div>
-        <input
-          placeholder="Công việc yêu cầu"
-          class="input login"
-          formControlName="job_requirement"
-        />
-      </div>
-      <span
-        *ngIf="  ( campaignControl.job_requirement.touched||isSubmitted) &&
-    campaignControl.job_requirement.errors?.required
-    ||
-    campaignControl.job_requirement.errors?.['minlength'] ||   campaignControl.job_requirement.errors?.['maxlength']
-  "
-        class="text-danger"
-        >Công việc yêu cầu bắt buộc và có độ dài tối thiểu 1, tối đa
-        128 kí tứ</span
-      >
-      <div>
-        <textarea
-          placeholder="Mô tả công việc"
-          class="input login"
-          formControlName="job_description"
-        ></textarea>
-      </div>
-      <span
-      *ngIf="  ( campaignControl.job_description.touched||isSubmitted) &&
-  campaignControl.job_description.errors?.required
-  ||
-  campaignControl.job_description.errors?.['minlength'] ||   campaignControl.job_description.errors?.['maxlength']
+      <div *ngIf="data.type == 'recruitment'">
+        <div>
+          <input
+            placeholder="Công việc yêu cầu"
+            class="input login"
+            formControlName="job_requirement"
+          />
+        </div>
+        <span
+          *ngIf="  ( campaignControl.job_requirement.touched||isSubmitted) &&
+campaignControl.job_requirement.errors?.required
+||
+campaignControl.job_requirement.errors?.['minlength'] ||   campaignControl.job_requirement.errors?.['maxlength']
 "
-      class="text-danger"
-      >Mô tả công việc bắt buộc và có độ dài tối thiểu 1, tối đa
-      128 kí tứ</span
-    >
-      <div>
-        <textarea
-          placeholder="Lợi ích công việc"
-          class="input login"
-          formControlName="job_benefit"
-        ></textarea>
-      </div>
-      <span
-      *ngIf="  ( campaignControl.job_benefit.touched||isSubmitted) &&
-  campaignControl.job_benefit.errors?.required
-  ||
-  campaignControl.job_benefit.errors?.['minlength'] ||   campaignControl.job_benefit.errors?.['maxlength']
+          class="text-danger"
+          >Công việc yêu cầu bắt buộc và có độ dài tối thiểu 1, tối đa 128 kí
+          tứ</span
+        >
+        <div>
+          <textarea
+            placeholder="Mô tả công việc"
+            class="input login"
+            formControlName="job_description"
+          ></textarea>
+        </div>
+        <span
+          *ngIf="  ( campaignControl.job_description.touched||isSubmitted) &&
+campaignControl.job_description.errors?.required
+||
+campaignControl.job_description.errors?.['minlength'] ||   campaignControl.job_description.errors?.['maxlength']
 "
-      class="text-danger"
-      >Lợi ích công việc bắt buộc và có độ dài tối thiểu 1, tối đa
-      128 kí tứ</span
-    >
-      <div>
-        <mat-label style="width: 130px">Ngày bắt đầu</mat-label>
-
+          class="text-danger"
+          >Mô tả công việc bắt buộc và có độ dài tối thiểu 1, tối đa 128 kí
+          tứ</span
+        >
+        <div>
+          <textarea
+            placeholder="Lợi ích công việc"
+            class="input login"
+            formControlName="job_benefit"
+          ></textarea>
+        </div>
+        <span
+          *ngIf="  ( campaignControl.job_benefit.touched||isSubmitted) &&
+campaignControl.job_benefit.errors?.required
+||
+campaignControl.job_benefit.errors?.['minlength'] ||   campaignControl.job_benefit.errors?.['maxlength']
+"
+          class="text-danger"
+          >Lợi ích công việc bắt buộc và có độ dài tối thiểu 1, tối đa 128 kí
+          tứ</span
+        >
+        <div class="recruitment-date">
+          <mat-label>Thời gian tuyển dụng :</mat-label>
+          Từ
+          <input
+            class="input login"
+            type="date"
+            required=""
+            formControlName="start_working_date"
+          />
+          đến
+          <input
+            class="input login"
+            type="date"
+            required=""
+            formControlName="end_working_date"
+          />
+        </div>
+      </div>
+      <div class="event-date">
+        <mat-label>Thời gian diễn ra chiến dịch :</mat-label>
+        Từ
         <input
           class="input login"
           type="date"
           required=""
           formControlName="start_date"
         />
-      </div>
-      <div>
-        <mat-label style="width: 130px">Ngày kết thúc</mat-label>
-
+        đến
         <input
           class="input login"
           type="date"
@@ -123,13 +139,14 @@
           formControlName="end_date"
         />
       </div>
-      <div>
+
+      <!-- <div>
         <label style="width: 100px"> Loại: </label>
         <select formControlName="type">
           <option value="donation">Quyên góp</option>
           <option value="recruitment">Thiện nguyện</option>
         </select>
-      </div>
+      </div> -->
       <div>
         <label style="width: 100px"> Ảnh bìa:</label>
 

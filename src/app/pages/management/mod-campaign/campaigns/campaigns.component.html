@@ -29,12 +29,15 @@
 
       <div class="container">
         <div *ngFor="let cam of campaigns">
-          <app-campaign-card-info [valueNumber]='value'[campaign]="cam"></app-campaign-card-info>
+          <app-campaign-card-info
+            [valueNumber]="value"
+            [campaign]="cam"
+          ></app-campaign-card-info>
         </div>
       </div>
     </div>
   </ng-template>
-  <div *ngIf="isEmpty">Nothing here !</div>
+  <div *ngIf="isEmpty">Không có gì ở đây cả</div>
   <div *ngIf="isRequest; then request; else noRequest"></div>
   <ng-template #request>
     <div *ngIf="!isEmpty">

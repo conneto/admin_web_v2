@@ -30,7 +30,7 @@
               required=""
               formControlName="password"
             />
-            <button class="hide-button" title="Hide" (click)="hide = !hide">
+            <button class="hide-button"  (click)="hide = !hide">
               <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
             </button>
           </div>
@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="login-button">
-        <button [disabled]="loginForm.invalid" (click)="login()">
+        <button  class='button-login'[disabled]="loginForm.invalid" (click)="login()">
          Đăng nhập
         </button>
       </div>

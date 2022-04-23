@@ -45,7 +45,8 @@ exports.__esModule = true;
 exports.CampaignDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignDetailsComponent = /** @class */ (function () {
-    function CampaignDetailsComponent(loadingService, location, activated, campaignApi) {
+    function CampaignDetailsComponent(userApi, loadingService, location, activated, campaignApi) {
+        this.userApi = userApi;
         this.loadingService = loadingService;
         this.location = location;
         this.activated = activated;
@@ -55,6 +56,12 @@ var CampaignDetailsComponent = /** @class */ (function () {
     CampaignDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
         this.isInformation = true;
+        if (localStorage.getItem("approve")) {
+            this.isApproved = true;
+        }
+        if (this.userApi.currentUserValue.role == 'admin') {
+            this.isAdmin = true;
+        }
     };
     CampaignDetailsComponent.prototype.getByID = function () {
         var _a, _b, _c, _d, _e, _f, _g;

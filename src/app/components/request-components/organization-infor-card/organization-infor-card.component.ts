@@ -35,7 +35,7 @@ export class OrganizationInforCardComponent implements OnInit {
   ngOnInit(): void {
     this.urlApi = this.loadingApi.getApiGetLink.value;
     this.urlLogo = this.organizations?.logo?.replace(/\\/g, '\/');
-    console.log(this.urlLogo);
+  
 
   }
 
@@ -68,7 +68,7 @@ export class OrganizationInforCardComponent implements OnInit {
 
         if (res?.status == 0) {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Chấp nhận thành công !", true);
+         
           if (checkType == 'org' || this.checkType == 'org') {
             this.orga.checkToGetData('pending');
           } else if (checkType == 'pro' || this.checkType == 'pro') {
@@ -76,6 +76,7 @@ export class OrganizationInforCardComponent implements OnInit {
           } else {
             this.cam.checkToGetData('pending');
           }
+          this.snackBar.showMessage("Chấp nhận thành công !", true);
         } else {
           this.loadingApi.isLoading.next(false);
           this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);

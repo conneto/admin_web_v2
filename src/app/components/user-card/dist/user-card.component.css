@@ -72,3 +72,7 @@
   display: inline-block;
   margin-right: 5px;
 }
+
+.join-date {
+  font-weight: bold;
+}

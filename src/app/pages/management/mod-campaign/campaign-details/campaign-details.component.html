@@ -21,6 +21,7 @@
             <li
               [class.content__tab-active]="isDocument"
               (click)="getTab('doc')"
+              *ngIf='campaign.type=="Quyên Góp"'
             >
               Tài liệu
             </li>
@@ -92,8 +93,9 @@
         </div>
       </div>
     </div>
-    <div *ngIf="isDocument">
-      <input type='file' multiple mat-button (click)='uploadAll()'>Tải lên tài liệu
+    <div *ngIf="isDocument && isApproved==true">
+      <app-download-document-form [campaign]="campaign"></app-download-document-form>
+   
     </div>
   </div>
 </div>

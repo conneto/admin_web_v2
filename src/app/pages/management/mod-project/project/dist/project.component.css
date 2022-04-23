@@ -1,7 +1,6 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 20px;
 }
 
 mat-card-title {
@@ -76,7 +75,6 @@ button:hover {
 .name {
   display: flex;
   align-items: center;
-  margin-top: 20px;
 }
 .name > p {
   font-size: 15px;

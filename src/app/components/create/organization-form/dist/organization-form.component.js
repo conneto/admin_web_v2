@@ -80,7 +80,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                     case 1:
                         res = _c.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
+                            this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
                             this.router.navigate(['/manager/manage-organization']);
                             this.org.checkToGetData('pending');
@@ -91,15 +91,14 @@ var OrganizationFormComponent = /** @class */ (function () {
                         }
                         return [3 /*break*/, 4];
                     case 2:
-                        console.log(uploadData.get('organization'));
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.create(uploadData)];
                     case 3:
                         res = _c.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), true);
+                            this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
-                            this.router.navigate(['/manager/manage-organization']);
+                            this.router.navigate(['/manager']);
                             this.org.checkToGetData('pending');
                         }
                         else {
@@ -114,15 +113,15 @@ var OrganizationFormComponent = /** @class */ (function () {
     };
     OrganizationFormComponent.prototype.initFormBuilder = function () {
         this.organizationForm = this.formBuilder.group({
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128), forms_1.Validators.pattern('^(?!\\s*$).+')]],
             eng_name: [''],
-            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
-            vision: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
+            vision: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
             website: [''],
             founding_date: ['', forms_1.Validators.required],
             created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
             request_type: [OrganizationFormComponent_1.CREATE],
-            mission: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            mission: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
             category: [''],
             logo: [''],
             cover: ['']

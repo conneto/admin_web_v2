@@ -16,7 +16,6 @@
 .name {
   display: flex;
   align-items: center;
-  margin-top: 20px;
 }
 .name > p {
   font-size: 15px;

@@ -45,6 +45,7 @@ exports.__esModule = true;
 exports.ProjectDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
+var select_type_campaign_component_1 = require("src/app/components/select-type-campaign/select-type-campaign.component");
 var ProjectDetailsComponent = /** @class */ (function () {
     function ProjectDetailsComponent(getEntityService, router, loadingService, snackBar, auth, location, proApi, campApi, actived, dialog) {
         this.getEntityService = getEntityService;
@@ -162,12 +163,30 @@ var ProjectDetailsComponent = /** @class */ (function () {
                 break;
         }
     };
+    ProjectDetailsComponent.prototype.openSelectCampaign = function () {
+        var _this = this;
+        var diaglogRef = this.dialog.open(select_type_campaign_component_1.SelectTypeCampaignComponent, {
+            width: "300px"
+        });
+        diaglogRef.afterClosed().subscribe(function (data) {
+            if (data) {
+                if (data == 'donation') {
+                    _this.whichType = 'donation';
+                }
+                else {
+                    _this.whichType = 'recruitment';
+                }
+                _this.openCampaignForm();
+            }
+        });
+    };
     ProjectDetailsComponent.prototype.openCampaignForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
             width: '700px',
             data: {
-                title: 'Tạo chiến dịch'
+                title: 'Tạo chiến dịch',
+                type: this.whichType
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

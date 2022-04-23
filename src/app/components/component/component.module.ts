@@ -30,6 +30,9 @@ import { FormatnumberPipe } from 'src/app/pipes/FormatNumber/formatnumber.pipe';
 import { DeleteEntityComponent } from '../delete-entity/delete-entity.component';
 import { ChipCategoryComponent } from '../chip-category/chip-category.component';
 import { SkeletionLoadingComponent } from '../skeletion-loading/skeletion-loading.component';
+import { DownloadDocumentFormComponent } from '../download-document-form/download-document-form.component';
+import { DocumentButtonComponent } from '../document-button/document-button.component';
+import { SelectTypeCampaignComponent } from '../select-type-campaign/select-type-campaign.component';
 
 
 const componentModules = [
@@ -56,6 +59,9 @@ const componentModules = [
   DeleteEntityComponent,
    ChipCategoryComponent,
    SkeletionLoadingComponent,
+   DownloadDocumentFormComponent,
+   DocumentButtonComponent,
+   SelectTypeCampaignComponent,
 
 ]
 

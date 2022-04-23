@@ -42,6 +42,9 @@ var formatnumber_pipe_1 = require("src/app/pipes/FormatNumber/formatnumber.pipe"
 var delete_entity_component_1 = require("../delete-entity/delete-entity.component");
 var chip_category_component_1 = require("../chip-category/chip-category.component");
 var skeletion_loading_component_1 = require("../skeletion-loading/skeletion-loading.component");
+var download_document_form_component_1 = require("../download-document-form/download-document-form.component");
+var document_button_component_1 = require("../document-button/document-button.component");
+var select_type_campaign_component_1 = require("../select-type-campaign/select-type-campaign.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -66,6 +69,9 @@ var componentModules = [
     delete_entity_component_1.DeleteEntityComponent,
     chip_category_component_1.ChipCategoryComponent,
     skeletion_loading_component_1.SkeletionLoadingComponent,
+    download_document_form_component_1.DownloadDocumentFormComponent,
+    document_button_component_1.DocumentButtonComponent,
+    select_type_campaign_component_1.SelectTypeCampaignComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

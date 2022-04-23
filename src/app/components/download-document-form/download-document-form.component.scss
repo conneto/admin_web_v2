@@ -1,0 +1,26 @@
+#excel-table {
+
+}
+
+.form {}
+
+.upload-button {
+  button {
+  
+      display: flex;
+      align-items: center;
+    
+  }
+}
+
+.upload-document,.table-document{
+  display:flex;
+  width:50%;
+}
+
+.table-document{
+  border-left:1px solid #ddd;
+}
+.box{
+  display:flex;
+}

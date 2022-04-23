@@ -116,8 +116,26 @@ var CampaignApiService = /** @class */ (function () {
             });
         });
     };
+    CampaignApiService.prototype.uploadCashFlow = function (data, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.post(CampaignApiService_1.CAMPAIGN + "/" + id + "/" + CampaignApiService_1.DONATION_DOCUMENTS + "/" + CampaignApiService_1.CASHFLOW_DETAILS, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status != 0) {
+                            return [2 /*return*/, res];
+                        }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
     var CampaignApiService_1;
     CampaignApiService.CAMPAIGN = 'campaigns';
+    CampaignApiService.DONATION_DOCUMENTS = 'donation_documents';
+    CampaignApiService.CASHFLOW_DETAILS = 'cashflow_details';
     CampaignApiService = CampaignApiService_1 = __decorate([
         core_1.Injectable({
             providedIn: 'root'

@@ -65,7 +65,6 @@ var OrganizationInforCardComponent = /** @class */ (function () {
         var _a, _b;
         this.urlApi = this.loadingApi.getApiGetLink.value;
         this.urlLogo = (_b = (_a = this.organizations) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-        console.log(this.urlLogo);
     };
     OrganizationInforCardComponent.prototype.viewDetails = function (id) {
         this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);
@@ -102,7 +101,6 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 res = _b.sent();
                                 if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                                     this.loadingApi.isLoading.next(false);
-                                    this.snackBar.showMessage("Chấp nhận thành công !", true);
                                     if (checkType == 'org' || this.checkType == 'org') {
                                         this.orga.checkToGetData('pending');
                                     }
@@ -112,6 +110,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     else {
                                         this.cam.checkToGetData('pending');
                                     }
+                                    this.snackBar.showMessage("Chấp nhận thành công !", true);
                                 }
                                 else {
                                     this.loadingApi.isLoading.next(false);

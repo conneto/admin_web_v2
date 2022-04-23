@@ -20,7 +20,7 @@ var SnackBarMessageComponent = /** @class */ (function () {
         this.snackBar.open(message, 'OK', {
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
-            duration: 5000,
+            duration: 6000,
             panelClass: isSuccess ? ['success'] : ['fail']
         });
     };

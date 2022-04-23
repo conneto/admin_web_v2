@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
+import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 
@@ -19,11 +20,19 @@ export class CampaignDetailsComponent implements OnInit {
   isInformation?: boolean;
   isDocument?: boolean;
   isAnother?: boolean
-  constructor(private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
+  isApproved?: boolean;
+  isAdmin?:boolean;
+  constructor(private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
     this.getByID();
     this.isInformation = true;
+    if (localStorage.getItem("approve")) {
+      this.isApproved = true;
+    }
+    if (this.userApi.currentUserValue.role == 'admin') {
+      this.isAdmin = true;
+    }
   }
   async getByID() {
     const id = this.activated.snapshot.paramMap.get('id');
@@ -65,7 +74,7 @@ export class CampaignDetailsComponent implements OnInit {
         this.isInformation = false;
     }
   }
-  uploadAll(){
-    
+  uploadAll() {
+
   }
 }

@@ -1,30 +1,30 @@
-
 <div class="content">
   <div class="search-bar">
     <div class="search-box">
       <div class="search-item">
-        <input type="text" placeholder="Search by name" (keyup)="searchName($event)"/>
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo tên"
+          (keyup)="searchName($event)"
+        />
         <button><mat-icon>search</mat-icon></button>
       </div>
       <div class="ordering-item">
         <select>
-          <option>Active</option>
+          <option>Đang hoạt động</option>
 
-          <option>Deactive</option>
+          <option>Ngừng hoạt động</option>
         </select>
       </div>
     </div>
-   
   </div>
   <div class="decoration">
-    <div *ngIf='isEmpty'>
-      No result !
-    </div>
+    <div *ngIf="isEmpty">Không tìm thấy kết quả phù hợp</div>
     <div *ngFor="let user of users">
       <app-user-card [user]="user"> </app-user-card>
     </div>
-    <div class='button-showmore'*ngIf="!isNoMore && isLoaded">
-      <button mat-button (click)="showMore()">Show More</button>
+    <div class="button-showmore" *ngIf="!isNoMore && isLoaded">
+      <button mat-button (click)="showMore()">Xem thêm</button>
     </div>
   </div>
 </div>

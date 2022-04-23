@@ -66,8 +66,8 @@
     </div>
     <div *ngIf="isCampaigns && isApproved">
       <div class="campaigns__button">
-        <div class="campaigns__button-create">
-          <button (click)="openCampaignForm()" mat-raised-button color="accent">
+        <div *ngIf='!isAdmin' class="campaigns__button-create">
+          <button (click)="openSelectCampaign()" mat-raised-button color="accent">
             <mat-icon>add</mat-icon>
             Tạo mới một chiến dịch
           </button>

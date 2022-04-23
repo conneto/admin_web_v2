@@ -20,18 +20,18 @@ import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-mess
 export class OrganizationFormComponent implements OnInit {
   organizationForm!: FormGroup;
   @Input() organizationId?: any;
-  isSubmitted?:boolean;
+  isSubmitted?: boolean;
   logoFile?: File;
   coverFile?: File;
   public static readonly CREATE = 'create';
-  constructor(private org:OrganizationsComponent,private getEntityService:LoadingDataService,private loadingService: LoadingServiceService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
+  constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingServiceService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
 
   ngOnInit(): void {
     this.initFormBuilder();
   }
 
   async create() {
-    this.isSubmitted=true;
+    this.isSubmitted = true;
     if (this.organizationForm.valid) {
       let uploadData: any = new FormData();
       uploadData.append('organization', JSON.stringify(this.organizationForm.value));
@@ -41,13 +41,13 @@ export class OrganizationFormComponent implements OnInit {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.createById(uploadData, `${this.organizationId}`);
         if (res?.status == 0) {
-          this.snackBar.showMessage(`${res?.message}`, true);
+          this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
           this.loadingService.isLoading.next(false);
-          
+
           this.router.navigate(['/manager/manage-organization']);
           this.org.checkToGetData('pending');
-         
-     
+
+
         } else {
           this.snackBar.showMessage(`${res?.message}`, false);
 
@@ -56,16 +56,16 @@ export class OrganizationFormComponent implements OnInit {
 
         }
       } else {
-        console.log(uploadData.get('organization'));
+
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.create(uploadData);
         if (res?.status == 0) {
-          this.snackBar.showMessage(`${res?.message}`, true);
+          this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
           this.loadingService.isLoading.next(false);
-         
-          this.router.navigate(['/manager/manage-organization']);
+
+          this.router.navigate(['/manager']);
           this.org.checkToGetData('pending');
-   
+
         } else {
           this.snackBar.showMessage(`${res?.message}`, false);
           this.loadingService.isLoading.next(false);
@@ -77,16 +77,16 @@ export class OrganizationFormComponent implements OnInit {
 
   initFormBuilder() {
     this.organizationForm = this.formBuilder.group({
-      name: ['',[ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
+      name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128), Validators.pattern('^(?!\\s*$).+')]],
       eng_name: [''],
-      description: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
-      vision: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
+      description: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(1000)]],
+      vision: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(1000)]],
       website: [''],
       founding_date: ['', Validators.required],
       created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
       request_type: [OrganizationFormComponent.CREATE],
-      mission: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
-      category:[''],
+      mission: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(1000)]],
+      category: [''],
       logo: [''],
       cover: [''],
     })
@@ -101,7 +101,7 @@ export class OrganizationFormComponent implements OnInit {
       this.logoFile = e.target.files[0];
     }
   }
-  get organizationControl(){
+  get organizationControl() {
     return this.organizationForm.controls;
   }
 }

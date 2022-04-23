@@ -20,17 +20,28 @@ export class LoginComponent implements OnInit {
   isChecked: boolean = false;
   isError: boolean = false;
   hide = true;
-  constructor(public loadService:LoadingServiceService,private snackBar:SnackBarMessageComponent,private router: Router,
+  constructor(public loadService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthServiceService) { }
 
   ngOnInit(): void {
     this.initLoginForm();
+    var enter = document.getElementsByClassName('input');
+    console.log(enter);
+    for (var i = 0; i < enter.length; i++) {
+      (<HTMLElement>enter[i]).addEventListener("keyup", function (e) {
+        if (e.key == 'Enter') {
+          e.preventDefault();
+          (<HTMLElement>document.getElementsByClassName('button-login')[0]).click();
+          console.log((<HTMLElement>document.getElementsByClassName('login')[0]));
+        }
+      })
+    }
 
   }
 
   async login() {
-   
+
     this.isSubmitData = true;
     if (this.loginForm.valid) {
       let baseResponse: BaseResponse | null = await this.authService.login(
@@ -39,13 +50,13 @@ export class LoginComponent implements OnInit {
         this.loginForm.value.password
       );
       if (baseResponse?.status == 0) {
-     
+
         if (this.authService.currentUserValue.role === 'organization_manager') {
           await this.router.navigate(['manager']);
         } else if (this.authService.currentUserValue.role === 'admin') {
           await this.router.navigate(['admin/dashboard']);
         }
-      } else if(baseResponse?.status==6){
+      } else if (baseResponse?.status == 6) {
         this.isError = true;
       }
     }

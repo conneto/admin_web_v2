@@ -43,7 +43,7 @@
       organizationControl.description.errors?.['minlength'] ||   organizationControl.description.errors?.['maxlength']
     "
         class="text-danger"
-        >Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí tứ</span
+        >Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span
       >
       <div>
         <textarea
@@ -61,7 +61,7 @@
       organizationControl.vision.errors?.['minlength'] ||   organizationControl.vision.errors?.['maxlength']
     "
         class="text-danger"
-        >Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí tứ</span
+        >Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span
       >
       <div>
         <input
@@ -79,7 +79,7 @@
       organizationControl.mission.errors?.['minlength'] ||   organizationControl.mission.errors?.['maxlength']
     "
         class="text-danger"
-        >Sứ mệnh bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí tứ</span
+        >Sứ mệnh bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span
       >
       <div>
         <input
@@ -99,6 +99,12 @@
           formControlName="founding_date"
         />
       </div>
+      <span
+      *ngIf="  ( organizationControl.founding_date.touched||isSubmitted) &&
+          organizationControl.founding_date.errors?.required
+        "
+      class="text-danger"
+      >Ngày thành lập phải được chọn</span>
       <div>
         <mat-label style="width: 130px">Lĩnh vực:</mat-label>
 
@@ -138,6 +144,6 @@
   </form>
 
   <div class="login-button">
-    <button type="submit" (click)="create()">Create</button>
+    <button type="submit" (click)="create()">Tạo</button>
   </div>
 </div>

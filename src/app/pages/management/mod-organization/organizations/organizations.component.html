@@ -1,10 +1,7 @@
-<div  class='skeleton'>
-  <div *ngFor="let i of numberCount">
-    <app-skeletion-loading></app-skeletion-loading>
-  </div>
-</div>
+
+
 <div *ngIf="isLoaded">
-  <div *ngIf="!noOrg; then tabgroup; else createOrganization"></div>
+  <div *ngIf="!noOrg && isDeleted==false; then tabgroup; else createOrganization"></div>
 
   <ng-template #tabgroup>
     <app-tabgroup
@@ -58,7 +55,7 @@
     </div>
   </div>
 
-  <div *ngIf="isEmpty">Nothing here !</div>
+  <div *ngIf="isEmpty && isDeleted==false">Không có gì ở đây cả !</div>
 
   <div *ngIf="!isRequest">
     <div *ngIf="organizations && !noOrg">
@@ -120,5 +117,10 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+<div  class='skeleton'>
+  <div *ngFor="let i of numberCount">
+    <app-skeletion-loading></app-skeletion-loading>
   </div>
 </div>
