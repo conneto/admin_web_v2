@@ -19,6 +19,7 @@ export class UserManagementComponent implements OnInit {
   isEmpty: boolean = false;
   isNoMore: boolean = false;
   isLoaded: boolean = false;
+  isList?:boolean=false;
   constructor(private loading: LoadingServiceService, private userApi: UserApiService) { }
 
 
@@ -35,7 +36,13 @@ export class UserManagementComponent implements OnInit {
 
   }
 
-
+  handleTitle(e: any) {
+    if(e=='list'){
+      this.isList=true;
+    }else {
+      this.isList=false;
+    }
+  }
   async getListMangerAndVolunteer() {
     this.users = await this.userApi.getListUsers();
     this.users = this.users.filter(x => {

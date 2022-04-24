@@ -58,6 +58,7 @@ var OrganizationsComponent = /** @class */ (function () {
         this.isActivated = false;
         this.passData = [];
         this.isDeleted = false;
+        this.isList = false;
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
@@ -65,10 +66,20 @@ var OrganizationsComponent = /** @class */ (function () {
         this.urlApi = this.loading.getApiGetLink.value;
         this.loading.isSkeleton.next(true);
     };
+    OrganizationsComponent.prototype.ngAfterViewInit = function () {
+    };
     OrganizationsComponent.prototype.ngOnDestroy = function () {
     };
     OrganizationsComponent.prototype.getState = function (e) {
         this.isChangeState = e;
+    };
+    OrganizationsComponent.prototype.handleTitle = function (e) {
+        if (e == 'list') {
+            this.isList = true;
+        }
+        else {
+            this.isList = false;
+        }
     };
     OrganizationsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {

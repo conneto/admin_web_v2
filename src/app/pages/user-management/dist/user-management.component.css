@@ -6,7 +6,6 @@ app-user-card {
 .search-box {
   display: flex;
   flex-direction: row-reverse;
-  justify-content: space-between;
 }
 .search-box .search-item {
   display: flex;
@@ -31,6 +30,7 @@ app-user-card {
 .ordering-item {
   display: flex;
   font-size: 15px;
+  flex-grow: 1;
 }
 
 .button-showmore {

@@ -132,6 +132,20 @@ var CampaignApiService = /** @class */ (function () {
             });
         });
     };
+    CampaignApiService.prototype.getCashFlow = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.get(CampaignApiService_1.CAMPAIGN + "/" + id + "/" + CampaignApiService_1.DONATION_DOCUMENTS + "/" + CampaignApiService_1.CASHFLOW_DETAILS)];
+                    case 1:
+                        res = _a.sent();
+                        res.data = this.campaignAdap.adapt(res.data);
+                        return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
     var CampaignApiService_1;
     CampaignApiService.CAMPAIGN = 'campaigns';
     CampaignApiService.DONATION_DOCUMENTS = 'donation_documents';

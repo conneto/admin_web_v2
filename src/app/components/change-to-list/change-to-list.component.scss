@@ -1,0 +1,21 @@
+.box {
+  display: flex;
+
+  &-grid,
+  &-list {
+    margin: 0 3px;
+
+    button {
+      width: 40px !important;
+
+      margin: 0 !important;
+      min-width: 30px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+}
+
+.isActive{
+    background-color: #009EF7 !important;
+}

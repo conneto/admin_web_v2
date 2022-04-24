@@ -18,6 +18,9 @@
             </div>
           </ng-template>
         </div>
+        <app-change-to-list
+        (handleTitle)="handleTitle($event)"
+      ></app-change-to-list>
         <div>
           <app-search-bar
             (getItem)="getData($event)"
@@ -26,8 +29,8 @@
           ></app-search-bar>
         </div>
       </div>
-
-      <div class="container">
+      <app-list-view *ngIf='isList' [entity]="campaigns"></app-list-view>
+      <div *ngIf='!isList'  class="container">
         <div *ngFor="let cam of campaigns">
           <app-campaign-card-info
             [valueNumber]="value"

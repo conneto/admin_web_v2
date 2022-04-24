@@ -45,6 +45,8 @@ var skeletion_loading_component_1 = require("../skeletion-loading/skeletion-load
 var download_document_form_component_1 = require("../download-document-form/download-document-form.component");
 var document_button_component_1 = require("../document-button/document-button.component");
 var select_type_campaign_component_1 = require("../select-type-campaign/select-type-campaign.component");
+var change_to_list_component_1 = require("../change-to-list/change-to-list.component");
+var list_view_component_1 = require("../list-view/list-view.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -72,6 +74,8 @@ var componentModules = [
     download_document_form_component_1.DownloadDocumentFormComponent,
     document_button_component_1.DocumentButtonComponent,
     select_type_campaign_component_1.SelectTypeCampaignComponent,
+    change_to_list_component_1.ChangeToListComponent,
+    list_view_component_1.ListViewComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

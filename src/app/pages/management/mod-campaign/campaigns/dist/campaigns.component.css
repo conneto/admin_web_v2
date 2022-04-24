@@ -9,13 +9,13 @@
 
 .search-bar {
   display: flex;
-  justify-content: space-between;
   align-items: flex-end;
 }
 
 .name {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 .name > p {
   font-size: 15px;

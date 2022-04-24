@@ -53,12 +53,21 @@ var ProjectComponent = /** @class */ (function () {
         this.passData = [];
         this.oldData = [];
         this.isRequest = false;
+        this.isList = false;
     }
     ProjectComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
         this.urlApi = this.loadingService.getApiGetLink.value;
     };
     ProjectComponent.prototype.ngOnDestroy = function () {
+    };
+    ProjectComponent.prototype.handleTitle = function (e) {
+        if (e == 'list') {
+            this.isList = true;
+        }
+        else {
+            this.isList = false;
+        }
     };
     ProjectComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {

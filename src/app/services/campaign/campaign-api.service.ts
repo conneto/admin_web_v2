@@ -48,4 +48,9 @@ export class CampaignApiService {
     }
     return res;
   }
+  async getCashFlow(id:string){
+    let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGN}/${id}/${CampaignApiService.DONATION_DOCUMENTS}/${CampaignApiService.CASHFLOW_DETAILS}`);
+    res.data = this.campaignAdap.adapt(res.data);
+    return res.data || [];
+  }
 }

@@ -1,6 +1,7 @@
 <div class="content">
   <div class="search-bar">
     <div class="search-box">
+  
       <div class="search-item">
         <input
           type="text"
@@ -9,6 +10,9 @@
         />
         <button><mat-icon>search</mat-icon></button>
       </div>
+      <app-change-to-list
+      (handleTitle)="handleTitle($event)"
+    ></app-change-to-list>
       <div class="ordering-item">
         <select>
           <option>Đang hoạt động</option>
@@ -18,9 +22,11 @@
       </div>
     </div>
   </div>
-  <div class="decoration">
+  <app-list-view *ngIf='isList' [entity]="users"></app-list-view>
+  <div *ngIf='!isList'  class="decoration">
+
     <div *ngIf="isEmpty">Không tìm thấy kết quả phù hợp</div>
-    <div *ngFor="let user of users">
+    <div  *ngFor="let user of users">
       <app-user-card [user]="user"> </app-user-card>
     </div>
     <div class="button-showmore" *ngIf="!isNoMore && isLoaded">
