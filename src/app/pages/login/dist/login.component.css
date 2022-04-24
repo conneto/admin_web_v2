@@ -128,7 +128,7 @@
 .login-button button {
   width: 100%;
   background: linear-gradient(to bottom left, #fecc4e, #fedf8d) !important;
-  padding: 0 30px;
+  padding: 6px 30px;
   font-size: 17px;
   border: none;
   border-radius: 3px;

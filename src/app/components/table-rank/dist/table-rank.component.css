@@ -1,0 +1,16 @@
+table td.mat-cell {
+  text-align: center;
+}
+table th.mat-header-cell {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+}
+.container__participate, .container__donate {
+  width: 50%;
+}
+.container__participate > table, .container__donate > table {
+  width: 98%;
+}

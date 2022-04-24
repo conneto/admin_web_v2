@@ -1,0 +1,16 @@
+<div class="box">
+  <div class="box-header">
+    <mat-icon style='cursor: pointer'(click)='close()'>close</mat-icon>
+  </div>
+  <div class="box-select">
+    <h5>Vui lòng chọn 1 trong 2 hình thức sau</h5>
+    <div class="box-content">
+      <div class="box-donation">
+        <button (click)='openForm("donation")' mat-raised-button color="primary">Quyên góp</button>
+      </div>
+      <div class="box-recruitment">
+        <button (click)='openForm("recruitment")' mat-raised-button>Tuyển dụng</button>
+      </div>
+    </div>
+  </div>
+</div>

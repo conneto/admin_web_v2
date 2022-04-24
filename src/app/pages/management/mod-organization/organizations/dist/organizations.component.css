@@ -27,6 +27,15 @@ mat-card mat-card-title {
   align-items: center !important;
 }
 
+.box__item:hover {
+  transform: scale(1.12);
+  z-index: 1;
+}
+.box__item:hover mat-card-title {
+  overflow: visible;
+  white-space: normal;
+}
+
 mat-card-actions {
   display: flex !important;
   justify-content: center;
@@ -78,12 +87,13 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  padding-bottom: 40px;
 }
 
 .name {
   display: flex;
   align-items: center;
-  margin-top: 20px;
 }
 .name > p {
   font-size: 15px;

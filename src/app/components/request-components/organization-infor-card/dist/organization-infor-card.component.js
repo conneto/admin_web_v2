@@ -77,7 +77,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '300px',
                     data: {
-                        button: auth_service_service_1.AuthServiceService.APPROVE,
+                        button: 'Chấp nhận',
                         message: auth_service_service_1.AuthServiceService.APPROVE
                     }
                 });
@@ -101,7 +101,6 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 res = _b.sent();
                                 if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                                     this.loadingApi.isLoading.next(false);
-                                    this.snackBar.showMessage("Chấp nhận thành công !", true);
                                     if (checkType == 'org' || this.checkType == 'org') {
                                         this.orga.checkToGetData('pending');
                                     }
@@ -109,8 +108,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                         this.pro.checkToGetData('pending');
                                     }
                                     else {
-                                        this.cam.checkToGetData();
+                                        this.cam.checkToGetData('pending');
                                     }
+                                    this.snackBar.showMessage("Chấp nhận thành công !", true);
                                 }
                                 else {
                                     this.loadingApi.isLoading.next(false);
@@ -133,7 +133,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '300px',
                     data: {
-                        button: auth_service_service_1.AuthServiceService.REJECT,
+                        button: 'Từ chối',
                         message: auth_service_service_1.AuthServiceService.REJECT
                     }
                 });
@@ -165,7 +165,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                         this.pro.checkToGetData('pending');
                                     }
                                     else if (checkType == 'cam' || this.checkType == 'cam') {
-                                        this.cam.checkToGetData();
+                                        this.cam.checkToGetData('pending');
                                     }
                                     this.snackBar.showMessage("Từ chối thành công", true);
                                 }

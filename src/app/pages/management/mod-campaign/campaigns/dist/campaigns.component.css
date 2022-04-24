@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 }
 .container div {
   margin: 10px;
@@ -16,7 +16,6 @@
 .name {
   display: flex;
   align-items: center;
-  margin-top: 20px;
 }
 .name > p {
   font-size: 15px;

@@ -35,6 +35,16 @@ var snack_bar_message_component_1 = require("../snack-bar-message/snack-bar-mess
 var loading_spinner_component_1 = require("../loading-spinner/loading-spinner.component");
 var tabgroup_component_1 = require("../tab-group/tabgroup.component");
 var search_bar_component_1 = require("../search-bar/search-bar.component");
+var project_item_component_1 = require("../project-item/project-item.component");
+var campaign_item_component_1 = require("../campaign-item/campaign-item.component");
+var table_rank_component_1 = require("../table-rank/table-rank.component");
+var formatnumber_pipe_1 = require("src/app/pipes/FormatNumber/formatnumber.pipe");
+var delete_entity_component_1 = require("../delete-entity/delete-entity.component");
+var chip_category_component_1 = require("../chip-category/chip-category.component");
+var skeletion_loading_component_1 = require("../skeletion-loading/skeletion-loading.component");
+var download_document_form_component_1 = require("../download-document-form/download-document-form.component");
+var document_button_component_1 = require("../document-button/document-button.component");
+var select_type_campaign_component_1 = require("../select-type-campaign/select-type-campaign.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -53,13 +63,22 @@ var componentModules = [
     loading_spinner_component_1.LoadingSpinnerComponent,
     tabgroup_component_1.TabgroupComponent,
     search_bar_component_1.SearchBarComponent,
+    project_item_component_1.ProjectItemComponent,
+    campaign_item_component_1.CampaignItemComponent,
+    table_rank_component_1.TableRankComponent,
+    delete_entity_component_1.DeleteEntityComponent,
+    chip_category_component_1.ChipCategoryComponent,
+    skeletion_loading_component_1.SkeletionLoadingComponent,
+    download_document_form_component_1.DownloadDocumentFormComponent,
+    document_button_component_1.DocumentButtonComponent,
+    select_type_campaign_component_1.SelectTypeCampaignComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {
     }
     ComponentModule = __decorate([
         core_1.NgModule({
-            declarations: __spreadArrays(componentModules),
+            declarations: __spreadArrays(componentModules, [formatnumber_pipe_1.FormatnumberPipe]),
             imports: [
                 router_1.RouterModule,
                 common_1.CommonModule, angular_material_module_1.AngularMaterialModule,

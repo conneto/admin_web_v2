@@ -1,0 +1,17 @@
+.box-header {
+  float: right;
+}
+.box-content {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+.box-donation button, .box-recruitment button {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+}

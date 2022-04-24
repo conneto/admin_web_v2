@@ -43,10 +43,14 @@ export class CampaignsComponent implements OnInit {
 
     }
   }
-  async checkToGetData() {
+  async checkToGetData(pending?:string) {
     this.campaigns = await this.api.getAll();
 
     this.passData = this.campaigns;
+    if(pending=='pending'){
+      this.getAllCampaignsByStatus('pending');
+      localStorage.setItem('pending','true');
+    }
     if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
       && !localStorage.getItem('pending')
     ) {
@@ -81,13 +85,9 @@ export class CampaignsComponent implements OnInit {
           switch (this.campaigns[i].type) {
             case 'donation': this.campaigns[i].type = 'Quyên Góp';
               this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
-              
-              console.log(this.campaigns[i].org_id);
               break;
             case 'recruitment': this.campaigns[i].type = 'Thiện Nguyện';
               this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString();
-            
-              console.log(this.campaigns[i].org_id);
               break;
           }
           var a = Date.parse(`${this.campaigns[i].startDate}`);

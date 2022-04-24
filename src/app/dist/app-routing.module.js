@@ -14,7 +14,7 @@ var login_component_1 = require("./pages/login/login.component");
 var routes = [
     { path: '', component: login_component_1.LoginComponent },
     {
-        path: "admin", canActivate: [auth_guard_1.AuthGuard],
+        path: "admin",
         loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
     },
     { path: 'register', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/register/register.module'); }).then(function (m) { return m.RegisterModule; }); } },

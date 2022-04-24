@@ -11,10 +11,7 @@ import { CampaignsComponent } from 'src/app/pages/management/mod-campaign/campai
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { ProjectComponent } from 'src/app/pages/management/mod-project/project/project.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
 import { DialogConfirmComponent } from '../../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
 
@@ -38,6 +35,7 @@ export class OrganizationInforCardComponent implements OnInit {
   ngOnInit(): void {
     this.urlApi = this.loadingApi.getApiGetLink.value;
     this.urlLogo = this.organizations?.logo?.replace(/\\/g, '\/');
+  
 
   }
 
@@ -49,7 +47,7 @@ export class OrganizationInforCardComponent implements OnInit {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
       width: '300px',
       data: {
-        button: AuthServiceService.APPROVE,
+        button: 'Chấp nhận',
         message: AuthServiceService.APPROVE,
       },
     })
@@ -70,14 +68,15 @@ export class OrganizationInforCardComponent implements OnInit {
 
         if (res?.status == 0) {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Chấp nhận thành công !", true);
-          if (checkType == 'org'|| this.checkType=='org') {
+         
+          if (checkType == 'org' || this.checkType == 'org') {
             this.orga.checkToGetData('pending');
-          } else if (checkType == 'pro'|| this.checkType=='pro') {
+          } else if (checkType == 'pro' || this.checkType == 'pro') {
             this.pro.checkToGetData('pending');
           } else {
-            this.cam.checkToGetData();
+            this.cam.checkToGetData('pending');
           }
+          this.snackBar.showMessage("Chấp nhận thành công !", true);
         } else {
           this.loadingApi.isLoading.next(false);
           this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
@@ -90,7 +89,7 @@ export class OrganizationInforCardComponent implements OnInit {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
       width: '300px',
       data: {
-        button: AuthServiceService.REJECT,
+        button: 'Từ chối',
         message: AuthServiceService.REJECT,
       }
     })
@@ -109,12 +108,12 @@ export class OrganizationInforCardComponent implements OnInit {
         this.loadingApi.isLoading.next(true);
         if (res?.status === 0) {
           this.loadingApi.isLoading.next(false);
-          if (checkType == 'org'|| this.checkType=='org') {
+          if (checkType == 'org' || this.checkType == 'org') {
             this.orga.checkToGetData('pending');
-          } else if (checkType == 'pro'|| this.checkType=='pro') {
+          } else if (checkType == 'pro' || this.checkType == 'pro') {
             this.pro.checkToGetData('pending');
-          } else if  (checkType == 'cam'|| this.checkType=='cam') {
-            this.cam.checkToGetData();
+          } else if (checkType == 'cam' || this.checkType == 'cam') {
+            this.cam.checkToGetData('pending');
           }
           this.snackBar.showMessage("Từ chối thành công", true);
         } else {

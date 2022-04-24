@@ -45,6 +45,7 @@ exports.__esModule = true;
 exports.ProjectDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
+var select_type_campaign_component_1 = require("src/app/components/select-type-campaign/select-type-campaign.component");
 var ProjectDetailsComponent = /** @class */ (function () {
     function ProjectDetailsComponent(getEntityService, router, loadingService, snackBar, auth, location, proApi, campApi, actived, dialog) {
         this.getEntityService = getEntityService;
@@ -61,17 +62,67 @@ var ProjectDetailsComponent = /** @class */ (function () {
         this.urlApi = '';
         this.urlLogo = '';
         this.urlCover = '';
+        this.campaigns = [];
+        this.campaignsCopy = [];
     }
     ProjectDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
         this.check();
         this.urlApi = this.loadingService.getApiGetLink.value;
+        this.isInformation = true;
+        this.getCampaigns();
     };
     ProjectDetailsComponent.prototype.check = function () {
         var _a;
         this.user = this.auth.currentUserValue;
         if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) === 'organization_manager') {
             this.isAdmin = false;
+        }
+    };
+    ProjectDetailsComponent.prototype.getCampaigns = function () {
+        var _a, _b, _c, _d;
+        return __awaiter(this, void 0, void 0, function () {
+            var _e, i;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
+                    case 0:
+                        _e = this;
+                        return [4 /*yield*/, this.proApi.getCampaignsByProjectId("" + this.actived.snapshot.paramMap.get('id'))];
+                    case 1:
+                        _e.campaignsCopy = _f.sent();
+                        this.campaigns = this.campaignsCopy;
+                        if (this.campaigns) {
+                            for (i = 0; i < this.campaigns.length; i++) {
+                                {
+                                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                                    switch (this.campaigns[i].type) {
+                                        case 'donation':
+                                            this.campaigns[i].type = 'Quyên Góp';
+                                            this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
+                                            break;
+                                        case 'recruitment':
+                                            this.campaigns[i].type = 'Thiện Nguyện';
+                                            this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        this.passData = this.campaignsCopy;
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    ProjectDetailsComponent.prototype.getData = function (e) {
+        if (e == null || e.length <= 0) {
+            this.noResultBySearch = true;
+            this.campaigns = e;
+        }
+        else {
+            this.noResultBySearch = false;
+            this.campaigns = e;
         }
     };
     ProjectDetailsComponent.prototype.getByID = function () {
@@ -90,7 +141,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         if (this.project.resultCode == 610) {
                             this.isApproved = true;
                         }
-                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.organizationLogo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                         return [2 /*return*/];
                 }
@@ -100,12 +151,42 @@ var ProjectDetailsComponent = /** @class */ (function () {
     ProjectDetailsComponent.prototype.goBack = function () {
         this.location.back();
     };
+    ProjectDetailsComponent.prototype.getTab = function (id) {
+        switch (id) {
+            case 'infor':
+                this.isInformation = true;
+                this.isCampaigns = false;
+                break;
+            case 'cam':
+                this.isCampaigns = true;
+                this.isInformation = false;
+                break;
+        }
+    };
+    ProjectDetailsComponent.prototype.openSelectCampaign = function () {
+        var _this = this;
+        var diaglogRef = this.dialog.open(select_type_campaign_component_1.SelectTypeCampaignComponent, {
+            width: "300px"
+        });
+        diaglogRef.afterClosed().subscribe(function (data) {
+            if (data) {
+                if (data == 'donation') {
+                    _this.whichType = 'donation';
+                }
+                else {
+                    _this.whichType = 'recruitment';
+                }
+                _this.openCampaignForm();
+            }
+        });
+    };
     ProjectDetailsComponent.prototype.openCampaignForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
             width: '700px',
             data: {
-                title: 'Tạo chiến dịch'
+                title: 'Tạo chiến dịch',
+                type: this.whichType
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

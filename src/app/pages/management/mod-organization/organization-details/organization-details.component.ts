@@ -1,14 +1,16 @@
 import { Location } from '@angular/common';
-import { Route } from '@angular/compiler/src/core';
+
 import { Component, Injectable, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+
 import { ProjectFormComponent } from 'src/app/components/create/project-form/project-form.component';
 import { OrganizationInforCardComponent } from 'src/app/components/request-components/organization-infor-card/organization-infor-card.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
+import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Organization } from 'src/app/models/organization/organization';
+import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
 import { UserManagementComponent } from 'src/app/pages/user-management/user-management.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
@@ -17,6 +19,7 @@ import { LoadingServiceService } from 'src/app/services/loading/loading-service.
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectApiService } from 'src/app/services/project/project-api.service';
 import { ProjectComponent } from '../../mod-project/project/project.component';
+
 import { OrganizationsComponent } from '../organizations/organizations.component';
 
 @Component({
@@ -36,8 +39,23 @@ export class OrganizationDetailsComponent implements OnInit {
   urlCover?: string;
   urlLogo?: string;
   idGeneral?: any;
-  isApproved?:boolean
-  constructor(private pro:ProjectComponent,private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
+  isApproved?: boolean
+  isInformation?: boolean;
+  isCampaigns?: boolean;
+  isProjects?: boolean;
+  oldData: any;
+  passData: any;
+  noResultBySearch?: boolean;
+  projects?: Project[] = [];
+  projectsCopy?: Project[] = [];
+  campaignsCopy?: Campaign[] = [];
+  status?: any;
+  campaigns?: Campaign[]=[];
+  isGetPro?: boolean = false;
+  isGetCam?: boolean = false;
+  passDataCampaigns:any;
+  passDataProjects:any;
+  constructor(private pro: ProjectComponent, private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
 
@@ -45,32 +63,104 @@ export class OrganizationDetailsComponent implements OnInit {
 
     this.getValueFromRoute();
     this.check();
-    this.getName();
+
+    this.isInformation = true;
   }
   check() {
     this.user = this.auth.currentUserValue;
-    if (this.user?.role === 'organization_manager') {
+    if (this.user?.role == 'organization_manager') {
       this.isAdmin = false;
     }
   }
   async getValueFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     this.organization = await this.orgApi.getById(`${id}`);
-    if(this.organization?.result_code==510){
-      this.isApproved=true;
+    if (this.organization?.result_code == 510) {
+      this.isApproved = true;
     }
     this.loadingService.getOrganizationId.next(`${id}`);
     this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
     this.urlCover = this.organization?.cover?.replace(/\\/g, '\/');
+    switch (this.organization?.type) {
+      case 'ngo': this.organization.type = 'Tổ chức phi chính phủ';
+        break;
+      case 'npo': this.organization.type = 'Tổ chức phi lợi nhuận';
+        break;
+    }
+
   }
   goBack() {
 
     this.location.back();
 
   }
+  getTab(id?: string) {
+    switch (id) {
+      case 'infor':
+        this.isInformation = true;
+        this.isCampaigns = false;
+        this.isProjects = false;
+        break;
+      case 'pro':
+        if (this.isGetPro == false) {
+          this.getProjects();
+          this.isGetPro = true;
+        }
+        this.isProjects = true;
+        this.isInformation = false;
+        this.isCampaigns = false;
+        break;
+      case 'cam':
+        if (this.isGetCam == false) {
+          this.getCampaigns();
+          this.isGetCam = true;
+        }
+        this.isCampaigns = true;
+        this.isInformation = false;
+        this.isProjects = false;
+        break;
+    }
+  }
+  async getCampaigns() {
+    this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.campaigns = this.campaignsCopy;
+    if (this.campaigns) {
+      for (var i = 0; i < this.campaigns.length; i++) {
+        {
+          this.campaigns[i].cover = this.campaigns[i]?.cover?.replace(/\\/g, '\/');
+       
+          this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(/\\/g, '\/');
+          switch (this.campaigns[i].type) {
+            case 'donation': this.campaigns[i].type = 'Quyên Góp';
+              this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
+              break;
+            case 'recruitment': this.campaigns[i].type = 'Thiện Nguyện';
+              this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString();
+              break;
+          }
+        }
+      }
 
-  getName() {
-    this.usersCom.getNameById(`${this.organization?.created_by}`);
+
+      this.passDataCampaigns = this.campaignsCopy;
+
+    }
+  }
+  async getProjects() {
+    this.projectsCopy = await this.orgApi.getProjectsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.projects = this.projectsCopy;
+    if (this.projects) {
+      for (var i = 0; i < this.projects.length; i++) {
+        {
+          this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
+          this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
+          this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
+        }
+      }
+
+
+      this.passDataProjects = this.projectsCopy;
+    }
   }
   public get getId() {
     this.getValueFromRoute();
@@ -93,7 +183,7 @@ export class OrganizationDetailsComponent implements OnInit {
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true)
-          
+
           this.router.navigate(['/manager/manage-project']);
           this.pro.checkToGetData('pending');
 
@@ -109,5 +199,24 @@ export class OrganizationDetailsComponent implements OnInit {
         }
       }
     })
+  }
+  getData(e: any) {
+    if (e == null || e.length <= 0) {
+      if (this.isProjects) {
+        this.noResultBySearch = true;
+        this.projects = e;
+      } else {
+        this.noResultBySearch = true;
+        this.campaigns = e;
+      }
+    } else {
+      if (this.isProjects) {
+        this.noResultBySearch = false;
+        this.projects = e;
+      } else {
+        this.noResultBySearch = false;
+        this.campaigns = e;
+      }
+    }
   }
 }

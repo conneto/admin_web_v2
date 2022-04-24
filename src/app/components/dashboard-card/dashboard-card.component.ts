@@ -13,10 +13,16 @@ export class DashboardCardComponent implements OnInit {
   @Input() title?: string;
   @Input() isAmount?: boolean;
   @Input() number?: number;
-  @Input() icon?:string;
+  @Input() icon?: string;
+  numberShow: number = 0;
   positionTooltip: TooltipPosition = 'above';
   constructor() { }
-
+  counting: any = setInterval(() => {
+    this.numberShow++;
+    if (this.numberShow == this.number) {
+      clearInterval(this.counting);
+    }
+  }, 40)
   ngOnInit(): void {
   }
 

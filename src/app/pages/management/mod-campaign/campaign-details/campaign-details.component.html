@@ -1,4 +1,3 @@
-
 <div *ngIf="campaign">
   <div class="container">
     <div class="box">
@@ -8,56 +7,95 @@
       <div class="header">
         <div class="header-content">
           <div class="header-image">
-            <img src="{{urlApi}}/show/images?p={{urlCover}}" alt="" />
-          </div>
-          <div class="header-information">
-            <div>
-              <img
-                class="logo"
-                src="{{urlApi}}/show/images?p={{urlLogo}}"
-              />
-              <h4>{{ campaign.name }}</h4>
-              <app-status></app-status>
-            </div>
-         
-
-            <p>Đồng hành cùng chiến dịch<br>
-              <span class='organization-name'>{{campaign.org_name}}</span></p>
-            <div class="card-icon">
-              <div class="start-date">
-                <p>{{ campaign.startDate | date: "mediumDate" }}</p>
-                <mat-card-subtitle> Start Date </mat-card-subtitle>
-              </div>
-              <div class="budget-item">
-                <p>{{ campaign.endDate | date: "mediumDate" }}</p>
-                <mat-card-subtitle> End Date </mat-card-subtitle>
-              </div>
-              <div class="budget-item">
-                  <p>{{ campaign.target | currency:'VND'}}</p>
-                  <mat-card-subtitle>Target </mat-card-subtitle>
-                </div>
-            </div>
-         
+            <img src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
           </div>
         </div>
+        <div class="content__tab">
+          <ul>
+            <li
+              [class.content__tab-active]="isInformation"
+              (click)="getTab('infor')"
+            >
+              Thông tin
+            </li>
+            <li
+              [class.content__tab-active]="isDocument"
+              (click)="getTab('doc')"
+              *ngIf='campaign.type=="Quyên Góp"'
+            >
+              Tài liệu
+            </li>
+            <li [class.content__tab-active]="isAnother" (click)="getTab('ano')">
+              {{
+                campaign.type == "Quyên Góp"
+                  ? "Lịch sử quyên góp"
+                  : "Tuyển dụng"
+              }}
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div *ngIf="isInformation" class="box box__content">
       <div class="content">
         <div class="content-information">
           <div class="content-description">
-            <span>Description:</span>
+            <span>Tên chiến dịch:</span>
+            <p>
+              {{ campaign.name }}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Đồng hành cùng chiến dịch:</span>
+            <img
+              class="organization__avatar"
+              src="{{ urlApi }}/show/images?p={{ urlLogo }}"
+            />
+            <p>
+              {{ campaign.org_name }}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Thuộc dự án:</span>
+            <img
+              class="organization__avatar"
+              src="{{ urlApi }}/show/images?p={{ urlProjectLogo }}"
+            />
+            <p>
+              {{ campaign.pro_name }}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Giới thiệu chiến dịch:</span>
             <p>
               {{ campaign.description }}
             </p>
           </div>
-          <div class="content-type">
-              <span>Type:</span>
-              <p>
-                {{ campaign.type }}
-              </p>
-            </div>
+          <div class="content-description">
+            <span>Thể loại:</span>
+            <p>
+              {{ campaign.type }}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Lĩnh vực:</span>
+            <p>
+              {{ campaign.category }}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Thời gian diễn ra:</span>
+            <p>
+              {{ campaign.startDate | date: "dd/MM/yyyy" }} -
+              {{ campaign.endDate | date: "dd/MM/yyyy" }}
+            </p>
+          </div>
         </div>
-     
       </div>
+    </div>
+    <div *ngIf="isDocument && isApproved==true">
+      <app-download-document-form [campaign]="campaign"></app-download-document-form>
+   
     </div>
   </div>
 </div>

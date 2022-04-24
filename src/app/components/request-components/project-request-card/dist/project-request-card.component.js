@@ -45,7 +45,8 @@ exports.__esModule = true;
 exports.ProjectRequestCardComponent = void 0;
 var core_1 = require("@angular/core");
 var ProjectRequestCardComponent = /** @class */ (function () {
-    function ProjectRequestCardComponent(dialog, authApi, dialogConfirm) {
+    function ProjectRequestCardComponent(loadingApi, dialog, authApi, dialogConfirm) {
+        this.loadingApi = loadingApi;
         this.dialog = dialog;
         this.authApi = authApi;
         this.dialogConfirm = dialogConfirm;
@@ -54,7 +55,11 @@ var ProjectRequestCardComponent = /** @class */ (function () {
         this.isCam = '';
     }
     ProjectRequestCardComponent.prototype.ngOnInit = function () {
+        var _a, _b, _c, _d;
         this.check();
+        this.urlApi = this.loadingApi.getApiGetLink.value;
+        this.urlLogo = (_b = (_a = this.projects) === null || _a === void 0 ? void 0 : _a.organizationLogo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+        this.urlCover = (_d = (_c = this.projects) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
     };
     ProjectRequestCardComponent.prototype.viewDetails = function () {
     };

@@ -155,10 +155,11 @@
 .login-button button {
   width: 100%;
   background: linear-gradient(to bottom left, rgba(254, 204, 78, 1), rgba(254, 223, 141, 1)) !important;
-  padding: 0 30px;
+  padding: 6px 30px;
   font-size: 17px;
   border:none;
   border-radius:3px;
+  
 }
 
 .login-button button:hover {

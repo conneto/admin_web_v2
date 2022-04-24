@@ -8,13 +8,24 @@ mat-card-title {
   font-size: 20px;
   margin: 20px 0 20px;
   color: #ffb800;
-  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 mat-card {
   max-width: 100%;
   width: 380px;
   margin: 5px 10px;
+}
+
+mat-card:hover {
+  transform: scale(1.12);
+  z-index: 1;
+}
+mat-card:hover mat-card-title {
+  overflow: visible;
+  white-space: normal;
 }
 
 .image img {
@@ -64,7 +75,6 @@ button:hover {
 .name {
   display: flex;
   align-items: center;
-  margin-top: 20px;
 }
 .name > p {
   font-size: 15px;

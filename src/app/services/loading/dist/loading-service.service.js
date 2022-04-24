@@ -15,6 +15,7 @@ var LoadingServiceService = /** @class */ (function () {
         this.getApiGetLink = new rxjs_1.BehaviorSubject('');
         this.getOrganizationId = new rxjs_1.BehaviorSubject('');
         this.projectId = new rxjs_1.BehaviorSubject('');
+        this.isSkeleton = new rxjs_1.BehaviorSubject(false);
     }
     LoadingServiceService = __decorate([
         core_1.Injectable({

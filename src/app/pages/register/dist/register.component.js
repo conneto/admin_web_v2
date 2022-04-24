@@ -74,10 +74,9 @@ var RegisterComponent = /** @class */ (function () {
                         uploadData = new FormData();
                         oldPass = this.registerForm.value.password;
                         oldPhone = this.registerForm.value.number_phone;
-                        this.registerForm.value.number_phone = "0" + "" + oldPhone;
+                        // this.registerForm.value.number_phone = "0" + "" + oldPhone;
                         // this.registerForm.patchValue({ password: md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end() });
                         this.registerForm.value.password = md5.appendStr(this.registerForm.value.password.concat(RegisterComponent_1.KEY)).end();
-                        console.log(this.registerForm.value.password);
                         uploadData.append('account', JSON.stringify(this.registerForm.value));
                         console.log(uploadData.get('account'));
                         return [4 /*yield*/, this.authService.register(uploadData)];

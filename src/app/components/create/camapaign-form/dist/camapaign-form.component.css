@@ -1,12 +1,15 @@
 h3 {
   text-align: center;
+  margin: 0;
+  text-transform: uppercase;
 }
 
 .form {
   display: flex;
 }
 
-.input input, .input select,
+.input input,
+.input select,
 .input textarea {
   margin: 5px 5px;
   width: 190px;
@@ -75,10 +78,6 @@ h3 {
 .login-form ::placeholder {
   /* Edge */
   color: #aeaeae;
-}
-.login-form div {
-  display: flex;
-  align-items: center;
 }
 .login-form mat-form-filed {
   width: 100%;
@@ -219,4 +218,20 @@ h3 {
 
 .text-danger {
   color: red;
+}
+
+.recruitment-date,
+.event-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.recruitment-date > mat-label,
+.event-date > mat-label {
+  width: 185px;
+}
+.recruitment-date input,
+.event-date input {
+  margin: 3px 14px !important;
+  width: 30% !important;
 }

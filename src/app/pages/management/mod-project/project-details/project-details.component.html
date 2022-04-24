@@ -7,46 +7,98 @@
       <div class="header">
         <div class="header-content">
           <div class="header-image">
-            <img src="{{urlApi}}/show/images?p={{urlCover}}" alt="" />
-          </div>
-          <div class="header-information">
-            <div>
-              <img
-                class="logo"
-                src="{{urlApi}}/show/images?p={{urlLogo}}"
-              />
-              <h4>{{ project.name }}</h4>
-              <app-status></app-status>
-            </div>
-
-            <p>
-              Đồng hành cùng dự án <br />
-              <span class="organization-name">{{project.organizationName}}</span>
-            </p>
-            <div class="card-icon">
-              <div class="start-date">
-                <p>{{ project.startDate | date: "mediumDate" }}</p>
-                <mat-card-subtitle> Start Date </mat-card-subtitle>
-              </div>
-              <div class="budget-item">
-                <p>{{ project.endDate | date: "mediumDate" }}</p>
-                <mat-card-subtitle> End Date </mat-card-subtitle>
-              </div>
-            </div>
+            <img src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
           </div>
         </div>
+        <div class="content__tab">
+          <ul>
+            <li
+              [class.content__tab-active]="isInformation"
+              (click)="getTab('infor')"
+            >
+              Thông tin
+            </li>
+
+            <li
+              [class.content__tab-active]="isCampaigns"
+              (click)="getTab('cam')"
+            >
+              Chiến dịch
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div *ngIf="isInformation" class="box box__content">
       <div class="content">
         <div class="content-information">
           <div class="content-description">
-            <span>Description:</span>
+            <span>Tên dự án:</span>
+            <p>
+              {{ project.name }}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Đồng hành cùng dự án:</span>
+            <img
+              class="organization__avatar"
+              src="{{ urlApi }}/show/images?p={{ urlLogo }}"
+            />
+            <p>
+              {{ project.organizationName }}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Giới thiệu dự án:</span>
             <p>
               {{ project.description }}
             </p>
           </div>
+          <div class="content-description">
+            <span>Thời gian diễn ra:</span>
+            <p>
+              {{ project.startDate | date: "dd/MM/yyyy" }} -
+              {{ project.endDate | date: "dd/MM/yyyy" }}
+            </p>
+          </div>
         </div>
-        <div *ngIf='!isAdmin && isApproved'class="content-button">
-          <button (click)="openCampaignForm()" mat-raised-button color="accent">Tạo mới một chiến dịch</button>
+      </div>
+    </div>
+    <div *ngIf="isCampaigns && isApproved">
+      <div class="campaigns__button">
+        <div *ngIf='!isAdmin' class="campaigns__button-create">
+          <button (click)="openSelectCampaign()" mat-raised-button color="accent">
+            <mat-icon>add</mat-icon>
+            Tạo mới một chiến dịch
+          </button>
+        </div>
+        <div style="width: 100%" *ngIf="campaignsCopy?.length! > 0">
+          <div class="search_bar">
+            <div *ngIf="!noResultBySearch; then name; else result"></div>
+            <div>
+              <ng-template #name>
+                <div class="name">
+                  <h3>Chiến dịch</h3>
+                </div>
+              </ng-template>
+              <ng-template #result>
+                <div class="name">
+                  <h3>Không tìm thấy kết quả phù hợp</h3>
+                </div>
+              </ng-template>
+            </div>
+            <div>
+              <app-search-bar
+                (getItem)="getData($event)"
+                [entityCopy]="passData"
+              ></app-search-bar>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container__item">
+        <div *ngFor="let cam of campaigns">
+          <app-campaign-item [campaign]="cam"></app-campaign-item>
         </div>
       </div>
     </div>

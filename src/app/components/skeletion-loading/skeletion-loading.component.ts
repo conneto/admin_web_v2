@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 
 @Component({
   selector: 'app-skeletion-loading',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./skeletion-loading.component.scss']
 })
 export class SkeletionLoadingComponent implements OnInit {
-
-  constructor() { }
+  @Input() count: any;
+  constructor(public loading: LoadingServiceService) { }
 
   ngOnInit(): void {
   }

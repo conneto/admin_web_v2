@@ -44,8 +44,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.ProjectApiService = void 0;
 var core_1 = require("@angular/core");
+var campaign_api_service_1 = require("../campaign/campaign-api.service");
 var ProjectApiService = /** @class */ (function () {
-    function ProjectApiService(api, projectAdap) {
+    function ProjectApiService(campaignAdapter, api, projectAdap) {
+        this.campaignAdapter = campaignAdapter;
         this.api = api;
         this.projectAdap = projectAdap;
     }
@@ -77,6 +79,23 @@ var ProjectApiService = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res.data = this.projectAdap.adapt(res.data) || []];
+                }
+            });
+        });
+    };
+    ProjectApiService.prototype.getCampaignsByProjectId = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get(ProjectApiService_1.PROJECT + "/" + id + "/" + campaign_api_service_1.CampaignApiService.CAMPAIGN)];
+                    case 1:
+                        res = _a.sent();
+                        res.data = res.data.map(function (item) {
+                            return _this.campaignAdapter.adapt(item);
+                        });
+                        return [2 /*return*/, res.data || []];
                 }
             });
         });

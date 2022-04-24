@@ -7,25 +7,25 @@
         <mat-icon>more_vert</mat-icon>
       </button>
       <div class="user-status content-center">
-        <span class="dot"></span>Activated
+        <span title="Đang hoạt động" class="dot"></span>
       </div>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
           <mat-icon>info </mat-icon>
-          Details
+          Chi tiết
         </button>
       </mat-menu>
     </div>
-  
+    
     <div class="text-center">
       <mat-card-title>{{user.first_name}} {{user.last_name}}</mat-card-title>
       <mat-card-subtitle>@{{user.username}}</mat-card-subtitle>
     </div>
     <div class="text-center">
-      <mat-card-content> Join in {{user.created_at | date:'dd/MM/yyyy'}} </mat-card-content>
+      <mat-card-content> Tham gia vào <span class="join-date">{{user.created_at | date:'dd/MM/yyyy'}}</span> </mat-card-content>
     </div>
     <div class="content-center">
-      <button mat-flat-button>Disable</button>
+      <button mat-flat-button>Xóa</button>
     </div>
   </mat-card>
   

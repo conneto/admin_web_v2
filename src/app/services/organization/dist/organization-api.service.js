@@ -44,8 +44,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationApiService = void 0;
 var core_1 = require("@angular/core");
+var campaign_api_service_1 = require("../campaign/campaign-api.service");
+var project_api_service_1 = require("../project/project-api.service");
 var OrganizationApiService = /** @class */ (function () {
-    function OrganizationApiService(apiService, adapter, authApi) {
+    function OrganizationApiService(campaignAdapter, projectAdapter, apiService, adapter, authApi) {
+        this.campaignAdapter = campaignAdapter;
+        this.projectAdapter = projectAdapter;
         this.apiService = apiService;
         this.adapter = adapter;
         this.authApi = authApi;
@@ -64,6 +68,40 @@ var OrganizationApiService = /** @class */ (function () {
                         res = _b.sent();
                         res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) {
                             return _this.adapter.adapt(item);
+                        });
+                        return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
+    OrganizationApiService.prototype.getProjectsByOrgId = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + project_api_service_1.ProjectApiService.PROJECT)];
+                    case 1:
+                        res = _a.sent();
+                        res.data = res.data.map(function (item) {
+                            return _this.projectAdapter.adapt(item);
+                        });
+                        return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
+    OrganizationApiService.prototype.getCampaignsByOrgId = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + campaign_api_service_1.CampaignApiService.CAMPAIGN)];
+                    case 1:
+                        res = _a.sent();
+                        res.data = res.data.map(function (item) {
+                            return _this.campaignAdapter.adapt(item);
                         });
                         return [2 /*return*/, res.data || []];
                 }
@@ -100,6 +138,19 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
+    OrganizationApiService.prototype["delete"] = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService["delete"](OrganizationApiService_1.ORGANIZATIONS + "/" + id)];
+                    case 1:
+                        res = _a.sent();
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
     OrganizationApiService.prototype.createById = function (data, id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
@@ -113,6 +164,19 @@ var OrganizationApiService = /** @class */ (function () {
                         if (res.status == 0) {
                             return [2 /*return*/, res];
                         }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
+    OrganizationApiService.prototype.updateById = function (data, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.put(OrganizationApiService_1.ORGANIZATIONS + "/" + id, data)];
+                    case 1:
+                        res = _a.sent();
                         return [2 /*return*/, res];
                 }
             });

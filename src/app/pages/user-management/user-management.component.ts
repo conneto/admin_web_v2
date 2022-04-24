@@ -34,13 +34,7 @@ export class UserManagementComponent implements OnInit {
     this.users = await this.userApi.getListUsers();
 
   }
-  async getNameById(id: string) {
-    this.users = await this.userApi.getListUsers();
-    return this.users = this.users.filter(x => {
-      console.log(x.id, id);
-      return x.id == id;
-    });
-  }
+
 
   async getListMangerAndVolunteer() {
     this.users = await this.userApi.getListUsers();
@@ -56,7 +50,7 @@ export class UserManagementComponent implements OnInit {
     this.loading.isLoading.next(true);
     setTimeout(() => {
       let newLength = this.users.length + 8;
-      console.log(newLength);
+   
       if (newLength > this.oldUsers.length) {
         newLength = this.oldUsers.length;
       }

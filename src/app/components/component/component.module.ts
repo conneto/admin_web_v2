@@ -18,11 +18,21 @@ import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.compone
 import { ProjectFormComponent } from '../create/project-form/project-form.component';
 import { CamapaignFormComponent } from '../create/camapaign-form/camapaign-form.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
-import { ProjectRequestComponent } from 'src/app/pages/manage-request/mod-project/project-request/project-request.component';
+
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 import { TabgroupComponent } from '../tab-group/tabgroup.component';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 
+import { ProjectItemComponent } from '../project-item/project-item.component';
+import { CampaignItemComponent } from '../campaign-item/campaign-item.component';
+import { TableRankComponent } from '../table-rank/table-rank.component';
+import { FormatnumberPipe } from 'src/app/pipes/FormatNumber/formatnumber.pipe';
+import { DeleteEntityComponent } from '../delete-entity/delete-entity.component';
+import { ChipCategoryComponent } from '../chip-category/chip-category.component';
+import { SkeletionLoadingComponent } from '../skeletion-loading/skeletion-loading.component';
+import { DownloadDocumentFormComponent } from '../download-document-form/download-document-form.component';
+import { DocumentButtonComponent } from '../document-button/document-button.component';
+import { SelectTypeCampaignComponent } from '../select-type-campaign/select-type-campaign.component';
 
 
 const componentModules = [
@@ -43,10 +53,20 @@ const componentModules = [
   LoadingSpinnerComponent,
   TabgroupComponent,
   SearchBarComponent,
+  ProjectItemComponent,
+   CampaignItemComponent,
+  TableRankComponent, 
+  DeleteEntityComponent,
+   ChipCategoryComponent,
+   SkeletionLoadingComponent,
+   DownloadDocumentFormComponent,
+   DocumentButtonComponent,
+   SelectTypeCampaignComponent,
+
 ]
 
 @NgModule({
-  declarations: [...componentModules],
+  declarations: [...componentModules, FormatnumberPipe],
   imports: [
     RouterModule,
     CommonModule, AngularMaterialModule,

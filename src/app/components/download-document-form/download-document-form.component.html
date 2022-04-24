@@ -1,0 +1,52 @@
+<form [formGroup]='fileUpload' (ngSubmit)='onFormSubmit()'action="">
+  <div class="box">
+    <div class="upload-document">
+      <div class="form">
+        <button mat-button color="primary" (click)="exportExcel()">
+         Tải về bản mẫu
+        </button>
+      </div>
+  
+      <div class="upload-button">
+    
+        <input
+          type="file"
+          mat-raised-button
+          color="primary"
+          (change)="uploadFile($event)"
+          formControlName='myFile'
+        />
+      </div>
+      <button mat-button color="primary" type="submit">Tải lên </button>
+    </div>
+    <!-- <div class="table-document">
+      <div class="form">
+        <table id="excel-table">
+          <tr>
+            <th>Mục đích</th>
+            <th>Tên</th>
+            <th>Số lượng</th>
+            <th>Giá tiền</th>
+            <th>Ngày trả tiền</th>
+            <th>Người trả</th>
+            <th>Người nhận</th>
+            <th>Hình ảnh chứng thực</th>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+  
+      <div class="upload-button">
+        <a href="/assets/doc/cashflow_detail_template.xlsx" download=""
+          >Download</a
+        >
+        <button mat-raised-button color="primary" (click)="tableUpload()">
+          <mat-icon>file_upload</mat-icon>Lưu và tải lên
+        </button>
+      </div>
+    </div> -->
+  </div>
+  
+</form>

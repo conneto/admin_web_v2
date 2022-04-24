@@ -24,6 +24,7 @@ export class Project {
         public organizationId?:string,
         public organizationName?:string,
         public organizationLogo?:string,
+      
 
     ) { }
 }

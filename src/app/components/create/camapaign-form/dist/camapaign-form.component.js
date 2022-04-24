@@ -27,8 +27,6 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.initForm();
         var uploadData = new FormData();
         uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
-        console.log(this.loadingService.projectId.value);
-        console.log(uploadData.get('campaign'));
     };
     CamapaignFormComponent.prototype.initForm = function () {
         this.campaignForm = this.formBuilder.group({
@@ -36,12 +34,14 @@ var CamapaignFormComponent = /** @class */ (function () {
             description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
+            start_working_date: ['', this.data.type == 'donation' ? "" : forms_1.Validators.required],
+            end_working_date: ['', this.data.type == 'donation' ? "" : forms_1.Validators.required],
             request_type: ['create'],
-            type: ['', forms_1.Validators.required],
+            type: [this.data.type],
             target_number: ['', forms_1.Validators.required],
-            job_requirement: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-            job_description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-            job_benefit: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            job_requirement: ['', this.data.type == 'donation' ? "" : [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            job_description: ['', this.data.type == 'donation' ? "" : [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            job_benefit: ['', this.data.type == 'donation' ? "" : [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
             project_id: [this.loadingService.projectId.value],
             cover: ['']
         });
@@ -51,6 +51,7 @@ var CamapaignFormComponent = /** @class */ (function () {
     };
     CamapaignFormComponent.prototype.yesClick = function () {
         this.isSubmitted = true;
+        console.log(this.campaignForm);
         if (this.campaignForm.valid) {
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
             // uploadData.append('cover', this.coverImage, this.coverImage?.name);

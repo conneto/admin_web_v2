@@ -17,7 +17,7 @@ import { TabgroupComponent } from '../tab-group/tabgroup.component';
   providedIn:'root',
 })
 export class SearchBarComponent implements OnInit {
-  @Input() organizations: Organization[] = [];
+  @Input() organizations: any[] = [];
   @Input() projects: Project[] = [];
   @Input() campaigns: Campaign[] = [];
   @Input() entity?: any;
@@ -55,9 +55,6 @@ export class SearchBarComponent implements OnInit {
   }
   searchName(e: any, status?: string, entity?: string) {
     
-    if (this.entity) {
-      entity = this.entity;
-    }
 
 
     if (e.target.value.length <= 0 || e.target.value == '') {

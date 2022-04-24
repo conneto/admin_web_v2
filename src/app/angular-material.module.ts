@@ -37,6 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 
 const materialModules = [
@@ -81,13 +82,13 @@ const materialModules = [
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatNativeDateModule,
-  
+    NgxSkeletonLoaderModule,
 ];
 
 @NgModule({
     imports: [
         CommonModule,
-
+        
         ...materialModules
     ],
     exports: [

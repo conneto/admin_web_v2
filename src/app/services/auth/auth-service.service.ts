@@ -23,8 +23,8 @@ export class AuthServiceService {
   public static readonly ROLE = 'organization_manager';
   public static readonly ADMIN = 'admins';
   public static readonly APPROVEMENTS = 'approvements';
-  public static readonly APPROVE = 'Chấp nhận';
-  public static readonly REJECT = 'Từ chối';
+  public static readonly APPROVE = 'chấp nhận';
+  public static readonly REJECT = 'từ chối';
   public static readonly PROJECT = 'project';
   public static readonly ORGANIZATION = 'organization';
   public static readonly CAMPAIGN = 'campaign';
@@ -46,7 +46,7 @@ export class AuthServiceService {
       AuthServiceService.ACCOUNTS + AuthServiceService.LOGIN,
       this.userRequest.adapt({
         username: username,
-        // password: password,
+      
         password: md5.appendStr(password.concat(AuthServiceService.KEY)).end(),
       })
     );
@@ -91,6 +91,7 @@ export class AuthServiceService {
     localStorage.removeItem('reject');
     localStorage.removeItem('pending');
     this.curUserSubject.next(null);
+    console.log(  localStorage.getItem('USER_TOKEN'));
   }
 
   async updateRequestByAdmin(data: any) {

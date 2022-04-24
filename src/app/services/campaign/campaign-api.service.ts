@@ -7,7 +7,9 @@ import { ApiService } from '../api/api.service';
   providedIn: 'root'
 })
 export class CampaignApiService {
-  private static readonly CAMPAIGN = 'campaigns'
+  public static readonly CAMPAIGN = 'campaigns'
+  public static readonly DONATION_DOCUMENTS = 'donation_documents'
+  public static readonly CASHFLOW_DETAILS = 'cashflow_details'
   constructor(private apiService: ApiService, private campaignAdap: CampaignAdapter) {
 
   }
@@ -38,5 +40,12 @@ export class CampaignApiService {
       return res;
     }
     return res
+  }
+  async uploadCashFlow(data:any,id:string){
+    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGN}/${id}/${CampaignApiService.DONATION_DOCUMENTS}/${CampaignApiService.CASHFLOW_DETAILS}`, data);
+    if (res.status != 0) {
+      return res;
+    }
+    return res;
   }
 }

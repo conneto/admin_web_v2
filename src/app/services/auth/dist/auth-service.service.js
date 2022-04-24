@@ -75,7 +75,6 @@ var AuthServiceService = /** @class */ (function () {
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.apiService.post(AuthServiceService_1.ACCOUNTS + AuthServiceService_1.LOGIN, this.userRequest.adapt({
                                 username: username,
-                                // password: password,
                                 password: md5.appendStr(password.concat(AuthServiceService_1.KEY)).end()
                             }))];
                     case 1:
@@ -125,6 +124,7 @@ var AuthServiceService = /** @class */ (function () {
         localStorage.removeItem('reject');
         localStorage.removeItem('pending');
         this.curUserSubject.next(null);
+        console.log(localStorage.getItem('USER_TOKEN'));
     };
     AuthServiceService.prototype.updateRequestByAdmin = function (data) {
         return __awaiter(this, void 0, void 0, function () {
@@ -150,8 +150,8 @@ var AuthServiceService = /** @class */ (function () {
     AuthServiceService.ROLE = 'organization_manager';
     AuthServiceService.ADMIN = 'admins';
     AuthServiceService.APPROVEMENTS = 'approvements';
-    AuthServiceService.APPROVE = 'Chấp nhận';
-    AuthServiceService.REJECT = 'Từ chối';
+    AuthServiceService.APPROVE = 'chấp nhận';
+    AuthServiceService.REJECT = 'từ chối';
     AuthServiceService.PROJECT = 'project';
     AuthServiceService.ORGANIZATION = 'organization';
     AuthServiceService.CAMPAIGN = 'campaign';

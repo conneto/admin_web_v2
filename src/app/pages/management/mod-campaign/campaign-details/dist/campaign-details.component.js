@@ -45,7 +45,8 @@ exports.__esModule = true;
 exports.CampaignDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignDetailsComponent = /** @class */ (function () {
-    function CampaignDetailsComponent(loadingService, location, activated, campaignApi) {
+    function CampaignDetailsComponent(userApi, loadingService, location, activated, campaignApi) {
+        this.userApi = userApi;
         this.loadingService = loadingService;
         this.location = location;
         this.activated = activated;
@@ -54,22 +55,39 @@ var CampaignDetailsComponent = /** @class */ (function () {
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
+        this.isInformation = true;
+        if (localStorage.getItem("approve")) {
+            this.isApproved = true;
+        }
+        if (this.userApi.currentUserValue.role == 'admin') {
+            this.isAdmin = true;
+        }
     };
     CampaignDetailsComponent.prototype.getByID = function () {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f, _g;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _e;
-            return __generator(this, function (_f) {
-                switch (_f.label) {
+            var id, _h;
+            return __generator(this, function (_j) {
+                switch (_j.label) {
                     case 0:
                         id = this.activated.snapshot.paramMap.get('id');
-                        _e = this;
+                        _h = this;
                         return [4 /*yield*/, this.campaignApi.getById("" + id)];
                     case 1:
-                        _e.campaign = _f.sent();
-                        console.log(this.campaign);
+                        _h.campaign = _j.sent();
                         this.urlLogo = (_b = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         this.urlCover = (_d = (_c = this.campaign) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                        this.urlProjectLogo = (_f = (_e = this.campaign) === null || _e === void 0 ? void 0 : _e.pro_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                        switch ((_g = this.campaign) === null || _g === void 0 ? void 0 : _g.type) {
+                            case 'donation':
+                                this.campaign.type = 'Quyên Góp';
+                                this.campaign.org_id = (this.campaign.totalDonated / this.campaign.target).toString();
+                                break;
+                            case 'recruitment':
+                                this.campaign.type = 'Thiện Nguyện';
+                                this.campaign.org_id = (this.campaign.totalPaticipant / this.campaign.target).toString();
+                                break;
+                        }
                         return [2 /*return*/];
                 }
             });
@@ -77,6 +95,26 @@ var CampaignDetailsComponent = /** @class */ (function () {
     };
     CampaignDetailsComponent.prototype.goBack = function () {
         this.location.back();
+    };
+    CampaignDetailsComponent.prototype.getTab = function (id) {
+        switch (id) {
+            case 'infor':
+                this.isInformation = true;
+                this.isDocument = false;
+                this.isAnother = false;
+                break;
+            case 'doc':
+                this.isDocument = true;
+                this.isInformation = false;
+                this.isAnother = false;
+                break;
+            case 'ano':
+                this.isAnother = true;
+                this.isDocument = false;
+                this.isInformation = false;
+        }
+    };
+    CampaignDetailsComponent.prototype.uploadAll = function () {
     };
     CampaignDetailsComponent = __decorate([
         core_1.Component({

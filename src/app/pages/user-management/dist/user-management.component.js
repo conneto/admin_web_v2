@@ -75,24 +75,6 @@ var UserManagementComponent = /** @class */ (function () {
             });
         });
     };
-    UserManagementComponent.prototype.getNameById = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.userApi.getListUsers()];
-                    case 1:
-                        _a.users = _b.sent();
-                        return [2 /*return*/, this.users = this.users.filter(function (x) {
-                                console.log(x.id, id);
-                                return x.id == id;
-                            })];
-                }
-            });
-        });
-    };
     UserManagementComponent.prototype.getListMangerAndVolunteer = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
@@ -119,7 +101,6 @@ var UserManagementComponent = /** @class */ (function () {
         this.loading.isLoading.next(true);
         setTimeout(function () {
             var newLength = _this.users.length + 8;
-            console.log(newLength);
             if (newLength > _this.oldUsers.length) {
                 newLength = _this.oldUsers.length;
             }
