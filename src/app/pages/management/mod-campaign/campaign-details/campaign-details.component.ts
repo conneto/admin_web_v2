@@ -43,10 +43,10 @@ export class CampaignDetailsComponent implements OnInit {
     this.urlCover = this.campaign?.cover?.replace(/\\/g, '\/');
     this.urlProjectLogo = this.campaign?.pro_logo?.replace(/\\/g, '\/');
     switch (this.campaign?.type) {
-      case 'donation': this.campaign.type = 'Quyên Góp';
+      case 'donation': this.campaign.type = 'Quyên góp';
         this.campaign.org_id = (this.campaign.totalDonated! / this.campaign.target!).toString();
         break;
-      case 'recruitment': this.campaign.type = 'Thiện Nguyện';
+      case 'recruitment': this.campaign.type = 'Tuyển người';
         this.campaign.org_id = (this.campaign.totalPaticipant! / this.campaign.target!).toString();
         break;
     }

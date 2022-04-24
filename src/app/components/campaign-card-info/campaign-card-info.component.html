@@ -1,79 +1,56 @@
-<div *ngIf="campaign">
-  <a
-    routerLink="campaign-details/{{ campaign.id }}"
-    style="text-decoration: none; color: black"
-  >
-    <mat-card>
-      <img
-        mat-card-image
-        src="{{ urlApi }}/show/images?p={{ campaign.cover }}"
-      />
-
-      <mat-card-title>
-        {{ campaign.name }}
-      </mat-card-title>
-      <div class="campaign__type">
-        <span>{{ campaign.type }}</span>
+<div *ngIf="campaign" class="shadow rounded-3 position-relative">
+  <a routerLink="campaign-details/{{ campaign.id }}" style="text-decoration: none; color: #000000">
+    <div>
+      <div class="campaign__type fw-bold p-2 position-absolute top-0 end-0">
+        <span>{{ campaign.type == 'donation' ? 'Quyên góp' : 'Tuyển thành viên' }}</span>
       </div>
-      <div class="subtitle">
-        <img
-          mat-card-avatar
-          src="{{ urlApi }}/show/images?p={{ campaign.org_logo }}"
-        />
-        <div class="organization-name">
-          <p>{{ campaign.org_name }}</p>
+      <div class="cover">
+        <img class="rounded-top" src="{{ urlApi }}/show/images?p={{ campaign.cover }}"/>
+      </div>
+      <div class="p-2 d-flex flex-column justify-content-between">
+        <mat-card-title class="fs-5 primary-text-color">
+          {{ campaign.name }}
+        </mat-card-title>
+        <div class="d-flex align-items-center">
+          <div class="circle-avatar">
+            <img
+              src="{{ urlApi }}/show/images?p={{ campaign.org_logo }}"
+            />
+          </div>
+          <p class="fw-bold ms-2 text-truncate">{{ campaign.org_name }}</p>
         </div>
-      </div>
-      <mat-card-content>
-        <div class="campaign__date">
-          <div
-            *ngIf="
-              campaign.type == 'Quyên Góp';
-              then donation;
-              else recruitment
-            "
-          ></div>
-          <ng-template #donation>
+        <div class="my-2">
+          <p><b>Diễn ra:</b> {{campaign.startDate | date: 'dd/MM/yyyy hh:mm'}} - {{campaign.endDate | date: 'dd/MM/yyyy hh:mm'}}</p>
+        </div>
+        <div>
+          <div>
             <p>
-              <span class="now">{{
-                campaign.totalDonated | currency: "VND"
-              }}</span
-              >/{{ campaign.target | currency: "VND" }}
+              <span class="fs-5 fw-bold primary-text-color">{{ campaign.type == 'donation' ? (campaign.totalDonated | currency: "VND") : campaign.totalPaticipant}}/ </span>
+              <span class="fs-6">{{ campaign.type == 'donation' ? (campaign.target | currency: "VND") : campaign.target + ' người' }}</span>
             </p>
-          </ng-template>
-          <ng-template #recruitment>
-            <p>
-              <span class="now">{{ campaign.totalPaticipant }}</span
-              >/{{ campaign.target }}
-            </p>
-          </ng-template>
-          <div class="days-left">
-            <mat-card-subtitle>
-              <mat-icon>date_range</mat-icon>
-              {{ campaign.createdDate | date: "dd/MM/yyyy" }}</mat-card-subtitle
-            >
+          </div>
+          <div class="campaign__progress-bar">
+            <mat-progress-bar
+              mode="determinate"
+              value="{{valueNumber}}"
+            ></mat-progress-bar>
           </div>
         </div>
-      </mat-card-content>
-      <div class="campaign__progress-bar">
-        <mat-progress-bar
-          mode="determinate"
-          value="{{valueNumber}}"
-        ></mat-progress-bar>
+        <div class="d-flex justify-content-between">
+          <div>
+            <p>
+              <span>Lượt {{ campaign.type == 'donation' ? 'quyên góp' : 'tham gia'}}: </span>
+              <span class="fw-bold">{{ campaign.totalPaticipant }}</span>
+            </p>
+          </div>
+          <div>
+            <p>
+              <span>Đạt được: </span>
+              <span class="fw-bold">{{ campaign.org_id | percent: "1.0-2" }}</span>
+            </p>
+          </div>
+        </div>
       </div>
-      <mat-card-actions>
-        <div>
-          <p>
-            Lượt tham gia: <span>{{ campaign.totalPaticipant }}</span>
-          </p>
-        </div>
-        <div>
-          <p>
-            Đạt được: <span>{{ campaign.org_id | percent: "1.0-2" }}</span>
-          </p>
-        </div>
-        <!-- <button mat-button>Compleated</button> -->
-      </mat-card-actions>
-    </mat-card>
+    </div>
   </a>
 </div>

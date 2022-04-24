@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { UserLoginResponse } from 'src/app/dtos/user-login-response/user-login-response.model';
 import { Menu } from 'src/app/models/menu/menu';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { OrganizationRequestComponent } from '../manage-request/mod-organization/organization-request/organization-request.component';
 import { OrganizationsComponent } from '../management/mod-organization/organizations/organizations.component';
 
 @Component({
@@ -16,7 +15,7 @@ export class AdminComponent implements OnInit {
   menus: Array<Menu> = [
     {
       id: '1',
-      name: 'Báo cáo',
+      name: 'Bảng điều khiển',
       path: 'dashboard',
       icon: 'assets/icon/dashboard-icon.png',
     },
@@ -51,7 +50,7 @@ export class AdminComponent implements OnInit {
   user?: UserLoginResponse;
   constructor(private authService: AuthServiceService, private router: Router, private orgApi: OrganizationsComponent,) {
   }
-  isExpaned: boolean = false;
+  isExpanded: boolean = false;
   ngOnInit(): void {
 
     this.user = this.authService.currentUserValue;

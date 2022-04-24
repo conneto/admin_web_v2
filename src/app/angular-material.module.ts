@@ -43,7 +43,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 const materialModules = [
     CdkTreeModule,
     MatAutocompleteModule,
-    
+
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
@@ -76,6 +76,7 @@ const materialModules = [
     MatTooltipModule,
     MatProgressBarModule,
     MatIconModule,
+    MatGridListModule,
     MatFormFieldModule,
     ReactiveFormsModule
     , MatDialogModule,
@@ -88,7 +89,6 @@ const materialModules = [
 @NgModule({
     imports: [
         CommonModule,
-        
         ...materialModules
     ],
     exports: [

@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-
-
+  api_core: 'http://localhost:5000/core_service/api/v1/',
+  api_fetch: 'http://localhost:5001/fetch_data_service/api/v1/'
 };
 
 /*

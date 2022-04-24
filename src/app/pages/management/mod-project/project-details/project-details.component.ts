@@ -65,10 +65,10 @@ export class ProjectDetailsComponent implements OnInit {
 
           this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(/\\/g, '\/');
           switch (this.campaigns[i].type) {
-            case 'donation': this.campaigns[i].type = 'Quyên Góp';
+            case 'donation':
               this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
               break;
-            case 'recruitment': this.campaigns[i].type = 'Thiện Nguyện';
+            case 'recruitment':
               this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString();
               break;
           }

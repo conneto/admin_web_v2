@@ -6,10 +6,10 @@
       mat-list-item
       [routerLink]="[menu.path]"
       [routerLinkActive]="['is-active', 'shadow']"
-     
+
     >
       <img src="{{ menu.icon }}" />
-      <p>{{ menu.name }}</p>
+      <p class="ms-4 hide-text">{{ menu.name }}</p>
     </a>
   </div>
 </ng-template>
@@ -18,7 +18,7 @@
   <div class="sub-menu" *ngIf="menu">
     <a (click)="isShowSubMenu = !isShowSubMenu" mat-list-item >
       <img src="{{ menu.icon }}" />
-      <p>{{ menu.name }}</p>
+      <p class="hide-text">{{ menu.name }}</p>
       <i class="fa fa-angle-right icon" [class.rotate]="isShowSubMenu"></i>
     </a>
 
@@ -28,7 +28,7 @@
         mat-list-item
         [routerLink]="[submenu.path]"
         [routerLinkActive]="['is-active', 'shadow']"
-      
+
       >
         {{ submenu.subname }}
       </a>

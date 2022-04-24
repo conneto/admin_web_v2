@@ -27,7 +27,7 @@ export class Campaign {
         public result_note?: string,
         public result_name?: string,
         public result_code?:number,
-        public createdDate?:number,
+        public createdAt?:number,
         public category?:string,
     ) {
 

@@ -1,15 +1,10 @@
 .sidenav-heading {
   font-weight: bold;
-
   text-align: center;
   letter-spacing: 1.3px;
   font-size: 20px;
   text-transform: uppercase;
 }
-
-
-
-
 
 
 .mat-sidenav-content {
@@ -19,15 +14,15 @@
 
 .content {
   margin-left: 10px;
- 
+
 }
 
 .mat-sidenav {
- 
+
   background: linear-gradient(0, #f8c407f8 0%, #eed076 100%);
   border-radius: 3px;
   box-shadow: 5px 3px 5px #ddd;
-  width: 260px;
+  width: 15%;
 
 }
 
@@ -42,9 +37,11 @@
   border-bottom: 1px solid #ddd;
 
 }
-.toolbar-name{
-  float:right;
+
+.toolbar-name {
+  float: right;
 }
+
 .toolbar-notification-button {
   width: 100%;
 }
@@ -53,8 +50,9 @@
   float: right;
 
 }
-.toolbar-title{
-  p{
-    margin:0 !important;  
+
+.toolbar-title {
+  p {
+    margin: 0 !important;
   }
 }

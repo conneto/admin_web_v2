@@ -39,7 +39,7 @@
         <div class="days-left">
           <mat-card-subtitle>
             <mat-icon>date_range</mat-icon>
-            {{ campaign.createdDate | date: "dd/MM/yyyy" }}</mat-card-subtitle
+            {{ campaign.createdAt | date: "dd/MM/yyyy" }}</mat-card-subtitle
           >
         </div>
       </div>
@@ -53,7 +53,7 @@
     <mat-card-actions>
       <div>
         <p>
-          Lượt tham gia: <span>{{ campaign.totalPaticipant }}</span>
+          Lượt {{ campaign.type == 'donation' ? 'quyên góp' : 'tham gia:' }} <span>{{ campaign.totalPaticipant }}</span>
         </p>
       </div>
       <div>

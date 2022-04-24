@@ -33,13 +33,12 @@
   <mat-sidenav #sidenav mode="side" opened="true">
     <mat-nav-list>
       <div class="sidenav-heading">
-        <p>Conneto</p>
+        <p class="primary-text-color">Conneto</p>
         <hr />
       </div>
       <app-menu-icon
         *ngFor="let item of menus"
         [menu]="item"
-      
       >
       </app-menu-icon>
     </mat-nav-list>

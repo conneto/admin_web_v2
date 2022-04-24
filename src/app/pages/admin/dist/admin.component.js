@@ -49,7 +49,7 @@ var AdminComponent = /** @class */ (function () {
                 role: 'organization_manager'
             },
         ];
-        this.isExpaned = false;
+        this.isExpanded = false;
     }
     AdminComponent.prototype.ngOnInit = function () {
         var _a;

@@ -1,10 +1,11 @@
-.container{
+.container {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-    div{
-        margin:10px
-    }
+}
+
+.campaign-card {
+  height: 60vh !important;
 }
 
 .search-bar{
@@ -17,7 +18,7 @@
     align-items: center;
 
     >p{
-    
+
       font-size:15px;
       margin-left:5px;
       margin-bottom: 0 !important;

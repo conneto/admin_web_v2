@@ -1,83 +1,17 @@
-mat-card {
-
-  width: 350px;
-  max-width: 100%;
-  margin: 15px 10px 0;
-
-  .mat-card-image {
-    height: 200px !important;
-  }
-
+.cover {
+  height: 160px;
 }
 
-
-mat-card-title {
-  font-size: 16px;
-  height: 70px;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-}
-
-
-mat-card-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin: 0 !important;
-  padding: 0;
-}
-
-mat-card-actions span {
-  font-weight: bold;
-}
-
-mat-card-content p {
-
-  float: left;
-  font-size: 1.2em;
-  color: rgb(145, 138, 138);
-  padding: 0;
-  flex-grow: 1;
-
-  span {
-    color: rgb(245, 187, 120);
-    font-weight: bold;
-    font-size: 1.2rem;
-  }
-}
-
-.subtitle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-
-}
-
-.organization-name {
-  p {
-    margin-bottom: 0 !important;
-    text-align: start;
-  }
-
-  margin-left:5px;
-  flex-grow: 1;
-  display: flex;
-  color: rgba(255, 184, 0, 1);
+.cover img {
+  object-fit: cover;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .day-left {
   font-size: 10px;
   display: flex;
 }
-
-.subtitle>mat-card-subtitle {
-  margin: 0;
-  display: flex;
-  align-items: center;
-}
-
 
 
 .mat-button {
@@ -90,11 +24,9 @@ button {
 }
 
 .campaign__type {
-  font-weight: bold;
-  text-align: center;
-  z-index: 1;
+  z-index: 9999;
   text-transform: uppercase;
-  border: 1px solid #ddd;
+  background-color: #918a8a;
 }
 
 .campaign {

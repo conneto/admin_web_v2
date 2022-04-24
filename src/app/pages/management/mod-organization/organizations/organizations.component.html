@@ -1,5 +1,3 @@
-
-
 <div *ngIf="isLoaded">
   <div *ngIf="!noOrg && isDeleted==false; then tabgroup; else createOrganization"></div>
 
@@ -28,7 +26,7 @@
       <div *ngIf="!noResultBySearch; then name; else result"></div>
       <ng-template #name>
         <div class="name">
-          <h3>Tổ Chức</h3>
+          <h3>Tổ chức</h3>
           <p>({{ number ? number : "" }})</p>
         </div>
       </ng-template>
@@ -55,7 +53,7 @@
     </div>
   </div>
 
-  <div *ngIf="isEmpty && isDeleted==false">Không có gì ở đây cả !</div>
+  <div *ngIf="isEmpty && isDeleted==false">Hiện tại không có tổ chức nào được tạo!</div>
 
   <div *ngIf="!isRequest">
     <div *ngIf="organizations && !noOrg">
@@ -64,7 +62,7 @@
           <div *ngIf="!noResultBySearch; then name; else result"></div>
           <ng-template #name>
             <div class="name">
-              <h3>Tổ Chức</h3>
+              <h3>Tổ chức</h3>
               <p>({{ number ? number : "" }})</p>
             </div>
           </ng-template>
@@ -82,14 +80,14 @@
         </div>
         <div class="box">
           <div class="box__item" *ngFor="let organization of organizations">
-            <mat-card title="Click to see more details" class="moveFadein">
+            <mat-card title="Xem chi tiết" class="moveFadein">
               <a
                 class="router"
                 routerLink="organization-request-detail/{{ organization.id }}"
               >
                 <mat-card-title-group>
-                  <mat-card-title> {{ organization.name }}</mat-card-title>
-                  <mat-card-subtitle>{{ organization.type }}</mat-card-subtitle>
+                  <mat-card-title class="primary-text-color"> {{organization.name}}</mat-card-title>
+                  <mat-card-subtitle>{{organization.type}}</mat-card-subtitle>
 
                   <img
                     loading="lazy"
@@ -99,16 +97,17 @@
                 </mat-card-title-group>
                 <div class="card-icon">
                   <div>
-                    <mat-icon title="Được tạo bỏi">people</mat-icon
-                    ><span class="margin-left">{{
-                      organization.created_name
-                    }}</span>
+                    <mat-icon title="Được tạo bởi">people
+                    </mat-icon
+                    >
+                    <span class="margin-left">{{organization.created_name}}</span>
                   </div>
                   <div>
-                    <mat-icon title="Ngày tạo">date_range</mat-icon
-                    ><span class="margin-left">{{
-                      organization.created_at | date: "dd/MM/yyyy"
-                    }}</span>
+                    <mat-icon title="Ngày tạo">date_range
+                    </mat-icon
+                    >
+                    <span class="margin-left">
+                      Ngày tạo: {{organization.created_at | date: "dd/MM/yyyy"}}</span>
                   </div>
                 </div>
               </a>
@@ -119,7 +118,7 @@
     </div>
   </div>
 </div>
-<div  class='skeleton'>
+<div class='skeleton'>
   <div *ngFor="let i of numberCount">
     <app-skeletion-loading></app-skeletion-loading>
   </div>
