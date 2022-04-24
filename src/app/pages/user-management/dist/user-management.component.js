@@ -54,6 +54,7 @@ var UserManagementComponent = /** @class */ (function () {
         this.isEmpty = false;
         this.isNoMore = false;
         this.isLoaded = false;
+        this.isList = false;
     }
     UserManagementComponent.prototype.ngOnInit = function () {
         this.getListMangerAndVolunteer();
@@ -74,6 +75,14 @@ var UserManagementComponent = /** @class */ (function () {
                 }
             });
         });
+    };
+    UserManagementComponent.prototype.handleTitle = function (e) {
+        if (e == 'list') {
+            this.isList = true;
+        }
+        else {
+            this.isList = false;
+        }
     };
     UserManagementComponent.prototype.getListMangerAndVolunteer = function () {
         return __awaiter(this, void 0, void 0, function () {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserApiService } from 'src/app/services/user/user-api.service';
+
 export interface Rank {
   volunteer_name: string;
   type: string;
@@ -48,5 +49,6 @@ export class TableRankComponent implements OnInit {
       Object.assign(this.dataRecruitment[i], { no: i + 1 });
     }
     this.dataOfRecruitment = new MatTableDataSource(this.dataRecruitment)
+    this.isLoaded = true;
   }
 }

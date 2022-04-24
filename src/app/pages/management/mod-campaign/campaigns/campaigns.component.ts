@@ -23,6 +23,7 @@ export class CampaignsComponent implements OnInit {
   noResultBySearch?: boolean;
   number?: any;
   value?: any;
+  isList?:boolean=false;
   constructor(private api: CampaignApiService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
@@ -32,6 +33,13 @@ export class CampaignsComponent implements OnInit {
 
     localStorage.removeItem('reject');
     localStorage.removeItem('pending');
+  }
+  handleTitle(e: any) {
+    if (e == 'list') {
+      this.isList = true;
+    } else {
+      this.isList = false;
+    }
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {
@@ -43,13 +51,13 @@ export class CampaignsComponent implements OnInit {
 
     }
   }
-  async checkToGetData(pending?:string) {
+  async checkToGetData(pending?: string) {
     this.campaigns = await this.api.getAll();
 
     this.passData = this.campaigns;
-    if(pending=='pending'){
+    if (pending == 'pending') {
       this.getAllCampaignsByStatus('pending');
-      localStorage.setItem('pending','true');
+      localStorage.setItem('pending', 'true');
     }
     if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
       && !localStorage.getItem('pending')

@@ -52,6 +52,7 @@ var CampaignsComponent = /** @class */ (function () {
         this.passData = [];
         this.oldData = [];
         this.isEmpty = false;
+        this.isList = false;
     }
     CampaignsComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
@@ -59,6 +60,14 @@ var CampaignsComponent = /** @class */ (function () {
     CampaignsComponent.prototype.ngOnDestroy = function () {
         localStorage.removeItem('reject');
         localStorage.removeItem('pending');
+    };
+    CampaignsComponent.prototype.handleTitle = function (e) {
+        if (e == 'list') {
+            this.isList = true;
+        }
+        else {
+            this.isList = false;
+        }
     };
     CampaignsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {

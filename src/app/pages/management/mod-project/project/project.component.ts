@@ -25,6 +25,7 @@ export class ProjectComponent implements OnInit {
   isLoaded?: boolean;
   number?: any;
   noResultBySearch?: boolean;
+  isList?:boolean=false;
   constructor(private loadingService: LoadingServiceService, private api: ProjectApiService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
@@ -34,7 +35,13 @@ export class ProjectComponent implements OnInit {
   ngOnDestroy(): void {
 
   }
-
+  handleTitle(e: any) {
+    if (e == 'list') {
+      this.isList = true;
+    } else {
+      this.isList = false;
+    }
+  }
   getData(e: any) {
     if (e == null || e.length <= 0) {
       this.noResultBySearch = true;
@@ -53,7 +60,7 @@ export class ProjectComponent implements OnInit {
     if (status == 'pending') {
       this.getAllProjectsByStatus('pending', this.projects);
       localStorage.setItem('pending', 'true');
-    }else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+    } else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
       && !localStorage.getItem('pending')
     ) {
       this.getAllProjectsByStatus('approve');

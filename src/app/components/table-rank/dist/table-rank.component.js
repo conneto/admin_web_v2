@@ -90,6 +90,7 @@ var TableRankComponent = /** @class */ (function () {
                             Object.assign(this.dataRecruitment[i], { no: i + 1 });
                         }
                         this.dataOfRecruitment = new table_1.MatTableDataSource(this.dataRecruitment);
+                        this.isLoaded = true;
                         return [2 /*return*/];
                 }
             });

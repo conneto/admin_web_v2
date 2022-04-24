@@ -33,6 +33,8 @@ import { SkeletionLoadingComponent } from '../skeletion-loading/skeletion-loadin
 import { DownloadDocumentFormComponent } from '../download-document-form/download-document-form.component';
 import { DocumentButtonComponent } from '../document-button/document-button.component';
 import { SelectTypeCampaignComponent } from '../select-type-campaign/select-type-campaign.component';
+import { ChangeToListComponent } from '../change-to-list/change-to-list.component';
+import { ListViewComponent } from '../list-view/list-view.component';
 
 
 const componentModules = [
@@ -62,6 +64,8 @@ const componentModules = [
    DownloadDocumentFormComponent,
    DocumentButtonComponent,
    SelectTypeCampaignComponent,
+   ChangeToListComponent,
+   ListViewComponent,
 
 ]
 

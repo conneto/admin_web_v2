@@ -1,0 +1,14 @@
+.view-list table {
+  width: 100%;
+}
+.view-list .mat-card-avatar {
+  object-fit: contain;
+}
+.view-list img {
+  width: 50px;
+  height: 50px;
+}
+
+::ng-deep .mat-paginator-page-size-label {
+  display: none;
+}

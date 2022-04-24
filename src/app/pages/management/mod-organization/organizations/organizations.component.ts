@@ -1,5 +1,7 @@
-import { Component, Injectable, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { of } from 'rxjs';
+import { AfterViewInit, Component, Injectable, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+
 import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
 import { Organization } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
@@ -16,8 +18,8 @@ import { UserApiService } from 'src/app/services/user/user-api.service';
 @Injectable({
   providedIn: 'root',
 })
-export class OrganizationsComponent implements OnInit {
-  @ViewChild('tabGroup',) tabGroup?: TabgroupComponent;
+export class OrganizationsComponent implements OnInit, AfterViewInit {
+  @ViewChild('tabGroup') tabGroup?: TabgroupComponent;
   organizations: Organization[] = [];
   oldData: Organization[] = [];
   organizationId?: string;
@@ -37,20 +39,24 @@ export class OrganizationsComponent implements OnInit {
   noResultBySearch?: boolean;
   numberCount?: any;
   isDeleted?: boolean = false;
-
-
+  isList?:boolean=false;
 
   constructor(private loading: LoadingServiceService, private getUser: UserApiService, private service: OrganizationApiService, private userApi: AuthServiceService) { }
 
   ngOnInit(): void {
 
     this.checkToGetData();
+
     this.userApi.currentUserValue;
     this.urlApi = this.loading.getApiGetLink.value;
     this.loading.isSkeleton.next(true);
 
+
   }
 
+  ngAfterViewInit(): void {
+
+  }
   ngOnDestroy(): void {
 
 
@@ -58,6 +64,13 @@ export class OrganizationsComponent implements OnInit {
   getState(e: any) {
     this.isChangeState = e;
 
+  }
+  handleTitle(e: any) {
+    if(e=='list'){
+      this.isList=true;
+    }else {
+      this.isList=false;
+    }
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {
@@ -205,12 +218,13 @@ export class OrganizationsComponent implements OnInit {
           }, 1000)
           break;
       }
+
       this.number = this.organizations.length;
       this.numberCount = new Array<number>(this.organizations.length);
 
     }
-
   }
+
   async getAllOrganizationByStatus(status?: string, org?: any) {
     this.status = status;
 
@@ -320,12 +334,16 @@ export class OrganizationsComponent implements OnInit {
           }, 1000)
           break;
       }
+
+
       this.number = this.organizations.length;
       this.numberCount = new Array<number>(this.organizations.length);
 
     }
 
   }
+
+
   async getAllOrganization() {
     this.organizations = await this.service.getAll();
     if (this.organizations == null || this.organizations.length <= 0) {
