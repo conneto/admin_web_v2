@@ -1,5 +1,5 @@
 {
-  "name": "admin-web-v2",
+  "name": "admin_web_v2",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
