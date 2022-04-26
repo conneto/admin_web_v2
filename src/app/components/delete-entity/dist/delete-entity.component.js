@@ -50,8 +50,12 @@ var DeleteEntityComponent = /** @class */ (function () {
         this.snackBar = snackBar;
         this.orgApi = orgApi;
         this.dialog = dialog;
+        this.isSave = false;
     }
     DeleteEntityComponent.prototype.ngOnInit = function () {
+    };
+    DeleteEntityComponent.prototype.change = function () {
+        this.isSave = !this.isSave;
     };
     DeleteEntityComponent.prototype["delete"] = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -61,8 +65,8 @@ var DeleteEntityComponent = /** @class */ (function () {
                 dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '300px',
                     data: {
-                        button: 'Vô hiệu hóa',
-                        message: 'vô hiệu hóa'
+                        button: 'Xóa',
+                        message: 'Xóa'
                     }
                 });
                 dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

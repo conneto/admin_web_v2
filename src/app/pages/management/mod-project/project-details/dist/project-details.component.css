@@ -197,3 +197,8 @@
 .campaigns__button-create {
   margin-left: 8px;
 }
+
+.delete-button {
+  display: flex;
+  justify-content: center;
+}

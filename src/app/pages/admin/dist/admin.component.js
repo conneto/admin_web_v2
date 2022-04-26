@@ -17,7 +17,7 @@ var AdminComponent = /** @class */ (function () {
         this.menus = [
             {
                 id: '1',
-                name: 'Báo cáo',
+                name: 'Bảng điều khiển',
                 path: 'dashboard',
                 icon: 'assets/icon/dashboard-icon.png'
             },
@@ -31,21 +31,21 @@ var AdminComponent = /** @class */ (function () {
                 id: '3',
                 name: 'Quản lý tổ chức',
                 path: 'manage-organization',
-                icon: 'assets/icon/user-icon.png',
+                icon: 'assets/icon/organization-icon.png',
                 role: 'organization_manager'
             },
             {
                 id: '4',
                 name: 'Quản lý dự án',
                 path: 'manage-project',
-                icon: 'assets/icon/user-icon.png',
+                icon: 'assets/icon/project-icon.png',
                 role: 'organization_manager'
             },
             {
                 id: '5',
                 name: 'Quản lý chiến dịch',
                 path: 'manage-campaign',
-                icon: 'assets/icon/user-icon.png',
+                icon: 'assets/icon/Campaign.png',
                 role: 'organization_manager'
             },
         ];

@@ -111,7 +111,7 @@ var RegisterComponent = /** @class */ (function () {
     RegisterComponent.prototype.initRegisterForm = function () {
         var md5 = new ts_md5_1.Md5();
         this.registerForm = this.formBuilder.group({
-            username: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(50), forms_1.Validators.pattern('^[a-zA-Z0-9_]*$')]],
+            username: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(32), forms_1.Validators.pattern('^[a-zA-Z0-9_]*$')]],
             password: ['', [forms_1.Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&]*)[A-Za-z\\d@$!%*#?&]{8,}$'), forms_1.Validators.required, forms_1.Validators.minLength(8)]],
             first_name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2), forms_1.Validators.maxLength(50)]],
             last_name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(2), forms_1.Validators.maxLength(50)]],

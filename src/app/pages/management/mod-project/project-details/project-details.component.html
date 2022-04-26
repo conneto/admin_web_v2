@@ -61,6 +61,9 @@
               {{ project.endDate | date: "dd/MM/yyyy" }}
             </p>
           </div>
+          <div class='delete-button'>
+            <app-delete-entity [entity]="project"></app-delete-entity>
+          </div>
         </div>
       </div>
     </div>
@@ -69,7 +72,7 @@
         <div *ngIf='!isAdmin' class="campaigns__button-create">
           <button (click)="openSelectCampaign()" mat-raised-button color="accent">
             <mat-icon>add</mat-icon>
-            Tạo mới một chiến dịch
+            Tạo chiến dịch
           </button>
         </div>
         <div style="width: 100%" *ngIf="campaignsCopy?.length! > 0">
