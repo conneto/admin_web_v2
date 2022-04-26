@@ -146,6 +146,7 @@ export class ProjectDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
+        console.log(data);
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.campApi.create(data);
         if (res?.status == 0) {

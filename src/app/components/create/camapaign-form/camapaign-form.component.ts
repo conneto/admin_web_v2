@@ -51,7 +51,7 @@ export class CamapaignFormComponent implements OnInit {
     this.isSubmitted = true;
     console.log(this.campaignForm);
     if (this.campaignForm.valid) {
-
+      console.log(this.uploadData,this.campaignForm.value);
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
       // uploadData.append('cover', this.coverImage, this.coverImage?.name);
       console.log(this.uploadData.getAll('cover'));

@@ -12,16 +12,20 @@ import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message
 })
 export class DeleteEntityComponent implements OnInit {
   @Input() entity: any;
+  isSave?:boolean=false;
   constructor(private snackBar: SnackBarMessageComponent, private orgApi: OrganizationApiService, private dialog: MatDialog) { }
   e: any;
   ngOnInit(): void {
+  }
+  change(){
+    this.isSave=!this.isSave
   }
   async delete() {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       width: '300px',
       data: {
-        button: 'Vô hiệu hóa',
-        message: 'vô hiệu hóa',
+        button: 'Xóa',
+        message: 'Xóa',
       }
     })
     dialogRef.afterClosed().subscribe(async data => {

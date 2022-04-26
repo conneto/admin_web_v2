@@ -1,1 +1,3 @@
-<button mat-raised-button (click)='delete()'> Vô hiệu hóa</button>
+<button *ngIf='!isSave'class='update' mat-raised-button (click)='change()'> Chỉnh sửa</button>
+<button  *ngIf='isSave' class='update' mat-raised-button (click)='change()'> Lưu</button>
+<button mat-raised-button (click)='delete()'> Xóa</button>

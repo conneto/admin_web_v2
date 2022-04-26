@@ -90,6 +90,9 @@
               {{ campaign.endDate | date: "dd/MM/yyyy" }}
             </p>
           </div>
+          <div class='delete-button'>
+            <app-delete-entity [entity]="campaign"></app-delete-entity>
+          </div>
         </div>
       </div>
     </div>

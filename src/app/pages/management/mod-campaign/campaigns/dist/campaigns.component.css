@@ -3,8 +3,10 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-.container div {
-  margin: 10px;
+
+.campaign-card {
+  height: 60vh !important;
+  width: 370px;
 }
 
 .search-bar {

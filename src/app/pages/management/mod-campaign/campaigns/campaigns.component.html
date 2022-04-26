@@ -41,7 +41,7 @@
       </div>
     </div>
   </ng-template>
-  <div *ngIf="isEmpty">Không có gì ở đây cả</div>
+  <div *ngIf="isEmpty">Hiện tại không có chiến dịch nào được tạo!</div>
   <div *ngIf="isRequest; then request; else noRequest"></div>
   <ng-template #request>
     <div *ngIf="!isEmpty">

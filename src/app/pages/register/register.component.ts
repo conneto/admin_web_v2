@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
   initRegisterForm() {
     const md5 = new Md5();
     this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9_]*$')]],
+      username: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(32), Validators.pattern('^[a-zA-Z0-9_]*$')]],
       password: ['', [Validators.pattern('^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&]*)[A-Za-z\\d@$!%*#?&]{8,}$'), Validators.required, Validators.minLength(8)]],
       first_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       last_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
