@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Campaign} from 'src/app/models/campaign/campaign.model';
 import {LoadingServiceService} from 'src/app/services/loading/loading-service.service';
+import {UtilService} from "../../services/util-service/util.service";
 
 @Component({
   selector: 'app-campaign-card-info',
@@ -12,13 +13,12 @@ export class CampaignCardInfoComponent implements OnInit {
   @Input() valueNumber?: any;
   urlApi?: string;
 
-  constructor(private loadingService: LoadingServiceService) {
+  constructor(private loadingService: LoadingServiceService, public utilService: UtilService) {
   }
 
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
     this.valueNumber = (Number(this.campaign?.org_id) * 100).toFixed(2);
-
   }
 
 }

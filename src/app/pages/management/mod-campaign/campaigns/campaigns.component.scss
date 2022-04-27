@@ -1,17 +1,22 @@
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+.campaign-card {
+  height: 56vh !important;
 }
 
-.campaign-card {
-  height: 60vh !important;
-  width: 370px;
+@media only screen and (max-width: 1140px) {
+  .campaign-card {
+    height: 52vh !important;
+  }
+}
+
+@media only screen and (max-width: 1320px) {
+  .campaign-card {
+    height: 48vh !important;
+  }
 }
 
 .search-bar{
     display:flex;
-  
+
     align-items:flex-end;
   }
   .name{

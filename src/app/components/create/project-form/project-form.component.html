@@ -22,10 +22,10 @@
           <input type="date" formControlName="end_date" />
         </div>
         <div>
-          <label> Cover image: </label>
+          <label> Cover images: </label>
           <input
             type="file"
-            accept="image/png,image/jpg,image/jpeg"
+            accept="images/png,images/jpg,images/jpeg"
             formControlName="cover"
             (change)="onChange($event)"
           />
@@ -34,7 +34,7 @@
           <label> Logo : </label>
           <input
             type="file"
-            accept="image/png,image/jpg,image/jpeg"
+            accept="images/png,images/jpg,images/jpeg"
             formControlName="logo"
             (change)="onChangeCover($event)"
           />
@@ -141,13 +141,13 @@
     </div>
   </form>
 
-  
+
   <div class="login-button">
 
     <button
     mat-button
-    
- 
+
+
     color="primary"
     (click)="yesClick()"
   >

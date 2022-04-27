@@ -1,9 +1,5 @@
 <div class="box">
-    <div class="box-list">
-        <button [class.isActive]='isActiveGrid'  (click)="viewGrid()"mat-raised-button ><mat-icon>grid_view</mat-icon></button>
+    <div class="box">
+        <button class="is-active" (click)="changeView()" mat-raised-button ><mat-icon>{{ icon_view }}</mat-icon></button>
     </div>
-    <div class="box-grid" >
-        <button [class.isActive]='isActiveList' (click)="viewList()" mat-raised-button> <mat-icon>view_list</mat-icon></button>
-    </div>
-   
 </div>

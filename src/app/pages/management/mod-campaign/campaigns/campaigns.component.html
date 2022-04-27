@@ -3,7 +3,7 @@
 
   <ng-template #noRequest>
     <div *ngIf="!isEmpty">
-      <div class="search-bar mb-3">
+      <div class="search-bar mb-3 d-flex align-items-center">
         <div *ngIf="!noResultBySearch; then name; else result"></div>
         <div>
           <ng-template #name>
@@ -19,25 +19,23 @@
           </ng-template>
         </div>
         <app-change-to-list
-        (handleTitle)="handleTitle($event)"
-      ></app-change-to-list>
-        <div>
-          <app-search-bar
-            (getItem)="getData($event)"
-            [entity]="passData"
-            [entityCopy]="oldData"
-          ></app-search-bar>
-        </div>
+          class="me-2"
+          (handleTitle)="handleTitle($event)"
+        ></app-change-to-list>
+        <app-search-bar
+          (getItem)="getData($event)"
+          [entity]="passData"
+          [entityCopy]="oldData"
+        ></app-search-bar>
       </div>
 
       <app-list-view *ngIf='isList' [entity]="campaigns"></app-list-view>
-      <div *ngIf='!isList'  class="container">
-        <div class = "row">
-          <app-campaign-card-info class="campaign-card mb-3 col-lg-4 col-sm-6 col-12" *ngFor="let cam of campaigns"
-            [valueNumber]="value"
-            [campaign]="cam"
-          ></app-campaign-card-info>
-        </div>
+      <div *ngIf='!isList' class="row p-3">
+        <app-campaign-card-info class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+                                *ngFor="let cam of campaigns"
+                                [valueNumber]="value"
+                                [campaign]="cam"
+        ></app-campaign-card-info>
       </div>
     </div>
   </ng-template>

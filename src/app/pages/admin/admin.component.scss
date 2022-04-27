@@ -6,24 +6,23 @@
   text-transform: uppercase;
 }
 
-
-.mat-sidenav-content {
-
-  height: 95vh;
-}
-
 .content {
-  margin-left: 10px;
-
+  height: calc(100vh - 98px);
+  border-radius: 8px;
+  margin-left: 12px;
 }
 
-.mat-sidenav {
+mat-sidenav {
 
   background: linear-gradient(0, #f8c407f8 0%, #eed076 100%);
   border-radius: 3px;
   box-shadow: 5px 3px 5px #ddd;
   width: 15%;
 
+}
+
+mat-sidenav-container {
+  height: calc(100vh - 65px);
 }
 
 .mat-nav-list {

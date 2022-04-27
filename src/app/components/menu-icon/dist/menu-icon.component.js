@@ -31,7 +31,7 @@ var MenuIconComponent = /** @class */ (function () {
     ], MenuIconComponent.prototype, "getTitle");
     MenuIconComponent = __decorate([
         core_1.Component({
-            selector: 'app-menu-icon',
+            selector: 'app-menu-icons',
             templateUrl: './menu-icon.component.html',
             styleUrls: ['./menu-icon.component.scss']
         })
