@@ -19,26 +19,26 @@ var AdminComponent = /** @class */ (function () {
                 id: '1',
                 name: 'Bảng điều khiển',
                 path: 'dashboard',
-                icon: 'assets/icon/dashboard-icon.png'
+                icon: 'assets/icon/dashboard_icon.png'
             },
             {
                 id: '2',
                 name: 'Quản lý người dùng',
                 path: 'user-management',
-                icon: 'assets/icon/user-icon.png'
+                icon: 'assets/icon/user_icon.png'
             },
             {
                 id: '3',
                 name: 'Quản lý tổ chức',
                 path: 'manage-organization',
-                icon: 'assets/icon/organization-icon.png',
+                icon: 'assets/icon/organization_icon.png',
                 role: 'organization_manager'
             },
             {
                 id: '4',
                 name: 'Quản lý dự án',
                 path: 'manage-project',
-                icon: 'assets/icon/project-icon.png',
+                icon: 'assets/icon/project_icon.png',
                 role: 'organization_manager'
             },
             {
