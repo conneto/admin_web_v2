@@ -91,27 +91,36 @@
             </p>
           </div>
           <div class="delete-button">
-            <app-delete-entity [entity]="campaign"></app-delete-entity>
+            <app-delete-entity [type]="'cam'" [entity]="campaign"></app-delete-entity>
           </div>
         </div>
       </div>
     </div>
 
-    <div *ngIf="isDocument && isApproved == true" class="box box__content">
+    <div
+      *ngIf="isDocument && isApproved == true && !isAdmin"
+      class="box box__content"
+    >
       <div class="content">
-        <div class="document-information">
-          <h6 style='display:flex;align-items: center;'>Hiện chiến dịch này chưa có tài liệu gì cả . Vui lòng bạn   <button class='file_template' mat-button color="primary">
-            <a href="assets/doc/cashflow_detail_template.xlsx" download>
-              Tải về biểu mẫu</a
-            >
-          </button>, điền đầy đủ thông tin yêu cầu theo mẫu và </h6> 
-        <button class='file_template' mat-raised-button color='primary' (click)='openFormDocument()'>Tải lên</button>
-         
+        <div>
+          <h6 style="display: flex; align-items: center">
+            Hiện chiến dịch này chưa có tài liệu gì cả . Vui lòng bạn
+            <button class="file_template" mat-button color="primary">
+              <a href="assets/doc/cashflow_detail_template.xlsx" download>
+                Tải về biểu mẫu</a
+              ></button
+            >, điền đầy đủ thông tin yêu cầu theo mẫu và tải lên lại.
+          </h6>
+          <app-download-document-form
+            [campaign]="campaign"
+          ></app-download-document-form>
         </div>
       </div>
     </div>
     <div *ngIf="isAnother">
       <app-table-campaign-participations
+        [type]="type"
+        
         [volunteer]="volunteer"
       ></app-table-campaign-participations>
     </div>

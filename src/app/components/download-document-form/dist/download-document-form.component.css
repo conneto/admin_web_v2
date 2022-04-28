@@ -13,12 +13,27 @@
   border-left: 1px solid #ddd;
 }
 
+.text-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .box {
   display: flex;
 }
 
 .container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
   position: relative;
+}
+.container__content {
+  width: 95%;
+}
+.container__files {
+  margin: 0 5px;
 }
 .container__files .width {
   width: 100%;
@@ -31,8 +46,13 @@
 .container__holder {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
   align-items: center;
+  margin: 0 10px;
+}
+.container__button {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
 }
 .container .close {
   position: absolute;
@@ -55,9 +75,11 @@ input[type=file] {
 
 .custom-file-upload {
   border: 1px solid #ccc;
+  background-color: #4141ff;
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
+  color: black;
 }
 
 table,

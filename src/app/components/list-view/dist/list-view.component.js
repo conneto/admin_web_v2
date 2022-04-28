@@ -21,14 +21,17 @@ var ListViewComponent = /** @class */ (function () {
     ListViewComponent.prototype.ngOnInit = function () {
         switch (this.whichEntity) {
             case 'org':
-                this.displayColumns = ['name', "created_name", 'type', 'founding_date', 'status'];
+                this.displayColumns = ["no", 'name', "created_name", 'type', 'founding_date', 'status'];
                 break;
             case 'pro':
-                this.displayColumns = ["org_name", 'name', 'created_date', 'start_date', 'end_date'];
+                this.displayColumns = ["no", "org_name", 'name', 'created_date', 'start_date', 'end_date'];
                 break;
             case 'cam':
-                this.displayColumns = ["pro_name", 'name', 'created_date', 'start_date', 'end_date'];
+                this.displayColumns = ["no", "pro_name", 'name', 'created_date', 'start_date', 'end_date'];
                 break;
+        }
+        for (var i = 0; i < this.entity.length; i++) {
+            Object.assign(this.entity[i], { no: i + 1 });
         }
         this.dataSource = new table_1.MatTableDataSource(this.entity);
         this.urlApi = this.loadingService.getApiGetLink.value;

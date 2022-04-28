@@ -7,6 +7,8 @@ import * as _ from 'lodash';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
+import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 
 
 @Component({
@@ -17,64 +19,64 @@ import { Campaign } from 'src/app/models/campaign/campaign.model';
 export class DownloadDocumentFormComponent implements OnInit {
   fileName: string = 'BieuMau.xlsx';
   public hasBaseDrop = true;
-  uploadedFiles = [];
+
   fileUpload!: FormGroup;
   @Input() campaign?: Campaign;
   docFile?: any;
   hasBaseDropZoneOver = false;
   uploader?: FileUploader;
   id?: string;
-  file?: any;
+
   files: File[] = [];
-  formData:any=new FormData();
-  url = `http://conneto.org:5000/core/api/v1/campaigns/${this.data?.id}/donation_documents/cashflow_details`;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private matDialogRef: MatDialogRef<DownloadDocumentFormComponent>, private camApi: CampaignApiService, private formBuilder: FormBuilder, private dialog: MatDialog) {
+  filesExcel: File[] = [];
+  formData: any = new FormData();
+  formDataExcel: any = new FormData();
+  constructor(private loading: LoadingServiceService, private snackBar: SnackBarMessageComponent, private camApi: CampaignApiService, private formBuilder: FormBuilder,) {
 
   }
 
   tableUpload() {
 
   }
-  closeForm() {
-    this.matDialogRef.close();
-  }
+
 
   ngOnInit(): void {
 
     this.fileUpload = this.formBuilder.group({
       myFile: ['', Validators.required],
     })
-    this.uploader = new FileUploader({
-
-      url: this.url,
-
-      maxFileSize: 15 * 1024 * 1024
-    })
-    this.uploader.onBuildItemForm = function (fileItem, form) { form.append('myvar', 'myval'); return { fileItem, form } };
 
 
-    if (this.uploader) {
-
-
-      this.uploader.onCompleteItem = (fileItem: FileItem, form: FormData | any) => {
-        console.log('uploader onCompleteItem', fileItem);
-
-        fileItem.withCredentials = false;
-
-      };
-
+  }
+  async uploadExcel() {
+    this.loading.isLoading.next(true);
+    let res: BaseResponse | null = await this.camApi.uploadCashFlow(this.formDataExcel, `${this.campaign?.id}`);
+    switch (res?.status) {
+      case 0: this.filesExcel = [];
+        this.loading.isLoading.next(false);
+        this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+        break;
+      default: 
+      this.loading.isLoading.next(false);
+      this.snackBar.showMessage(`${res.message}`, false);
+        break;
     }
   }
-  fileOverBase(e: any) {
-    this.hasBaseDropZoneOver = e;
-  }
-  async uploadAll() {
-    let res: BaseResponse | null = await this.camApi.uploadCashFlow(this.formData, `${this.data.id}`);
-    if (res?.status == 0) {
-      console.log("upload thành công");
-    } else {
-      console.log("fail");
+  async uploadPdf() {
+    this.loading.isLoading.next(true);
+    let res: BaseResponse | null = await this.camApi.uploadPdf(this.formData, `${this.campaign?.id}`);
+  
+    switch (res?.status) {
+      case 0: this.files = [];
+        this.loading.isLoading.next(false);
+        this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+        break;
+      default: 
+      this.loading.isLoading.next(false);
+      this.snackBar.showMessage(`${res.message}`, false);
+        break;
     }
+
   }
   exportExcel() {
     let element = document.querySelector('#excel-table');
@@ -115,17 +117,35 @@ export class DownloadDocumentFormComponent implements OnInit {
   get campaignControl() {
     return this.fileUpload.controls;
   }
-  onSelect(event:any) {
+
+  onSelect(event: any) {
     console.log(event);
-    this.files.push(...event.addedFiles);
-    for(let i=0;i<this.files.length;i++){
-      this.formData?.append("cashflow_detail",this.files[i],this.files[i].name);
+    if (event) {
+      this.files.push(...event.addedFiles);
+    }
+
+    for (let i = 0; i < this.files.length; i++) {
+      this.formData?.append("files", this.files[i], this.files[i].name);
     }
     console.log(this.formData);
   }
-  
-  onRemove(event:any) {
+
+  onSelectExcel(event: any) {
+    console.log(event);
+    if (event) {
+      this.filesExcel.push(...event.addedFiles);
+    }
+    for (let i = 0; i < this.filesExcel.length; i++) {
+      this.formDataExcel?.append("cashflow_detail", this.filesExcel[i], this.filesExcel[i].name);
+    }
+    ;
+  }
+  onRemove(event: any) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
+  }
+  onRemoveExcel(event: any) {
+    console.log(event);
+    this.filesExcel.splice(this.filesExcel.indexOf(event), 1);
   }
 }

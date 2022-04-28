@@ -9,11 +9,10 @@ import { NavigationEnd, Router } from '@angular/router';
 export class AppComponent {
   title = 'Conneto Web System';
   constructor(
-    private router:Router
+ 
 
   ){
-    console.log(this.router.url);
-   
+
   }
 
 }

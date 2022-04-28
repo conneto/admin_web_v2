@@ -46,13 +46,23 @@ exports.DeleteEntityComponent = void 0;
 var core_1 = require("@angular/core");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var DeleteEntityComponent = /** @class */ (function () {
-    function DeleteEntityComponent(snackBar, orgApi, dialog) {
+    function DeleteEntityComponent(loading, camApi, proApi, user, snackBar, orgApi, dialog) {
+        this.loading = loading;
+        this.camApi = camApi;
+        this.proApi = proApi;
+        this.user = user;
         this.snackBar = snackBar;
         this.orgApi = orgApi;
         this.dialog = dialog;
         this.isSave = false;
     }
     DeleteEntityComponent.prototype.ngOnInit = function () {
+        if (this.user.currentUserValue.role == 'admin') {
+            this.isAdmin = true;
+        }
+        else {
+            this.isAdmin = false;
+        }
     };
     DeleteEntityComponent.prototype.change = function () {
         this.isSave = !this.isSave;
@@ -70,17 +80,57 @@ var DeleteEntityComponent = /** @class */ (function () {
                     }
                 });
                 dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
+                    var res, _a;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
                             case 0:
-                                if (!data) return [3 /*break*/, 2];
-                                // let res: BaseResponse = 
-                                return [4 /*yield*/, this.orgApi["delete"]("" + this.entity.id)];
-                            case 1:
-                                // let res: BaseResponse = 
-                                _a.sent();
-                                _a.label = 2;
-                            case 2: return [2 /*return*/];
+                                if (!data) return [3 /*break*/, 7];
+                                res = void 0;
+                                this.loading.isLoading.next(true);
+                                _a = this.type;
+                                switch (_a) {
+                                    case 'org': return [3 /*break*/, 1];
+                                    case 'cam': return [3 /*break*/, 3];
+                                    case 'pro': return [3 /*break*/, 5];
+                                }
+                                return [3 /*break*/, 7];
+                            case 1: return [4 /*yield*/, this.orgApi["delete"]("" + this.entity.id)];
+                            case 2:
+                                res = _b.sent();
+                                if (res.status == 0) {
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage('Xóa thành công', true);
+                                }
+                                else {
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage("" + res.message, false);
+                                }
+                                return [3 /*break*/, 7];
+                            case 3: return [4 /*yield*/, this.camApi["delete"]("" + this.entity.id)];
+                            case 4:
+                                res = _b.sent();
+                                if (res.status == 0) {
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage('Xóa thành công', true);
+                                }
+                                else {
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage("" + res.message, false);
+                                }
+                                return [3 /*break*/, 7];
+                            case 5: return [4 /*yield*/, this.proApi["delete"]("" + this.entity.id)];
+                            case 6:
+                                res = _b.sent();
+                                if (res.status == 0) {
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage('Xóa thành công', true);
+                                }
+                                else {
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage("" + res.message, false);
+                                }
+                                return [3 /*break*/, 7];
+                            case 7: return [2 /*return*/];
                         }
                     });
                 }); });
@@ -91,6 +141,9 @@ var DeleteEntityComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], DeleteEntityComponent.prototype, "entity");
+    __decorate([
+        core_1.Input()
+    ], DeleteEntityComponent.prototype, "type");
     DeleteEntityComponent = __decorate([
         core_1.Component({
             selector: 'app-delete-entity',

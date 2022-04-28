@@ -25,6 +25,7 @@ export class CampaignDetailsComponent implements OnInit {
   isApproved?: boolean;
   isAdmin?: boolean;
   volunteer?: [] = [];
+  type?:string;
   constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
@@ -41,7 +42,7 @@ export class CampaignDetailsComponent implements OnInit {
     const dialogRef = this.dialog.open(DownloadDocumentFormComponent, {
       width:'600px',
       data: {
-        id:this.campaign?.id
+        id:this.campaign?.id,
       }
     })
   }
@@ -80,6 +81,10 @@ export class CampaignDetailsComponent implements OnInit {
         break;
       case 'ano':
         this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
+        switch(this.campaign?.type){
+          case 'Quyên góp':this.type='donation';break;
+          case 'Tuyển người':this.type='recruitment';break;
+        }
         this.isAnother = true;
         this.isDocument = false;
         this.isInformation = false;

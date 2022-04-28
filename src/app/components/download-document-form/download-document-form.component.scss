@@ -20,13 +20,27 @@
 .table-document {
   border-left: 1px solid #ddd;
 }
+.text-center{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
+}
 .box {
   display: flex;
 }
 
 .container {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+
+  &__content {
+    width: 95%;
+  }
+
   &__files {
+    margin: 0 5px;
     .width {
       width: 100%;
     }
@@ -43,10 +57,14 @@
   &__holder {
     display: flex;
     justify-content: center;
-    margin-top: 15px;
     align-items: center;
+    margin: 0 10px;
   }
-
+  &__button{
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+  }
   .close {
     position: absolute;
     right: 0;
@@ -72,9 +90,11 @@ input[type="file"] {
 
 .custom-file-upload {
   border: 1px solid #ccc;
+  background-color: rgb(65, 65, 255);
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
+  color: black;
 }
 
 table,

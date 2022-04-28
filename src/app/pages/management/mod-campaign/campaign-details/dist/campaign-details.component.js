@@ -109,14 +109,14 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.location.back();
     };
     CampaignDetailsComponent.prototype.getTab = function (id) {
-        var _a;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var _b, _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var _c, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
-                        _b = id;
-                        switch (_b) {
+                        _c = id;
+                        switch (_c) {
                             case 'infor': return [3 /*break*/, 1];
                             case 'doc': return [3 /*break*/, 2];
                             case 'ano': return [3 /*break*/, 3];
@@ -133,14 +133,22 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isAnother = false;
                         return [3 /*break*/, 5];
                     case 3:
-                        _c = this;
+                        _d = this;
                         return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
                     case 4:
-                        _c.volunteer = _d.sent();
+                        _d.volunteer = _e.sent();
+                        switch ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.type) {
+                            case 'Quyên góp':
+                                this.type = 'donation';
+                                break;
+                            case 'Tuyển người':
+                                this.type = 'recruitment';
+                                break;
+                        }
                         this.isAnother = true;
                         this.isDocument = false;
                         this.isInformation = false;
-                        _d.label = 5;
+                        _e.label = 5;
                     case 5: return [2 /*return*/];
                 }
             });

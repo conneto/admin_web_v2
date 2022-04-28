@@ -30,9 +30,12 @@ export class ListViewComponent implements OnInit {
 
   ngOnInit(): void {
     switch (this.whichEntity) {
-      case 'org': this.displayColumns = ['name', "created_name", 'type', 'founding_date', 'status']; break;
-      case 'pro': this.displayColumns = ["org_name",'name',  'created_date','start_date', 'end_date' ]; break;
-      case 'cam': this.displayColumns = ["pro_name",'name', 'created_date','start_date', 'end_date' ]; break;
+      case 'org': this.displayColumns = ["no", 'name', "created_name", 'type', 'founding_date', 'status']; break;
+      case 'pro': this.displayColumns = ["no", "org_name", 'name', 'created_date', 'start_date', 'end_date']; break;
+      case 'cam': this.displayColumns = ["no", "pro_name", 'name', 'created_date', 'start_date', 'end_date']; break;
+    }
+    for (let i = 0; i < this.entity.length; i++) {
+      Object.assign(this.entity[i], { no: i + 1 });
     }
     this.dataSource = new MatTableDataSource(this.entity);
 

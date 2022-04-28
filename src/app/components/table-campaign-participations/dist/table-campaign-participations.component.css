@@ -1,5 +1,9 @@
 .view-list table {
   width: 100%;
+  text-align: center;
+}
+.view-list th {
+  text-align: center;
 }
 .view-list .mat-card-avatar {
   object-fit: contain;

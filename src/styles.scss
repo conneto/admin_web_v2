@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
 }
 
@@ -41,6 +47,7 @@ html {
   padding-bottom: 40px;
 
 }
+
 .closeButton {
 
   button {
@@ -63,6 +70,7 @@ html {
 
   }
 }
+
 @keyframes moveFadein {
   0% {
     transform: translateY(0px);
@@ -154,8 +162,8 @@ html {
 }
 
 .text-truncate-2 {
-  text-overflow:ellipsis;
-  overflow:hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   display: -webkit-box !important;
   -webkit-line-clamp: 2;
@@ -164,11 +172,20 @@ html {
 }
 
 .text-truncate-3 {
-  text-overflow:ellipsis;
-  overflow:hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   display: -webkit-box !important;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   white-space: normal;
+}
+
+.approve-button,
+.reject-button {
+  padding: 5px 5px;
+  border-radius: 6px;
+  margin: 0px 3px;
+  width: 100px;
+  
 }
