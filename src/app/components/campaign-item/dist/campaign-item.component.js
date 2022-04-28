@@ -22,7 +22,7 @@ var CampaignItemComponent = /** @class */ (function () {
             this.isAdmin = true;
         }
     };
-    CampaignItemComponent.prototype.goToDetail = function (id) {
+    CampaignItemComponent.prototype.goToDetails = function (id) {
         if (this.isAdmin) {
             this.router.navigate(["/admin/manage-campaign/campaign-details/" + id]);
         }

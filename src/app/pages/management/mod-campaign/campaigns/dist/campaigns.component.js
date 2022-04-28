@@ -69,6 +69,10 @@ var CampaignsComponent = /** @class */ (function () {
             this.isList = false;
         }
     };
+    CampaignsComponent.prototype.changeViewGrid = function () {
+        var _a;
+        (_a = this.changeView) === null || _a === void 0 ? void 0 : _a.changeView(true);
+    };
     CampaignsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {
             this.noResultBySearch = true;
@@ -124,6 +128,10 @@ var CampaignsComponent = /** @class */ (function () {
                 if (pro) {
                     this.campaigns = pro;
                 }
+                if (status) {
+                    this.isList = false;
+                    this.changeViewGrid();
+                }
                 switch (status) {
                     case 'approve':
                         this.isLoaded = true;
@@ -133,11 +141,9 @@ var CampaignsComponent = /** @class */ (function () {
                             this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                             switch (this.campaigns[i].type) {
                                 case 'donation':
-                                    this.campaigns[i].type = 'Quyên Góp';
                                     this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
                                     break;
                                 case 'recruitment':
-                                    this.campaigns[i].type = 'Thiện Nguyện';
                                     this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
                                     break;
                             }
@@ -213,6 +219,9 @@ var CampaignsComponent = /** @class */ (function () {
             });
         });
     };
+    __decorate([
+        core_1.ViewChild('changeView')
+    ], CampaignsComponent.prototype, "changeView");
     CampaignsComponent = __decorate([
         core_1.Component({
             selector: 'app-campaigns',

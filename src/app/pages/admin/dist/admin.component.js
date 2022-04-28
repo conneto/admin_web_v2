@@ -19,33 +19,33 @@ var AdminComponent = /** @class */ (function () {
                 id: '1',
                 name: 'Bảng điều khiển',
                 path: 'dashboard',
-                icon: 'assets/icon/dashboard_icon.png'
+                icon: 'assets/icons/dashboard_icon.png'
             },
             {
                 id: '2',
                 name: 'Quản lý người dùng',
                 path: 'user-management',
-                icon: 'assets/icon/user_icon.png'
+                icon: 'assets/icons/user_icon.png'
             },
             {
                 id: '3',
                 name: 'Quản lý tổ chức',
                 path: 'manage-organization',
-                icon: 'assets/icon/organization_icon.png',
+                icon: 'assets/icons/organization-icon.png',
                 role: 'organization_manager'
             },
             {
                 id: '4',
                 name: 'Quản lý dự án',
                 path: 'manage-project',
-                icon: 'assets/icon/project_icon.png',
+                icon: 'assets/icons/project_icon.png',
                 role: 'organization_manager'
             },
             {
                 id: '5',
                 name: 'Quản lý chiến dịch',
                 path: 'manage-campaign',
-                icon: 'assets/icon/Campaign.png',
+                icon: 'assets/icons/campaign_icon.png',
                 role: 'organization_manager'
             },
         ];

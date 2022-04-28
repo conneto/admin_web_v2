@@ -22,9 +22,9 @@ export class UserApiService {
   async getRanking(type?: string) {
     let res!: BaseResponse;
     if (type == 'recruitment') {
-      res = await this.api.get(`${CampaignApiService.CAMPAIGN}/top_volunteers?type=participate`);
+      res = await this.api.get(`${CampaignApiService.CAMPAIGNS}/top_volunteers?type=participate`);
     } else {
-      res = await this.api.get(`${CampaignApiService.CAMPAIGN}/top_volunteers?type=donate`);
+      res = await this.api.get(`${CampaignApiService.CAMPAIGNS}/top_volunteers?type=donate`);
     }
     return res.data || [];
   }

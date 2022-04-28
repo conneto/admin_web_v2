@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, Injectable, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
 
 import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
 import { Organization } from 'src/app/models/organization/organization';
@@ -9,6 +10,7 @@ import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { UserApiService } from 'src/app/services/user/user-api.service';
+import { UtilService } from 'src/app/services/util-service/util.service';
 
 @Component({
   selector: 'app-organizations',
@@ -20,6 +22,7 @@ import { UserApiService } from 'src/app/services/user/user-api.service';
 })
 export class OrganizationsComponent implements OnInit, AfterViewInit {
   @ViewChild('tabGroup') tabGroup?: TabgroupComponent;
+  @ViewChild('viewGrid') viewGrid:ChangeToListComponent | undefined;
   organizations: Organization[] = [];
   oldData: Organization[] = [];
   organizationId?: string;
@@ -41,7 +44,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isDeleted?: boolean = false;
   isList?:boolean=false;
 
-  constructor(private loading: LoadingServiceService, private getUser: UserApiService, private service: OrganizationApiService, private userApi: AuthServiceService) { }
+  constructor(public convertType:UtilService,private loading: LoadingServiceService, private getUser: UserApiService, private service: OrganizationApiService, private userApi: AuthServiceService) { }
 
   ngOnInit(): void {
 
@@ -71,6 +74,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     }else {
       this.isList=false;
     }
+  }
+  changeToGrid(){
+    this.viewGrid?.changeView(true);
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {
@@ -115,6 +121,8 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       this.organizations = org;
     }
     if (status) {
+
+  
       if (this.userApi.currentUserValue.role == 'organization_manager') {
         const check = this.organizations.every((a) => {
           return a.result_code == 503;
@@ -126,6 +134,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       }
 
       switch (status) {
+        
         case 'approve':
 
           this.isRequest = false;
@@ -193,7 +202,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-            console.log(this.organizations[i].logo);
+    
             this.organizations[i].type = this.organizations[i].type == 'ngo' ?
               this.organizations[i].type = 'Tổ chức phi chính phủ' :
               this.organizations[i].type = 'Tổ chức phi lợi nhuận'
@@ -241,7 +250,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           this.isDeleted = true;
         }
       }
-
+      this.isList=false;
+      this.changeToGrid();
+   
       switch (status) {
         case 'approve':
 
@@ -249,9 +260,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-            this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-              this.organizations[i].type = 'Tổ chức phi chính phủ' :
-              this.organizations[i].type = 'Tổ chức phi lợi nhuận'
+   
           }
 
           if (this.userApi.currentUserValue.role == 'organization_manager') {
@@ -287,9 +296,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-            this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-              this.organizations[i].type = 'Tổ chức phi chính phủ' :
-              this.organizations[i].type = 'Tổ chức phi lợi nhuận'
+      
           }
           this.organizations = this.organizations.filter(x => x.result_code === 511);
           this.oldData = this.passData.filter(x => x.result_code == 511);
@@ -309,10 +316,8 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-            console.log(this.organizations[i].logo);
-            this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-              this.organizations[i].type = 'Tổ chức phi chính phủ' :
-              this.organizations[i].type = 'Tổ chức phi lợi nhuận'
+        
+      
           }
           if (this.userApi.currentUserValue.role == 'admin') {
             this.isRequest = true;

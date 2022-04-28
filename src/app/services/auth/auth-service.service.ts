@@ -95,7 +95,7 @@ export class AuthServiceService {
   }
 
   async updateRequestByAdmin(data: any) {
-    let res: BaseResponse = await this.apiService.post(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEMENTS, data);
+    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEMENTS, data);
     if (res.status != 0) {
       return res;
     }

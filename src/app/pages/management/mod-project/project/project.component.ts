@@ -1,4 +1,5 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
 import { Project } from 'src/app/models/projects/project.model';
 
 import { User } from 'src/app/models/user/user.model';
@@ -15,6 +16,7 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
   providedIn: 'root',
 })
 export class ProjectComponent implements OnInit {
+  @ViewChild('changeView') changeViewGrid?:ChangeToListComponent;
   projects: Project[] = [];
   passData: Project[] = [];
   oldData: any[] = [];
@@ -25,7 +27,7 @@ export class ProjectComponent implements OnInit {
   isLoaded?: boolean;
   number?: any;
   noResultBySearch?: boolean;
-  isList?:boolean=false;
+  isList?: boolean = false;
   constructor(private loadingService: LoadingServiceService, private api: ProjectApiService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
@@ -34,6 +36,9 @@ export class ProjectComponent implements OnInit {
   }
   ngOnDestroy(): void {
 
+  }
+  changeView(){
+    this.changeViewGrid?.changeView(true);
   }
   handleTitle(e: any) {
     if (e == 'list') {
@@ -80,6 +85,10 @@ export class ProjectComponent implements OnInit {
     this.user = this.authApi.currentUserValue;
     if (pro) {
       this.projects = pro;
+    }
+    if(status){
+      this.isList=false;
+      this.changeView();
     }
     switch (status) {
 

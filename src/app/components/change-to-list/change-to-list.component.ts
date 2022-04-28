@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 
 @Component({
@@ -6,9 +7,10 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   templateUrl: './change-to-list.component.html',
   styleUrls: ['./change-to-list.component.scss']
 })
+
 export class ChangeToListComponent implements OnInit {
   whichView?: string;
-  icon_view: string = 'grid_view';
+  icon_view: string = 'view_list';
 
   @Output() handleTitle = new EventEmitter<string>();
 
@@ -18,13 +20,24 @@ export class ChangeToListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeView() {
-    if (this.icon_view == 'grid_view') {
-      this.handleTitle.emit(this.whichView = 'list');
-      this.icon_view = 'view_list';
+
+  changeView(isTab?: boolean) {
+    if (isTab) {
+      {
+        this.handleTitle.emit(this.whichView = 'grid');
+        this.icon_view = 'view_list';
+      }
     } else {
-      this.handleTitle.emit(this.whichView = 'grid');
-      this.icon_view = 'grid_view';
+      if (this.icon_view == 'grid_view') {
+        this.handleTitle.emit(this.whichView = 'grid');
+        this.icon_view = 'view_list';
+      } else {
+        this.handleTitle.emit(this.whichView = 'list');
+        this.icon_view = 'grid_view';
+      }
     }
+
+
+
   }
 }

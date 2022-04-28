@@ -22,6 +22,7 @@ export class CampaignDetailsComponent implements OnInit {
   isAnother?: boolean
   isApproved?: boolean;
   isAdmin?:boolean;
+  volunteer?:[]=[];
   constructor(private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
@@ -56,7 +57,7 @@ export class CampaignDetailsComponent implements OnInit {
   goBack() {
     this.location.back();
   }
-  getTab(id: any) {
+  async getTab(id: any) {
     switch (id) {
       case 'infor':
         this.isInformation = true;
@@ -69,9 +70,13 @@ export class CampaignDetailsComponent implements OnInit {
         this.isAnother = false;
         break;
       case 'ano':
+        this.volunteer=await this.campaignApi.getParticipations(`${this.campaign?.id}`);
         this.isAnother = true;
         this.isDocument = false;
         this.isInformation = false;
+      
+      
+  
     }
   }
   uploadAll() {

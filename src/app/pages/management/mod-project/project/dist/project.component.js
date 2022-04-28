@@ -61,6 +61,10 @@ var ProjectComponent = /** @class */ (function () {
     };
     ProjectComponent.prototype.ngOnDestroy = function () {
     };
+    ProjectComponent.prototype.changeView = function () {
+        var _a;
+        (_a = this.changeViewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
+    };
     ProjectComponent.prototype.handleTitle = function (e) {
         if (e == 'list') {
             this.isList = true;
@@ -123,6 +127,10 @@ var ProjectComponent = /** @class */ (function () {
                 this.user = this.authApi.currentUserValue;
                 if (pro) {
                     this.projects = pro;
+                }
+                if (status) {
+                    this.isList = false;
+                    this.changeView();
                 }
                 switch (status) {
                     case 'approve':
@@ -202,6 +210,9 @@ var ProjectComponent = /** @class */ (function () {
             });
         });
     };
+    __decorate([
+        core_1.ViewChild('changeView')
+    ], ProjectComponent.prototype, "changeViewGrid");
     ProjectComponent = __decorate([
         core_1.Component({
             selector: 'app-project',

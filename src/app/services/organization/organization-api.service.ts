@@ -40,7 +40,7 @@ export class OrganizationApiService {
     return res.data || [];
   }
   async getCampaignsByOrgId(id: string) {
-    let res: BaseResponse = await this.apiService.get(`${OrganizationApiService.ORGANIZATIONS}/${id}/${CampaignApiService.CAMPAIGN}`)
+    let res: BaseResponse = await this.apiService.get(`${OrganizationApiService.ORGANIZATIONS}/${id}/${CampaignApiService.CAMPAIGNS}`)
     res.data = res.data.map((item: any) => {
       return this.campaignAdapter.adapt(item);
     })

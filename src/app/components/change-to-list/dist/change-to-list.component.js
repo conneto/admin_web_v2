@@ -10,24 +10,28 @@ exports.ChangeToListComponent = void 0;
 var core_1 = require("@angular/core");
 var ChangeToListComponent = /** @class */ (function () {
     function ChangeToListComponent() {
-        this.isActiveList = false;
-        this.isActiveGrid = false;
+        this.icon_view = 'view_list';
         this.handleTitle = new core_1.EventEmitter();
     }
     ChangeToListComponent.prototype.ngOnInit = function () {
-        this.isActiveGrid = true;
     };
-    ChangeToListComponent.prototype.ngAfterViewInit = function () {
-    };
-    ChangeToListComponent.prototype.viewList = function () {
-        this.handleTitle.emit(this.whichView = 'list');
-        this.isActiveList = true;
-        this.isActiveGrid = false;
-    };
-    ChangeToListComponent.prototype.viewGrid = function () {
-        this.handleTitle.emit(this.whichView = 'grid');
-        this.isActiveList = false;
-        this.isActiveGrid = true;
+    ChangeToListComponent.prototype.changeView = function (isTab) {
+        if (isTab) {
+            {
+                this.handleTitle.emit(this.whichView = 'grid');
+                this.icon_view = 'view_list';
+            }
+        }
+        else {
+            if (this.icon_view == 'grid_view') {
+                this.handleTitle.emit(this.whichView = 'grid');
+                this.icon_view = 'view_list';
+            }
+            else {
+                this.handleTitle.emit(this.whichView = 'list');
+                this.icon_view = 'grid_view';
+            }
+        }
     };
     __decorate([
         core_1.Output()

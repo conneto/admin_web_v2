@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 h1, h2, h3, h4, h5, h6, p {
   margin: 0;
 }
@@ -39,23 +38,19 @@ html {
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 40px;
-
 }
 
 @keyframes moveFadein {
   0% {
     transform: translateY(0px);
   }
-
   50% {
     transform: translateY(-2px);
   }
-
   100% {
     transform: translateY(0px);
   }
 }
-
 .moveFadein:hover {
   cursor: pointer;
   animation: moveFadein;
@@ -66,9 +61,8 @@ html {
 }
 
 .success {
-  background: rgb(145, 236, 145);
+  background: #91ec91;
   color: black;
-
 }
 
 .success button {
@@ -76,8 +70,7 @@ html {
 }
 
 .fail {
-  background: rgb(241, 128, 128);
-
+  background: #f18080;
   color: black;
 }
 
@@ -130,24 +123,4 @@ html {
 
 .border-radius-16 {
   border-radius: 16px;
-}
-
-.text-truncate-2 {
-  text-overflow:ellipsis;
-  overflow:hidden;
-
-  display: -webkit-box !important;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  white-space: normal;
-}
-
-.text-truncate-3 {
-  text-overflow:ellipsis;
-  overflow:hidden;
-
-  display: -webkit-box !important;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  white-space: normal;
 }

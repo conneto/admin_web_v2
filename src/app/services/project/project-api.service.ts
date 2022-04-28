@@ -25,7 +25,7 @@ export class ProjectApiService {
 
   }
   async getCampaignsByProjectId(id: string) {
-    let res: BaseResponse = await this.api.get(`${ProjectApiService.PROJECT}/${id}/${CampaignApiService.CAMPAIGN}`);
+    let res: BaseResponse = await this.api.get(`${ProjectApiService.PROJECT}/${id}/${CampaignApiService.CAMPAIGNS}`);
     res.data=res.data.map((item:any)=>{
       return this.campaignAdapter.adapt(item);
     })

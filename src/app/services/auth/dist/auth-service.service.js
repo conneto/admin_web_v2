@@ -131,7 +131,7 @@ var AuthServiceService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.post(AuthServiceService_1.ADMIN + '/' + AuthServiceService_1.APPROVEMENTS, data)];
+                    case 0: return [4 /*yield*/, this.apiService.put(AuthServiceService_1.ADMIN + '/' + AuthServiceService_1.APPROVEMENTS, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {

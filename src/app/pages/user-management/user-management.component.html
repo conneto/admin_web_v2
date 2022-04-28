@@ -1,7 +1,9 @@
 <div class="content">
   <div class="search-bar">
     <div class="search-box">
-  
+      <app-change-to-list
+      (handleTitle)="handleTitle($event)"
+    ></app-change-to-list>
       <div class="search-item">
         <input
           type="text"
@@ -10,9 +12,7 @@
         />
         <button><mat-icon>search</mat-icon></button>
       </div>
-      <app-change-to-list
-      (handleTitle)="handleTitle($event)"
-    ></app-change-to-list>
+ 
       <div class="ordering-item">
         <select>
           <option>Đang hoạt động</option>

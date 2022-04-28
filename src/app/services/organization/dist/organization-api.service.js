@@ -97,7 +97,7 @@ var OrganizationApiService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + campaign_api_service_1.CampaignApiService.CAMPAIGN)];
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + campaign_api_service_1.CampaignApiService.CAMPAIGNS)];
                     case 1:
                         res = _a.sent();
                         res.data = res.data.map(function (item) {
