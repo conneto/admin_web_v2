@@ -1,32 +1,55 @@
-.campaign-card {
-  height: 56vh !important;
+@media only screen and (max-width: 576px) {
+  .campaign-card {
+    height: 60vh !important;
+  }
 }
 
-@media only screen and (max-width: 1140px) {
+@media only screen and (max-width: 768px) {
+  .campaign-card {
+    height: 56vh !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .campaign-card {
+    height: 56vh !important;
+  }
+}
+
+
+@media only screen and (min-width: 992px) {
   .campaign-card {
     height: 52vh !important;
   }
 }
 
-@media only screen and (max-width: 1320px) {
+@media only screen and (min-width: 1200px) {
   .campaign-card {
     height: 48vh !important;
   }
 }
 
-.search-bar{
-    display:flex;
-
-    align-items:flex-end;
+@media only screen and (min-width: 1400px) {
+  .campaign-card {
+    height: 44vh !important;
   }
-  .name{
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    >p{
+}
 
-      font-size:15px;
-      margin-left:5px;
-      margin-bottom: 0 !important;
-    }
+.search-bar {
+  display: flex;
+
+  align-items: flex-end;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+
+  > p {
+
+    font-size: 15px;
+    margin-left: 5px;
+    margin-bottom: 0 !important;
   }
+}

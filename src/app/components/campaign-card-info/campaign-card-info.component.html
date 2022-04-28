@@ -13,18 +13,18 @@
       </div>
     </div>
     <div class="info-container p-2 d-flex flex-column justify-content-between">
-      <mat-card-title class="fs-5 primary-text-color">
+      <mat-card-title class="fs-5 primary-text-color text-truncate-2">
         {{ campaign.name }}
       </mat-card-title>
       <div>
         <div class="d-flex align-items-center">
           <div class="circle-avatar">
             <img
-              onerror="this.src='assets/icons/organization-icon.png'"
-              src="{{ urlApi }}/show/images?p={{ campaign.org_logo }}"
+              onerror="this.src='assets/icons/user_icon.png'"
+              src="{{ urlApi }}/show/images?p={{ campaign.pro_logo }}"
             />
           </div>
-          <p class="fw-bold ms-2 text-truncate">{{ campaign.org_name }}</p>
+          <p class="fw-bold ms-2 text-truncate">{{ campaign.pro_name }}</p>
         </div>
         <div class="my-2">
           <p class="text-truncate"><b>Diễn ra:</b> {{campaign.startDate | date: 'dd/MM/yyyy hh:mm'}}
