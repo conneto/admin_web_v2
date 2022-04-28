@@ -18,18 +18,20 @@
             </div>
           </ng-template>
         </div>
-        <app-change-to-list
-          class="me-2"
-          (handleTitle)="handleTitle($event)"
-        ></app-change-to-list>
+
         <app-search-bar
           (getItem)="getData($event)"
           [entity]="passData"
           [entityCopy]="oldData"
         ></app-search-bar>
+        <app-change-to-list
+        #changeView
+        class="me-2"
+        (handleTitle)="handleTitle($event)"
+      ></app-change-to-list>
       </div>
 
-      <app-list-view *ngIf='isList' [entity]="campaigns"></app-list-view>
+      <app-list-view  [whichEntity]="'cam'" *ngIf='isList' [entity]="campaigns"></app-list-view>
       <div *ngIf='!isList' class="row p-3">
         <app-campaign-card-info class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
                                 *ngFor="let cam of campaigns"
@@ -62,14 +64,23 @@
           [entity]="passData"
           [entityCopy]="oldData"
         ></app-search-bar>
+        <app-change-to-list
+        class="me-2"
+        (handleTitle)="handleTitle($event)"
+      ></app-change-to-list>
+      
+
       </div>
     </div>
     <div class="container">
+      <app-list-view [whichEntity]="'cam'" *ngIf='isList' [entity]="campaigns"></app-list-view>
+    <div *ngIf='!isList'>
       <div *ngFor="let campaign of campaigns">
         <app-campaign-request-card
           [campaign]="campaign"
         ></app-campaign-request-card>
       </div>
+    </div>
     </div>
   </ng-template>
 </div>

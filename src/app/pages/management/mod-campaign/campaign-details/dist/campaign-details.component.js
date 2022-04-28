@@ -52,6 +52,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.activated = activated;
         this.campaignApi = campaignApi;
         this.urlApi = this.loadingService.getApiGetLink.value;
+        this.volunteer = [];
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
@@ -80,11 +81,11 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.urlProjectLogo = (_f = (_e = this.campaign) === null || _e === void 0 ? void 0 : _e.pro_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                         switch ((_g = this.campaign) === null || _g === void 0 ? void 0 : _g.type) {
                             case 'donation':
-                                this.campaign.type = 'Quyên Góp';
+                                this.campaign.type = 'Quyên góp';
                                 this.campaign.org_id = (this.campaign.totalDonated / this.campaign.target).toString();
                                 break;
                             case 'recruitment':
-                                this.campaign.type = 'Thiện Nguyện';
+                                this.campaign.type = 'Tuyển người';
                                 this.campaign.org_id = (this.campaign.totalPaticipant / this.campaign.target).toString();
                                 break;
                         }
@@ -97,22 +98,42 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.location.back();
     };
     CampaignDetailsComponent.prototype.getTab = function (id) {
-        switch (id) {
-            case 'infor':
-                this.isInformation = true;
-                this.isDocument = false;
-                this.isAnother = false;
-                break;
-            case 'doc':
-                this.isDocument = true;
-                this.isInformation = false;
-                this.isAnother = false;
-                break;
-            case 'ano':
-                this.isAnother = true;
-                this.isDocument = false;
-                this.isInformation = false;
-        }
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var _b, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
+                    case 0:
+                        _b = id;
+                        switch (_b) {
+                            case 'infor': return [3 /*break*/, 1];
+                            case 'doc': return [3 /*break*/, 2];
+                            case 'ano': return [3 /*break*/, 3];
+                        }
+                        return [3 /*break*/, 5];
+                    case 1:
+                        this.isInformation = true;
+                        this.isDocument = false;
+                        this.isAnother = false;
+                        return [3 /*break*/, 5];
+                    case 2:
+                        this.isDocument = true;
+                        this.isInformation = false;
+                        this.isAnother = false;
+                        return [3 /*break*/, 5];
+                    case 3:
+                        _c = this;
+                        return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 4:
+                        _c.volunteer = _d.sent();
+                        this.isAnother = true;
+                        this.isDocument = false;
+                        this.isInformation = false;
+                        _d.label = 5;
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
     };
     CampaignDetailsComponent.prototype.uploadAll = function () {
     };

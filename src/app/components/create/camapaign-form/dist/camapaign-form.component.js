@@ -34,7 +34,7 @@ var CamapaignFormComponent = /** @class */ (function () {
             description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
-            start_working_date: ['', this.data.type == 'donation' ? "" : forms_1.Validators.required],
+            start_working_date: ["", this.data.type == 'donation' ? "" : forms_1.Validators.required],
             end_working_date: ['', this.data.type == 'donation' ? "" : forms_1.Validators.required],
             request_type: ['create'],
             type: [this.data.type],
@@ -51,13 +51,14 @@ var CamapaignFormComponent = /** @class */ (function () {
     };
     CamapaignFormComponent.prototype.yesClick = function () {
         this.isSubmitted = true;
-        console.log(this.campaignForm);
         if (this.campaignForm.valid) {
             console.log(this.uploadData, this.campaignForm.value);
+            if (this.data.type == 'donation') {
+                this.campaignForm.value.start_working_date = this.campaignForm.value.start_date;
+                this.campaignForm.value.end_working_date = this.campaignForm.value.end_date;
+            }
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
             // uploadData.append('cover', this.coverImage, this.coverImage?.name);
-            console.log(this.uploadData.getAll('cover'));
-            console.log(this.uploadData.getAll('campaign'));
             this.dialogRef.close(this.uploadData);
         }
     };

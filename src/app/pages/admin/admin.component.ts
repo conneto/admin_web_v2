@@ -29,7 +29,7 @@ export class AdminComponent implements OnInit {
       id: '3',
       name: 'Quản lý tổ chức',
       path: 'manage-organization',
-      icon: 'assets/icons/organization_icon.png',
+      icon: 'assets/icons/organization-icon.png',
       role: 'organization_manager',
     },
     {

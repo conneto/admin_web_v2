@@ -21,15 +21,15 @@
             <li
               [class.content__tab-active]="isDocument"
               (click)="getTab('doc')"
-              *ngIf='campaign.type=="Quyên Góp"'
+              *ngIf='campaign.type=="Quyên góp"'
             >
               Tài liệu
             </li>
             <li [class.content__tab-active]="isAnother" (click)="getTab('ano')">
               {{
-                campaign.type == "Quyên Góp"
+                campaign.type == "Quyên góp"
                   ? "Lịch sử quyên góp"
-                  : "Tuyển dụng"
+                  : "Quản lý tuyển dụng"
               }}
             </li>
           </ul>
@@ -94,11 +94,15 @@
             <app-delete-entity [entity]="campaign"></app-delete-entity>
           </div>
         </div>
+     
       </div>
     </div>
+  
     <div *ngIf="isDocument && isApproved==true">
       <app-download-document-form [campaign]="campaign"></app-download-document-form>
-   
+    </div>
+    <div *ngIf='isAnother'>
+   <app-table-campaign-participations [volunteer]="volunteer"></app-table-campaign-participations>
     </div>
   </div>
 </div>

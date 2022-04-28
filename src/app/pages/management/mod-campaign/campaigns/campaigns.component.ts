@@ -1,4 +1,6 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
+import { ListViewComponent } from 'src/app/components/list-view/list-view.component';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
@@ -24,6 +26,7 @@ export class CampaignsComponent implements OnInit {
   number?: any;
   value?: any;
   isList?:boolean=false;
+  @ViewChild ('changeView') changeView?:ChangeToListComponent;
   constructor(private api: CampaignApiService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
@@ -40,6 +43,9 @@ export class CampaignsComponent implements OnInit {
     } else {
       this.isList = false;
     }
+  }
+  changeViewGrid(){
+    this.changeView?.changeView(true);
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {
@@ -80,6 +86,11 @@ export class CampaignsComponent implements OnInit {
     this.user = this.authApi.currentUserValue;
     if (pro) {
       this.campaigns = pro;
+    }
+    if(status){
+      this.isList=false;
+      this.changeViewGrid();
+
     }
     switch (status) {
 

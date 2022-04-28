@@ -10,6 +10,10 @@ export class UtilService {
 
   public convertType(type: any): string {
     switch (type) {
+      case 'ngo':
+        return 'Tổ chức phi chính phủ';
+      case 'npo':
+        return 'Tổ chức phi lợi nhuận';
       case 'donate':
       case 'donation':
         return 'Quyên góp';

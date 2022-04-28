@@ -11,6 +11,7 @@ var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
 var LoadingServiceService = /** @class */ (function () {
     function LoadingServiceService() {
+        this.isNewTab = new rxjs_1.BehaviorSubject(false);
         this.isLoading = new rxjs_1.BehaviorSubject(false);
         this.getApiGetLink = new rxjs_1.BehaviorSubject('');
         this.getOrganizationId = new rxjs_1.BehaviorSubject('');

@@ -30,14 +30,14 @@ export class CamapaignFormComponent implements OnInit {
       description: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(256)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
-      start_working_date: ['',  this.data.type == 'donation' ? "":Validators.required],
-      end_working_date: ['',  this.data.type == 'donation' ? "":Validators.required],
+      start_working_date: ["", this.data.type == 'donation' ? "" : Validators.required],
+      end_working_date: ['', this.data.type == 'donation' ? "" : Validators.required],
       request_type: ['create'],
       type: [this.data.type],
       target_number: ['', Validators.required],
       job_requirement: ['', this.data.type == 'donation' ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
-      job_description:['', this.data.type == 'donation' ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
-      job_benefit:['', this.data.type == 'donation' ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
+      job_description: ['', this.data.type == 'donation' ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
+      job_benefit: ['', this.data.type == 'donation' ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
       project_id: [this.loadingService.projectId.value],
       cover: [''],
     })
@@ -49,13 +49,16 @@ export class CamapaignFormComponent implements OnInit {
   uploadData: any = new FormData();
   yesClick() {
     this.isSubmitted = true;
-    console.log(this.campaignForm);
+
     if (this.campaignForm.valid) {
-      console.log(this.uploadData,this.campaignForm.value);
+      console.log(this.uploadData, this.campaignForm.value);
+      if (this.data.type == 'donation') {
+        this.campaignForm.value.start_working_date = this.campaignForm.value.start_date;
+        this.campaignForm.value.end_working_date = this.campaignForm.value.end_date;
+      }
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
       // uploadData.append('cover', this.coverImage, this.coverImage?.name);
-      console.log(this.uploadData.getAll('cover'));
-      console.log(this.uploadData.getAll('campaign'))
+
       this.dialogRef.close(this.uploadData);
     }
   }

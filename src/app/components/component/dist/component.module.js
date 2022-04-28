@@ -17,7 +17,7 @@ exports.ComponentModule = void 0;
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
-var menu_icon_component_1 = require("../menu-icons/menu-icons.component");
+var menu_icon_component_1 = require("../menu-icon/menu-icon.component");
 var angular_material_module_1 = require("src/app/angular-material.module");
 var dashboard_card_component_1 = require("../dashboard-card/dashboard-card.component");
 var user_card_component_1 = require("../user-card/user-card.component");
@@ -47,6 +47,7 @@ var document_button_component_1 = require("../document-button/document-button.co
 var select_type_campaign_component_1 = require("../select-type-campaign/select-type-campaign.component");
 var change_to_list_component_1 = require("../change-to-list/change-to-list.component");
 var list_view_component_1 = require("../list-view/list-view.component");
+var table_campaign_participations_component_1 = require("../table-campaign-participations/table-campaign-participations.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -76,6 +77,7 @@ var componentModules = [
     select_type_campaign_component_1.SelectTypeCampaignComponent,
     change_to_list_component_1.ChangeToListComponent,
     list_view_component_1.ListViewComponent,
+    table_campaign_participations_component_1.TableCampaignParticipationsComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

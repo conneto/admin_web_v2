@@ -11,21 +11,60 @@ var core_1 = require("@angular/core");
 var paginator_1 = require("@angular/material/paginator");
 var table_1 = require("@angular/material/table");
 var ListViewComponent = /** @class */ (function () {
-    function ListViewComponent(loadingService) {
+    function ListViewComponent(role, router, loadingService, utilService) {
+        this.role = role;
+        this.router = router;
         this.loadingService = loadingService;
-        this.displayColumns = ['name', 'created_name', 'created_at', 'type'];
+        this.utilService = utilService;
         this.dataSource = new table_1.MatTableDataSource;
     }
     ListViewComponent.prototype.ngOnInit = function () {
+        switch (this.whichEntity) {
+            case 'org':
+                this.displayColumns = ['name', "created_name", 'type', 'founding_date', 'status'];
+                break;
+            case 'pro':
+                this.displayColumns = ["org_name", 'name', 'created_date', 'start_date', 'end_date'];
+                break;
+            case 'cam':
+                this.displayColumns = ["pro_name", 'name', 'created_date', 'start_date', 'end_date'];
+                break;
+        }
         this.dataSource = new table_1.MatTableDataSource(this.entity);
         this.urlApi = this.loadingService.getApiGetLink.value;
     };
     ListViewComponent.prototype.ngAfterViewInit = function () {
         this.dataSource.paginator = this.paginator;
     };
+    ListViewComponent.prototype.goToDetails = function (e) {
+        console.log(e, this.whichEntity);
+        if (this.role.currentUserValue.role != 'admin') {
+            switch (this.whichEntity) {
+                case 'org':
+                    this.router.navigate(["manager/manage-organization/organization-request-detail/" + e]);
+                    break;
+                case 'pro':
+                    this.router.navigate(["manager/manage-project/project-request-detail/" + e]);
+                    break;
+            }
+        }
+        else {
+            switch (this.whichEntity) {
+                case 'org':
+                    this.router.navigate(["admin/manage-organization/organization-request-detail/" + e]);
+                    break;
+                case 'pro':
+                    this.router.navigate(["admin/manage-project/project-request-detail/" + e]);
+                    break;
+            }
+        }
+    };
     __decorate([
         core_1.Input()
     ], ListViewComponent.prototype, "entity");
+    __decorate([
+        core_1.Input()
+    ], ListViewComponent.prototype, "whichEntity");
     __decorate([
         core_1.ViewChild(paginator_1.MatPaginator)
     ], ListViewComponent.prototype, "paginator");

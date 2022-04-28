@@ -45,7 +45,8 @@ exports.__esModule = true;
 exports.OrganizationsComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationsComponent = /** @class */ (function () {
-    function OrganizationsComponent(loading, getUser, service, userApi) {
+    function OrganizationsComponent(convertType, loading, getUser, service, userApi) {
+        this.convertType = convertType;
         this.loading = loading;
         this.getUser = getUser;
         this.service = service;
@@ -80,6 +81,10 @@ var OrganizationsComponent = /** @class */ (function () {
         else {
             this.isList = false;
         }
+    };
+    OrganizationsComponent.prototype.changeToGrid = function () {
+        var _a;
+        (_a = this.viewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
     };
     OrganizationsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {
@@ -208,7 +213,6 @@ var OrganizationsComponent = /** @class */ (function () {
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
-                                console.log(this.organizations[i].logo);
                                 this.organizations[i].type = this.organizations[i].type == 'ngo' ?
                                     this.organizations[i].type = 'Tổ chức phi chính phủ' :
                                     this.organizations[i].type = 'Tổ chức phi lợi nhuận';
@@ -257,15 +261,14 @@ var OrganizationsComponent = /** @class */ (function () {
                             this.isDeleted = true;
                         }
                     }
+                    this.isList = false;
+                    this.changeToGrid();
                     switch (status) {
                         case 'approve':
                             this.isRequest = false;
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
                             if (this.userApi.currentUserValue.role == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
@@ -300,9 +303,6 @@ var OrganizationsComponent = /** @class */ (function () {
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
                             this.organizations = this.organizations.filter(function (x) { return x.result_code === 511; });
                             this.oldData = this.passData.filter(function (x) { return x.result_code == 511; });
@@ -319,10 +319,6 @@ var OrganizationsComponent = /** @class */ (function () {
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
-                                console.log(this.organizations[i].logo);
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
                             if (this.userApi.currentUserValue.role == 'admin') {
                                 this.isRequest = true;
@@ -393,6 +389,9 @@ var OrganizationsComponent = /** @class */ (function () {
     __decorate([
         core_1.ViewChild('tabGroup')
     ], OrganizationsComponent.prototype, "tabGroup");
+    __decorate([
+        core_1.ViewChild('viewGrid')
+    ], OrganizationsComponent.prototype, "viewGrid");
     OrganizationsComponent = __decorate([
         core_1.Component({
             selector: 'app-organizations',

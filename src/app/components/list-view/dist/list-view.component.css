@@ -1,5 +1,12 @@
 .view-list table {
   width: 100%;
+  text-align: center;
+}
+.view-list table td.mat-cell:first-of-type {
+  text-align: start;
+}
+.view-list th {
+  text-align: center;
 }
 .view-list .mat-card-avatar {
   object-fit: contain;
@@ -11,4 +18,17 @@
 
 ::ng-deep .mat-paginator-page-size-label {
   display: none;
+}
+
+.isActive {
+  color: #01ce01;
+  background-color: aliceblue;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.mat-row:hover .mat-cell {
+  cursor: pointer;
+  background-color: #ddd;
+  opacity: 0.5;
 }

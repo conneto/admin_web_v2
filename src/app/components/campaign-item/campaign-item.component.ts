@@ -24,8 +24,8 @@ export class CampaignItemComponent implements OnInit {
       this.isAdmin = true;
     }
 
-  }
-  goToDetail(id: any) {
+  } 
+  goToDetails(id: any) {
  
     if (this.isAdmin) {
       this.router.navigate([`/admin/manage-campaign/campaign-details/${id}`])
