@@ -9,7 +9,8 @@ import { ComponentModule } from './components/component/component.module';
 import { HttpClientModule } from '@angular/common/http';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,8 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     HotToastModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+    FileUploadModule,
+  
    
   
   ],

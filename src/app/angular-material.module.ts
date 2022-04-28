@@ -38,6 +38,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
+import { FileUploadModule } from 'ng2-file-upload';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 
 const materialModules = [
@@ -84,6 +86,8 @@ const materialModules = [
     MatProgressSpinnerModule,
     MatNativeDateModule,
     NgxSkeletonLoaderModule,
+    FileUploadModule,
+    NgxDropzoneModule,
 ];
 
 @NgModule({

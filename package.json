@@ -27,6 +27,7 @@
     "install": "^0.13.0",
     "lodash": "^4.17.21",
     "ng2-file-upload": "^1.4.0",
+    "ngx-dropzone": "^3.1.0",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-skeleton-loader": "^5.0.0",
     "rxjs": "~6.6.0",

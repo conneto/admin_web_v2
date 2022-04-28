@@ -1,26 +1,90 @@
-#excel-table {
-
-}
+#excel-table {}
 
 .form {}
 
 .upload-button {
   button {
-  
-      display: flex;
-      align-items: center;
-    
+
+    display: flex;
+    align-items: center;
+
   }
 }
 
-.upload-document,.table-document{
-  display:flex;
-  width:50%;
+.upload-document,
+.table-document {
+  display: flex;
+  width: 50%;
 }
 
-.table-document{
-  border-left:1px solid #ddd;
+.table-document {
+  border-left: 1px solid #ddd;
 }
-.box{
-  display:flex;
+
+.box {
+  display: flex;
+}
+
+.container {
+  &__files {
+    .width {
+      width: 100%;
+    }
+  }
+
+  &__title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  position:relative;
+
+  &__holder {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+    align-items: center;
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+  }
+
+  .my-drop-zone {
+    border: dotted 5px lightgray;
+    border-radius: 5px;
+  }
+
+  &__holder {
+    height: 200px;
+  }
+
+  .nv-file-over {
+    border: dotted 3px rgb(160, 233, 255);
+  }
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+table,
+th,
+tr,
+td {
+  border: 1px solid black;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
 }

@@ -27,7 +27,12 @@
   border-radius: 50%;
   margin-right: 5px;
 }
+.file_template{
+  
+  margin: 5px;
+  padding: 0px 5px;
 
+}
 .container {
   width: 100%;
 
@@ -268,4 +273,10 @@
 .delete-button{
   display: flex;
   justify-content: center;
+}
+.document-information
+{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }

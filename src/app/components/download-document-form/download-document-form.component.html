@@ -1,25 +1,17 @@
-<form [formGroup]='fileUpload' (ngSubmit)='onFormSubmit()'action="">
+<!-- <form [formGroup]="fileUpload" (ngSubmit)="onFormSubmit()" action="">
   <div class="box">
     <div class="upload-document">
-      <div class="form">
-        <button mat-button color="primary">
-        <a href='assets/doc/cashflow_detail_template.xlsx' download> Tải về bản mẫu</a>
-        </button>
-      </div>
-  
       <div class="upload-button">
-    
         <input
           type="file"
           mat-raised-button
           color="primary"
           (change)="uploadFile($event)"
-          formControlName='myFile'
+          formControlName="myFile"
         />
       </div>
-      <button mat-button color="primary" type="submit">Tải lên </button>
     </div>
-    <!-- <div class="table-document">
+    <div class="table-document">
       <div class="form">
         <table id="excel-table">
           <tr>
@@ -37,7 +29,7 @@
           </tr>
         </table>
       </div>
-  
+
       <div class="upload-button">
         <a href="/assets/doc/cashflow_detail_template.xlsx" download=""
           >Download</a
@@ -46,7 +38,75 @@
           <mat-icon>file_upload</mat-icon>Lưu và tải lên
         </button>
       </div>
-    </div> -->
+    </div>
   </div>
-  
-</form>
+</form> -->
+<div class="container">
+  <div class="closeButton">
+    <button (click)="closeForm()">
+      <mat-icon class="mat-18">close</mat-icon>
+    </button>
+  </div>
+  <div class="container__content" *ngIf="uploader">
+    <div class="container__title">Tải tài liệu</div>
+    <div
+      [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+      (fileOver)="fileOverBase($event)"
+      class="container__holder"
+    >
+      <ngx-dropzone style="width: 100%" (change)="onSelect($event)">
+        <ngx-dropzone-label
+          >Kéo và thả tài liệu vào đây hoặc
+
+          <label class="custom-file-upload">
+            <input ng2FileSelect [uploader]="uploader" multiple type="file" />
+            <i class="fa fa-cloud-upload"></i> Chọn tài liệu
+          </label>
+        </ngx-dropzone-label>
+      </ngx-dropzone>
+
+    
+    </div>
+    <div class="container__files">
+      <div *ngIf="files.length > 0" class="width col-md-9 mt-5">
+        <table>
+          <thead>
+            <tr>
+              <th>Tên</th>
+              <th style="width: 120px">Kích thước</th>
+              <!-- <th style="width: 130px">Tiến trình</th> -->
+              <th style="width: 70px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of files">
+              <td>
+                {{ item?.name }}
+              </td>
+              <td align="right">
+                {{ item.size / 1024 / 1024 | number: ".2" }} MB
+              </td>
+              <!-- <td style="text-align: center; padding: 8px">
+                <mat-progress-bar
+                  mode="determinate"
+                  value="{{ item.progress }}"
+                ></mat-progress-bar>
+                <span>{{ item?.progress }}%</span>
+              </td> -->
+              <td align="center">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-xs"
+                  (click)="onRemove(item)"
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <button (click)="uploadAll()">Tải lên tất cả</button>
+      </div>
+    </div>
+  </div>
+</div>

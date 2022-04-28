@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { DownloadDocumentFormComponent } from 'src/app/components/download-document-form/download-document-form.component';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
@@ -21,9 +23,9 @@ export class CampaignDetailsComponent implements OnInit {
   isDocument?: boolean;
   isAnother?: boolean
   isApproved?: boolean;
-  isAdmin?:boolean;
-  volunteer?:[]=[];
-  constructor(private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
+  isAdmin?: boolean;
+  volunteer?: [] = [];
+  constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
     this.getByID();
@@ -34,6 +36,14 @@ export class CampaignDetailsComponent implements OnInit {
     if (this.userApi.currentUserValue.role == 'admin') {
       this.isAdmin = true;
     }
+  }
+  openFormDocument() {
+    const dialogRef = this.dialog.open(DownloadDocumentFormComponent, {
+      width:'600px',
+      data: {
+        id:this.campaign?.id
+      }
+    })
   }
   async getByID() {
     const id = this.activated.snapshot.paramMap.get('id');
@@ -52,7 +62,6 @@ export class CampaignDetailsComponent implements OnInit {
         break;
     }
 
-
   }
   goBack() {
     this.location.back();
@@ -70,13 +79,13 @@ export class CampaignDetailsComponent implements OnInit {
         this.isAnother = false;
         break;
       case 'ano':
-        this.volunteer=await this.campaignApi.getParticipations(`${this.campaign?.id}`);
+        this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
         this.isAnother = true;
         this.isDocument = false;
         this.isInformation = false;
-      
-      
-  
+
+
+
     }
   }
   uploadAll() {

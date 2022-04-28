@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -45,22 +48,67 @@ exports.__esModule = true;
 exports.DownloadDocumentFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var dialog_1 = require("@angular/material/dialog");
+var ng2_file_upload_1 = require("ng2-file-upload");
 var XLSX = require("xlsx");
 var _ = require("lodash");
 var DownloadDocumentFormComponent = /** @class */ (function () {
-    function DownloadDocumentFormComponent(camApi, formBuilder, dialog) {
+    function DownloadDocumentFormComponent(data, matDialogRef, camApi, formBuilder, dialog) {
+        var _a;
+        this.data = data;
+        this.matDialogRef = matDialogRef;
         this.camApi = camApi;
         this.formBuilder = formBuilder;
         this.dialog = dialog;
         this.fileName = 'BieuMau.xlsx';
         this.hasBaseDrop = true;
         this.uploadedFiles = [];
+        this.hasBaseDropZoneOver = false;
+        this.files = [];
+        this.formData = new FormData();
+        this.url = "http://conneto.org:5000/core/api/v1/campaigns/" + ((_a = this.data) === null || _a === void 0 ? void 0 : _a.id) + "/donation_documents/cashflow_details";
     }
     DownloadDocumentFormComponent.prototype.tableUpload = function () {
+    };
+    DownloadDocumentFormComponent.prototype.closeForm = function () {
+        this.matDialogRef.close();
     };
     DownloadDocumentFormComponent.prototype.ngOnInit = function () {
         this.fileUpload = this.formBuilder.group({
             myFile: ['', forms_1.Validators.required]
+        });
+        this.uploader = new ng2_file_upload_1.FileUploader({
+            url: this.url,
+            maxFileSize: 15 * 1024 * 1024
+        });
+        this.uploader.onBuildItemForm = function (fileItem, form) { form.append('myvar', 'myval'); return { fileItem: fileItem, form: form }; };
+        if (this.uploader) {
+            this.uploader.onCompleteItem = function (fileItem, form) {
+                console.log('uploader onCompleteItem', fileItem);
+                fileItem.withCredentials = false;
+            };
+        }
+    };
+    DownloadDocumentFormComponent.prototype.fileOverBase = function (e) {
+        this.hasBaseDropZoneOver = e;
+    };
+    DownloadDocumentFormComponent.prototype.uploadAll = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.camApi.uploadCashFlow(this.formData, "" + this.data.id)];
+                    case 1:
+                        res = _a.sent();
+                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                            console.log("upload thành công");
+                        }
+                        else {
+                            console.log("fail");
+                        }
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     DownloadDocumentFormComponent.prototype.exportExcel = function () {
@@ -114,6 +162,20 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    DownloadDocumentFormComponent.prototype.onSelect = function (event) {
+        var _a;
+        var _b;
+        console.log(event);
+        (_a = this.files).push.apply(_a, event.addedFiles);
+        for (var i = 0; i < this.files.length; i++) {
+            (_b = this.formData) === null || _b === void 0 ? void 0 : _b.append("cashflow_detail", this.files[i], this.files[i].name);
+        }
+        console.log(this.formData);
+    };
+    DownloadDocumentFormComponent.prototype.onRemove = function (event) {
+        console.log(event);
+        this.files.splice(this.files.indexOf(event), 1);
+    };
     __decorate([
         core_1.Input()
     ], DownloadDocumentFormComponent.prototype, "campaign");
@@ -122,7 +184,8 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
             selector: 'app-download-document-form',
             templateUrl: './download-document-form.component.html',
             styleUrls: ['./download-document-form.component.scss']
-        })
+        }),
+        __param(0, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
     ], DownloadDocumentFormComponent);
     return DownloadDocumentFormComponent;
 }());

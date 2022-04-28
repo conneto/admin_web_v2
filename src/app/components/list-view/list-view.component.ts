@@ -46,18 +46,20 @@ export class ListViewComponent implements OnInit {
 
   }
   goToDetails(e?: any) {
-    console.log(e,this.whichEntity);
+
     if (this.role.currentUserValue.role != 'admin') {
 
       switch (this.whichEntity) {
         case 'org': this.router.navigate([`manager/manage-organization/organization-request-detail/${e}`]); break;
         case 'pro': this.router.navigate([`manager/manage-project/project-request-detail/${e}`]); break;
+        case 'cam': this.router.navigate([`manager/manage-campaign/campaign-details/${e}`]); break;
 
       }
     } else {
       switch (this.whichEntity) {
         case 'org': this.router.navigate([`admin/manage-organization/organization-request-detail/${e}`]); break;
         case 'pro': this.router.navigate([`admin/manage-project/project-request-detail/${e}`]); break;
+        case 'cam': this.router.navigate([`admin/manage-campaign/campaign-details/${e}`]); break;
 
       }
     }

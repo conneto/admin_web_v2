@@ -44,8 +44,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.CampaignDetailsComponent = void 0;
 var core_1 = require("@angular/core");
+var download_document_form_component_1 = require("src/app/components/download-document-form/download-document-form.component");
 var CampaignDetailsComponent = /** @class */ (function () {
-    function CampaignDetailsComponent(userApi, loadingService, location, activated, campaignApi) {
+    function CampaignDetailsComponent(dialog, userApi, loadingService, location, activated, campaignApi) {
+        this.dialog = dialog;
         this.userApi = userApi;
         this.loadingService = loadingService;
         this.location = location;
@@ -63,6 +65,15 @@ var CampaignDetailsComponent = /** @class */ (function () {
         if (this.userApi.currentUserValue.role == 'admin') {
             this.isAdmin = true;
         }
+    };
+    CampaignDetailsComponent.prototype.openFormDocument = function () {
+        var _a;
+        var dialogRef = this.dialog.open(download_document_form_component_1.DownloadDocumentFormComponent, {
+            width: '600px',
+            data: {
+                id: (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id
+            }
+        });
     };
     CampaignDetailsComponent.prototype.getByID = function () {
         var _a, _b, _c, _d, _e, _f, _g;

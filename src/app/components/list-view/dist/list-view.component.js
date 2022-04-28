@@ -37,7 +37,6 @@ var ListViewComponent = /** @class */ (function () {
         this.dataSource.paginator = this.paginator;
     };
     ListViewComponent.prototype.goToDetails = function (e) {
-        console.log(e, this.whichEntity);
         if (this.role.currentUserValue.role != 'admin') {
             switch (this.whichEntity) {
                 case 'org':
@@ -45,6 +44,9 @@ var ListViewComponent = /** @class */ (function () {
                     break;
                 case 'pro':
                     this.router.navigate(["manager/manage-project/project-request-detail/" + e]);
+                    break;
+                case 'cam':
+                    this.router.navigate(["manager/manage-campaign/campaign-details/" + e]);
                     break;
             }
         }
@@ -55,6 +57,9 @@ var ListViewComponent = /** @class */ (function () {
                     break;
                 case 'pro':
                     this.router.navigate(["admin/manage-project/project-request-detail/" + e]);
+                    break;
+                case 'cam':
+                    this.router.navigate(["admin/manage-campaign/campaign-details/" + e]);
                     break;
             }
         }
