@@ -48,7 +48,8 @@ var paginator_1 = require("@angular/material/paginator");
 var table_1 = require("@angular/material/table");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var TableCampaignParticipationsComponent = /** @class */ (function () {
-    function TableCampaignParticipationsComponent(snackBar, api, dialog, loadingService, utilService) {
+    function TableCampaignParticipationsComponent(camApi, snackBar, api, dialog, loadingService, utilService) {
+        this.camApi = camApi;
         this.snackBar = snackBar;
         this.api = api;
         this.dialog = dialog;
@@ -85,15 +86,14 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
             }
         });
         dialogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
-            var data1, res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var data1, res, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        if (!x) return [3 /*break*/, 2];
+                        if (!x) return [3 /*break*/, 4];
                         this.loadingService.isLoading.next(true);
                         data1 = {
                             object_id: e,
-                            secondary_object_id: cam_id,
                             object_type: 'volunteer',
                             status: 'approve',
                             note: 'Approve this'
@@ -101,17 +101,20 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
                         console.log(data1);
                         return [4 /*yield*/, this.api.updateRequestByManager(data1)];
                     case 1:
-                        res = _a.sent();
-                        if (res.status == 0) {
-                            this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage("Chấp nhận thành công !", true);
-                        }
-                        else {
-                            this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage("" + res.message, false);
-                        }
-                        _a.label = 2;
-                    case 2: return [2 /*return*/];
+                        res = _b.sent();
+                        if (!(res.status == 0)) return [3 /*break*/, 3];
+                        _a = this;
+                        return [4 /*yield*/, this.camApi.getParticipations("" + cam_id)];
+                    case 2:
+                        _a.volunteer = _b.sent();
+                        this.loadingService.isLoading.next(false);
+                        this.snackBar.showMessage("Chấp nhận thành công !", true);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        this.loadingService.isLoading.next(false);
+                        this.snackBar.showMessage("" + res.message, false);
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         }); });
@@ -126,15 +129,14 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
             }
         });
         dialogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
-            var data1, res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var data1, res, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        if (!x) return [3 /*break*/, 2];
+                        if (!x) return [3 /*break*/, 4];
                         this.loadingService.isLoading.next(true);
                         data1 = {
                             object_id: e,
-                            secondary_object_id: cam_id,
                             object_type: 'volunteer',
                             status: 'reject',
                             note: 'Reject this'
@@ -142,17 +144,20 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
                         console.log(data1);
                         return [4 /*yield*/, this.api.updateRequestByManager(data1)];
                     case 1:
-                        res = _a.sent();
-                        if (res.status == 0) {
-                            this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage("Từ chối thành công !", true);
-                        }
-                        else {
-                            this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage("" + res.message, false);
-                        }
-                        _a.label = 2;
-                    case 2: return [2 /*return*/];
+                        res = _b.sent();
+                        if (!(res.status == 0)) return [3 /*break*/, 3];
+                        _a = this;
+                        return [4 /*yield*/, this.camApi.getParticipations("" + cam_id)];
+                    case 2:
+                        _a.volunteer = _b.sent();
+                        this.loadingService.isLoading.next(false);
+                        this.snackBar.showMessage("Từ chối thành công !", true);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        this.loadingService.isLoading.next(false);
+                        this.snackBar.showMessage("" + res.message, false);
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         }); });

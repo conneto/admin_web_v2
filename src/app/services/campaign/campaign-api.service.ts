@@ -70,4 +70,8 @@ export class CampaignApiService {
     let res:BaseResponse=await this.apiService.delete(`${CampaignApiService.CAMPAIGNS}/${id}`);
     return res;
   }
+  async getPdf(id:string){
+    let res:BaseResponse=await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}`);
+    return res.data||[];
+  }
 }

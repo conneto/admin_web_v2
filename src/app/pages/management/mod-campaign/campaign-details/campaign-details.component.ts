@@ -25,7 +25,11 @@ export class CampaignDetailsComponent implements OnInit {
   isApproved?: boolean;
   isAdmin?: boolean;
   volunteer?: [] = [];
-  type?:string;
+  type?: string;
+  isEmpty?: boolean;
+  isShow?: boolean;
+  documentPDF?: any;
+  documentExcel?: any;
   constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
@@ -38,11 +42,23 @@ export class CampaignDetailsComponent implements OnInit {
       this.isAdmin = true;
     }
   }
+  async getDocument() {
+    this.type = 'pdf';
+    this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
+ 
+
+  }
+  async getDocumentExcel() {
+    this.type = 'excel';
+    this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
+
+
+  }
   openFormDocument() {
     const dialogRef = this.dialog.open(DownloadDocumentFormComponent, {
-      width:'600px',
+      width: '600px',
       data: {
-        id:this.campaign?.id,
+        id: this.campaign?.id,
       }
     })
   }
@@ -67,6 +83,12 @@ export class CampaignDetailsComponent implements OnInit {
   goBack() {
     this.location.back();
   }
+  getResult(e: any) {
+    console.log(e);
+    if (e == true) {
+      this.getTab('ano');
+    }
+  }
   async getTab(id: any) {
     switch (id) {
       case 'infor':
@@ -75,15 +97,21 @@ export class CampaignDetailsComponent implements OnInit {
         this.isAnother = false;
         break;
       case 'doc':
+
+
         this.isDocument = true;
         this.isInformation = false;
         this.isAnother = false;
         break;
       case 'ano':
         this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
-        switch(this.campaign?.type){
-          case 'Quyên góp':this.type='donation';break;
-          case 'Tuyển người':this.type='recruitment';break;
+
+        if (this.volunteer == []) {
+          this.isEmpty = true;
+        }
+        switch (this.campaign?.type) {
+          case 'Quyên góp': this.type = 'donation'; break;
+          case 'Tuyển người': this.type = 'recruitment'; break;
         }
         this.isAnother = true;
         this.isDocument = false;

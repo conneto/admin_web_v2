@@ -6,6 +6,7 @@ import { CampaignApiService } from 'src/app/services/campaign/campaign-api.servi
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectApiService } from 'src/app/services/project/project-api.service';
+
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
 
@@ -19,6 +20,7 @@ export class DeleteEntityComponent implements OnInit {
   isSave?: boolean = false;
   isAdmin?: boolean;
   @Input() type: any;
+  
   constructor(private loading: LoadingServiceService, private camApi: CampaignApiService, private proApi: ProjectApiService, private user: AuthServiceService, private snackBar: SnackBarMessageComponent, private orgApi: OrganizationApiService, private dialog: MatDialog) { }
   e: any;
   ngOnInit(): void {

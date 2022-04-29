@@ -190,6 +190,19 @@ var CampaignApiService = /** @class */ (function () {
             });
         });
     };
+    CampaignApiService.prototype.getPdf = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.get(CampaignApiService_1.CAMPAIGNS + "/" + id + "/" + CampaignApiService_1.DONATION_DOCUMENTS)];
+                    case 1:
+                        res = _a.sent();
+                        return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
     var CampaignApiService_1;
     CampaignApiService.CAMPAIGNS = 'campaigns';
     CampaignApiService.DONATION_DOCUMENTS = 'donation_documents';

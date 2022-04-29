@@ -66,6 +66,40 @@ var CampaignDetailsComponent = /** @class */ (function () {
             this.isAdmin = true;
         }
     };
+    CampaignDetailsComponent.prototype.getDocument = function () {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        this.type = 'pdf';
+                        _b = this;
+                        return [4 /*yield*/, this.campaignApi.getPdf("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 1:
+                        _b.documentPDF = _c.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CampaignDetailsComponent.prototype.getDocumentExcel = function () {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        this.type = 'excel';
+                        _b = this;
+                        return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 1:
+                        _b.documentExcel = _c.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
     CampaignDetailsComponent.prototype.openFormDocument = function () {
         var _a;
         var dialogRef = this.dialog.open(download_document_form_component_1.DownloadDocumentFormComponent, {
@@ -108,6 +142,12 @@ var CampaignDetailsComponent = /** @class */ (function () {
     CampaignDetailsComponent.prototype.goBack = function () {
         this.location.back();
     };
+    CampaignDetailsComponent.prototype.getResult = function (e) {
+        console.log(e);
+        if (e == true) {
+            this.getTab('ano');
+        }
+    };
     CampaignDetailsComponent.prototype.getTab = function (id) {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
@@ -137,6 +177,9 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
                     case 4:
                         _d.volunteer = _e.sent();
+                        if (this.volunteer == []) {
+                            this.isEmpty = true;
+                        }
                         switch ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.type) {
                             case 'Quyên góp':
                                 this.type = 'donation';

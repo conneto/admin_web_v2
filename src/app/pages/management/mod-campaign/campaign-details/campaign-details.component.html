@@ -91,7 +91,10 @@
             </p>
           </div>
           <div class="delete-button">
-            <app-delete-entity [type]="'cam'" [entity]="campaign"></app-delete-entity>
+            <app-delete-entity
+              [type]="'cam'"
+              [entity]="campaign"
+            ></app-delete-entity>
           </div>
         </div>
       </div>
@@ -102,9 +105,33 @@
       class="box box__content"
     >
       <div class="content">
-        <div>
+        <div *ngIf="!isShow">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="isShow = !isShow; getDocument()"
+          >
+            Tài liệu PDF
+          </button>
+          <button
+          mat-flat-button
+          color="primary"
+          (click)="isShow = !isShow; getDocumentExcel()"
+        >
+          Tài liệu Excel
+        </button>
+        </div>
+        <div *ngIf="isShow">
+          <button mat-flat-button color="primary" (click)="isShow = !isShow">
+            Tải tài liệu
+          </button>
+        </div>
+        <div *ngIf="isShow">
+          <app-show-document [type]="type" [entityExcel]='documentExcel' [entityPDF]="documentPDF"></app-show-document>
+        </div>
+        <div *ngIf="!isShow">
           <h6 style="display: flex; align-items: center">
-            Hiện chiến dịch này chưa có tài liệu gì cả . Vui lòng bạn
+            Vui lòng bạn
             <button class="file_template" mat-button color="primary">
               <a href="assets/doc/cashflow_detail_template.xlsx" download>
                 Tải về biểu mẫu</a
@@ -117,10 +144,9 @@
         </div>
       </div>
     </div>
-    <div *ngIf="isAnother">
+    <div *ngIf="isAnother && isEmpty">
       <app-table-campaign-participations
         [type]="type"
-        
         [volunteer]="volunteer"
       ></app-table-campaign-participations>
     </div>

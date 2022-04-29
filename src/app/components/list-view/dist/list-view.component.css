@@ -2,9 +2,6 @@
   width: 100%;
   text-align: center;
 }
-.view-list table td.mat-cell:first-of-type {
-  text-align: start;
-}
 .view-list th {
   text-align: center;
 }
