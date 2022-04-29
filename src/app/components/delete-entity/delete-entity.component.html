@@ -1,12 +1,28 @@
-<div class='container'>
-    <div *ngIf='!isAdmin'>
-        <button *ngIf="!isSave" class="update" mat-raised-button (click)="change()">
-          Chỉnh sửa
-        </button>
-        <button *ngIf="isSave" class="update" mat-raised-button (click)="change()">
-          Lưu
-        </button>
-      </div>
-      <button mat-raised-button (click)="delete()">Xóa</button>
-      
+<div class="container">
+  <div *ngIf="!isAdmin">
+    <button *ngIf="!isSave" class="update" mat-raised-button (click)="change()">
+      Chỉnh sửa
+    </button>
+    <button *ngIf="isSave" class="update" mat-raised-button (click)="change()">
+      Lưu
+    </button>
+    <button mat-raised-button (click)="delete()">Xóa</button>
+  </div>
+  <div *ngIf="isAdmin">
+    <button
+      *ngIf="entity.is_active == false"
+      class="enable"
+      mat-raised-button
+      (click)="enable()"
+    >
+      Cấp quyền
+    </button>
+    <button
+      *ngIf="entity.is_active == true"
+      mat-raised-button
+      (click)="disable()"
+    >
+      Vô hiệu hóa
+    </button>
+  </div>
 </div>

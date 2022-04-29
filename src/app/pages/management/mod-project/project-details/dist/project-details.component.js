@@ -193,7 +193,6 @@ var ProjectDetailsComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!data) return [3 /*break*/, 2];
-                        console.log(data);
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.campApi.create(data)];
                     case 1:
@@ -202,7 +201,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
                             this.loadingService.isLoading.next(false);
                             this.getEntityService.getByEntity('cam');
                             this.router.navigate(['/manager/manage-campaign']);
-                            this.snackBar.showMessage(res.message, true);
+                            this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true);
                         }
                         else {
                             this.loadingService.isLoading.next(false);

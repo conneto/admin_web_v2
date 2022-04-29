@@ -67,36 +67,18 @@ var CampaignDetailsComponent = /** @class */ (function () {
         }
     };
     CampaignDetailsComponent.prototype.getDocument = function () {
-        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0:
-                        this.type = 'pdf';
-                        _b = this;
-                        return [4 /*yield*/, this.campaignApi.getPdf("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
-                    case 1:
-                        _b.documentPDF = _c.sent();
-                        return [2 /*return*/];
-                }
+            return __generator(this, function (_a) {
+                this.type = 'pdf';
+                return [2 /*return*/];
             });
         });
     };
     CampaignDetailsComponent.prototype.getDocumentExcel = function () {
-        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0:
-                        this.type = 'excel';
-                        _b = this;
-                        return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
-                    case 1:
-                        _b.documentExcel = _c.sent();
-                        return [2 /*return*/];
-                }
+            return __generator(this, function (_a) {
+                this.type = 'excel';
+                return [2 /*return*/];
             });
         });
     };
@@ -149,38 +131,46 @@ var CampaignDetailsComponent = /** @class */ (function () {
         }
     };
     CampaignDetailsComponent.prototype.getTab = function (id) {
-        var _a, _b;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var _c, _d;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            var _e, _f, _g, _h;
+            return __generator(this, function (_j) {
+                switch (_j.label) {
                     case 0:
-                        _c = id;
-                        switch (_c) {
+                        _e = id;
+                        switch (_e) {
                             case 'infor': return [3 /*break*/, 1];
                             case 'doc': return [3 /*break*/, 2];
-                            case 'ano': return [3 /*break*/, 3];
+                            case 'ano': return [3 /*break*/, 5];
                         }
-                        return [3 /*break*/, 5];
+                        return [3 /*break*/, 7];
                     case 1:
                         this.isInformation = true;
                         this.isDocument = false;
                         this.isAnother = false;
-                        return [3 /*break*/, 5];
+                        return [3 /*break*/, 7];
                     case 2:
+                        _f = this;
+                        return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 3:
+                        _f.documentExcel = _j.sent();
+                        _g = this;
+                        return [4 /*yield*/, this.campaignApi.getPdf("" + ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.id))];
+                    case 4:
+                        _g.documentPDF = _j.sent();
                         this.isDocument = true;
                         this.isInformation = false;
                         this.isAnother = false;
-                        return [3 /*break*/, 5];
-                    case 3:
-                        _d = this;
-                        return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
-                    case 4:
-                        _d.volunteer = _e.sent();
+                        return [3 /*break*/, 7];
+                    case 5:
+                        _h = this;
+                        return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id))];
+                    case 6:
+                        _h.volunteer = _j.sent();
                         if (this.volunteer == []) {
                             this.isEmpty = true;
                         }
-                        switch ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.type) {
+                        switch ((_d = this.campaign) === null || _d === void 0 ? void 0 : _d.type) {
                             case 'Quyên góp':
                                 this.type = 'donation';
                                 break;
@@ -191,8 +181,8 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isAnother = true;
                         this.isDocument = false;
                         this.isInformation = false;
-                        _e.label = 5;
-                    case 5: return [2 /*return*/];
+                        _j.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         });

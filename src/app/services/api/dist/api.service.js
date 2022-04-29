@@ -14,14 +14,14 @@ var ApiService = /** @class */ (function () {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
         this.loadingService = loadingService;
-        this.uri = "http://cfde-123-20-79-49.ngrok.io/fetch_data/api/v1";
-        this.postUri = 'http://dcd1-123-20-79-49.ngrok.io/core/api/v1';
+        this.fetchUri = "http://conneto.org:5001/fetch_data/api/v1";
+        this.postUri = 'http://conneto.org:5000/core/api/v1';
         this.corsHeaders = new http_1.HttpHeaders();
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     }
     ApiService.prototype.getFullUri = function (api_name, params) {
-        var url = this.uri + '/' + api_name;
+        var url = this.fetchUri + '/' + api_name;
         if (typeof params != 'undefined') {
             var array = [];
             for (var prop in params) {
@@ -79,7 +79,7 @@ var ApiService = /** @class */ (function () {
     };
     ApiService.prototype.get = function (api_name, params) {
         var _this = this;
-        this.loadingService.getApiGetLink.next(this.uri);
+        this.loadingService.getApiGetLink.next(this.fetchUri);
         var api_uri = this.getFullUri(api_name, params);
         if (localStorage.getItem('USER_TOKEN')) {
             this.corsHeaders = this.corsHeaders.set('Authorization', 'Bearer ' + localStorage.getItem('USER_TOKEN'));

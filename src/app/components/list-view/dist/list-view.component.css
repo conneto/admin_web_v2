@@ -2,6 +2,9 @@
   width: 100%;
   text-align: center;
 }
+.view-list table td.mat-cell:nth-of-type(2), .view-list table td.mat-cell:nth-of-type(3) {
+  text-align: start;
+}
 .view-list th {
   text-align: center;
 }

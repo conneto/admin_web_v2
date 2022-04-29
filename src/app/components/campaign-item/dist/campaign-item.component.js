@@ -9,7 +9,8 @@ exports.__esModule = true;
 exports.CampaignItemComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignItemComponent = /** @class */ (function () {
-    function CampaignItemComponent(userApi, router, loadingService) {
+    function CampaignItemComponent(utilService, userApi, router, loadingService) {
+        this.utilService = utilService;
         this.userApi = userApi;
         this.router = router;
         this.loadingService = loadingService;

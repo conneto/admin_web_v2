@@ -166,10 +166,18 @@ html {
   white-space: normal;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .approve-button,
 .reject-button {
   padding: 5px 5px;
   border-radius: 6px;
   margin: 0px 3px;
   width: 100px;
+}
+
+.center {
+  display: flex;
 }

@@ -15,6 +15,7 @@ declare var _: any;
 })
 export class UserManagementComponent implements OnInit {
   users: User[] = [];
+  usersFull: User[] = [];
   oldUsers: User[] = [];
   isEmpty: boolean = false;
   isNoMore: boolean = false;
@@ -44,8 +45,8 @@ export class UserManagementComponent implements OnInit {
     }
   }
   async getListMangerAndVolunteer() {
-    this.users = await this.userApi.getListUsers();
-    this.users = this.users.filter(x => {
+    this.usersFull = await this.userApi.getListUsers();
+    this.users = this.usersFull.filter(x => {
       return x.role_id === 'organization_manager' || x.role_id === 'volunteer';
     })
     this.oldUsers = this.users;

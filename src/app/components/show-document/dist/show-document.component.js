@@ -13,12 +13,11 @@ var table_1 = require("@angular/material/table");
 var ShowDocumentComponent = /** @class */ (function () {
     function ShowDocumentComponent(loading) {
         this.loading = loading;
-        this.displayColumns = [];
+        this.displayColumns = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit"];
         this.dataSource = new table_1.MatTableDataSource();
     }
     ShowDocumentComponent.prototype.ngOnInit = function () {
-        var _a;
-        console.log(this.type);
+        var _a, _b;
         if (this.type == 'pdf') {
             for (var i = 0; i < ((_a = this.entityPDF) === null || _a === void 0 ? void 0 : _a.length); i++) {
                 this.name = this.entityPDF[i].url.split('/');
@@ -26,9 +25,12 @@ var ShowDocumentComponent = /** @class */ (function () {
                     name: this.name[3]
                 });
             }
+            console.log(this.entityPDF);
         }
         else {
-            this.dataSource = new table_1.MatTableDataSource(this.entityExcel);
+            this.displayColumns = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit"];
+            this.dataSource = new table_1.MatTableDataSource((_b = this.entityExcel) === null || _b === void 0 ? void 0 : _b.cashflow_details);
+            console.log(this.dataSource.data);
         }
         this.uriApi = this.loading.getApiGetLink.value;
     };

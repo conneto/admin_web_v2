@@ -142,6 +142,22 @@ var AuthServiceService = /** @class */ (function () {
             });
         });
     };
+    AuthServiceService.prototype.activateEntity = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.put(AuthServiceService_1.ADMIN + '/' + AuthServiceService_1.ACTIVATE, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status != 0) {
+                            return [2 /*return*/, res];
+                        }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
     AuthServiceService.prototype.updateRequestByManager = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
@@ -165,13 +181,14 @@ var AuthServiceService = /** @class */ (function () {
     AuthServiceService.KEY = '_CoNn3t0Se(R3T';
     AuthServiceService.ROLE = 'organization_manager';
     AuthServiceService.ADMIN = 'admins';
-    AuthServiceService.APPROVEMENTS = 'approvements';
+    AuthServiceService.APPROVEMENTS = 'approve';
     AuthServiceService.APPROVE = 'chấp nhận';
     AuthServiceService.REJECT = 'từ chối';
     AuthServiceService.PROJECT = 'project';
     AuthServiceService.ORGANIZATION = 'organization';
     AuthServiceService.CAMPAIGN = 'campaign';
     AuthServiceService.ORGANIZATION_MANAGER = 'organization_manager';
+    AuthServiceService.ACTIVATE = 'activate';
     AuthServiceService = AuthServiceService_1 = __decorate([
         core_1.Injectable({
             providedIn: 'root'

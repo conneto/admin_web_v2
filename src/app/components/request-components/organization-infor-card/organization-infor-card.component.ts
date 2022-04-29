@@ -34,7 +34,8 @@ export class OrganizationInforCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.urlApi = this.loadingApi.getApiGetLink.value;
-    this.urlLogo = this.organizations?.logo?.replace(/\\/g, '\/');
+
+
   
 
   }

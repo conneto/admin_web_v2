@@ -51,7 +51,7 @@ export class CamapaignFormComponent implements OnInit {
     this.isSubmitted = true;
 
     if (this.campaignForm.valid) {
-      console.log(this.uploadData, this.campaignForm.value);
+  
       if (this.data.type == 'donation') {
         this.campaignForm.value.start_working_date = this.campaignForm.value.start_date;
         this.campaignForm.value.end_working_date = this.campaignForm.value.end_date;

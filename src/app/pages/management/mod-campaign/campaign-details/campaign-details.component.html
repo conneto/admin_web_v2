@@ -78,11 +78,23 @@
             </p>
           </div>
           <div class="content-description">
+            <span>Mục tiêu:</span>
+            <p>
+              {{  campaign.type == 'Quyên góp' ? (campaign.target |number )+"đ" : campaign.target + ' người'}}
+            </p>
+          </div>
+          <div class="content-description">
+            <span>Đã đạt:</span>
+            <p>
+              {{ campaign.type == 'Quyên góp' ? (campaign.totalDonated|number)+"đ" : campaign.totalPaticipant +" người "}}
+            </p>
+          </div>
+          <!-- <div class="content-description">
             <span>Lĩnh vực:</span>
             <p>
               {{ campaign.category }}
             </p>
-          </div>
+          </div> -->
           <div class="content-description">
             <span>Thời gian diễn ra:</span>
             <p>
@@ -90,7 +102,7 @@
               {{ campaign.endDate | date: "dd/MM/yyyy" }}
             </p>
           </div>
-          <div class="delete-button">
+          <div *ngIf='isApproved'class="delete-button">
             <app-delete-entity
               [type]="'cam'"
               [entity]="campaign"
@@ -111,14 +123,14 @@
             color="primary"
             (click)="isShow = !isShow; getDocument()"
           >
-            Tài liệu PDF
+            Tài liệu của chiến dịch
           </button>
-          <button
+          <button style='margin-left:10px;'
           mat-flat-button
           color="primary"
           (click)="isShow = !isShow; getDocumentExcel()"
         >
-          Tài liệu Excel
+          Tài liệu chi tiết dòng tiền
         </button>
         </div>
         <div *ngIf="isShow">

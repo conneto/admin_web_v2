@@ -1,42 +1,69 @@
 <div class="row" *ngIf="entityPDF && type == 'pdf'">
-  <div class="container" *ngFor="let e of entityPDF">
+  <div class="document" *ngFor="let e of entityPDF">
     <a href="{{ uriApi }}/show/files?p={{ e.url }}" download>
       <mat-card title="Xem chi tiết" class="moveFadein">
         <div class="content">
-          <img src="/assets/icons/pdf.svg" />
+          <img *ngIf="e.type == 'pdf'" src="/assets/icons/pdf.svg" />
+          <img *ngIf="e.type == 'excel'" src="/assets/icons/excel.png" />
           <p>
             {{ e.name }}
           </p>
           <p>Ngày đăng tải : {{ e.created_at | date: "dd/MM/yyyy" }}</p>
+          <p>Loại : {{ e.type }}</p>
         </div>
       </mat-card>
     </a>
   </div>
 </div>
 
-<div class="row" *ngIf="entityExcel && type=='excel'">
+<div class="row" *ngIf="entityExcel && type == 'excel'">
   <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="no">
-      <th mat-header-cell *matHeaderCellDef>Thứ hạng</th>
-      <td mat-cell *matCellDef="let e">{{ e.no }}</td>
+    <ng-container matColumnDef="payer_name">
+      <th mat-header-cell *matHeaderCellDef>Tên người trả</th>
+      <td mat-cell *matCellDef="let e">{{ e.payer_name }}</td>
     </ng-container>
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Tên</th>
-      <td mat-cell *matCellDef="let e">{{ e.volunteer_name }}</td>
-    </ng-container>
-    <ng-container matColumnDef="donated_amount">
-      <th mat-header-cell *matHeaderCellDef>Tổng tiền</th>
+    <ng-container matColumnDef="purpose">
+      <th mat-header-cell *matHeaderCellDef>Mục đích</th>
       <td mat-cell *matCellDef="let e">
-        {{ e.donated_amount | number | replace: ",":"." }}đ
+        {{ e.purpose }}
+ 
       </td>
     </ng-container>
-    <ng-container matColumnDef="donated_turn">
-      <th mat-header-cell *matHeaderCellDef>Số lần quyên góp</th>
-      <td mat-cell *matCellDef="let e">{{ e.donated_turn }}</td>
+    <ng-container matColumnDef="payment_date">
+      <th mat-header-cell *matHeaderCellDef>Ngày trả</th>
+      <td mat-cell *matCellDef="let e">
+        {{ e.payment_date | date: "dd/MM/yyyy" }}
+      </td>
     </ng-container>
-    <ng-container matColumnDef="donated_campaign">
-      <th mat-header-cell *matHeaderCellDef>Số chiến dịch đã quyên góp</th>
-      <td mat-cell *matCellDef="let e">{{ e.donated_campaign }}</td>
+    <ng-container matColumnDef="item">
+      <th mat-header-cell *matHeaderCellDef>Hiện vật</th>
+      <td mat-cell *matCellDef="let e">
+        {{ e.item }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef>Giá tiền</th>
+      <td mat-cell *matCellDef="let e">
+        {{ e.price | number | replace: ",":"." }}đ
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Số lượng</th>
+      <td mat-cell *matCellDef="let e">
+        {{ e.quantity }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="unit">
+      <th mat-header-cell *matHeaderCellDef>Loại</th>
+      <td mat-cell *matCellDef="let e">
+        {{ e.unit }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="recipient_name">
+      <th mat-header-cell *matHeaderCellDef>Người nhận</th>
+      <td mat-cell *matCellDef="let e">
+        {{ e.recipient_name }}
+      </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>

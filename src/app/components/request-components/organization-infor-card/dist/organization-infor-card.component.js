@@ -62,9 +62,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
         this.org = org;
     }
     OrganizationInforCardComponent.prototype.ngOnInit = function () {
-        var _a, _b;
         this.urlApi = this.loadingApi.getApiGetLink.value;
-        this.urlLogo = (_b = (_a = this.organizations) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
     };
     OrganizationInforCardComponent.prototype.viewDetails = function (id) {
         this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);

@@ -1,13 +1,32 @@
+.cover-container {
+  width: 100% !important;
+  height: 44% !important;
+}
+
 .cover {
-  height: 160px;
-}
-.container{
-  cursor:pointer
-}
-.cover img {
-  object-fit: unset;
   width: 100% !important;
   height: 100% !important;
+}
+
+.cover img {
+  position: absolute;
+  object-fit: cover;
+  width: 0;
+  height: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.info-container {
+  width: 100% !important;
+  height: 56% !important;
 }
 
 .day-left {
@@ -28,7 +47,8 @@ button {
 .campaign__type {
   z-index: 9999;
   text-transform: uppercase;
-  background-color: #918a8a;
+  background-color: #FBB800;
+  width: 72px !important;
 }
 
 .campaign {

@@ -22,13 +22,14 @@ export class AuthServiceService {
   public static readonly KEY = '_CoNn3t0Se(R3T';
   public static readonly ROLE = 'organization_manager';
   public static readonly ADMIN = 'admins';
-  public static readonly APPROVEMENTS = 'approvements';
+  public static readonly APPROVEMENTS = 'approve';
   public static readonly APPROVE = 'chấp nhận';
   public static readonly REJECT = 'từ chối';
   public static readonly PROJECT = 'project';
   public static readonly ORGANIZATION = 'organization';
   public static readonly CAMPAIGN = 'campaign';
   public static readonly ORGANIZATION_MANAGER = 'organization_manager';
+  public static readonly ACTIVATE = 'activate';
   constructor(private loadingService:LoadingServiceService,private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
 
     this.curUserSubject = new BehaviorSubject<any>(
@@ -97,6 +98,13 @@ export class AuthServiceService {
 
   async updateRequestByAdmin(data: any) {
     let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEMENTS, data);
+    if (res.status != 0) {
+      return res;
+    }
+    return res;
+  }
+  async activateEntity(data:any){
+    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.ACTIVATE, data);
     if (res.status != 0) {
       return res;
     }
