@@ -92,6 +92,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
   async checkToGetData(getStatus?: string) {
     this.organizations = await this.service.getAll();
+    console.log(this.organizations)
 
     this.passData = this.organizations;
     if (getStatus == 'pending') {
@@ -122,7 +123,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     }
     if (status) {
 
-  
+
       if (this.userApi.currentUserValue.role == 'organization_manager') {
         const check = this.organizations.every((a) => {
           return a.result_code == 503;
@@ -134,7 +135,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       }
 
       switch (status) {
-        
+
         case 'approve':
 
           this.isRequest = false;
@@ -202,7 +203,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-    
+
             this.organizations[i].type = this.organizations[i].type == 'ngo' ?
               this.organizations[i].type = 'Tổ chức phi chính phủ' :
               this.organizations[i].type = 'Tổ chức phi lợi nhuận'
@@ -252,7 +253,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       }
       this.isList=false;
       this.changeToGrid();
-   
+
       switch (status) {
         case 'approve':
 
@@ -260,7 +261,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-   
+
           }
 
           if (this.userApi.currentUserValue.role == 'organization_manager') {
@@ -296,7 +297,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-      
+
           }
           this.organizations = this.organizations.filter(x => x.result_code === 511);
           this.oldData = this.passData.filter(x => x.result_code == 511);
@@ -316,8 +317,8 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
             this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-        
-      
+
+
           }
           if (this.userApi.currentUserValue.role == 'admin') {
             this.isRequest = true;
