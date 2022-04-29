@@ -58,7 +58,7 @@ export class CampaignApiService {
   }
   async getCashFlow(id: string) {
     let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}/${CampaignApiService.CASHFLOW_DETAILS}`);
-    res.data = this.campaignAdap.adapt(res.data); 
+  
     return res.data || [];
   }
   async getParticipations(id: string) {

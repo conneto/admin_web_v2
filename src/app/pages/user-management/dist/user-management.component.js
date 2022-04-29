@@ -50,6 +50,7 @@ var UserManagementComponent = /** @class */ (function () {
         this.loading = loading;
         this.userApi = userApi;
         this.users = [];
+        this.usersFull = [];
         this.oldUsers = [];
         this.isEmpty = false;
         this.isNoMore = false;
@@ -93,8 +94,8 @@ var UserManagementComponent = /** @class */ (function () {
                         _a = this;
                         return [4 /*yield*/, this.userApi.getListUsers()];
                     case 1:
-                        _a.users = _b.sent();
-                        this.users = this.users.filter(function (x) {
+                        _a.usersFull = _b.sent();
+                        this.users = this.usersFull.filter(function (x) {
                             return x.role_id === 'organization_manager' || x.role_id === 'volunteer';
                         });
                         this.oldUsers = this.users;

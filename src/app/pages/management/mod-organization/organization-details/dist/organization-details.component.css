@@ -50,9 +50,11 @@
   margin-top: 5px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .container .box .content-information :first-child {
   display: flex;
+  align-items: center;
 }
 .container .box .content-information :first-child .icon img {
   object-fit: contain;
@@ -161,4 +163,35 @@
   display: flex;
   align-items: baseline;
   flex-grow: 1;
+}
+
+@media only screen and (max-width: 576px) {
+  .campaign-card {
+    height: 60vh !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .campaign-card {
+    height: 56vh !important;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .campaign-card {
+    height: 56vh !important;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .campaign-card {
+    height: 52vh !important;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .campaign-card {
+    height: 48vh !important;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .campaign-card {
+    height: 44vh !important;
+  }
 }

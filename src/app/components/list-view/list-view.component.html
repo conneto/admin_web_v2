@@ -4,7 +4,7 @@
       <ng-container matColumnDef="no">
         <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
         <td mat-cell *matCellDef="let e">
-         {{e.no}}
+          {{ e.no }}
         </td>
       </ng-container>
       <div *ngIf="whichEntity == 'org'">
@@ -49,7 +49,6 @@
         </ng-container>
       </div>
       <div *ngIf="whichEntity == 'pro'">
-     
         <ng-container matColumnDef="org_name">
           <th mat-header-cell *matHeaderCellDef>Thuộc tổ chức</th>
           <td mat-cell *matCellDef="let e">
@@ -86,7 +85,6 @@
         >
       </div>
       <div *ngIf="whichEntity == 'cam'">
-     
         <ng-container matColumnDef="pro_name">
           <th mat-header-cell *matHeaderCellDef>Thuộc dự án</th>
           <td mat-cell *matCellDef="let e">
@@ -122,16 +120,42 @@
         </ng-container>
         >
       </div>
-      <!--
-                <ng-container matColumnDef="donated_turn">
-                  <th mat-header-cell *matHeaderCellDef>Số lần quyên góp</th>
-                  <td mat-cell *matCellDef="let e">{{ e.donated_turn }}</td>
-                </ng-container>
-                <ng-container matColumnDef="donated_campaign">
-                  <th mat-header-cell *matHeaderCellDef>Số chiến dịch đã quyên góp</th>
-                  <td mat-cell *matCellDef="let e">{{ e.donated_campaign }}</td>
-                </ng-container>
-              -->
+      <div *ngIf="whichEntity == 'user'">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Tên</th>
+          <td mat-cell *matCellDef="let e">
+            <img
+              loading="lazy"
+              mat-card-avatar
+              src="{{ urlApi }}/show/images?p={{ e.pro_logo }}"
+            />{{ e.first_name }} {{ e.last_name }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="username">
+          <th mat-header-cell *matHeaderCellDef>Tài khoản</th>
+          <td mat-cell *matCellDef="let e">{{ e.username }}</td>
+        </ng-container>
+        <ng-container matColumnDef="created_date">
+          <th mat-header-cell *matHeaderCellDef>Ngày tạo</th>
+          <td mat-cell *matCellDef="let e">
+            {{ e.created_at | date: "dd/MM/yyyy" }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="role">
+          <th mat-header-cell *matHeaderCellDef>Vai trò</th>
+          <td mat-cell *matCellDef="let e">
+            {{ e.role }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+          <td mat-cell *matCellDef="let e">
+            {{ e.is_active == "true" ? "Đang hoạt động" : "Bị vô hiệu" }}
+          </td>
+        </ng-container>
+        >
+      </div>
       <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
 
       <tr

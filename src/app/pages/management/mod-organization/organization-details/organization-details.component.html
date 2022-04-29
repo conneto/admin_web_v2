@@ -91,7 +91,7 @@
           </div>
 
           <div *ngIf="isApproved" class="content-button">
-            <div>
+            <div *ngIf='isApproved'>
               <app-delete-entity [type]='"org"' [entity]="organization"></app-delete-entity>
             </div>
           </div>
@@ -123,11 +123,15 @@
           </div>
         </div>
       </div>
-      <div class="container__item">
-        <div *ngFor="let cam of campaigns">
-          <app-campaign-item [campaign]="cam"></app-campaign-item>
-        </div>
+      <div class="row p-3">
+        <app-campaign-card-info
+          class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+          *ngFor="let cam of campaigns"
+        
+          [campaign]="cam"
+        ></app-campaign-card-info>
       </div>
+     
     </div>
     <div class="project__list-item" *ngIf="isProjects">
       <div class="project__button">

@@ -12,8 +12,8 @@ import { LoadingServiceService } from '../loading/loading-service.service';
 export class ApiService {
   corsHeaders: HttpHeaders;
 
-  private uri = "http://cfde-123-20-79-49.ngrok.io/fetch_data/api/v1";
-  private postUri = 'http://dcd1-123-20-79-49.ngrok.io/core/api/v1';
+  private uri = "http://conneto.org:5001/fetch_data/api/v1";
+  private postUri = 'http://conneto.org:5000/core/api/v1';
   constructor(private http: HttpClient, private baseResponseAdapter: BaseResponseAdapter, public loadingService: LoadingServiceService) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');

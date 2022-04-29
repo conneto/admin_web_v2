@@ -61,7 +61,7 @@
               {{ project.endDate | date: "dd/MM/yyyy" }}
             </p>
           </div>
-          <div class='delete-button'>
+          <div *ngIf='isApproved' class='delete-button'>
             <app-delete-entity [type]="'pro'" [entity]="project"></app-delete-entity>
           </div>
         </div>

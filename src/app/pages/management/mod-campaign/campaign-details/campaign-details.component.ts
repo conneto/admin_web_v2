@@ -44,13 +44,13 @@ export class CampaignDetailsComponent implements OnInit {
   }
   async getDocument() {
     this.type = 'pdf';
-    this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
+
  
 
   }
   async getDocumentExcel() {
     this.type = 'excel';
-    this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
+ 
 
 
   }
@@ -97,8 +97,8 @@ export class CampaignDetailsComponent implements OnInit {
         this.isAnother = false;
         break;
       case 'doc':
-
-
+        this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
+        this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
         this.isDocument = true;
         this.isInformation = false;
         this.isAnother = false;

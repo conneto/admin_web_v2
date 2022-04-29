@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { UtilService } from 'src/app/services/util-service/util.service';
 
 @Component({
   selector: 'app-campaign-item',
@@ -15,7 +16,7 @@ export class CampaignItemComponent implements OnInit {
   @Input() valueNumber?: any;
   urlApi?: string;
   isAdmin?: boolean;
-  constructor(private userApi: AuthServiceService, private router: Router, private loadingService: LoadingServiceService) { }
+  constructor(public utilService: UtilService, private userApi: AuthServiceService, private router: Router, private loadingService: LoadingServiceService) { }
 
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
@@ -24,9 +25,9 @@ export class CampaignItemComponent implements OnInit {
       this.isAdmin = true;
     }
 
-  } 
+  }
   goToDetails(id: any) {
- 
+
     if (this.isAdmin) {
       this.router.navigate([`/admin/manage-campaign/campaign-details/${id}`])
     } else {

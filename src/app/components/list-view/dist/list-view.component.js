@@ -29,6 +29,9 @@ var ListViewComponent = /** @class */ (function () {
             case 'cam':
                 this.displayColumns = ["no", "pro_name", 'name', 'created_date', 'start_date', 'end_date'];
                 break;
+            case 'user':
+                this.displayColumns = ["no", "name", 'username', 'created_date', 'role', 'status'];
+                break;
         }
         for (var i = 0; i < this.entity.length; i++) {
             Object.assign(this.entity[i], { no: i + 1 });

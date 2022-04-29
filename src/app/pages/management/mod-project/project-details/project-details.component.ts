@@ -146,14 +146,14 @@ export class ProjectDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
-        console.log(data);
+       
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.campApi.create(data);
         if (res?.status == 0) {
           this.loadingService.isLoading.next(false);
           this.getEntityService.getByEntity('cam');
           this.router.navigate(['/manager/manage-campaign']);
-          this.snackBar.showMessage(res.message, true)
+          this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true)
         } else {
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage(`${res?.message}`, false)

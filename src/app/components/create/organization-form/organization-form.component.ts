@@ -62,8 +62,7 @@ export class OrganizationFormComponent implements OnInit {
         if (res?.status == 0) {
           this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
           this.loadingService.isLoading.next(false);
-
-          this.router.navigate(['/manager']);
+          this.router.navigate(['/manager/manage-organization']);
           this.org.checkToGetData('pending');
 
         } else {

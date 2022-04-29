@@ -156,7 +156,6 @@ var CampaignApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.get(CampaignApiService_1.CAMPAIGNS + "/" + id + "/" + CampaignApiService_1.DONATION_DOCUMENTS + "/" + CampaignApiService_1.CASHFLOW_DETAILS)];
                     case 1:
                         res = _a.sent();
-                        res.data = this.campaignAdap.adapt(res.data);
                         return [2 /*return*/, res.data || []];
                 }
             });
