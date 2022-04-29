@@ -80,7 +80,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                     case 1:
                         res = _c.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
+                            this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
                             this.router.navigate(['/manager/manage-organization']);
                             this.org.checkToGetData('pending');
@@ -96,7 +96,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                     case 3:
                         res = _c.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
+                            this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
                             this.router.navigate(['/manager']);
                             this.org.checkToGetData('pending');

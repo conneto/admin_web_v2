@@ -41,7 +41,7 @@ export class OrganizationFormComponent implements OnInit {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.createById(uploadData, `${this.organizationId}`);
         if (res?.status == 0) {
-          this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
+          this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
           this.loadingService.isLoading.next(false);
 
           this.router.navigate(['/manager/manage-organization']);
@@ -60,7 +60,7 @@ export class OrganizationFormComponent implements OnInit {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.create(uploadData);
         if (res?.status == 0) {
-          this.snackBar.showMessage('Tạo tổ chức thành công.Yêu cầu của bạn đã được gửi', true);
+          this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
           this.loadingService.isLoading.next(false);
 
           this.router.navigate(['/manager']);
