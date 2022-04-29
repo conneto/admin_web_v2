@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { DownloadDocumentFormComponent } from 'src/app/components/download-document-form/download-document-form.component';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
@@ -21,9 +23,14 @@ export class CampaignDetailsComponent implements OnInit {
   isDocument?: boolean;
   isAnother?: boolean
   isApproved?: boolean;
-  isAdmin?:boolean;
-  volunteer?:[]=[];
-  constructor(private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
+  isAdmin?: boolean;
+  volunteer?: [] = [];
+  type?: string;
+  isEmpty?: boolean;
+  isShow?: boolean;
+  documentPDF?: any;
+  documentExcel?: any;
+  constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
     this.getByID();
@@ -34,6 +41,26 @@ export class CampaignDetailsComponent implements OnInit {
     if (this.userApi.currentUserValue.role == 'admin') {
       this.isAdmin = true;
     }
+  }
+  async getDocument() {
+    this.type = 'pdf';
+    this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
+ 
+
+  }
+  async getDocumentExcel() {
+    this.type = 'excel';
+    this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
+
+
+  }
+  openFormDocument() {
+    const dialogRef = this.dialog.open(DownloadDocumentFormComponent, {
+      width: '600px',
+      data: {
+        id: this.campaign?.id,
+      }
+    })
   }
   async getByID() {
     const id = this.activated.snapshot.paramMap.get('id');
@@ -52,10 +79,15 @@ export class CampaignDetailsComponent implements OnInit {
         break;
     }
 
-
   }
   goBack() {
     this.location.back();
+  }
+  getResult(e: any) {
+    console.log(e);
+    if (e == true) {
+      this.getTab('ano');
+    }
   }
   async getTab(id: any) {
     switch (id) {
@@ -65,18 +97,28 @@ export class CampaignDetailsComponent implements OnInit {
         this.isAnother = false;
         break;
       case 'doc':
+
+
         this.isDocument = true;
         this.isInformation = false;
         this.isAnother = false;
         break;
       case 'ano':
-        this.volunteer=await this.campaignApi.getParticipations(`${this.campaign?.id}`);
+        this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
+
+        if (this.volunteer == []) {
+          this.isEmpty = true;
+        }
+        switch (this.campaign?.type) {
+          case 'Quyên góp': this.type = 'donation'; break;
+          case 'Tuyển người': this.type = 'recruitment'; break;
+        }
         this.isAnother = true;
         this.isDocument = false;
         this.isInformation = false;
-      
-      
-  
+
+
+
     }
   }
   uploadAll() {

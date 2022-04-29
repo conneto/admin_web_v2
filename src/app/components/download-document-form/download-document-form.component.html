@@ -1,25 +1,17 @@
-<form [formGroup]='fileUpload' (ngSubmit)='onFormSubmit()'action="">
+<!-- <form [formGroup]="fileUpload" (ngSubmit)="onFormSubmit()" action="">
   <div class="box">
     <div class="upload-document">
-      <div class="form">
-        <button mat-button color="primary">
-        <a href='assets/doc/cashflow_detail_template.xlsx' download> Tải về bản mẫu</a>
-        </button>
-      </div>
-  
       <div class="upload-button">
-    
         <input
           type="file"
           mat-raised-button
           color="primary"
           (change)="uploadFile($event)"
-          formControlName='myFile'
+          formControlName="myFile"
         />
       </div>
-      <button mat-button color="primary" type="submit">Tải lên </button>
     </div>
-    <!-- <div class="table-document">
+    <div class="table-document">
       <div class="form">
         <table id="excel-table">
           <tr>
@@ -37,7 +29,7 @@
           </tr>
         </table>
       </div>
-  
+
       <div class="upload-button">
         <a href="/assets/doc/cashflow_detail_template.xlsx" download=""
           >Download</a
@@ -46,7 +38,131 @@
           <mat-icon>file_upload</mat-icon>Lưu và tải lên
         </button>
       </div>
-    </div> -->
+    </div>
   </div>
+</form> -->
+<div class="container">
+  <div class="container__content">
+    <!-- <div class="container__title">Tải tài liệu</div> -->
+    <div
+      [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+      class="container__holder"
+    >
+      <ngx-dropzone
+        accept="application/pdf"
+        class="text-center"
+        style="width: 100%"
+        (change)="onSelect($event)"
+      >
+        <ngx-dropzone-label
+          >Kéo và thả tài liệu vào đây hoặc
+
+          <label class="custom-file-upload">
   
-</form>
+            <i class="fa fa-cloud-upload"></i> Chọn tài liệu
+          </label>
+        </ngx-dropzone-label>
+        <ngx-dropzone-label>(.PDF) </ngx-dropzone-label>
+      </ngx-dropzone>
+    </div>
+    <div class="container__files">
+      <div *ngIf="files.length > 0" class="width col-md-9 mt-5">
+        <table>
+          <thead>
+            <tr>
+              <th>Tên</th>
+              <th style="width: 120px">Kích thước</th>
+
+              <th style="width: 70px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of files">
+              <td>
+                {{ item?.name }}
+              </td>
+              <td align="right">
+                {{ item.size / 1024 / 1024 | number: ".2" }} MB
+              </td>
+
+              <td align="center">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-xs"
+                  (click)="onRemove(item)"
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container__button">
+          <button  color='primary' mat-flat-button (click)="uploadPdf()">Tải lên PDF</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container__content">
+    <!-- <div class="container__title">Tải tài liệu</div> -->
+    <div
+      [ngClass]="{ 'nv-file-over': hasBaseDropZoneOver }"
+      class="container__holder"
+    >
+      <ngx-dropzone
+        accept=" application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        class="text-center"
+        style="width: 100%"
+        (change)="onSelectExcel($event)"
+      >
+        <ngx-dropzone-label
+          >Kéo và thả tài liệu về chi tiết dòng tiền vào đây hoặc
+
+          <label class="custom-file-upload">
+       
+            <i class="fa fa-cloud-upload"></i> Chọn tài liệu
+          </label>
+        </ngx-dropzone-label>
+        <ngx-dropzone-label>(.XLSX) </ngx-dropzone-label>
+      </ngx-dropzone>
+    </div>
+    <div class="container__files">
+      <div *ngIf="filesExcel.length > 0" class="width col-md-9 mt-5">
+        <table>
+          <thead>
+            <tr>
+              <th>Tên</th>
+              <th style="width: 120px">Kích thước</th>
+              <!-- <th style="width: 130px">Tiến trình</th> -->
+              <th style="width: 70px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of filesExcel">
+              <td>
+                {{ item?.name }}
+              </td>
+              <td align="right">
+                {{ item.size / 1024 / 1024 | number: ".2" }} MB
+              </td>
+
+              <td align="center">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-xs"
+                  (click)="onRemoveExcel(item)"
+                >
+                  Xóa
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="container__button">
+          <button mat-flat-button color='primary' (click)="uploadExcel()">Tải lên Excel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

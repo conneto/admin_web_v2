@@ -49,6 +49,13 @@ export class CampaignApiService {
     }
     return res;
   }
+  async uploadPdf(data: any, id: string) {
+    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}`, data);
+    if (res.status != 0) {
+      return res;
+    }
+    return res;
+  }
   async getCashFlow(id: string) {
     let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}/${CampaignApiService.CASHFLOW_DETAILS}`);
     res.data = this.campaignAdap.adapt(res.data); 
@@ -57,6 +64,14 @@ export class CampaignApiService {
   async getParticipations(id: string) {
     console.log(id);
     let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.CAMPAIGN_PARTICIPATIONS}`);
+    return res.data||[];
+  }
+  async delete(id:string){
+    let res:BaseResponse=await this.apiService.delete(`${CampaignApiService.CAMPAIGNS}/${id}`);
+    return res;
+  }
+  async getPdf(id:string){
+    let res:BaseResponse=await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}`);
     return res.data||[];
   }
 }

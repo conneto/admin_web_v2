@@ -8,3 +8,7 @@ button {
 .update {
   background-color: blue !important;
 }
+
+.container {
+  display: flex;
+}

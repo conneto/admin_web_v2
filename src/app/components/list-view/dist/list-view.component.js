@@ -21,14 +21,17 @@ var ListViewComponent = /** @class */ (function () {
     ListViewComponent.prototype.ngOnInit = function () {
         switch (this.whichEntity) {
             case 'org':
-                this.displayColumns = ['name', "created_name", 'type', 'founding_date', 'status'];
+                this.displayColumns = ["no", 'name', "created_name", 'type', 'founding_date', 'status'];
                 break;
             case 'pro':
-                this.displayColumns = ["org_name", 'name', 'created_date', 'start_date', 'end_date'];
+                this.displayColumns = ["no", "org_name", 'name', 'created_date', 'start_date', 'end_date'];
                 break;
             case 'cam':
-                this.displayColumns = ["pro_name", 'name', 'created_date', 'start_date', 'end_date'];
+                this.displayColumns = ["no", "pro_name", 'name', 'created_date', 'start_date', 'end_date'];
                 break;
+        }
+        for (var i = 0; i < this.entity.length; i++) {
+            Object.assign(this.entity[i], { no: i + 1 });
         }
         this.dataSource = new table_1.MatTableDataSource(this.entity);
         this.urlApi = this.loadingService.getApiGetLink.value;
@@ -37,7 +40,6 @@ var ListViewComponent = /** @class */ (function () {
         this.dataSource.paginator = this.paginator;
     };
     ListViewComponent.prototype.goToDetails = function (e) {
-        console.log(e, this.whichEntity);
         if (this.role.currentUserValue.role != 'admin') {
             switch (this.whichEntity) {
                 case 'org':
@@ -45,6 +47,9 @@ var ListViewComponent = /** @class */ (function () {
                     break;
                 case 'pro':
                     this.router.navigate(["manager/manage-project/project-request-detail/" + e]);
+                    break;
+                case 'cam':
+                    this.router.navigate(["manager/manage-campaign/campaign-details/" + e]);
                     break;
             }
         }
@@ -55,6 +60,9 @@ var ListViewComponent = /** @class */ (function () {
                     break;
                 case 'pro':
                     this.router.navigate(["admin/manage-project/project-request-detail/" + e]);
+                    break;
+                case 'cam':
+                    this.router.navigate(["admin/manage-campaign/campaign-details/" + e]);
                     break;
             }
         }

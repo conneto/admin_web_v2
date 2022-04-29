@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 
-h1, h2, h3, h4, h5, h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   margin: 0;
 }
 
@@ -40,6 +46,29 @@ html {
   flex-wrap: wrap;
   padding-bottom: 40px;
 
+}
+
+.closeButton {
+
+  button {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    height: 24px;
+    width: 24px;
+    margin: 3px 3px 0 0;
+    border: none;
+    outline: none;
+    background: unset;
+
+  }
+
+  button:hover {
+    background-color: #ccc;
+    opacity: 0.6;
+    border-radius: 100%;
+
+  }
 }
 
 @keyframes moveFadein {
@@ -133,8 +162,8 @@ html {
 }
 
 .text-truncate-2 {
-  text-overflow:ellipsis;
-  overflow:hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   display: -webkit-box !important;
   -webkit-line-clamp: 2;
@@ -143,8 +172,8 @@ html {
 }
 
 .text-truncate-3 {
-  text-overflow:ellipsis;
-  overflow:hidden;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   display: -webkit-box !important;
   -webkit-line-clamp: 3;
@@ -152,6 +181,15 @@ html {
   white-space: normal;
 }
 
+
 .cursor-pointer {
   cursor: pointer;
+}
+
+.approve-button,
+.reject-button {
+  padding: 5px 5px;
+  border-radius: 6px;
+  margin: 0px 3px;
+  width: 100px;
 }

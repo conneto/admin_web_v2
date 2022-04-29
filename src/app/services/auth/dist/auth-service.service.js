@@ -142,6 +142,22 @@ var AuthServiceService = /** @class */ (function () {
             });
         });
     };
+    AuthServiceService.prototype.updateRequestByManager = function (data) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.put(AuthServiceService_1.ORGANIZATION_MANAGER + '/' + AuthServiceService_1.APPROVEMENTS, data)];
+                    case 1:
+                        res = _a.sent();
+                        if (res.status != 0) {
+                            return [2 /*return*/, res];
+                        }
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
     var AuthServiceService_1;
     AuthServiceService.ACCOUNTS = 'accounts';
     AuthServiceService.LOGIN = '/login';
@@ -155,6 +171,7 @@ var AuthServiceService = /** @class */ (function () {
     AuthServiceService.PROJECT = 'project';
     AuthServiceService.ORGANIZATION = 'organization';
     AuthServiceService.CAMPAIGN = 'campaign';
+    AuthServiceService.ORGANIZATION_MANAGER = 'organization_manager';
     AuthServiceService = AuthServiceService_1 = __decorate([
         core_1.Injectable({
             providedIn: 'root'

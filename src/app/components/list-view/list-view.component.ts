@@ -30,9 +30,12 @@ export class ListViewComponent implements OnInit {
 
   ngOnInit(): void {
     switch (this.whichEntity) {
-      case 'org': this.displayColumns = ['name', "created_name", 'type', 'founding_date', 'status']; break;
-      case 'pro': this.displayColumns = ["org_name",'name',  'created_date','start_date', 'end_date' ]; break;
-      case 'cam': this.displayColumns = ["pro_name",'name', 'created_date','start_date', 'end_date' ]; break;
+      case 'org': this.displayColumns = ["no", 'name', "created_name", 'type', 'founding_date', 'status']; break;
+      case 'pro': this.displayColumns = ["no", "org_name", 'name', 'created_date', 'start_date', 'end_date']; break;
+      case 'cam': this.displayColumns = ["no", "pro_name", 'name', 'created_date', 'start_date', 'end_date']; break;
+    }
+    for (let i = 0; i < this.entity.length; i++) {
+      Object.assign(this.entity[i], { no: i + 1 });
     }
     this.dataSource = new MatTableDataSource(this.entity);
 
@@ -46,18 +49,20 @@ export class ListViewComponent implements OnInit {
 
   }
   goToDetails(e?: any) {
-    console.log(e,this.whichEntity);
+
     if (this.role.currentUserValue.role != 'admin') {
 
       switch (this.whichEntity) {
         case 'org': this.router.navigate([`manager/manage-organization/organization-request-detail/${e}`]); break;
         case 'pro': this.router.navigate([`manager/manage-project/project-request-detail/${e}`]); break;
+        case 'cam': this.router.navigate([`manager/manage-campaign/campaign-details/${e}`]); break;
 
       }
     } else {
       switch (this.whichEntity) {
         case 'org': this.router.navigate([`admin/manage-organization/organization-request-detail/${e}`]); break;
         case 'pro': this.router.navigate([`admin/manage-project/project-request-detail/${e}`]); break;
+        case 'cam': this.router.navigate([`admin/manage-campaign/campaign-details/${e}`]); break;
 
       }
     }

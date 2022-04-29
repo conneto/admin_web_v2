@@ -21,7 +21,7 @@
             <li
               [class.content__tab-active]="isDocument"
               (click)="getTab('doc')"
-              *ngIf='campaign.type=="Quyên góp"'
+              *ngIf="campaign.type == 'Quyên góp'"
             >
               Tài liệu
             </li>
@@ -90,19 +90,65 @@
               {{ campaign.endDate | date: "dd/MM/yyyy" }}
             </p>
           </div>
-          <div class='delete-button'>
-            <app-delete-entity [entity]="campaign"></app-delete-entity>
+          <div class="delete-button">
+            <app-delete-entity
+              [type]="'cam'"
+              [entity]="campaign"
+            ></app-delete-entity>
           </div>
         </div>
-     
       </div>
     </div>
-  
-    <div *ngIf="isDocument && isApproved==true">
-      <app-download-document-form [campaign]="campaign"></app-download-document-form>
+
+    <div
+      *ngIf="isDocument && isApproved == true && !isAdmin"
+      class="box box__content"
+    >
+      <div class="content">
+        <div *ngIf="!isShow">
+          <button
+            mat-flat-button
+            color="primary"
+            (click)="isShow = !isShow; getDocument()"
+          >
+            Tài liệu PDF
+          </button>
+          <button
+          mat-flat-button
+          color="primary"
+          (click)="isShow = !isShow; getDocumentExcel()"
+        >
+          Tài liệu Excel
+        </button>
+        </div>
+        <div *ngIf="isShow">
+          <button mat-flat-button color="primary" (click)="isShow = !isShow">
+            Tải tài liệu
+          </button>
+        </div>
+        <div *ngIf="isShow">
+          <app-show-document [type]="type" [entityExcel]='documentExcel' [entityPDF]="documentPDF"></app-show-document>
+        </div>
+        <div *ngIf="!isShow">
+          <h6 style="display: flex; align-items: center">
+            Vui lòng bạn
+            <button class="file_template" mat-button color="primary">
+              <a href="assets/doc/cashflow_detail_template.xlsx" download>
+                Tải về biểu mẫu</a
+              ></button
+            >, điền đầy đủ thông tin yêu cầu theo mẫu và tải lên lại.
+          </h6>
+          <app-download-document-form
+            [campaign]="campaign"
+          ></app-download-document-form>
+        </div>
+      </div>
     </div>
-    <div *ngIf='isAnother'>
-   <app-table-campaign-participations [volunteer]="volunteer"></app-table-campaign-participations>
+    <div *ngIf="isAnother && isEmpty">
+      <app-table-campaign-participations
+        [type]="type"
+        [volunteer]="volunteer"
+      ></app-table-campaign-participations>
     </div>
   </div>
 </div>

@@ -44,8 +44,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.CampaignDetailsComponent = void 0;
 var core_1 = require("@angular/core");
+var download_document_form_component_1 = require("src/app/components/download-document-form/download-document-form.component");
 var CampaignDetailsComponent = /** @class */ (function () {
-    function CampaignDetailsComponent(userApi, loadingService, location, activated, campaignApi) {
+    function CampaignDetailsComponent(dialog, userApi, loadingService, location, activated, campaignApi) {
+        this.dialog = dialog;
         this.userApi = userApi;
         this.loadingService = loadingService;
         this.location = location;
@@ -63,6 +65,49 @@ var CampaignDetailsComponent = /** @class */ (function () {
         if (this.userApi.currentUserValue.role == 'admin') {
             this.isAdmin = true;
         }
+    };
+    CampaignDetailsComponent.prototype.getDocument = function () {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        this.type = 'pdf';
+                        _b = this;
+                        return [4 /*yield*/, this.campaignApi.getPdf("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 1:
+                        _b.documentPDF = _c.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CampaignDetailsComponent.prototype.getDocumentExcel = function () {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        this.type = 'excel';
+                        _b = this;
+                        return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 1:
+                        _b.documentExcel = _c.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CampaignDetailsComponent.prototype.openFormDocument = function () {
+        var _a;
+        var dialogRef = this.dialog.open(download_document_form_component_1.DownloadDocumentFormComponent, {
+            width: '600px',
+            data: {
+                id: (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id
+            }
+        });
     };
     CampaignDetailsComponent.prototype.getByID = function () {
         var _a, _b, _c, _d, _e, _f, _g;
@@ -97,15 +142,21 @@ var CampaignDetailsComponent = /** @class */ (function () {
     CampaignDetailsComponent.prototype.goBack = function () {
         this.location.back();
     };
+    CampaignDetailsComponent.prototype.getResult = function (e) {
+        console.log(e);
+        if (e == true) {
+            this.getTab('ano');
+        }
+    };
     CampaignDetailsComponent.prototype.getTab = function (id) {
-        var _a;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var _b, _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var _c, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
-                        _b = id;
-                        switch (_b) {
+                        _c = id;
+                        switch (_c) {
                             case 'infor': return [3 /*break*/, 1];
                             case 'doc': return [3 /*break*/, 2];
                             case 'ano': return [3 /*break*/, 3];
@@ -122,14 +173,25 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isAnother = false;
                         return [3 /*break*/, 5];
                     case 3:
-                        _c = this;
+                        _d = this;
                         return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
                     case 4:
-                        _c.volunteer = _d.sent();
+                        _d.volunteer = _e.sent();
+                        if (this.volunteer == []) {
+                            this.isEmpty = true;
+                        }
+                        switch ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.type) {
+                            case 'Quyên góp':
+                                this.type = 'donation';
+                                break;
+                            case 'Tuyển người':
+                                this.type = 'recruitment';
+                                break;
+                        }
                         this.isAnother = true;
                         this.isDocument = false;
                         this.isInformation = false;
-                        _d.label = 5;
+                        _e.label = 5;
                     case 5: return [2 /*return*/];
                 }
             });

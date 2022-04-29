@@ -48,6 +48,7 @@ var select_type_campaign_component_1 = require("../select-type-campaign/select-t
 var change_to_list_component_1 = require("../change-to-list/change-to-list.component");
 var list_view_component_1 = require("../list-view/list-view.component");
 var table_campaign_participations_component_1 = require("../table-campaign-participations/table-campaign-participations.component");
+var show_document_component_1 = require("../show-document/show-document.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -78,6 +79,7 @@ var componentModules = [
     change_to_list_component_1.ChangeToListComponent,
     list_view_component_1.ListViewComponent,
     table_campaign_participations_component_1.TableCampaignParticipationsComponent,
+    show_document_component_1.ShowDocumentComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

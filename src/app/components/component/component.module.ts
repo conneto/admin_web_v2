@@ -36,6 +36,7 @@ import { SelectTypeCampaignComponent } from '../select-type-campaign/select-type
 import { ChangeToListComponent } from '../change-to-list/change-to-list.component';
 import { ListViewComponent } from '../list-view/list-view.component';
 import { TableCampaignParticipationsComponent } from '../table-campaign-participations/table-campaign-participations.component';
+import { ShowDocumentComponent } from '../show-document/show-document.component';
 
 
 const componentModules = [
@@ -68,6 +69,7 @@ const componentModules = [
    ChangeToListComponent,
    ListViewComponent,
    TableCampaignParticipationsComponent,
+   ShowDocumentComponent,
 
 ]
 

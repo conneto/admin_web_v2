@@ -48,19 +48,78 @@ var forms_1 = require("@angular/forms");
 var XLSX = require("xlsx");
 var _ = require("lodash");
 var DownloadDocumentFormComponent = /** @class */ (function () {
-    function DownloadDocumentFormComponent(camApi, formBuilder, dialog) {
+    function DownloadDocumentFormComponent(loading, snackBar, camApi, formBuilder) {
+        this.loading = loading;
+        this.snackBar = snackBar;
         this.camApi = camApi;
         this.formBuilder = formBuilder;
-        this.dialog = dialog;
         this.fileName = 'BieuMau.xlsx';
         this.hasBaseDrop = true;
-        this.uploadedFiles = [];
+        this.hasBaseDropZoneOver = false;
+        this.files = [];
+        this.filesExcel = [];
+        this.formData = new FormData();
+        this.formDataExcel = new FormData();
     }
     DownloadDocumentFormComponent.prototype.tableUpload = function () {
     };
     DownloadDocumentFormComponent.prototype.ngOnInit = function () {
         this.fileUpload = this.formBuilder.group({
             myFile: ['', forms_1.Validators.required]
+        });
+    };
+    DownloadDocumentFormComponent.prototype.uploadExcel = function () {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        this.loading.isLoading.next(true);
+                        return [4 /*yield*/, this.camApi.uploadCashFlow(this.formDataExcel, "" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 1:
+                        res = _b.sent();
+                        switch (res === null || res === void 0 ? void 0 : res.status) {
+                            case 0:
+                                this.filesExcel = [];
+                                this.loading.isLoading.next(false);
+                                this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+                                break;
+                            default:
+                                this.loading.isLoading.next(false);
+                                this.snackBar.showMessage("" + res.message, false);
+                                break;
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    DownloadDocumentFormComponent.prototype.uploadPdf = function () {
+        var _a;
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        this.loading.isLoading.next(true);
+                        return [4 /*yield*/, this.camApi.uploadPdf(this.formData, "" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 1:
+                        res = _b.sent();
+                        switch (res === null || res === void 0 ? void 0 : res.status) {
+                            case 0:
+                                this.files = [];
+                                this.loading.isLoading.next(false);
+                                this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+                                break;
+                            default:
+                                this.loading.isLoading.next(false);
+                                this.snackBar.showMessage("" + res.message, false);
+                                break;
+                        }
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     DownloadDocumentFormComponent.prototype.exportExcel = function () {
@@ -114,6 +173,38 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    DownloadDocumentFormComponent.prototype.onSelect = function (event) {
+        var _a;
+        var _b;
+        console.log(event);
+        if (event) {
+            (_a = this.files).push.apply(_a, event.addedFiles);
+        }
+        for (var i = 0; i < this.files.length; i++) {
+            (_b = this.formData) === null || _b === void 0 ? void 0 : _b.append("files", this.files[i], this.files[i].name);
+        }
+        console.log(this.formData);
+    };
+    DownloadDocumentFormComponent.prototype.onSelectExcel = function (event) {
+        var _a;
+        var _b;
+        console.log(event);
+        if (event) {
+            (_a = this.filesExcel).push.apply(_a, event.addedFiles);
+        }
+        for (var i = 0; i < this.filesExcel.length; i++) {
+            (_b = this.formDataExcel) === null || _b === void 0 ? void 0 : _b.append("cashflow_detail", this.filesExcel[i], this.filesExcel[i].name);
+        }
+        ;
+    };
+    DownloadDocumentFormComponent.prototype.onRemove = function (event) {
+        console.log(event);
+        this.files.splice(this.files.indexOf(event), 1);
+    };
+    DownloadDocumentFormComponent.prototype.onRemoveExcel = function (event) {
+        console.log(event);
+        this.filesExcel.splice(this.filesExcel.indexOf(event), 1);
+    };
     __decorate([
         core_1.Input()
     ], DownloadDocumentFormComponent.prototype, "campaign");

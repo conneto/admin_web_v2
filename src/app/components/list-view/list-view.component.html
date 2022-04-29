@@ -1,6 +1,12 @@
 <div *ngIf="entity">
   <div class="view-list">
     <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="no">
+        <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+        <td mat-cell *matCellDef="let e">
+         {{e.no}}
+        </td>
+      </ng-container>
       <div *ngIf="whichEntity == 'org'">
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>Tên</th>

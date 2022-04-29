@@ -35,4 +35,8 @@ export class ProjectApiService {
     let res: BaseResponse = await this.api.post(ProjectApiService.PROJECT, data);
     return res || [];
   }
+  async delete(id:string){
+    let res:BaseResponse=await this.api.delete(`${ProjectApiService.PROJECT}/${id}`);
+    return res;
+  }
 }
