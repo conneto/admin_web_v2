@@ -58,7 +58,6 @@
           >Kéo và thả tài liệu vào đây hoặc
 
           <label class="custom-file-upload">
-  
             <i class="fa fa-cloud-upload"></i> Chọn tài liệu
           </label>
         </ngx-dropzone-label>
@@ -98,7 +97,9 @@
           </tbody>
         </table>
         <div class="container__button">
-          <button  color='primary' mat-flat-button (click)="uploadPdf()">Tải lên PDF</button>
+          <button color="primary" mat-flat-button (click)="uploadPdf()">
+            Tải lên PDF
+          </button>
         </div>
       </div>
     </div>
@@ -113,13 +114,13 @@
         accept=" application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
         class="text-center"
         style="width: 100%"
+        [multiple]="false"
         (change)="onSelectExcel($event)"
       >
         <ngx-dropzone-label
           >Kéo và thả tài liệu về chi tiết dòng tiền vào đây hoặc
 
           <label class="custom-file-upload">
-       
             <i class="fa fa-cloud-upload"></i> Chọn tài liệu
           </label>
         </ngx-dropzone-label>
@@ -160,7 +161,9 @@
         </table>
 
         <div class="container__button">
-          <button mat-flat-button color='primary' (click)="uploadExcel()">Tải lên Excel</button>
+          <button mat-flat-button color="primary" (click)="uploadExcel()">
+            Tải lên Excel
+          </button>
         </div>
       </div>
     </div>

@@ -59,6 +59,7 @@ export class TabgroupComponent implements OnInit {
   }
 
   getEntity(name: string, entity: any) {
+    
     this.passData(this.isChangeState = true);
     switch (name) {
       case 'approve':

@@ -69,6 +69,6 @@
     <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
   </table>
   <div class='button'>
-    <button class='download-button' mat-raised-button color="primary"><a href="{{ uriApi }}/show/files?p={{ entityExcel.url}}" download></a>Tải tài liệu gốc</button>
+  <a href="{{ uriApi }}/show/files?p={{ entityExcel.url}}" download>Tải tài liệu gốc</a>
   </div>
 </div>

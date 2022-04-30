@@ -252,3 +252,14 @@
     height: 44vh !important;
   }
 }
+
+.campaign__type {
+  z-index: 9999;
+  text-transform: uppercase;
+  background-color: #ddd;
+
+  margin-left:  0.5rem;
+  span{
+    font-size:15px !important;
+  }
+}

@@ -191,13 +191,12 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
     };
     DownloadDocumentFormComponent.prototype.onSelectExcel = function (event) {
         var _a;
-        var _b;
         console.log(event);
         if (event) {
-            (_a = this.filesExcel).push.apply(_a, event.addedFiles);
+            this.filesExcel = event.addedFiles;
         }
         for (var i = 0; i < this.filesExcel.length; i++) {
-            (_b = this.formDataExcel) === null || _b === void 0 ? void 0 : _b.append("cashflow_detail", this.filesExcel[i], this.filesExcel[i].name);
+            (_a = this.formDataExcel) === null || _a === void 0 ? void 0 : _a.append("cashflow_detail", this.filesExcel[i], this.filesExcel[i].name);
         }
         ;
     };

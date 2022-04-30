@@ -1,10 +1,19 @@
+import { Route } from '@angular/compiler/src/core';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
+import { ProjectFormComponent } from 'src/app/components/create/project-form/project-form.component';
+import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
+import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
+import { BaseResponse } from 'src/app/models/base-response/base-response';
+import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectApiService } from 'src/app/services/project/project-api.service';
 
 @Component({
@@ -16,7 +25,8 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
   providedIn: 'root',
 })
 export class ProjectComponent implements OnInit {
-  @ViewChild('changeView') changeViewGrid?:ChangeToListComponent;
+  @ViewChild('changeView') changeViewGrid?: ChangeToListComponent;
+  @ViewChild('tabGroup') tabGroup?: TabgroupComponent
   projects: Project[] = [];
   passData: Project[] = [];
   oldData: any[] = [];
@@ -28,17 +38,27 @@ export class ProjectComponent implements OnInit {
   number?: any;
   noResultBySearch?: boolean;
   isList?: boolean = false;
-  constructor(private loadingService: LoadingServiceService, private api: ProjectApiService, private authApi: AuthServiceService) { }
+  organization: Organization[] = [];
+  isAdmin?:boolean;
+  constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingServiceService, private api: ProjectApiService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
     this.urlApi = this.loadingService.getApiGetLink.value;
+    if(this.authApi.currentUserValue.role=='admin'){
+      this.isAdmin=true;
+    }else{
+      this.isAdmin=false;
+    }
   }
   ngOnDestroy(): void {
 
   }
-  changeView(){
+  changeView() {
     this.changeViewGrid?.changeView(true);
+  }
+  getTab() {
+    this.tabGroup?.getEntity('pending', 'pro');
   }
   handleTitle(e: any) {
     if (e == 'list') {
@@ -86,8 +106,8 @@ export class ProjectComponent implements OnInit {
     if (pro) {
       this.projects = pro;
     }
-    if(status){
-      this.isList=false;
+    if (status) {
+      this.isList = false;
       this.changeView();
     }
     switch (status) {
@@ -160,5 +180,40 @@ export class ProjectComponent implements OnInit {
   async getAll() {
     this.projects = await this.api.getAll();
 
+  }
+
+  async openProjectForm() {
+    this.organization = await this.orgApi.getAll();
+    this.loadingService.getOrganizationId.next(`${this.organization[0].id}`);
+    const dialogRef = this.dialog.open(ProjectFormComponent, {
+      width: '700px',
+      data: {
+        title: 'Tạo dự án',
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(async data => {
+      if (data) {
+        this.loadingService.isLoading.next(true);
+        let res: BaseResponse = await this.api.createProject(data);
+        if (res.status == 0) {
+          this.loadingService.isLoading.next(false);
+          this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
+          this.getTab();
+          this.checkToGetData();
+          this.router.navigate(['/manager/manage-project']);
+
+        } else {
+          this.dialog.open(ProjectFormComponent, {
+            width: '700px',
+            data: {
+              title: 'Tạo dự án',
+            }
+          })
+          this.loadingService.isLoading.next(false);
+          this.snackbar.showMessage(res.message, false)
+        }
+      }
+    })
   }
 }

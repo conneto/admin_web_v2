@@ -363,10 +363,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     } else {
       this.noOrg = false;
       this.isEmpty = false;
-      this.isShow=false;
+      this.isShow = false;
     }
     for (var i = 0; i < this.organizations.length; i++) {
       this.organizationId = this.organizations[i].id;
+      this.loading.getOrganizationId.next(`${this.organizationId}`);
       this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
       this.organizations[i].type = this.organizations[i].type == 'ngo' ?
         this.organizations[i].type = 'Tổ chức phi chính phủ' :
