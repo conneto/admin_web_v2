@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  BaseResponse,
+
   BaseResponseAdapter,
 } from 'src/app/models/base-response/base-response';
 import { LoadingServiceService } from '../loading/loading-service.service';

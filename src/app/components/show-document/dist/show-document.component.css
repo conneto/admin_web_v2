@@ -65,3 +65,13 @@ a {
 .document {
   width: 415px;
 }
+
+.download-button {
+  width: 150px;
+}
+
+.button {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}

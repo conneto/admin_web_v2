@@ -87,8 +87,8 @@ var DeleteEntityComponent = /** @class */ (function () {
                     return __generator(this, function (_b) {
                         switch (_b.label) {
                             case 0:
-                                this.loading.isLoading.next(true);
                                 if (!x) return [3 /*break*/, 2];
+                                this.loading.isLoading.next(true);
                                 data1 = {
                                     object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
                                     object_type: this.type == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
@@ -197,7 +197,7 @@ var DeleteEntityComponent = /** @class */ (function () {
                     width: '300px',
                     data: {
                         button: 'Xóa',
-                        message: 'Xóa'
+                        message: 'xóa'
                     }
                 });
                 dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

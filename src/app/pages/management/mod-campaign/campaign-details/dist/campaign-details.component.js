@@ -55,6 +55,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.campaignApi = campaignApi;
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.volunteer = [];
+        this.isEmpty = false;
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
@@ -121,6 +122,35 @@ var CampaignDetailsComponent = /** @class */ (function () {
             });
         });
     };
+    CampaignDetailsComponent.prototype.getValue = function (e) {
+        var _a, _b, _c;
+        return __awaiter(this, void 0, void 0, function () {
+            var _d, _e, _f;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
+                    case 0:
+                        if (!(e == 'pdf')) return [3 /*break*/, 2];
+                        _d = this;
+                        return [4 /*yield*/, this.campaignApi.getPdf("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
+                    case 1:
+                        _d.documentPDF = _g.sent();
+                        return [3 /*break*/, 5];
+                    case 2:
+                        if (!(e == 'excel')) return [3 /*break*/, 5];
+                        _e = this;
+                        return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.id))];
+                    case 3:
+                        _e.documentExcel = _g.sent();
+                        _f = this;
+                        return [4 /*yield*/, this.campaignApi.getPdf("" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id))];
+                    case 4:
+                        _f.documentPDF = _g.sent();
+                        _g.label = 5;
+                    case 5: return [2 /*return*/];
+                }
+            });
+        });
+    };
     CampaignDetailsComponent.prototype.goBack = function () {
         this.location.back();
     };
@@ -131,14 +161,14 @@ var CampaignDetailsComponent = /** @class */ (function () {
         }
     };
     CampaignDetailsComponent.prototype.getTab = function (id) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function () {
-            var _e, _f, _g, _h;
-            return __generator(this, function (_j) {
-                switch (_j.label) {
+            var _f, _g, _h, _j;
+            return __generator(this, function (_k) {
+                switch (_k.label) {
                     case 0:
-                        _e = id;
-                        switch (_e) {
+                        _f = id;
+                        switch (_f) {
                             case 'infor': return [3 /*break*/, 1];
                             case 'doc': return [3 /*break*/, 2];
                             case 'ano': return [3 /*break*/, 5];
@@ -150,27 +180,29 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isAnother = false;
                         return [3 /*break*/, 7];
                     case 2:
-                        _f = this;
+                        _g = this;
                         return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
                     case 3:
-                        _f.documentExcel = _j.sent();
-                        _g = this;
+                        _g.documentExcel = _k.sent();
+                        _h = this;
                         return [4 /*yield*/, this.campaignApi.getPdf("" + ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.id))];
                     case 4:
-                        _g.documentPDF = _j.sent();
+                        _h.documentPDF = _k.sent();
                         this.isDocument = true;
                         this.isInformation = false;
                         this.isAnother = false;
                         return [3 /*break*/, 7];
                     case 5:
-                        _h = this;
+                        _j = this;
                         return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id))];
                     case 6:
-                        _h.volunteer = _j.sent();
-                        if (this.volunteer == []) {
+                        _j.volunteer = _k.sent();
+                        console.log(this.volunteer);
+                        if (((_d = this.volunteer) === null || _d === void 0 ? void 0 : _d.length) == 0) {
                             this.isEmpty = true;
                         }
-                        switch ((_d = this.campaign) === null || _d === void 0 ? void 0 : _d.type) {
+                        console.log(this.isEmpty);
+                        switch ((_e = this.campaign) === null || _e === void 0 ? void 0 : _e.type) {
                             case 'Quyên góp':
                                 this.type = 'donation';
                                 break;
@@ -181,7 +213,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isAnother = true;
                         this.isDocument = false;
                         this.isInformation = false;
-                        _j.label = 7;
+                        _k.label = 7;
                     case 7: return [2 /*return*/];
                 }
             });

@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationDetailsComponent = void 0;
 var core_1 = require("@angular/core");
-var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
+var project_form_component_1 = require("../create/project-form/project-form.component");
 var OrganizationDetailsComponent = /** @class */ (function () {
     function OrganizationDetailsComponent(pro, org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
         this.pro = pro;
@@ -70,6 +70,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.campaigns = [];
         this.isGetPro = false;
         this.isGetCam = false;
+        this.organizationInput = [];
     }
     OrganizationDetailsComponent.prototype.ngOnInit = function () {
         this.getValueFromRoute();
@@ -84,24 +85,23 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _g;
-            return __generator(this, function (_h) {
-                switch (_h.label) {
+            var _j;
+            return __generator(this, function (_k) {
+                switch (_k.label) {
                     case 0:
-                        id = this.route.snapshot.paramMap.get('id');
-                        _g = this;
-                        return [4 /*yield*/, this.orgApi.getById("" + id)];
+                        _j = this;
+                        return [4 /*yield*/, this.orgApi.getById("" + ((_a = this.organizationInput[0]) === null || _a === void 0 ? void 0 : _a.id))];
                     case 1:
-                        _g.organization = _h.sent();
-                        if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
+                        _j.organization = _k.sent();
+                        if (((_b = this.organization) === null || _b === void 0 ? void 0 : _b.result_code) == 510) {
                             this.isApproved = true;
                         }
-                        this.loadingService.getOrganizationId.next("" + id);
-                        this.urlLogo = (_c = (_b = this.organization) === null || _b === void 0 ? void 0 : _b.logo) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
-                        this.urlCover = (_e = (_d = this.organization) === null || _d === void 0 ? void 0 : _d.cover) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
-                        switch ((_f = this.organization) === null || _f === void 0 ? void 0 : _f.type) {
+                        this.loadingService.getOrganizationId.next("" + ((_c = this.organizationInput[0]) === null || _c === void 0 ? void 0 : _c.id));
+                        this.urlLogo = (_e = (_d = this.organization) === null || _d === void 0 ? void 0 : _d.logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
+                        this.urlCover = (_g = (_f = this.organization) === null || _f === void 0 ? void 0 : _f.cover) === null || _g === void 0 ? void 0 : _g.replace(/\\/g, '\/');
+                        switch ((_h = this.organization) === null || _h === void 0 ? void 0 : _h.type) {
                             case 'ngo':
                                 this.organization.type = 'Tổ chức phi chính phủ';
                                 break;
@@ -278,14 +278,14 @@ var OrganizationDetailsComponent = /** @class */ (function () {
             }
         }
     };
+    __decorate([
+        core_1.Input()
+    ], OrganizationDetailsComponent.prototype, "organizationInput");
     OrganizationDetailsComponent = __decorate([
         core_1.Component({
             selector: 'app-organization-details',
             templateUrl: './organization-details.component.html',
             styleUrls: ['./organization-details.component.scss']
-        }),
-        core_1.Injectable({
-            providedIn: 'root'
         })
     ], OrganizationDetailsComponent);
     return OrganizationDetailsComponent;

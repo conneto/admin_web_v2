@@ -26,7 +26,7 @@ export class CampaignDetailsComponent implements OnInit {
   isAdmin?: boolean;
   volunteer?: [] = [];
   type?: string;
-  isEmpty?: boolean;
+  isEmpty?: boolean = false;
   isShow?: boolean;
   documentPDF?: any;
   documentExcel?: any;
@@ -45,12 +45,12 @@ export class CampaignDetailsComponent implements OnInit {
   async getDocument() {
     this.type = 'pdf';
 
- 
+
 
   }
   async getDocumentExcel() {
     this.type = 'excel';
- 
+
 
 
   }
@@ -80,6 +80,15 @@ export class CampaignDetailsComponent implements OnInit {
     }
 
   }
+  async getValue(e: any) {
+
+    if (e == 'pdf') {
+      this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
+    } else if (e == 'excel') {
+      this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
+      this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
+    }
+  }
   goBack() {
     this.location.back();
   }
@@ -105,10 +114,11 @@ export class CampaignDetailsComponent implements OnInit {
         break;
       case 'ano':
         this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
-
-        if (this.volunteer == []) {
+        console.log(this.volunteer);
+        if (this.volunteer?.length == 0) {
           this.isEmpty = true;
         }
+        console.log(this.isEmpty);
         switch (this.campaign?.type) {
           case 'Quyên góp': this.type = 'donation'; break;
           case 'Tuyển người': this.type = 'recruitment'; break;

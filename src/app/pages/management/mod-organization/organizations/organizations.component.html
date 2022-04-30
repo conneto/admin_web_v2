@@ -4,11 +4,9 @@
   ></div>
 
   <ng-template #tabgroup>
-    <app-tabgroup
-      [organizations]="passData"
-     
-      [entity]="'org'"
-    ></app-tabgroup>
+    <div *ngIf="isAdmin">
+      <app-tabgroup [organizations]="passData" [entity]="'org'"></app-tabgroup>
+    </div>
   </ng-template>
 
   <div *ngIf="isShow">
@@ -37,18 +35,24 @@
           <h3>Không tìm thấy kết quả phù hợp</h3>
         </div>
       </ng-template>
-  
-      <app-search-bar *ngIf='!isList'
+
+      <app-search-bar
+        *ngIf="!isList"
         (getItem)="getData($event)"
         [entity]="passData"
         [entityCopy]="oldData"
       ></app-search-bar>
-      <app-change-to-list #viewGrid
-      (handleTitle)="handleTitle($event)"
-    ></app-change-to-list>
+      <app-change-to-list
+        #viewGrid
+        (handleTitle)="handleTitle($event)"
+      ></app-change-to-list>
     </div>
-    <app-list-view [whichEntity]="'org'" *ngIf='isList' [entity]="organizations"></app-list-view>
-    <div  *ngIf='!isList'class="request-component">
+    <app-list-view
+      [whichEntity]="'org'"
+      *ngIf="isList"
+      [entity]="organizations"
+    ></app-list-view>
+    <div *ngIf="!isList" class="request-component">
       <div *ngFor="let organization of organizations">
         <app-organization-infor-card
           [organizations]="organization"
@@ -59,73 +63,90 @@
     </div>
   </div>
 
-  <div *ngIf="isEmpty && isDeleted==false">Hiện tại không có tổ chức nào được tạo!</div>
+  <div *ngIf="isEmpty && isDeleted == false">
+    Hiện tại không có tổ chức nào được tạo!
+  </div>
 
-  <div *ngIf="!isRequest">
-    <div *ngIf="organizations && !noOrg">
-      <div class="box__search">
-        <div class="search-bar" *ngIf="!isEmpty">
-          <div *ngIf="!noResultBySearch; then name; else result"></div>
-          <ng-template #name>
-            <div class="name">
-              <h3>Tổ chức</h3>
-              <p>({{ number ? number : "" }})</p>
-            </div>
-          </ng-template>
-          <ng-template #result>
-            <div class="name">
-              <h3>Không tìm thấy kết quả phù hợp</h3>
-            </div>
-          </ng-template>
+  <div *ngIf="isAdmin">
+    <div *ngIf="!isRequest">
+      <div *ngIf="organizations && !noOrg">
+        <div class="box__search">
+          <div class="search-bar" *ngIf="!isEmpty">
+            <div *ngIf="!noResultBySearch; then name; else result"></div>
+            <ng-template #name>
+              <div class="name">
+                <h3>Tổ chức</h3>
+                <p>({{ number ? number : "" }})</p>
+              </div>
+            </ng-template>
+            <ng-template #result>
+              <div class="name">
+                <h3>Không tìm thấy kết quả phù hợp</h3>
+              </div>
+            </ng-template>
 
-          <app-search-bar  *ngIf='!isList'
-            (getItem)="getData($event)"
-            [entity]="passData"
-            [entityCopy]="oldData"
-          ></app-search-bar>
-          <app-change-to-list #viewGrid
-          (handleTitle)="handleTitle($event)"
-        ></app-change-to-list>
-        </div>
-        <app-list-view *ngIf='isList' [whichEntity]='"org"'[entity]="organizations"></app-list-view>
-        <div *ngIf='!isList' class="box">
-          <div class="box__item" *ngFor="let organization of organizations">
-            <mat-card title="Xem chi tiết" class="moveFadein">
-              <a
-                class="router"
-                routerLink="organization-request-detail/{{ organization.id }}"
-              >
-                <mat-card-title-group>
-                  <mat-card-title class="primary-text-color"> {{organization.name}}</mat-card-title>
-                  <mat-card-subtitle>{{convertType.convertType(organization.type)}}</mat-card-subtitle>
-
-                  <img
-                    loading="lazy"
-                    mat-card-avatar
-                    src="{{ urlApi }}/show/images?p={{ organization.logo }}"
-                  />
-                </mat-card-title-group>
-                <div class="card-icon">
-                  <div>
-                    <mat-icon title="Được tạo bởi">people
-                    </mat-icon
+            <app-search-bar
+              *ngIf="!isList"
+              (getItem)="getData($event)"
+              [entity]="passData"
+              [entityCopy]="oldData"
+            ></app-search-bar>
+            <app-change-to-list
+              #viewGrid
+              (handleTitle)="handleTitle($event)"
+            ></app-change-to-list>
+          </div>
+          <app-list-view
+            *ngIf="isList"
+            [whichEntity]="'org'"
+            [entity]="organizations"
+          ></app-list-view>
+          <div *ngIf="!isList" class="box">
+            <div class="box__item" *ngFor="let organization of organizations">
+              <mat-card title="Xem chi tiết" class="moveFadein">
+                <a
+                  class="router"
+                  routerLink="organization-request-detail/{{ organization.id }}"
+                >
+                  <mat-card-title-group>
+                    <mat-card-title class="primary-text-color">
+                      {{ organization.name }}</mat-card-title
                     >
-                    <span class="margin-left">{{organization.created_name}}</span>
+                    <mat-card-subtitle>{{
+                      convertType.convertType(organization.type)
+                    }}</mat-card-subtitle>
+
+                    <img
+                      loading="lazy"
+                      mat-card-avatar
+                      src="{{ urlApi }}/show/images?p={{ organization.logo }}"
+                    />
+                  </mat-card-title-group>
+                  <div class="card-icon">
+                    <div>
+                      <mat-icon title="Được tạo bởi">people </mat-icon>
+                      <span class="margin-left">{{
+                        organization.created_name
+                      }}</span>
+                    </div>
+                    <div>
+                      <mat-icon title="Ngày tạo">date_range </mat-icon>
+                      <span class="margin-left">
+                        Ngày tạo:
+                        {{ organization.created_at | date: "dd/MM/yyyy" }}</span
+                      >
+                    </div>
                   </div>
-                  <div>
-                    <mat-icon title="Ngày tạo">date_range
-                    </mat-icon
-                    >
-                    <span class="margin-left">
-                      Ngày tạo: {{organization.created_at | date: "dd/MM/yyyy"}}</span>
-                  </div>
-                </div>
-              </a>
-            </mat-card>
+                </a>
+              </mat-card>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf='!isAdmin'>
+    <app-organization-details [organizationInput]="organizations" ></app-organization-details>
   </div>
 </div>
 <div class="skeleton">

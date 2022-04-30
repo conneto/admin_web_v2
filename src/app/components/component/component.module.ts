@@ -37,6 +37,7 @@ import { ChangeToListComponent } from '../change-to-list/change-to-list.componen
 import { ListViewComponent } from '../list-view/list-view.component';
 import { TableCampaignParticipationsComponent } from '../table-campaign-participations/table-campaign-participations.component';
 import { ShowDocumentComponent } from '../show-document/show-document.component';
+import { OrganizationDetailsComponent } from '../organization-details/organization-details.component';
 
 
 const componentModules = [
@@ -58,18 +59,19 @@ const componentModules = [
   TabgroupComponent,
   SearchBarComponent,
   ProjectItemComponent,
-   CampaignItemComponent,
-  TableRankComponent, 
+  CampaignItemComponent,
+  TableRankComponent,
   DeleteEntityComponent,
-   ChipCategoryComponent,
-   SkeletionLoadingComponent,
-   DownloadDocumentFormComponent,
-   DocumentButtonComponent,
-   SelectTypeCampaignComponent,
-   ChangeToListComponent,
-   ListViewComponent,
-   TableCampaignParticipationsComponent,
-   ShowDocumentComponent,
+  ChipCategoryComponent,
+  SkeletionLoadingComponent,
+  DownloadDocumentFormComponent,
+  DocumentButtonComponent,
+  SelectTypeCampaignComponent,
+  ChangeToListComponent,
+  ListViewComponent,
+  TableCampaignParticipationsComponent,
+  ShowDocumentComponent,
+  OrganizationDetailsComponent,
 
 ]
 

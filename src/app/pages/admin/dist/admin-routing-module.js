@@ -20,7 +20,8 @@ var routes = [
                 redirectTo: 'manage-organization', pathMatch: 'full'
             },
             {
-                path: 'dashboard', canActivateChild: [auth_guard_1.AuthGuard],
+                path: 'dashboard',
+                canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/dashboard/dashboard.module'); }).then((function (m) { return m.DashboardModule; })); }
             },
             {
@@ -39,9 +40,13 @@ var routes = [
                     }
                 ]
             },
-            { path: 'user-management', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); } },
             {
-                path: 'organization-request', canActivateChild: [auth_guard_1.AuthGuard],
+                path: 'user-management',
+                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); }
+            },
+            {
+                path: 'organization-request',
+                canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-organization/organization-request/organization-request.module'); }).then(function (m) { return m.OrganizationRequestModule; }); },
                 children: [
                     {
@@ -58,35 +63,60 @@ var routes = [
             },
             {
                 path: 'manage-campaign',
-                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-campaign/campaigns/campaigns.module'); }).then(function (m) { return m.CampaignsModule; }); }, children: [
-                    { path: '', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-campaign/campaigns/campaigns.module'); }).then(function (m) { return m.CampaignsModule; }); } },
-                    { path: 'campaign-details/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-campaign/campaign-details/campaign-details.module'); }).then(function (m) { return m.CampaignDetailsModule; }); } },
+                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-campaign/campaigns/campaigns.module'); }).then(function (m) { return m.CampaignsModule; }); },
+                children: [
+                    {
+                        path: '',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-campaign/campaigns/campaigns.module'); }).then(function (m) { return m.CampaignsModule; }); }
+                    },
+                    {
+                        path: 'campaign-details/:id',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-campaign/campaign-details/campaign-details.module'); }).then(function (m) { return m.CampaignDetailsModule; }); }
+                    },
                 ]
             },
             {
                 path: 'manage-project',
-                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-project/project/project.module'); }).then(function (m) { return m.ProjectModule; }); }, children: [
+                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-project/project/project.module'); }).then(function (m) { return m.ProjectModule; }); },
+                children: [
                     {
                         path: '',
                         loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-project/project/project.module'); }).then(function (m) { return m.ProjectModule; }); }
                     },
-                    { path: 'project-request-detail/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-project/project-details/project-details.module'); }).then(function (m) { return m.ProjectDetailsModule; }); } }
+                    {
+                        path: 'project-request-detail/:id',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/management/mod-project/project-details/project-details.module'); }).then(function (m) { return m.ProjectDetailsModule; }); }
+                    }
                 ]
             },
             {
-                path: 'campaign-request', canActivateChild: [auth_guard_1.AuthGuard],
+                path: 'campaign-request',
+                canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module'); }).then(function (m) { return m.CampaignRequestModule; }); },
                 children: [
-                    { path: '', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module'); }).then(function (m) { return m.CampaignRequestModule; }); } },
-                    { path: 'campaign-request-detail/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-campaign/campaign-request-detail/campaign-request-detail.module'); }).then(function (m) { return m.CampaignRequestDetailModule; }); } }
+                    {
+                        path: '',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.module'); }).then(function (m) { return m.CampaignRequestModule; }); }
+                    },
+                    {
+                        path: 'campaign-request-detail/:id',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-campaign/campaign-request-detail/campaign-request-detail.module'); }).then(function (m) { return m.CampaignRequestDetailModule; }); }
+                    }
                 ]
             },
             {
-                path: 'project-request', canActivateChild: [auth_guard_1.AuthGuard],
+                path: 'project-request',
+                canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-project/project-request/project-request.module'); }).then(function (m) { return m.ProjectRequestModule; }); },
                 children: [
-                    { path: '', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-project/project-request/project-request.module'); }).then(function (m) { return m.ProjectRequestModule; }); } },
-                    { path: 'project-request-detail/:id', loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-project/project-request-detail/project-request-detail.module'); }).then(function (m) { return m.ProjectRequestDetailModule; }); } },
+                    {
+                        path: '',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-project/project-request/project-request.module'); }).then(function (m) { return m.ProjectRequestModule; }); }
+                    },
+                    {
+                        path: 'project-request-detail/:id',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/manage-request/mod-project/project-request-detail/project-request-detail.module'); }).then(function (m) { return m.ProjectRequestDetailModule; }); }
+                    },
                 ]
             },
         ]

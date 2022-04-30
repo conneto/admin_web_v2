@@ -65,6 +65,9 @@ var OrganizationsComponent = /** @class */ (function () {
         this.checkToGetData();
         this.userApi.currentUserValue;
         this.urlApi = this.loading.getApiGetLink.value;
+        if (this.userApi.currentUserValue.role == 'admin') {
+            this.isAdmin = true;
+        }
         this.loading.isSkeleton.next(true);
     };
     OrganizationsComponent.prototype.ngAfterViewInit = function () {
@@ -106,6 +109,7 @@ var OrganizationsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.service.getAll()];
                     case 1:
                         _a.organizations = _b.sent();
+                        console.log(this.organizations);
                         this.passData = this.organizations;
                         if (getStatus == 'pending') {
                             this.getAllOrganizationByStatus('pending');

@@ -158,6 +158,7 @@
   margin-right: 13px;
   border-radius: 50%;
   background-color: #f6f6f6;
+  cursor: pointer;
 }
 
 .register-button {
