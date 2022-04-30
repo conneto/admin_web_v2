@@ -140,16 +140,15 @@
         </div>
       </div>
       <div class="row p-3">
-        <app-campaign-card-info
+        <app-campaign-item
           class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
           *ngFor="let cam of campaigns"
           [campaign]="cam"
-        ></app-campaign-card-info>
+        ></app-campaign-item>
       </div>
     </div>
     <div class="project__list-item" *ngIf="isProjects">
       <div class="project__button">
-  
         <div class="search_bar" *ngIf="projectsCopy?.length! > 0">
           <div class="search_bar">
             <div *ngIf="!noResultBySearch; then name; else result"></div>

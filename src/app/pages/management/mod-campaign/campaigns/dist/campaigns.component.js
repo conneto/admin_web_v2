@@ -44,8 +44,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.CampaignsComponent = void 0;
 var core_1 = require("@angular/core");
+var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
 var CampaignsComponent = /** @class */ (function () {
-    function CampaignsComponent(api, authApi) {
+    function CampaignsComponent(snackBar, router, camApi, loadingService, dialog, api, authApi) {
+        this.snackBar = snackBar;
+        this.router = router;
+        this.camApi = camApi;
+        this.loadingService = loadingService;
+        this.dialog = dialog;
         this.api = api;
         this.authApi = authApi;
         this.campaigns = [];
@@ -56,6 +62,12 @@ var CampaignsComponent = /** @class */ (function () {
     }
     CampaignsComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
+        if (this.authApi.currentUserValue.role == 'admin') {
+            this.isAdmin = true;
+        }
+        else {
+            this.isAdmin = false;
+        }
     };
     CampaignsComponent.prototype.ngOnDestroy = function () {
         localStorage.removeItem('reject');
@@ -82,6 +94,40 @@ var CampaignsComponent = /** @class */ (function () {
             this.campaigns = e;
             this.noResultBySearch = false;
         }
+    };
+    CampaignsComponent.prototype.openCampaignForm = function () {
+        var _this = this;
+        var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
+            width: '700px',
+            data: {
+                title: 'Tạo chiến dịch',
+                project: this.campaigns
+            }
+        });
+        dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!data) return [3 /*break*/, 2];
+                        this.loadingService.isLoading.next(true);
+                        return [4 /*yield*/, this.camApi.create(data)];
+                    case 1:
+                        res = _a.sent();
+                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                            this.loadingService.isLoading.next(false);
+                            this.router.navigate(['/manager/manage-campaign']);
+                            this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true);
+                        }
+                        else {
+                            this.loadingService.isLoading.next(false);
+                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
+                        }
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        }); });
     };
     CampaignsComponent.prototype.checkToGetData = function (pending) {
         return __awaiter(this, void 0, void 0, function () {

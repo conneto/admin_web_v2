@@ -14,14 +14,13 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var ProjectFormComponent = /** @class */ (function () {
-    function ProjectFormComponent(router, organizationId, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+    function ProjectFormComponent(router, organizationId, authApi, dialogRef, data, formBuilder) {
         this.router = router;
         this.organizationId = organizationId;
         this.authApi = authApi;
         this.dialogRef = dialogRef;
         this.data = data;
         this.formBuilder = formBuilder;
-        this.organizatioNDetail = organizatioNDetail;
     }
     ProjectFormComponent.prototype.ngOnInit = function () {
         this.initForm();

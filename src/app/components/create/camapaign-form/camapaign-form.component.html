@@ -2,7 +2,27 @@
   <div>
     <h3 mat-dialog-title>{{ data.title }}</h3>
   </div>
-  <form [formGroup]="campaignForm" action="">
+  <form [formGroup]="campaignForm">
+    <mat-form-field style="width: 100%" appearance="fill">
+      <mat-label>Lựa chọn một trong các dự án của tổ chức</mat-label>
+      <mat-select
+        name="projects"
+        formControlName="selected"
+        required=""
+        [(ngModel)]="selectedValue"
+      >
+        <mat-option *ngFor="let project of projects" [value]="project.name">
+          {{ project.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-radio-group [(ngModel)]="selectedRadio" formControlName="type"> 
+      <mat-radio-button *ngFor="let t of type" [value]="t">{{
+        t
+      }}</mat-radio-button>
+    </mat-radio-group>
+
     <div class="login-form">
       <div>
         <input

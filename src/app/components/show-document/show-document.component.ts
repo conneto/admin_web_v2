@@ -12,35 +12,38 @@ export class ShowDocumentComponent implements OnInit {
   @Input() entityPDF: any;
   @Input() entityExcel: any;
   @Input() type: any;
-  displayColumns?: string[]=["payer_name","purpose","payment_date","item","price","quantity","recipient_name","unit"];
+  displayColumns?: string[] = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit"];
   uriApi?: string;
   name?: any;
+  showName?: any;
   constructor(private loading: LoadingServiceService) { }
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit(): void {
- 
-    if(this.type=='pdf'){
+
+    if (this.type == 'pdf') {
       for (let i = 0; i < this.entityPDF?.length; i++) {
         this.name = this.entityPDF[i].url.split('/');
-    
+
         Object.assign(this.entityPDF[i], {
           name: this.name[3],
         })
-        
+
       }
-      console.log(this.entityPDF);
-    }else {
-      this.displayColumns=["payer_name","purpose","payment_date","item","price","quantity","recipient_name","unit"];
+
+    } else {
+      this.displayColumns = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit"];
       this.dataSource = new MatTableDataSource(this.entityExcel?.cashflow_details);
-      console.log(this.dataSource.data);
+
     }
- 
+
 
 
     this.uriApi = this.loading.getApiGetLink.value;
   }
   ngViewAfterInit(): void {
+
+ 
     this.dataSource.paginator = this.paginator;
   }
 }

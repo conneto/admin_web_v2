@@ -1,12 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Organization } from 'src/app/models/organization/organization';
-import { OrganizationDetailsComponent } from 'src/app/pages/management/mod-organization/organization-details/organization-details.component';
+
 
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { ProjectApiService } from 'src/app/services/project/project-api.service';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { LoadingServiceService } from 'src/app/services/loading/loading-service.
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
-  constructor(private router:Router,public organizationId: LoadingServiceService, private authApi: AuthServiceService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  constructor(private router:Router,public organizationId: LoadingServiceService, private authApi: AuthServiceService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
   projectForm!: FormGroup;
   coverImage?: File;
   logo?:File;

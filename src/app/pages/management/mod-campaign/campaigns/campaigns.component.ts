@@ -1,10 +1,17 @@
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
-import { ListViewComponent } from 'src/app/components/list-view/list-view.component';
+import { CamapaignFormComponent } from 'src/app/components/create/camapaign-form/camapaign-form.component';
+
+import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
+import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
+
+import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 
 @Component({
   selector: 'app-campaigns',
@@ -25,12 +32,18 @@ export class CampaignsComponent implements OnInit {
   noResultBySearch?: boolean;
   number?: any;
   value?: any;
-  isList?:boolean=false;
-  @ViewChild ('changeView') changeView?:ChangeToListComponent;
-  constructor(private api: CampaignApiService, private authApi: AuthServiceService) { }
+  isList?: boolean = false;
+  isAdmin?: boolean;
+  @ViewChild('changeView') changeView?: ChangeToListComponent;
+  constructor( private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignApiService, private loadingService: LoadingServiceService, private dialog: MatDialog, private api: CampaignApiService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
+    if (this.authApi.currentUserValue.role == 'admin') {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
   }
   ngOnDestroy(): void {
 
@@ -44,7 +57,7 @@ export class CampaignsComponent implements OnInit {
       this.isList = false;
     }
   }
-  changeViewGrid(){
+  changeViewGrid() {
     this.changeView?.changeView(true);
   }
   getData(e: any) {
@@ -56,6 +69,32 @@ export class CampaignsComponent implements OnInit {
       this.noResultBySearch = false;
 
     }
+  }
+  openCampaignForm() {
+    const dialogRef = this.dialog.open(CamapaignFormComponent, {
+      width: '700px',
+      data: {
+        title: 'Tạo chiến dịch',
+        project:this.campaigns,
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(async data => {
+      if (data) {
+
+        this.loadingService.isLoading.next(true);
+        let res: BaseResponse | null = await this.camApi.create(data);
+        if (res?.status == 0) {
+          this.loadingService.isLoading.next(false);
+        
+          this.router.navigate(['/manager/manage-campaign']);
+          this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true)
+        } else {
+          this.loadingService.isLoading.next(false);
+          this.snackBar.showMessage(`${res?.message}`, false)
+        }
+      }
+    })
   }
   async checkToGetData(pending?: string) {
     this.campaigns = await this.api.getAll();
@@ -87,8 +126,8 @@ export class CampaignsComponent implements OnInit {
     if (pro) {
       this.campaigns = pro;
     }
-    if(status){
-      this.isList=false;
+    if (status) {
+      this.isList = false;
       this.changeViewGrid();
 
     }

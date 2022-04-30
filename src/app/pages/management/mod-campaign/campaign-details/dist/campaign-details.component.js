@@ -57,6 +57,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.isEmpty = false;
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
+        this.isPDF = true;
         this.getByID();
         this.isInformation = true;
         if (localStorage.getItem("approve")) {
@@ -67,20 +68,16 @@ var CampaignDetailsComponent = /** @class */ (function () {
         }
     };
     CampaignDetailsComponent.prototype.getDocument = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                this.type = 'pdf';
-                return [2 /*return*/];
-            });
-        });
+        this.type = 'pdf';
+        this.isPDF = true;
+        this.isExcel = false;
+        this.isUpload = false;
     };
     CampaignDetailsComponent.prototype.getDocumentExcel = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                this.type = 'excel';
-                return [2 /*return*/];
-            });
-        });
+        this.type = 'excel';
+        this.isPDF = false;
+        this.isExcel = true;
+        this.isUpload = false;
     };
     CampaignDetailsComponent.prototype.openFormDocument = function () {
         var _a;
@@ -161,14 +158,14 @@ var CampaignDetailsComponent = /** @class */ (function () {
         }
     };
     CampaignDetailsComponent.prototype.getTab = function (id) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f;
         return __awaiter(this, void 0, void 0, function () {
-            var _f, _g, _h, _j;
-            return __generator(this, function (_k) {
-                switch (_k.label) {
+            var _g, _h, _j, i, _k;
+            return __generator(this, function (_l) {
+                switch (_l.label) {
                     case 0:
-                        _f = id;
-                        switch (_f) {
+                        _g = id;
+                        switch (_g) {
                             case 'infor': return [3 /*break*/, 1];
                             case 'doc': return [3 /*break*/, 2];
                             case 'ano': return [3 /*break*/, 5];
@@ -181,28 +178,52 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isShow = false;
                         return [3 /*break*/, 7];
                     case 2:
-                        _g = this;
+                        _h = this;
                         return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
                     case 3:
-                        _g.documentExcel = _k.sent();
-                        _h = this;
+                        _h.documentExcel = _l.sent();
+                        _j = this;
                         return [4 /*yield*/, this.campaignApi.getPdf("" + ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.id))];
                     case 4:
-                        _h.documentPDF = _k.sent();
+                        _j.documentPDF = _l.sent();
+                        if (this.documentPDF) {
+                            for (i = 0; i < ((_c = this.documentPDF) === null || _c === void 0 ? void 0 : _c.length); i++) {
+                                this.pdfName = this.documentPDF[i].url.split('/');
+                                Object.assign(this.documentPDF[i], {
+                                // name: this.pdfName[3],
+                                });
+                            }
+                        }
+                        console.log(this.documentExcel);
+                        if (this.isAdmin) {
+                            if (this.documentPDF.length <= 0) {
+                                this.isEmpty = true;
+                            }
+                            else if (this.documentExcel) {
+                                this.getDocumentExcel();
+                            }
+                            else {
+                                this.getDocument();
+                            }
+                            console.log(this.isPDF);
+                        }
+                        else {
+                            this.isUpload = true;
+                        }
                         this.isDocument = true;
                         this.isInformation = false;
                         this.isAnother = false;
                         this.isShow = false;
                         return [3 /*break*/, 7];
                     case 5:
-                        _j = this;
-                        return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id))];
+                        _k = this;
+                        return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_d = this.campaign) === null || _d === void 0 ? void 0 : _d.id))];
                     case 6:
-                        _j.volunteer = _k.sent();
-                        if (((_d = this.volunteer) === null || _d === void 0 ? void 0 : _d.length) == 0) {
+                        _k.volunteer = _l.sent();
+                        if (((_e = this.volunteer) === null || _e === void 0 ? void 0 : _e.length) == 0) {
                             this.isEmpty = true;
                         }
-                        switch ((_e = this.campaign) === null || _e === void 0 ? void 0 : _e.type) {
+                        switch ((_f = this.campaign) === null || _f === void 0 ? void 0 : _f.type) {
                             case 'Quyên góp':
                                 this.type = 'donation';
                                 break;
@@ -214,7 +235,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isDocument = false;
                         this.isInformation = false;
                         this.isShow = false;
-                        _k.label = 7;
+                        _l.label = 7;
                     case 7: return [2 /*return*/];
                 }
             });

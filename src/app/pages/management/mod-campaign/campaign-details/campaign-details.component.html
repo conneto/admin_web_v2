@@ -80,13 +80,21 @@
           <div class="content-description">
             <span>Mục tiêu:</span>
             <p>
-              {{  campaign.type == 'Quyên góp' ? (campaign.target |number )+"đ" : campaign.target + ' người'}}
+              {{
+                campaign.type == "Quyên góp"
+                  ? (campaign.target | number) + "đ"
+                  : campaign.target + " người"
+              }}
             </p>
           </div>
           <div class="content-description">
             <span>Đã đạt:</span>
             <p>
-              {{ campaign.type == 'Quyên góp' ? (campaign.totalDonated|number)+"đ" : campaign.totalPaticipant +" người "}}
+              {{
+                campaign.type == "Quyên góp"
+                  ? (campaign.totalDonated | number) + "đ"
+                  : campaign.totalPaticipant + " người "
+              }}
             </p>
           </div>
           <!-- <div class="content-description">
@@ -102,7 +110,7 @@
               {{ campaign.endDate | date: "dd/MM/yyyy" }}
             </p>
           </div>
-          <div *ngIf='isApproved'class="delete-button">
+          <div *ngIf="isApproved" class="delete-button">
             <app-delete-entity
               [type]="'cam'"
               [entity]="campaign"
@@ -112,36 +120,47 @@
       </div>
     </div>
 
-    <div
-      *ngIf="isDocument && isApproved == true"
-      class="box box__content"
-    >
+    <div *ngIf="isDocument && isApproved == true" class="box box__content">
       <div class="content">
-        <div *ngIf="!isShow">
+        <div class="content-tab">
+          <div *ngIf="isEmpty">
+            Hiện tại chiến dịch này chưa có tài liệu nào !
+          </div>
+          <div *ngIf="!isAdmin" class="ms-2">
+            <button mat-flat-button color="primary" (click)="isUpload = true;isExcel=false;isPDF=false;">
+              <mat-icon>file_upload</mat-icon>Tải lên tài liệu
+            </button>
+          </div>
           <button
+            *ngIf="documentExcel.length!=0"
             mat-flat-button
             color="primary"
-            (click)="isShow = !isShow; getDocument()"
+            (click)="getDocumentExcel()"
+            class='ms-2'
           >
-            Tài liệu của chiến dịch
+            <mat-icon>offline_pin</mat-icon> Tài liệu chi tiết dòng tiền
           </button>
-          <button style='margin-left:10px;'
-          mat-flat-button
-          color="primary"
-          (click)="isShow = !isShow; getDocumentExcel()"
-        >
-          Tài liệu chi tiết dòng tiền
-        </button>
-        </div>
-        <div *ngIf="isShow">
-          <button mat-flat-button color="primary" (click)="isShow = !isShow">
-            Tải lên tài liệu
+          <button
+            *ngIf="documentPDF.length > 0"
+            mat-flat-button
+            color="primary"
+            (click)="getDocument()"
+            class="ms-2"
+          >
+            <mat-icon>attach_file</mat-icon> Tài liệu của chiến dịch
           </button>
+
+      
         </div>
-        <div *ngIf="isShow">
-          <app-show-document [type]="type" [entityExcel]='documentExcel' [entityPDF]="documentPDF"></app-show-document>
+
+        <div *ngIf="isPDF || isExcel">
+          <app-show-document
+            [type]="type"
+            [entityExcel]="documentExcel"
+            [entityPDF]="documentPDF"
+          ></app-show-document>
         </div>
-        <div *ngIf="!isShow">
+        <div *ngIf="!isAdmin && isUpload">
           <h6 style="display: flex; align-items: center">
             Vui lòng bạn
             <button class="file_template" mat-button color="primary">
@@ -151,13 +170,13 @@
             >, điền đầy đủ thông tin yêu cầu theo mẫu và tải lên lại.
           </h6>
           <app-download-document-form
-           (isUploaded)='getValue($event)'
+            (isUploaded)="getValue($event)"
             [campaign]="campaign"
           ></app-download-document-form>
         </div>
       </div>
     </div>
-    <div *ngIf="isAnother && isEmpty==false">
+    <div *ngIf="isAnother && isEmpty == false">
       <app-table-campaign-participations
         [type]="type"
         [volunteer]="volunteer"

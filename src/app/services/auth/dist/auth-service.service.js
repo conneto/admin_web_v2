@@ -81,11 +81,17 @@ var AuthServiceService = /** @class */ (function () {
                         res = _a.sent();
                         if (res.status == 0) {
                             this.loadingService.isLoading.next(false);
-                            this.snackBar.showMessage('Đăng nhập thành công', true);
                             userLoginResponse = this.userResponse.adapt(res.data);
-                            localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
-                            localStorage.setItem('USER_TOKEN', userLoginResponse.token);
-                            this.curUserSubject.next(userLoginResponse);
+                            console.log(userLoginResponse.role);
+                            if (userLoginResponse.role == 'volunteer') {
+                                this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
+                            }
+                            else {
+                                this.snackBar.showMessage("Đăng nhập thành công !", true);
+                                localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
+                                localStorage.setItem('USER_TOKEN', userLoginResponse.token);
+                                this.curUserSubject.next(userLoginResponse);
+                            }
                         }
                         else if (res.status == 6) {
                             this.loadingService.isLoading.next(false);

@@ -7,18 +7,24 @@
         <div *ngIf="!noResultBySearch; then name; else result"></div>
         <div>
           <ng-template #name>
-            <div class="name">
+            <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
               <h3>Chiến dịch</h3>
               <p>({{ number ? number : "" }})</p>
             </div>
           </ng-template>
           <ng-template #result>
-            <div class="name">
+            <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
               <h3>Không tìm thấy kết quả phù hợp</h3>
             </div>
           </ng-template>
         </div>
 
+        <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create flex-grow">
+          <button (click)="openCampaignForm()" mat-raised-button color="accent">
+            <mat-icon>add</mat-icon>
+            Tạo chiến dịch
+          </button>
+        </div>
         <app-search-bar
           (getItem)="getData($event)"
           [entity]="passData"
@@ -46,20 +52,28 @@
       </div>
     </div>
   </ng-template>
-  <div *ngIf="isEmpty">Hiện tại không có chiến dịch nào được tạo!</div>
+  <div class="search-bar" *ngIf="isEmpty">
+    <div>Hiện tại không có chiến dịch nào được tạo!</div>
+    <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
+      <button (click)="openCampaignForm()" mat-raised-button color="accent">
+        <mat-icon>add</mat-icon>
+        Tạo chiến dịch
+      </button>
+    </div>
+  </div>
   <div *ngIf="isRequest; then request; else noRequest"></div>
   <ng-template #request>
     <div *ngIf="!isEmpty">
       <div class="search-bar">
         <div *ngIf="!noResultBySearch; then name; else result"></div>
         <ng-template #name>
-          <div class="name">
+          <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
             <h3>Chiến Dịch</h3>
             <p>({{ number ? number : "" }})</p>
           </div>
         </ng-template>
         <ng-template #result>
-          <div class="name">
+          <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
             <h3>Không tìm thấy kết quả phù hợp</h3>
           </div>
         </ng-template>
@@ -81,7 +95,7 @@
         *ngIf="isList"
         [entity]="campaigns"
       ></app-list-view>
-      <div class='center' *ngIf="!isList">
+      <div class="center" *ngIf="!isList">
         <div *ngFor="let campaign of campaigns">
           <app-campaign-request-card
             [campaign]="campaign"
