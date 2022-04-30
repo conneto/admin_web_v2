@@ -106,7 +106,7 @@ export class ApiService {
     });
   }
   get(api_name: string, params?: any): any {
-    this.loadingService.getApiGetLink.next(this.fetchUri);
+   
     let api_uri = this.getFetchUri(api_name, params);
     if (localStorage.getItem('USER_TOKEN')) {
       this.corsHeaders = this.corsHeaders.set(

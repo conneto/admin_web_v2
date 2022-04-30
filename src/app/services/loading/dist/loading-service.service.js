@@ -9,11 +9,13 @@ exports.__esModule = true;
 exports.LoadingServiceService = void 0;
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
+var environment_1 = require("src/environments/environment");
 var LoadingServiceService = /** @class */ (function () {
     function LoadingServiceService() {
+        this.fetchUri = environment_1.environment.api_fetch;
         this.isNewTab = new rxjs_1.BehaviorSubject(false);
         this.isLoading = new rxjs_1.BehaviorSubject(false);
-        this.getApiGetLink = new rxjs_1.BehaviorSubject('');
+        this.getApiGetLink = new rxjs_1.BehaviorSubject(this.fetchUri);
         this.getOrganizationId = new rxjs_1.BehaviorSubject('');
         this.projectId = new rxjs_1.BehaviorSubject('');
         this.isSkeleton = new rxjs_1.BehaviorSubject(false);

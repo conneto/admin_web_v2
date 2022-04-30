@@ -16,7 +16,7 @@
   </div>
 
   <ng-template #createOrganization>
-    <button (click)="isShow = !isShow" mat-raised-button color="primary">
+    <button (click)="isShow = !isShow;isEmpty=!isEmpty" mat-raised-button color="primary">
       Tạo tổ chức
     </button>
   </ng-template>
@@ -145,7 +145,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf='!isAdmin'>
+  <div *ngIf='isAdmin==false && organizations'>
     <app-organization-details [organizationInput]="organizations" ></app-organization-details>
   </div>
 </div>

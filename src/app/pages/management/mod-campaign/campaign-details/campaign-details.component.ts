@@ -15,7 +15,7 @@ import { LoadingServiceService } from 'src/app/services/loading/loading-service.
 })
 export class CampaignDetailsComponent implements OnInit {
   campaign?: Campaign;
-  urlApi = this.loadingService.getApiGetLink.value;
+  urlApi?: string;
   urlCover?: string;
   urlLogo?: string;
   urlProjectLogo?: string;
@@ -33,6 +33,7 @@ export class CampaignDetailsComponent implements OnInit {
   constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
+    
     this.getByID();
     this.isInformation = true;
     if (localStorage.getItem("approve")) {
@@ -64,7 +65,8 @@ export class CampaignDetailsComponent implements OnInit {
   }
   async getByID() {
     const id = this.activated.snapshot.paramMap.get('id');
-
+    this.urlApi = this.loadingService.getApiGetLink.value;
+    console.log(this.urlApi);
     this.campaign = await this.campaignApi.getById(`${id}`);
 
     this.urlLogo = this.campaign?.org_logo?.replace(/\\/g, '\/');
@@ -93,7 +95,7 @@ export class CampaignDetailsComponent implements OnInit {
     this.location.back();
   }
   getResult(e: any) {
-    console.log(e);
+
     if (e == true) {
       this.getTab('ano');
     }
@@ -114,7 +116,7 @@ export class CampaignDetailsComponent implements OnInit {
         break;
       case 'ano':
         this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
-        console.log(this.volunteer);
+
         if (this.volunteer?.length == 0) {
           this.isEmpty = true;
         }

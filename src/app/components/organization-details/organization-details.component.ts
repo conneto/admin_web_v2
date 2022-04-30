@@ -49,13 +49,13 @@ export class OrganizationDetailsComponent implements OnInit {
   isGetCam?: boolean = false;
   passDataCampaigns: any;
   passDataProjects: any;
-  @Input() organizationInput: Organization[] = [];
+  @Input() organizationInput: any;
   constructor(private pro: ProjectComponent, private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
 
   ngOnInit(): void {
-
+    console.log(this.organizationInput);
     this.getValueFromRoute();
     this.check();
 
@@ -68,8 +68,9 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   async getValueFromRoute() {
-
+  
     this.organization = await this.orgApi.getById(`${this.organizationInput[0]?.id}`);
+    console.log(this.organizationInput);
     if (this.organization?.result_code == 510) {
       this.isApproved = true;
     }

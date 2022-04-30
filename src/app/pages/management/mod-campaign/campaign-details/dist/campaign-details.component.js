@@ -53,7 +53,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.location = location;
         this.activated = activated;
         this.campaignApi = campaignApi;
-        this.urlApi = this.loadingService.getApiGetLink.value;
         this.volunteer = [];
         this.isEmpty = false;
     }
@@ -100,6 +99,8 @@ var CampaignDetailsComponent = /** @class */ (function () {
                 switch (_j.label) {
                     case 0:
                         id = this.activated.snapshot.paramMap.get('id');
+                        this.urlApi = this.loadingService.getApiGetLink.value;
+                        console.log(this.urlApi);
                         _h = this;
                         return [4 /*yield*/, this.campaignApi.getById("" + id)];
                     case 1:
@@ -155,7 +156,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.location.back();
     };
     CampaignDetailsComponent.prototype.getResult = function (e) {
-        console.log(e);
         if (e == true) {
             this.getTab('ano');
         }
@@ -197,7 +197,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.campaignApi.getParticipations("" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id))];
                     case 6:
                         _j.volunteer = _k.sent();
-                        console.log(this.volunteer);
                         if (((_d = this.volunteer) === null || _d === void 0 ? void 0 : _d.length) == 0) {
                             this.isEmpty = true;
                         }

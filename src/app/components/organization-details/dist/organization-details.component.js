@@ -70,9 +70,9 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.campaigns = [];
         this.isGetPro = false;
         this.isGetCam = false;
-        this.organizationInput = [];
     }
     OrganizationDetailsComponent.prototype.ngOnInit = function () {
+        console.log(this.organizationInput);
         this.getValueFromRoute();
         this.check();
         this.isInformation = true;
@@ -95,6 +95,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.orgApi.getById("" + ((_a = this.organizationInput[0]) === null || _a === void 0 ? void 0 : _a.id))];
                     case 1:
                         _j.organization = _k.sent();
+                        console.log(this.organizationInput);
                         if (((_b = this.organization) === null || _b === void 0 ? void 0 : _b.result_code) == 510) {
                             this.isApproved = true;
                         }

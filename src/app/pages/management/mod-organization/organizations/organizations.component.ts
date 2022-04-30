@@ -22,7 +22,7 @@ import { UtilService } from 'src/app/services/util-service/util.service';
 })
 export class OrganizationsComponent implements OnInit, AfterViewInit {
   @ViewChild('tabGroup') tabGroup?: TabgroupComponent;
-  @ViewChild('viewGrid') viewGrid:ChangeToListComponent | undefined;
+  @ViewChild('viewGrid') viewGrid: ChangeToListComponent | undefined;
   organizations: Organization[] = [];
   oldData: Organization[] = [];
   organizationId?: string;
@@ -42,23 +42,22 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   noResultBySearch?: boolean;
   numberCount?: any;
   isDeleted?: boolean = false;
-  isList?:boolean=false;
-  isAdmin?:boolean;
+  isList?: boolean = false;
+  isAdmin?: boolean = false;
 
-  constructor(public convertType:UtilService,private loading: LoadingServiceService, private getUser: UserApiService, private service: OrganizationApiService, private userApi: AuthServiceService) { }
+  constructor(public convertType: UtilService, private loading: LoadingServiceService, private getUser: UserApiService, private service: OrganizationApiService, private userApi: AuthServiceService) { }
 
   ngOnInit(): void {
+    if (this.userApi.currentUserValue.role == 'admin') {
+      this.isAdmin = true;
+      this.checkToGetData();
 
-    this.checkToGetData();
-
-    this.userApi.currentUserValue;
-    this.urlApi = this.loading.getApiGetLink.value;
-    if(this.userApi.currentUserValue.role=='admin'){
-      this.isAdmin=true;
+    } else if (this.userApi.currentUserValue.role == 'organization_manager') {
+      this.isAdmin = false;
+      this.getAllOrganization();
     }
+    this.urlApi = this.loading.getApiGetLink.value;
     this.loading.isSkeleton.next(true);
-
-
   }
 
   ngAfterViewInit(): void {
@@ -73,13 +72,13 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
   }
   handleTitle(e: any) {
-    if(e=='list'){
-      this.isList=true;
-    }else {
-      this.isList=false;
+    if (e == 'list') {
+      this.isList = true;
+    } else {
+      this.isList = false;
     }
   }
-  changeToGrid(){
+  changeToGrid() {
     this.viewGrid?.changeView(true);
   }
   getData(e: any) {
@@ -96,7 +95,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
   async checkToGetData(getStatus?: string) {
     this.organizations = await this.service.getAll();
-    console.log(this.organizations)
+
 
     this.passData = this.organizations;
     if (getStatus == 'pending') {
@@ -219,7 +218,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           }
           this.organizations = this.organizations.filter(x => x.result_code === 501);
           this.oldData = this.passData.filter(x => x.result_code == 501);
-
+          console.log(this.organizations);
           this.isEmpty = false;
 
           if (this.organizations == null || this.organizations.length <= 0) {
@@ -255,7 +254,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           this.isDeleted = true;
         }
       }
-      this.isList=false;
+      this.isList = false;
       this.changeToGrid();
 
       switch (status) {
@@ -355,28 +354,26 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
 
   async getAllOrganization() {
+
+    this.isRequest = false;
     this.organizations = await this.service.getAll();
     if (this.organizations == null || this.organizations.length <= 0) {
+      this.isEmpty = true;
       this.noOrg = true;
+    } else {
+      this.noOrg = false;
+      this.isEmpty = false;
+      this.isShow=false;
     }
     for (var i = 0; i < this.organizations.length; i++) {
       this.organizationId = this.organizations[i].id;
       this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
+      this.organizations[i].type = this.organizations[i].type == 'ngo' ?
+        this.organizations[i].type = 'Tổ chức phi chính phủ' :
+        this.organizations[i].type = 'Tổ chức phi lợi nhuận'
     }
-    if (this.userApi.currentUserValue.role === 'organization_manager') {
-      const check = this.organizations.every((x) => {
-        return x.result_code === 511
-      })
-      if (check || this.organizations.length == 0) {
-        this.organizations = [];
-        this.noOrg = true;
-      } else {
-        this.noOrg = false;
-        this.organizations = this.organizations.filter(x => {
-          return x.result_code !== 511
-        });
-      }
-    } else this.noOrg = false; this.organizations = this.organizations.filter((x => { return x.result_code === 510 }))
+
+    this.isLoaded = true;
   }
 }
 
