@@ -1,11 +1,9 @@
-<mat-card>
-  <div class='title'>
-    <mat-card-subtitle class="card-heading-color">{{
-      title
-    }}</mat-card-subtitle>
-    <mat-card-title>{{ numberShow }}</mat-card-title>
+<div class="dashboard-card border-radius-16 box-shadow-2 w-100 h-100 p-2 d-flex align-items-center justify-content-between">
+  <div class='title h-100 d-flex flex-column justify-content-around'>
+    <h5 class="fw-bold text-truncate-2 mb-2">{{title}}</h5>
+    <h1>{{ numberShow }}</h1>
   </div>
-  <div class="logo">
-    <mat-icon>{{icon}}</mat-icon>
+  <div class="icon">
+    <img src="{{icon}}" />
   </div>
-</mat-card>
+</div>

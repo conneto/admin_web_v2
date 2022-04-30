@@ -41,7 +41,7 @@ var routes = [
                 ]
             },
             {
-                path: 'user-management',
+                path: 'user-service-management',
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); }
             },
             {

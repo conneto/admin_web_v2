@@ -25,15 +25,4 @@ export class DialogConfirmComponent implements OnInit {
   yesClick() {
     this.dialogRef.close(true);
   }
-
-  createDialog(button: any, message: any) {
-    const dialogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px,',
-      data: {
-        button: button,
-        message: message,
-      }
-    })
-    return dialogRef;
-  }
 }

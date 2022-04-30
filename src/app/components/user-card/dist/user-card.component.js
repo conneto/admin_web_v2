@@ -17,7 +17,7 @@ var UserCardComponent = /** @class */ (function () {
     };
     UserCardComponent.prototype.disableUser = function () {
         var diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-            width: '300px',
+            width: '360px',
             data: {
                 button: 'Kích hoạt',
                 message: 'kích hoạt'

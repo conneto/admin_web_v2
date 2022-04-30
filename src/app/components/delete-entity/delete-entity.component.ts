@@ -36,7 +36,7 @@ export class DeleteEntityComponent implements OnInit {
   }
   async disable() {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
         button: 'Vô hiệu hóa',
         message: "vô hiệu hóa",
@@ -77,15 +77,16 @@ export class DeleteEntityComponent implements OnInit {
           this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
         }
       }
-    
+
     })
   }
   async enable() {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
-        button: 'Cấp quyền',
-        message: "cấp quyền hoạt động",
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: "Bạn có chắc chắn muốn cấp quyền hoạt động cho đối tượng này?",
       },
     })
     diaglogRef.afterClosed().subscribe(async x => {
@@ -123,10 +124,11 @@ export class DeleteEntityComponent implements OnInit {
   }
   async delete() {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
         button: 'Xóa',
-        message: 'xóa',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn xóa không?',
       }
     })
     dialogRef.afterClosed().subscribe(async data => {

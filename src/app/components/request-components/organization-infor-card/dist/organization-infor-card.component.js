@@ -73,7 +73,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-                    width: '300px',
+                    width: '360px',
                     data: {
                         button: 'Chấp nhận',
                         message: auth_service_service_1.AuthServiceService.APPROVE
@@ -129,7 +129,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-                    width: '300px',
+                    width: '360px',
                     data: {
                         button: 'Từ chối',
                         message: auth_service_service_1.AuthServiceService.REJECT

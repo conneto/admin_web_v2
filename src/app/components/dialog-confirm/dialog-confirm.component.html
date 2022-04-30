@@ -1,8 +1,13 @@
 <div>
-  <p>Bạn có chắc muốn  {{ data.message }} ?</p>
-  <div class='button'>
-    
-    <button mat-button mat-dialog-close color='primary' cdkFocusInitial (click)="yesClick()"><mat-icon>done</mat-icon>{{ data.button }} </button>
-    <button mat-button (click)="noClick()"> <mat-icon>close</mat-icon> Hủy</button>
+  <p>{{ data.message }}</p>
+  <div class='button mt-3'>
+    <button style="background-color: #FBB800" mat-button mat-dialog-close cdkFocusInitial (click)="yesClick()">
+      <mat-icon>done</mat-icon>
+      {{ data.button }}
+    </button>
+    <button mat-button (click)="noClick()">
+      <mat-icon>close</mat-icon>
+      {{data.close}}
+    </button>
   </div>
 </div>

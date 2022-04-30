@@ -45,8 +45,8 @@ exports.__esModule = true;
 exports.DashboardComponent = void 0;
 var core_1 = require("@angular/core");
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(userApi) {
-        this.userApi = userApi;
+    function DashboardComponent(userService) {
+        this.userService = userService;
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.getStatistics();
@@ -58,7 +58,7 @@ var DashboardComponent = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.userApi.getStatistics()];
+                        return [4 /*yield*/, this.userService.getStatistics()];
                     case 1:
                         _a.cards = _b.sent();
                         console.log(this.cards);

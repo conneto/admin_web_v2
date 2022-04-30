@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserLoginResponse } from 'src/app/dtos/user-login-response/user-login-response.model';
-import { Menu } from 'src/app/models/menu/menu';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { OrganizationsComponent } from '../management/mod-organization/organizations/organizations.component';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {UserLoginResponse} from 'src/app/dtos/user-login-response/user-login-response.model';
+import {Menu} from 'src/app/models/menu/menu';
+import {AuthServiceService} from 'src/app/services/auth/auth-service.service';
+import {OrganizationsComponent} from '../management/mod-organization/organizations/organizations.component';
 
 @Component({
   selector: 'app-admin',
@@ -29,7 +29,7 @@ export class AdminComponent implements OnInit {
       id: '3',
       name: 'Quản lý tổ chức',
       path: 'manage-organization',
-      icon: 'assets/icons/organization-icon.png',
+      icon: 'assets/icons/organization_icon.png',
       role: 'organization_manager',
     },
     {
@@ -46,11 +46,21 @@ export class AdminComponent implements OnInit {
       icon: 'assets/icons/campaign_icon.png',
       role: 'organization_manager',
     },
+    {
+      id: '6',
+      name: 'Quản lý tình nguyện viên',
+      path: 'manage-volunteer',
+      icon: 'assets/icons/volunteer_icon.png',
+      role: 'organization_manager',
+    },
   ]
   user?: UserLoginResponse;
+
   constructor(private authService: AuthServiceService, private router: Router, private orgApi: OrganizationsComponent,) {
   }
+
   isExpanded: boolean = false;
+
   ngOnInit(): void {
 
     this.user = this.authService.currentUserValue;
@@ -63,9 +73,11 @@ export class AdminComponent implements OnInit {
       }
     }
   }
+
   ngAfterContentChecked() {
     this.getTitle();
   }
+
   getTitle() {
     this.title = this.router.url.split('/')[this.router.url.split.length].trim();
     if (this.title == 'organization-request' || this.title == 'project-request' || this.title == 'campaign-request') {
@@ -84,6 +96,7 @@ export class AdminComponent implements OnInit {
       this.title = tempMenu[0].name;
     }
   }
+
   isLargeScreen() {
     const width =
       window.innerWidth ||
@@ -95,7 +108,6 @@ export class AdminComponent implements OnInit {
       return false;
     }
   }
-
 
 
   logout() {

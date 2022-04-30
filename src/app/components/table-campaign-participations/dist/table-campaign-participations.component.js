@@ -79,7 +79,7 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
     TableCampaignParticipationsComponent.prototype.approve = function (e, cam_id) {
         var _this = this;
         var dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-            width: '300px',
+            width: '360px',
             data: {
                 button: "Chấp nhận",
                 message: "chấp nhận"
@@ -122,7 +122,7 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
     TableCampaignParticipationsComponent.prototype.reject = function (e, cam_id) {
         var _this = this;
         var dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-            width: '300px',
+            width: '360px',
             data: {
                 button: "Từ chối",
                 message: "Từ chối"

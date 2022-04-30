@@ -53,13 +53,13 @@
       [entity]="organizations"
     ></app-list-view>
     <div *ngIf="!isList" class="request-component">
-      <div *ngFor="let organization of organizations">
-        <app-organization-infor-card
-          [organizations]="organization"
-          [checkType]="'org'"
-        >
-        </app-organization-infor-card>
-      </div>
+      <app-organization-infor-card
+        *ngFor="let org of organizations"
+        class="organization-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+        [organizations]="org"
+        [checkType]="'org'"
+      >
+      </app-organization-infor-card>
     </div>
   </div>
 
@@ -113,7 +113,7 @@
                       {{ organization.name }}</mat-card-title
                     >
                     <mat-card-subtitle>{{
-                      convertType.convertType(organization.type)
+                      utilService.convertType(organization.type)
                     }}</mat-card-subtitle>
 
                     <img

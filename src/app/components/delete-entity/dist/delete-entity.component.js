@@ -75,7 +75,7 @@ var DeleteEntityComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-                    width: '300px',
+                    width: '360px',
                     data: {
                         button: 'Vô hiệu hóa',
                         message: "vô hiệu hóa"
@@ -135,7 +135,7 @@ var DeleteEntityComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-                    width: '300px',
+                    width: '360px',
                     data: {
                         button: 'Cấp quyền',
                         message: "cấp quyền hoạt động"
@@ -194,7 +194,7 @@ var DeleteEntityComponent = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-                    width: '300px',
+                    width: '360px',
                     data: {
                         button: 'Xóa',
                         message: 'xóa'

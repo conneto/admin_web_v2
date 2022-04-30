@@ -54,7 +54,7 @@
             <span class="fs-6">{{
               campaign.type == "donation"
                 ? (campaign.target | currency: "VND")
-                : campaign.target + " người"
+                : (campaign.target | number: '1.0':'en-US') + " người"
             }}</span>
           </p>
           <div class="campaign__progress-bar">

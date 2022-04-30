@@ -58,7 +58,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
   approve(e: any,cam_id?:any) {
 
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
         button: "Chấp nhận",
         message: "chấp nhận",
@@ -89,10 +89,11 @@ export class TableCampaignParticipationsComponent implements OnInit {
   }
   reject(e: any,cam_id?:any) {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
-        button: "Từ chối",
-        message: "Từ chối",
+        button: "Đồng ý",
+        close: "Suy nghĩ lại",
+        message: "Bạn có chắc chắn muốn từ chối yêu cầu tham gia của tình nguyện viên này không?",
       }
     })
     dialogRef.afterClosed().subscribe(async x => {

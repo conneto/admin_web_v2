@@ -8,13 +8,13 @@ import { CampaignApiService } from '../campaign/campaign-api.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserApiService {
+export class UserService {
   public static readonly STATISTICS = 'statistics'
   public static readonly ACCOUNTS = 'accounts'
   constructor(private api: ApiService, private dashboardAdapter: DashboardApdater, private userAdapter: UserAdapter) { }
 
   async getStatistics() {
-    let res: BaseResponse = await this.api.get(UserApiService.STATISTICS);
+    let res: BaseResponse = await this.api.get(UserService.STATISTICS);
     console.log(res.data);
     res.data = this.dashboardAdapter.adapt(res.data);
     return res.data || [];
@@ -29,7 +29,7 @@ export class UserApiService {
     return res.data || [];
   }
   async getListUsers() {
-    let res: BaseResponse = await this.api.get(UserApiService.ACCOUNTS);
+    let res: BaseResponse = await this.api.get(UserService.ACCOUNTS);
 
     res.data = res.data.map((item: any) =>
       this.userAdapter.adapt(item)

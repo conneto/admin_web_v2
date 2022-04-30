@@ -1,11 +1,10 @@
-<div *ngIf='cards' class="box decoration">
-    <app-dashboard-card  [title]="'Tổng tổ chức'" [number]='cards?.numOrg' [icon]="'apartment'"></app-dashboard-card>
-    <app-dashboard-card  [title]="'Tổng dự án'" [number]='cards?.numPro' [icon]="'business_center'"></app-dashboard-card>
-    <app-dashboard-card  [title]="'Tổng chiến dịch'" [number]='cards?.numCam' [icon]="'campaign'"></app-dashboard-card>
-
+<div class="p-2">
+  <div *ngIf='cards' class="row d-flex align-items-center">
+    <app-dashboard-card class="dashboard-card mb-2 col-xl-3 col-lg-4 col-sm-6 col-12" [title]="'Tổ chức đã được tạo'" [number]='cards?.numOrg' [icon]="'assets/icons/organization_icon.png'"></app-dashboard-card>
+    <app-dashboard-card class="dashboard-card mb-2 col-xl-3 col-lg-4 col-sm-6 col-12" [title]="'Dự án đang hoạt động'" [number]='cards?.numPro' [icon]="'assets/icons/project_icon.png'"></app-dashboard-card>
+    <app-dashboard-card class="dashboard-card mb-2 col-xl-3 col-lg-4 col-sm-6 col-12" [title]="'Chiến dịch được phát động'" [number]='cards?.numCam' [icon]="'assets/icons/campaign_icon.png'"></app-dashboard-card>
+  </div>
+  <div class="mt-3">
+    <app-table-rank></app-table-rank>
+  </div>
 </div>
-<div>
-   
-   <app-table-rank></app-table-rank>
-</div>
-

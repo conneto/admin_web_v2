@@ -1,6 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Dashboard } from 'src/app/models/dashboard/dashboard.model';
-import { UserApiService } from 'src/app/services/user/user-api.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Dashboard} from 'src/app/models/dashboard/dashboard.model';
+import {UserService} from 'src/app/services/user-service/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,16 +9,18 @@ import { UserApiService } from 'src/app/services/user/user-api.service';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private userApi: UserApiService) { }
-  cards?: Dashboard;
+  constructor(private userService: UserService) {
+  }
 
+  cards?: Dashboard;
 
 
   ngOnInit(): void {
     this.getStatistics();
   }
+
   async getStatistics() {
-    this.cards = await this.userApi.getStatistics();
+    this.cards = await this.userService.getStatistics();
     console.log(this.cards);
   }
 }

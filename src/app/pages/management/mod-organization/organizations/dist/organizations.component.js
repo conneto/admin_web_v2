@@ -45,12 +45,12 @@ exports.__esModule = true;
 exports.OrganizationsComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationsComponent = /** @class */ (function () {
-    function OrganizationsComponent(convertType, loading, getUser, service, userApi) {
+    function OrganizationsComponent(convertType, loading, getUser, service, userService) {
         this.convertType = convertType;
         this.loading = loading;
         this.getUser = getUser;
         this.service = service;
-        this.userApi = userApi;
+        this.userService = userService;
         this.organizations = [];
         this.oldData = [];
         this.isShow = false;
@@ -63,9 +63,9 @@ var OrganizationsComponent = /** @class */ (function () {
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
-        this.userApi.currentUserValue;
+        this.userService.currentUserValue;
         this.urlApi = this.loading.getApiGetLink.value;
-        if (this.userApi.currentUserValue.role == 'admin') {
+        if (this.userService.currentUserValue.role == 'admin') {
             this.isAdmin = true;
         }
         this.loading.isSkeleton.next(true);
@@ -147,7 +147,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     this.organizations = org;
                 }
                 if (status) {
-                    if (this.userApi.currentUserValue.role == 'organization_manager') {
+                    if (this.userService.currentUserValue.role == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
                         });
@@ -165,7 +165,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.organizations[i].type = 'Tổ chức phi chính phủ' :
                                     this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
-                            if (this.userApi.currentUserValue.role == 'organization_manager') {
+                            if (this.userService.currentUserValue.role == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
                                     this.organizations = [];
                                     this.noOrg = true;
@@ -182,7 +182,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            if (this.userApi.currentUserValue.role == 'admin') {
+                            if (this.userService.currentUserValue.role == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
                                 this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
@@ -221,7 +221,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.organizations[i].type = 'Tổ chức phi chính phủ' :
                                     this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
-                            if (this.userApi.currentUserValue.role == 'admin') {
+                            if (this.userService.currentUserValue.role == 'admin') {
                                 this.isRequest = true;
                             }
                             else {
@@ -257,7 +257,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     this.organizations = org;
                 }
                 if (status) {
-                    if (this.userApi.currentUserValue.role == 'organization_manager') {
+                    if (this.userService.currentUserValue.role == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
                         });
@@ -274,7 +274,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                             }
-                            if (this.userApi.currentUserValue.role == 'organization_manager') {
+                            if (this.userService.currentUserValue.role == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
                                     this.organizations = [];
                                     this.noOrg = true;
@@ -291,7 +291,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            else if (this.userApi.currentUserValue.role == 'admin') {
+                            else if (this.userService.currentUserValue.role == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
                                 this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
@@ -324,7 +324,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                             }
-                            if (this.userApi.currentUserValue.role == 'admin') {
+                            if (this.userService.currentUserValue.role == 'admin') {
                                 this.isRequest = true;
                             }
                             else {
@@ -367,7 +367,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             this.organizationId = this.organizations[i].id;
                             this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         }
-                        if (this.userApi.currentUserValue.role === 'organization_manager') {
+                        if (this.userService.currentUserValue.role === 'organization_manager') {
                             check = this.organizations.every(function (x) {
                                 return x.result_code === 511;
                             });

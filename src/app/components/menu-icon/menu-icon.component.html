@@ -1,4 +1,6 @@
-<div *ngIf="menu?.submenu; then submenu; else nosubmenu"></div>
+<div>
+  <div *ngIf="menu?.submenu; then submenu; else nosubmenu"></div>
+</div>
 
 <ng-template #nosubmenu>
   <div *ngIf="menu">
@@ -8,16 +10,16 @@
       [routerLinkActive]="['is-active', 'shadow']"
 
     >
-      <img src="{{ menu.icon }}" />
-      <p class="ms-4 text-truncate" >{{ menu.name }}</p>
+      <img src="{{ menu.icon }}"/>
+      <p class="ms-4 text-truncate">{{ menu.name }}</p>
     </a>
   </div>
 </ng-template>
 
 <ng-template #submenu>
   <div class="sub-menu" *ngIf="menu">
-    <a (click)="isShowSubMenu = !isShowSubMenu" mat-list-item >
-      <img src="{{ menu.icon }}" />
+    <a (click)="isShowSubMenu = !isShowSubMenu" mat-list-item>
+      <img src="{{ menu.icon }}"/>
       <p class="hide-text">{{ menu.name }}</p>
       <i class="fa fa-angle-right icon" [class.rotate]="isShowSubMenu"></i>
     </a>

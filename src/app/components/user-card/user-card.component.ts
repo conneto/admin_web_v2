@@ -16,10 +16,11 @@ export class UserCardComponent implements OnInit {
   }
   disableUser(){
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
-        button: 'Kích hoạt',
-        message: 'kích hoạt',
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn kích hoạt người dùng này?',
       },
     })
   }

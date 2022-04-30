@@ -79,8 +79,7 @@ export class OrganizationDetailsComponent implements OnInit {
       this.isApproved = true;
     }
     this.loadingService.getOrganizationId.next(`${id}`);
-    this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
-    this.urlCover = this.organization?.cover?.replace(/\\/g, '\/');
+
     switch (this.organization?.type) {
       case 'ngo': this.organization.type = 'Tổ chức phi chính phủ';
         break;
@@ -128,7 +127,7 @@ export class OrganizationDetailsComponent implements OnInit {
       for (var i = 0; i < this.campaigns.length; i++) {
         {
           this.campaigns[i].cover = this.campaigns[i]?.cover?.replace(/\\/g, '\/');
-       
+
           this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(/\\/g, '\/');
           switch (this.campaigns[i].type) {
             case 'donation': this.campaigns[i].type = 'Quyên Góp';

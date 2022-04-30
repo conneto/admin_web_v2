@@ -1,18 +1,18 @@
-@media only screen and (max-width: 576px) {
+@media only screen and (min-width: 576px) {
   .campaign-card {
-    height: 60vh !important;
+    height: 448px !important;
   }
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (min-width: 576px) {
   .campaign-card {
-    height: 56vh !important;
+    height: 448px !important;
   }
 }
 
 @media only screen and (min-width: 768px) {
   .campaign-card {
-    height: 76vh !important;
+    height: 512px !important;
   }
 }
 

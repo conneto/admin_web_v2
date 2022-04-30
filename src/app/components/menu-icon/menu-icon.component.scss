@@ -13,7 +13,8 @@ a {
 }
 
 .is-active {
-  border-radius: 10px;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
   background-color: #fffeb9 !important;
   font-weight: bold;
 }
@@ -31,14 +32,16 @@ a:hover {
 .showSubMenu {
   display: block;
 }
+
 .icon {
   position: absolute;
   right: 0;
   overflow: hidden;
-  margin-right:10px;
-  transition:0.2s ease;
+  margin-right: 10px;
+  transition: 0.2s ease;
 }
-.rotate{
-  transform:rotate(90deg);
+
+.rotate {
+  transform: rotate(90deg);
 }
 

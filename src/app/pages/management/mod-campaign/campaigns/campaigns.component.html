@@ -38,8 +38,8 @@
       ></app-list-view>
       <div *ngIf="!isList" class="row p-3">
         <app-campaign-card-info
-          class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
           *ngFor="let cam of campaigns"
+          class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
           [valueNumber]="value"
           [campaign]="cam"
         ></app-campaign-card-info>

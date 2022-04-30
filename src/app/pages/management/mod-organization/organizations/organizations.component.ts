@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { UserApiService } from 'src/app/services/user/user-api.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 import { UtilService } from 'src/app/services/util-service/util.service';
 
 @Component({
@@ -45,15 +45,15 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isList?:boolean=false;
   isAdmin?:boolean;
 
-  constructor(public convertType:UtilService,private loading: LoadingServiceService, private getUser: UserApiService, private service: OrganizationApiService, private userApi: AuthServiceService) { }
+  constructor(public utilService:UtilService,private loading: LoadingServiceService, private getUser: UserService, private service: OrganizationApiService, private userService: AuthServiceService) { }
 
   ngOnInit(): void {
 
     this.checkToGetData();
 
-    this.userApi.currentUserValue;
+    this.userService.currentUserValue;
     this.urlApi = this.loading.getApiGetLink.value;
-    if(this.userApi.currentUserValue.role=='admin'){
+    if(this.userService.currentUserValue.role=='admin'){
       this.isAdmin=true;
     }
     this.loading.isSkeleton.next(true);
@@ -128,7 +128,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     if (status) {
 
 
-      if (this.userApi.currentUserValue.role == 'organization_manager') {
+      if (this.userService.currentUserValue.role == 'organization_manager') {
         const check = this.organizations.every((a) => {
           return a.result_code == 503;
         })
@@ -151,7 +151,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
               this.organizations[i].type = 'Tổ chức phi lợi nhuận'
           }
 
-          if (this.userApi.currentUserValue.role == 'organization_manager') {
+          if (this.userService.currentUserValue.role == 'organization_manager') {
             if (this.organizations.length <= 0 || this.organizations == null) {
               this.organizations = [];
               this.noOrg = true;
@@ -167,7 +167,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
               }
             }
           }
-          if (this.userApi.currentUserValue.role == 'admin') {
+          if (this.userService.currentUserValue.role == 'admin') {
             this.isEmpty = false;
             this.noOrg = false;
             this.organizations = this.organizations.filter((x => { return x.result_code === 510 }))
@@ -212,7 +212,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
               this.organizations[i].type = 'Tổ chức phi chính phủ' :
               this.organizations[i].type = 'Tổ chức phi lợi nhuận'
           }
-          if (this.userApi.currentUserValue.role == 'admin') {
+          if (this.userService.currentUserValue.role == 'admin') {
             this.isRequest = true;
           } else {
             this.isRequest = false;
@@ -246,7 +246,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       this.organizations = org;
     }
     if (status) {
-      if (this.userApi.currentUserValue.role == 'organization_manager') {
+      if (this.userService.currentUserValue.role == 'organization_manager') {
         const check = this.organizations.every((a) => {
           return a.result_code == 503;
         })
@@ -268,7 +268,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
           }
 
-          if (this.userApi.currentUserValue.role == 'organization_manager') {
+          if (this.userService.currentUserValue.role == 'organization_manager') {
             if (this.organizations.length <= 0 || this.organizations == null) {
               this.organizations = [];
               this.noOrg = true;
@@ -283,7 +283,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
                 this.isEmpty = true;
               }
             }
-          } else if (this.userApi.currentUserValue.role == 'admin') {
+          } else if (this.userService.currentUserValue.role == 'admin') {
             this.isEmpty = false;
             this.noOrg = false;
             this.organizations = this.organizations.filter((x => { return x.result_code === 510 }))
@@ -324,7 +324,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
 
           }
-          if (this.userApi.currentUserValue.role == 'admin') {
+          if (this.userService.currentUserValue.role == 'admin') {
             this.isRequest = true;
           } else {
             this.isRequest = false;
@@ -363,7 +363,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       this.organizationId = this.organizations[i].id;
       this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
     }
-    if (this.userApi.currentUserValue.role === 'organization_manager') {
+    if (this.userService.currentUserValue.role === 'organization_manager') {
       const check = this.organizations.every((x) => {
         return x.result_code === 511
       })

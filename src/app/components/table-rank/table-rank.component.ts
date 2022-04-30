@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { UserApiService } from 'src/app/services/user/user-api.service';
+import { UserService } from 'src/app/services/user-service/user.service';
 
 export interface Rank {
   volunteer_name: string;
@@ -25,7 +25,7 @@ export class TableRankComponent implements OnInit {
   dataSource: any;
   dataOfRecruitment: any;
   isLoaded?: boolean;
-  constructor(private userApi: UserApiService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.getData();
@@ -33,7 +33,7 @@ export class TableRankComponent implements OnInit {
 
   }
   async getData() {
-    this.dataDonate = await this.userApi.getRanking();
+    this.dataDonate = await this.userService.getRanking();
     for (var i = 0; i < this.dataDonate.length; i++) {
       Object.assign(this.dataDonate[i], { no: i + 1 });
 
@@ -44,7 +44,7 @@ export class TableRankComponent implements OnInit {
     this.isLoaded = true;
   }
   async getDataOfRecruitment() {
-    this.dataRecruitment = await this.userApi.getRanking('recruitment');
+    this.dataRecruitment = await this.userService.getRanking('recruitment');
     for (var i = 0; i < this.dataRecruitment.length; i++) {
       Object.assign(this.dataRecruitment[i], { no: i + 1 });
     }

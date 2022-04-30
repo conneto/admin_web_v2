@@ -36,7 +36,7 @@ export class OrganizationInforCardComponent implements OnInit {
     this.urlApi = this.loadingApi.getApiGetLink.value;
 
 
-  
+
 
   }
 
@@ -46,10 +46,11 @@ export class OrganizationInforCardComponent implements OnInit {
 
   async approve(id?: string, checkType?: string) {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
-        button: 'Chấp nhận',
-        message: AuthServiceService.APPROVE,
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
       },
     })
 
@@ -69,7 +70,7 @@ export class OrganizationInforCardComponent implements OnInit {
 
         if (res?.status == 0) {
           this.loadingApi.isLoading.next(false);
-         
+
           if (checkType == 'org' || this.checkType == 'org') {
             this.orga.checkToGetData('pending');
           } else if (checkType == 'pro' || this.checkType == 'pro') {
@@ -88,10 +89,11 @@ export class OrganizationInforCardComponent implements OnInit {
 
   async reject(id?: string, checkType?: string) {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
-      width: '300px',
+      width: '360px',
       data: {
-        button: 'Từ chối',
-        message: AuthServiceService.REJECT,
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
       }
     })
     diaglogRef.afterClosed().subscribe(async data => {
