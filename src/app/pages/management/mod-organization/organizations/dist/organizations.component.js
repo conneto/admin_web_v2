@@ -376,6 +376,7 @@ var OrganizationsComponent = /** @class */ (function () {
                         }
                         for (i = 0; i < this.organizations.length; i++) {
                             this.organizationId = this.organizations[i].id;
+                            this.loading.getOrganizationId.next("" + this.organizationId);
                             this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                             this.organizations[i].type = this.organizations[i].type == 'ngo' ?
                                 this.organizations[i].type = 'Tổ chức phi chính phủ' :
