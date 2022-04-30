@@ -9,18 +9,19 @@ exports.__esModule = true;
 exports.ApiService = void 0;
 var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
+var environment_1 = require("src/environments/environment");
 var ApiService = /** @class */ (function () {
     function ApiService(http, baseResponseAdapter, loadingService) {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
         this.loadingService = loadingService;
-        this.fetchUri = "http://conneto.org:5001/fetch_data/api/v1";
-        this.postUri = 'http://conneto.org:5000/core/api/v1';
+        this.fetchUri = environment_1.environment.api_fetch;
+        this.postUri = environment_1.environment.api_core;
         this.corsHeaders = new http_1.HttpHeaders();
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
         this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     }
-    ApiService.prototype.getFullUri = function (api_name, params) {
+    ApiService.prototype.getFetchUri = function (api_name, params) {
         var url = this.fetchUri + '/' + api_name;
         if (typeof params != 'undefined') {
             var array = [];
@@ -31,7 +32,7 @@ var ApiService = /** @class */ (function () {
         }
         return url;
     };
-    ApiService.prototype.getFullUriPost = function (api_name, params) {
+    ApiService.prototype.getPostUri = function (api_name, params) {
         var url = this.postUri + '/' + api_name;
         if (typeof params != 'undefined') {
             var array = [];
@@ -46,10 +47,10 @@ var ApiService = /** @class */ (function () {
         var _this = this;
         var api_uri = '';
         if (params) {
-            api_uri = this.getFullUriPost(api_name, body);
+            api_uri = this.getPostUri(api_name, body);
         }
         else {
-            api_uri = this.getFullUriPost(api_name);
+            api_uri = this.getPostUri(api_name);
         }
         console.log(localStorage.getItem('USER_TOKEN'));
         if (localStorage.getItem('USER_TOKEN')) {
@@ -80,7 +81,7 @@ var ApiService = /** @class */ (function () {
     ApiService.prototype.get = function (api_name, params) {
         var _this = this;
         this.loadingService.getApiGetLink.next(this.fetchUri);
-        var api_uri = this.getFullUri(api_name, params);
+        var api_uri = this.getFetchUri(api_name, params);
         if (localStorage.getItem('USER_TOKEN')) {
             this.corsHeaders = this.corsHeaders.set('Authorization', 'Bearer ' + localStorage.getItem('USER_TOKEN'));
         }
@@ -108,7 +109,7 @@ var ApiService = /** @class */ (function () {
     };
     ApiService.prototype["delete"] = function (api_name, params) {
         var _this = this;
-        var api_uri = this.getFullUriPost(api_name, params);
+        var api_uri = this.getPostUri(api_name, params);
         if (localStorage.getItem('USER_TOKEN')) {
             this.corsHeaders = this.corsHeaders.set('Authorization', "Bearer " + localStorage.getItem('USER_TOKEN'));
         }
@@ -138,10 +139,10 @@ var ApiService = /** @class */ (function () {
         var _this = this;
         var api_uri = '';
         if (params) {
-            api_uri = this.getFullUriPost(api_name, body);
+            api_uri = this.getPostUri(api_name, body);
         }
         else {
-            api_uri = this.getFullUriPost(api_name);
+            api_uri = this.getPostUri(api_name);
         }
         if (localStorage.getItem('USER_TOKEN')) {
             this.corsHeaders = this.corsHeaders.set('Authorization', 'Bearer ' + localStorage.getItem('USER_TOKEN'));

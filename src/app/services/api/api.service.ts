@@ -1,30 +1,37 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
 import { Injectable } from '@angular/core';
-
-import { BaseResponse, BaseResponseAdapter } from 'src/app/models/base-response/base-response';
-
+import {
+  BaseResponse,
+  BaseResponseAdapter,
+} from 'src/app/models/base-response/base-response';
 import { LoadingServiceService } from '../loading/loading-service.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   corsHeaders: HttpHeaders;
 
-  private fetchUri = "http://conneto.org:5001/fetch_data/api/v1";
-  private postUri = 'http://conneto.org:5000/core/api/v1';
-  constructor(private http: HttpClient, private baseResponseAdapter: BaseResponseAdapter, public loadingService: LoadingServiceService) {
+  private fetchUri = environment.api_fetch;
+  private postUri = environment.api_core;
+
+  constructor(
+    private http: HttpClient,
+    private baseResponseAdapter: BaseResponseAdapter,
+    public loadingService: LoadingServiceService
+  ) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
-    this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    this.corsHeaders = this.corsHeaders.set(
+      'Access-Control-Allow-Methods',
+      'GET,PUT,POST,DELETE'
+    );
   }
 
-
-  getFullUri(api_name: string, params?: any) {
+  getFetchUri(api_name: string, params?: any) {
     let url = this.fetchUri + '/' + api_name;
 
-
     if (typeof params != 'undefined') {
       let array = [];
       for (let prop in params) {
@@ -34,12 +41,12 @@ export class ApiService {
       url += '?' + array.join('&');
     }
 
-    return url
+    return url;
   }
-  getFullUriPost(api_name: string, params?: any) {
+
+  getPostUri(api_name: string, params?: any) {
     let url = this.postUri + '/' + api_name;
 
-
     if (typeof params != 'undefined') {
       let array = [];
       for (let prop in params) {
@@ -49,7 +56,7 @@ export class ApiService {
       url += '?' + array.join('&');
     }
 
-    return url
+    return url;
   }
   post(
     api_name: string,
@@ -60,11 +67,11 @@ export class ApiService {
     let api_uri = '';
 
     if (params) {
-      api_uri = this.getFullUriPost(api_name, body);
+      api_uri = this.getPostUri(api_name, body);
     } else {
-      api_uri = this.getFullUriPost(api_name);
+      api_uri = this.getPostUri(api_name);
     }
-    console.log(localStorage.getItem('USER_TOKEN'))
+    console.log(localStorage.getItem('USER_TOKEN'));
     if (localStorage.getItem('USER_TOKEN')) {
       this.corsHeaders = this.corsHeaders.set(
         'Authorization',
@@ -100,10 +107,12 @@ export class ApiService {
   }
   get(api_name: string, params?: any): any {
     this.loadingService.getApiGetLink.next(this.fetchUri);
-    let api_uri = this.getFullUri(api_name, params);
+    let api_uri = this.getFetchUri(api_name, params);
     if (localStorage.getItem('USER_TOKEN')) {
-      this.corsHeaders = this.corsHeaders.set('Authorization', 'Bearer ' + localStorage.getItem('USER_TOKEN'));
-
+      this.corsHeaders = this.corsHeaders.set(
+        'Authorization',
+        'Bearer ' + localStorage.getItem('USER_TOKEN')
+      );
     }
     let options = {
       headers: this.corsHeaders,
@@ -132,10 +141,12 @@ export class ApiService {
     });
   }
   delete(api_name: string, params?: any): any {
-    let api_uri = this.getFullUriPost(api_name, params);
+    let api_uri = this.getPostUri(api_name, params);
     if (localStorage.getItem('USER_TOKEN')) {
-      this.corsHeaders = this.corsHeaders.set('Authorization', `Bearer ${localStorage.getItem('USER_TOKEN')}`);
-
+      this.corsHeaders = this.corsHeaders.set(
+        'Authorization',
+        `Bearer ${localStorage.getItem('USER_TOKEN')}`
+      );
     }
     let options = {
       headers: this.corsHeaders,
@@ -172,9 +183,9 @@ export class ApiService {
     let api_uri = '';
 
     if (params) {
-      api_uri = this.getFullUriPost(api_name, body);
+      api_uri = this.getPostUri(api_name, body);
     } else {
-      api_uri = this.getFullUriPost(api_name);
+      api_uri = this.getPostUri(api_name);
     }
 
     if (localStorage.getItem('USER_TOKEN')) {
