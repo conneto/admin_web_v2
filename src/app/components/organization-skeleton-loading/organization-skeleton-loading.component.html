@@ -1,0 +1,37 @@
+<div class="organization" *ngIf="loading.isSkeleton | async">
+  <div class="organization-first-wrapper">
+    <div class="title">
+      <div>
+        <ngx-skeleton-loader
+          animation="progress"
+          [theme]="{
+            'background-color': '#ddd',
+            width: '250px',
+            height: '20px',
+            'margin-bottom': '10px',
+            'border-radius': '0'
+          }"
+        ></ngx-skeleton-loader>
+      </div>
+      <div>
+        <ngx-skeleton-loader
+          [theme]="{
+            width: '200px',
+            height: '20px',
+            'border-radius': '0'
+          }"
+        >
+        </ngx-skeleton-loader>
+      </div>
+    </div>
+    <div class="cover">
+      <ngx-skeleton-loader
+        appearance="circle"
+        [theme]="{
+          width: '80px',
+          height: '80px'
+        }"
+      ></ngx-skeleton-loader>
+    </div>
+  </div>
+</div>
