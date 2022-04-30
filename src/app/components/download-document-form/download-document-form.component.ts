@@ -135,7 +135,7 @@ export class DownloadDocumentFormComponent implements OnInit {
   onSelectExcel(event: any) {
     console.log(event);
     if (event) {
-      this.filesExcel=event.addedFiles;
+      this.filesExcel.push(...event.addedFiles);
     }
     for (let i = 0; i < this.filesExcel.length; i++) {
       this.formDataExcel?.append("cashflow_detail", this.filesExcel[i], this.filesExcel[i].name);

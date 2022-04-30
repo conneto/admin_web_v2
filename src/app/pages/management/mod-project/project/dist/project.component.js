@@ -44,13 +44,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.ProjectComponent = void 0;
 var core_1 = require("@angular/core");
-var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var ProjectComponent = /** @class */ (function () {
-    function ProjectComponent(orgApi, router, dialog, snackbar, loadingService, api, authApi) {
-        this.orgApi = orgApi;
-        this.router = router;
-        this.dialog = dialog;
-        this.snackbar = snackbar;
+    function ProjectComponent(loadingService, api, authApi) {
         this.loadingService = loadingService;
         this.api = api;
         this.authApi = authApi;
@@ -59,27 +54,16 @@ var ProjectComponent = /** @class */ (function () {
         this.oldData = [];
         this.isRequest = false;
         this.isList = false;
-        this.organization = [];
     }
     ProjectComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
         this.urlApi = this.loadingService.getApiGetLink.value;
-        if (this.authApi.currentUserValue.role == 'admin') {
-            this.isAdmin = true;
-        }
-        else {
-            this.isAdmin = false;
-        }
     };
     ProjectComponent.prototype.ngOnDestroy = function () {
     };
     ProjectComponent.prototype.changeView = function () {
         var _a;
         (_a = this.changeViewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
-    };
-    ProjectComponent.prototype.getTab = function () {
-        var _a;
-        (_a = this.tabGroup) === null || _a === void 0 ? void 0 : _a.getEntity('pending', 'pro');
     };
     ProjectComponent.prototype.handleTitle = function (e) {
         if (e == 'list') {
@@ -226,67 +210,9 @@ var ProjectComponent = /** @class */ (function () {
             });
         });
     };
-    ProjectComponent.prototype.openProjectForm = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, dialogRef;
-            var _this = this;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.orgApi.getAll()];
-                    case 1:
-                        _a.organization = _b.sent();
-                        this.loadingService.getOrganizationId.next("" + this.organization[0].id);
-                        dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                            width: '700px',
-                            data: {
-                                title: 'Tạo dự án'
-                            }
-                        });
-                        dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
-                            var res;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0:
-                                        if (!data) return [3 /*break*/, 2];
-                                        this.loadingService.isLoading.next(true);
-                                        return [4 /*yield*/, this.api.createProject(data)];
-                                    case 1:
-                                        res = _a.sent();
-                                        if (res.status == 0) {
-                                            this.loadingService.isLoading.next(false);
-                                            this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
-                                            this.getTab();
-                                            this.checkToGetData();
-                                            this.router.navigate(['/manager/manage-project']);
-                                        }
-                                        else {
-                                            this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                                                width: '700px',
-                                                data: {
-                                                    title: 'Tạo dự án'
-                                                }
-                                            });
-                                            this.loadingService.isLoading.next(false);
-                                            this.snackbar.showMessage(res.message, false);
-                                        }
-                                        _a.label = 2;
-                                    case 2: return [2 /*return*/];
-                                }
-                            });
-                        }); });
-                        return [2 /*return*/];
-                }
-            });
-        });
-    };
     __decorate([
         core_1.ViewChild('changeView')
     ], ProjectComponent.prototype, "changeViewGrid");
-    __decorate([
-        core_1.ViewChild('tabGroup')
-    ], ProjectComponent.prototype, "tabGroup");
     ProjectComponent = __decorate([
         core_1.Component({
             selector: 'app-project',

@@ -178,7 +178,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isInformation = true;
                         this.isDocument = false;
                         this.isAnother = false;
-                        this.isShow = false;
                         return [3 /*break*/, 7];
                     case 2:
                         _g = this;
@@ -192,7 +191,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isDocument = true;
                         this.isInformation = false;
                         this.isAnother = false;
-                        this.isShow = false;
                         return [3 /*break*/, 7];
                     case 5:
                         _j = this;
@@ -202,6 +200,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         if (((_d = this.volunteer) === null || _d === void 0 ? void 0 : _d.length) == 0) {
                             this.isEmpty = true;
                         }
+                        console.log(this.isEmpty);
                         switch ((_e = this.campaign) === null || _e === void 0 ? void 0 : _e.type) {
                             case 'Quyên góp':
                                 this.type = 'donation';
@@ -213,7 +212,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isAnother = true;
                         this.isDocument = false;
                         this.isInformation = false;
-                        this.isShow = false;
                         _k.label = 7;
                     case 7: return [2 /*return*/];
                 }

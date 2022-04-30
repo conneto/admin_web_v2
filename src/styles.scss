@@ -26,9 +26,6 @@ p {
 :root {
   --heading-card-color: #9a9a9a;
   overflow: hidden;
-  --green: #00f531;
-  --blue: #3737dc;
-  --red: #e93535;
 }
 
 html {
@@ -197,26 +194,6 @@ html {
   width: 100px;
 }
 
-.center {
+.center{
   display: flex;
-}
-
-.label-pending {
-  color: var(--blue);
-}
-.label-approved {
-  color: var(--green);
-}
-
-.label-rejected {
-  color: var(--red);
-}
-
-
-.margin-left{
-  margin-left:1rem;
-}
-
-.flex-grow{
-  flex-grow:1;
 }

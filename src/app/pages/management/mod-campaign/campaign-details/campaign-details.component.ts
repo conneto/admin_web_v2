@@ -106,7 +106,6 @@ export class CampaignDetailsComponent implements OnInit {
         this.isInformation = true;
         this.isDocument = false;
         this.isAnother = false;
-        this.isShow=false;
         break;
       case 'doc':
         this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
@@ -114,7 +113,6 @@ export class CampaignDetailsComponent implements OnInit {
         this.isDocument = true;
         this.isInformation = false;
         this.isAnother = false;
-        this.isShow=false;
         break;
       case 'ano':
         this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
@@ -122,7 +120,7 @@ export class CampaignDetailsComponent implements OnInit {
         if (this.volunteer?.length == 0) {
           this.isEmpty = true;
         }
-
+        console.log(this.isEmpty);
         switch (this.campaign?.type) {
           case 'Quyên góp': this.type = 'donation'; break;
           case 'Tuyển người': this.type = 'recruitment'; break;
@@ -130,7 +128,6 @@ export class CampaignDetailsComponent implements OnInit {
         this.isAnother = true;
         this.isDocument = false;
         this.isInformation = false;
-        this.isShow=false;
 
 
 
