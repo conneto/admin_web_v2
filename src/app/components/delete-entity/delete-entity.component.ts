@@ -43,9 +43,9 @@ export class DeleteEntityComponent implements OnInit {
       },
     })
     diaglogRef.afterClosed().subscribe(async x => {
-      this.loading.isLoading.next(true);
-      if (x) {
 
+      if (x) {
+        this.loading.isLoading.next(true);
         const data1 = {
           object_id: this.entity?.id,
           object_type: this.type == 'org' ? AuthServiceService.ORGANIZATION
@@ -56,7 +56,7 @@ export class DeleteEntityComponent implements OnInit {
         console.log(data1)
         let res: BaseResponse | null = await this.user.activateEntity(data1);
         if (res?.status == 0) {
-       
+
           switch (this.type) {
             case 'org':
               this.data.getByEntity('org');
@@ -70,13 +70,14 @@ export class DeleteEntityComponent implements OnInit {
           }
           this.loading.isLoading.next(false);
           window.location.reload();
-          
+
           this.snackBar.showMessage("Vô hiệu hóa thành công !", true);
         } else {
           this.loading.isLoading.next(false);
           this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
         }
       }
+    
     })
   }
   async enable() {
@@ -125,7 +126,7 @@ export class DeleteEntityComponent implements OnInit {
       width: '300px',
       data: {
         button: 'Xóa',
-        message: 'Xóa',
+        message: 'xóa',
       }
     })
     dialogRef.afterClosed().subscribe(async data => {

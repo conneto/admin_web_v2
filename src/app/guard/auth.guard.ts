@@ -15,9 +15,15 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const currentUser = this.authApi.currentUserValue;
     if (currentUser) {
-      return true;
+      if(currentUser.role=='admin'){
+     
+        return true;
+      }else if(currentUser.role=='organization_manager'){
+        this.router.navigate(['/manager']);
+        return true;
+      }
     }
-    this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+    this.router.navigate(['/login']);
     return false;
   }
 
@@ -27,7 +33,7 @@ export class AuthGuard implements CanActivate {
     if (currentUser.role == 'admin') {
       return true;
     }
-    this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+    this.router.navigate(['/'],);
     return false;
   }
 }

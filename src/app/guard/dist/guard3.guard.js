@@ -6,20 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.AuthGuard = void 0;
+exports.Guard3Guard = void 0;
 var core_1 = require("@angular/core");
-var AuthGuard = /** @class */ (function () {
-    function AuthGuard(router, authApi) {
+var Guard3Guard = /** @class */ (function () {
+    function Guard3Guard(user, router) {
+        this.user = user;
         this.router = router;
-        this.authApi = authApi;
     }
-    AuthGuard.prototype.canActivate = function (route, state) {
-        var currentUser = this.authApi.currentUserValue;
-        if (currentUser) {
-            if (currentUser.role == 'admin') {
+    Guard3Guard.prototype.canActivate = function (route, state) {
+        if (this.user.currentUserValue) {
+            if (this.user.currentUserValue.role == 'admin') {
+                this.router.navigate(['/admin/dashboard']);
                 return true;
             }
-            else if (currentUser.role == 'organization_manager') {
+            else if (this.user.currentUserValue.role == 'organization_manager') {
                 this.router.navigate(['/manager']);
                 return true;
             }
@@ -27,19 +27,11 @@ var AuthGuard = /** @class */ (function () {
         this.router.navigate(['/login']);
         return false;
     };
-    AuthGuard.prototype.canActivateChild = function (route, state) {
-        var currentUser = this.authApi.currentUserValue;
-        if (currentUser.role == 'admin') {
-            return true;
-        }
-        this.router.navigate(['/']);
-        return false;
-    };
-    AuthGuard = __decorate([
+    Guard3Guard = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })
-    ], AuthGuard);
-    return AuthGuard;
+    ], Guard3Guard);
+    return Guard3Guard;
 }());
-exports.AuthGuard = AuthGuard;
+exports.Guard3Guard = Guard3Guard;

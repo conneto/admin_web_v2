@@ -60,8 +60,10 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
         this.filesExcel = [];
         this.formData = new FormData();
         this.formDataExcel = new FormData();
+        this.isUploaded = new core_1.EventEmitter();
     }
-    DownloadDocumentFormComponent.prototype.tableUpload = function () {
+    DownloadDocumentFormComponent.prototype.passValue = function (e) {
+        this.isUploaded.emit(e);
     };
     DownloadDocumentFormComponent.prototype.ngOnInit = function () {
         this.fileUpload = this.formBuilder.group({
@@ -84,6 +86,7 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
                                 this.filesExcel = [];
                                 this.loading.isLoading.next(false);
                                 this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+                                this.passValue('excel');
                                 break;
                             default:
                                 this.loading.isLoading.next(false);
@@ -111,6 +114,7 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
                                 this.files = [];
                                 this.loading.isLoading.next(false);
                                 this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+                                this.passValue('pdf');
                                 break;
                             default:
                                 this.loading.isLoading.next(false);
@@ -208,6 +212,9 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], DownloadDocumentFormComponent.prototype, "campaign");
+    __decorate([
+        core_1.Output()
+    ], DownloadDocumentFormComponent.prototype, "isUploaded");
     DownloadDocumentFormComponent = __decorate([
         core_1.Component({
             selector: 'app-download-document-form',

@@ -43,6 +43,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   numberCount?: any;
   isDeleted?: boolean = false;
   isList?:boolean=false;
+  isAdmin?:boolean;
 
   constructor(public convertType:UtilService,private loading: LoadingServiceService, private getUser: UserApiService, private service: OrganizationApiService, private userApi: AuthServiceService) { }
 
@@ -52,6 +53,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
     this.userApi.currentUserValue;
     this.urlApi = this.loading.getApiGetLink.value;
+    if(this.userApi.currentUserValue.role=='admin'){
+      this.isAdmin=true;
+    }
     this.loading.isSkeleton.next(true);
 
 

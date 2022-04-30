@@ -49,6 +49,7 @@ var change_to_list_component_1 = require("../change-to-list/change-to-list.compo
 var list_view_component_1 = require("../list-view/list-view.component");
 var table_campaign_participations_component_1 = require("../table-campaign-participations/table-campaign-participations.component");
 var show_document_component_1 = require("../show-document/show-document.component");
+var organization_details_component_1 = require("../organization-details/organization-details.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -80,6 +81,7 @@ var componentModules = [
     list_view_component_1.ListViewComponent,
     table_campaign_participations_component_1.TableCampaignParticipationsComponent,
     show_document_component_1.ShowDocumentComponent,
+    organization_details_component_1.OrganizationDetailsComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

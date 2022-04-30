@@ -10,16 +10,19 @@ exports.AppRoutingModule = void 0;
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var auth_guard_1 = require("./guard/auth.guard");
+var guard2_guard_1 = require("./guard/guard2.guard");
+var guard3_guard_1 = require("./guard/guard3.guard");
 var login_component_1 = require("./pages/login/login.component");
 var routes = [
-    { path: '', component: login_component_1.LoginComponent },
+    { path: '', canActivate: [guard3_guard_1.Guard3Guard], loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); } },
+    { path: 'login', component: login_component_1.LoginComponent },
     {
-        path: "admin",
+        path: "admin", canActivate: [auth_guard_1.AuthGuard],
         loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
     },
     { path: 'register', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/register/register.module'); }).then(function (m) { return m.RegisterModule; }); } },
     {
-        path: 'manager', canActivate: [auth_guard_1.AuthGuard],
+        path: 'manager', canActivate: [guard2_guard_1.Guard2Guard],
         loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
     },
     { path: '**', redirectTo: '' },

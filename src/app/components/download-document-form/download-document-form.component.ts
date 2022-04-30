@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FileUploader, FileItem } from 'ng2-file-upload';
@@ -31,14 +31,14 @@ export class DownloadDocumentFormComponent implements OnInit {
   filesExcel: File[] = [];
   formData: any = new FormData();
   formDataExcel: any = new FormData();
+  @Output() isUploaded = new EventEmitter<string>();
+
   constructor(private loading: LoadingServiceService, private snackBar: SnackBarMessageComponent, private camApi: CampaignApiService, private formBuilder: FormBuilder,) {
 
   }
-
-  tableUpload() {
-
+  passValue(e: any) {
+    this.isUploaded.emit(e);
   }
-
 
   ngOnInit(): void {
 
@@ -55,25 +55,27 @@ export class DownloadDocumentFormComponent implements OnInit {
       case 0: this.filesExcel = [];
         this.loading.isLoading.next(false);
         this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+        this.passValue('excel');
         break;
-      default: 
-      this.loading.isLoading.next(false);
-      this.snackBar.showMessage(`${res.message}`, false);
+      default:
+        this.loading.isLoading.next(false);
+        this.snackBar.showMessage(`${res.message}`, false);
         break;
     }
   }
   async uploadPdf() {
     this.loading.isLoading.next(true);
     let res: BaseResponse | null = await this.camApi.uploadPdf(this.formData, `${this.campaign?.id}`);
-  
+
     switch (res?.status) {
       case 0: this.files = [];
         this.loading.isLoading.next(false);
         this.snackBar.showMessage("Đăng tải tài liệu thành công !", true);
+        this.passValue('pdf');
         break;
-      default: 
-      this.loading.isLoading.next(false);
-      this.snackBar.showMessage(`${res.message}`, false);
+      default:
+        this.loading.isLoading.next(false);
+        this.snackBar.showMessage(`${res.message}`, false);
         break;
     }
 
