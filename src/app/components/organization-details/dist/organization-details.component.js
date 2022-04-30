@@ -95,7 +95,6 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.orgApi.getById("" + ((_a = this.organizationInput[0]) === null || _a === void 0 ? void 0 : _a.id))];
                     case 1:
                         _j.organization = _k.sent();
-                        console.log(this.organizationInput);
                         if (((_b = this.organization) === null || _b === void 0 ? void 0 : _b.result_code) == 510) {
                             this.isApproved = true;
                         }
@@ -146,22 +145,22 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getCampaigns = function () {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function () {
-            var _e, i;
-            return __generator(this, function (_f) {
-                switch (_f.label) {
+            var _f, i;
+            return __generator(this, function (_g) {
+                switch (_g.label) {
                     case 0:
-                        _e = this;
-                        return [4 /*yield*/, this.orgApi.getCampaignsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
+                        _f = this;
+                        return [4 /*yield*/, this.orgApi.getCampaignsByOrgId("" + ((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id))];
                     case 1:
-                        _e.campaignsCopy = _f.sent();
+                        _f.campaignsCopy = _g.sent();
                         this.campaigns = this.campaignsCopy;
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 {
-                                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                                    this.campaigns[i].cover = (_c = (_b = this.campaigns[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
+                                    this.campaigns[i].org_logo = (_e = (_d = this.campaigns[i]) === null || _d === void 0 ? void 0 : _d.org_logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
                                     switch (this.campaigns[i].type) {
                                         case 'donation':
                                             this.campaigns[i].type = 'Quyên Góp';
@@ -182,23 +181,23 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         });
     };
     OrganizationDetailsComponent.prototype.getProjects = function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b, _c, _d, _e, _f, _g;
         return __awaiter(this, void 0, void 0, function () {
-            var _g, i;
-            return __generator(this, function (_h) {
-                switch (_h.label) {
+            var _h, i;
+            return __generator(this, function (_j) {
+                switch (_j.label) {
                     case 0:
-                        _g = this;
-                        return [4 /*yield*/, this.orgApi.getProjectsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
+                        _h = this;
+                        return [4 /*yield*/, this.orgApi.getProjectsByOrgId("" + ((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id))];
                     case 1:
-                        _g.projectsCopy = _h.sent();
+                        _h.projectsCopy = _j.sent();
                         this.projects = this.projectsCopy;
                         if (this.projects) {
                             for (i = 0; i < this.projects.length; i++) {
                                 {
-                                    this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                    this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                                    this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                                    this.projects[i].cover = (_c = (_b = this.projects[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
+                                    this.projects[i].logo = (_e = (_d = this.projects[i]) === null || _d === void 0 ? void 0 : _d.logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
+                                    this.projects[i].organizationLogo = (_g = (_f = this.projects[i]) === null || _f === void 0 ? void 0 : _f.organizationLogo) === null || _g === void 0 ? void 0 : _g.replace(/\\/g, '\/');
                                 }
                             }
                             this.passDataProjects = this.projectsCopy;
@@ -208,15 +207,6 @@ var OrganizationDetailsComponent = /** @class */ (function () {
             });
         });
     };
-    Object.defineProperty(OrganizationDetailsComponent.prototype, "getId", {
-        get: function () {
-            this.getValueFromRoute();
-            var id = console.log(this.route.snapshot.paramMap.get('id'));
-            return this.route.snapshot.paramMap.get('id');
-        },
-        enumerable: false,
-        configurable: true
-    });
     OrganizationDetailsComponent.prototype.openProjectForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {

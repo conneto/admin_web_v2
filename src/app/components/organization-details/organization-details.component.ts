@@ -70,7 +70,7 @@ export class OrganizationDetailsComponent implements OnInit {
   async getValueFromRoute() {
   
     this.organization = await this.orgApi.getById(`${this.organizationInput[0]?.id}`);
-    console.log(this.organizationInput);
+
     if (this.organization?.result_code == 510) {
       this.isApproved = true;
     }
@@ -118,7 +118,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   async getCampaigns() {
-    this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(`${this.organization?.id}`);
     this.campaigns = this.campaignsCopy;
     if (this.campaigns) {
       for (var i = 0; i < this.campaigns.length; i++) {
@@ -143,7 +143,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   async getProjects() {
-    this.projectsCopy = await this.orgApi.getProjectsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.projectsCopy = await this.orgApi.getProjectsByOrgId(`${this.organization?.id}`);
     this.projects = this.projectsCopy;
     if (this.projects) {
       for (var i = 0; i < this.projects.length; i++) {
@@ -158,12 +158,7 @@ export class OrganizationDetailsComponent implements OnInit {
       this.passDataProjects = this.projectsCopy;
     }
   }
-  public get getId() {
-    this.getValueFromRoute();
-    const id = console.log(this.route.snapshot.paramMap.get('id'));
-    return this.route.snapshot.paramMap.get('id')
 
-  }
   openProjectForm() {
     const dialogRef = this.dialog.open(ProjectFormComponent, {
       width: '700px',
