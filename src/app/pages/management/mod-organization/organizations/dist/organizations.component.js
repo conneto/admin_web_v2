@@ -82,6 +82,7 @@ var OrganizationsComponent = /** @class */ (function () {
         this.isChangeState = e;
     };
     OrganizationsComponent.prototype.handleTitle = function (e) {
+        this.noResultBySearch = false;
         if (e == 'list') {
             this.isList = true;
         }
@@ -92,6 +93,9 @@ var OrganizationsComponent = /** @class */ (function () {
     OrganizationsComponent.prototype.changeToGrid = function () {
         var _a;
         (_a = this.viewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
+    };
+    OrganizationsComponent.prototype.getOrganizations = function (e) {
+        this.organizations = e;
     };
     OrganizationsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {

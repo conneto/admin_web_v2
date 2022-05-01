@@ -215,9 +215,9 @@ html {
   width: 100px;
 }
 
-.mat-table{
+.mat-table {
   border-radius: 16px;
-  overflow:hidden !important;
+  overflow: hidden !important;
 }
 
 .box-shadow-1 {
@@ -239,6 +239,7 @@ html {
 .label-pending {
   color: var(--blue);
 }
+
 .label-approved {
   color: var(--green);
 }
@@ -247,13 +248,30 @@ html {
   color: var(--red);
 }
 
-th, td {
+th,
+td {
   overflow: hidden;
   width: auto;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.flex-grow{
+
+.flex-grow {
   flex-grow: 1;
 
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  background-color: rgb(65, 65, 255);
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: black;
+}
+
+.text-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

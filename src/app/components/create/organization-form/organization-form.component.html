@@ -100,29 +100,34 @@
         />
       </div>
       <span
-      *ngIf="  ( organizationControl.founding_date.touched||isSubmitted) &&
+        *ngIf="
+          (organizationControl.founding_date.touched || isSubmitted) &&
           organizationControl.founding_date.errors?.required
         "
-      class="text-danger"
-      >Ngày thành lập phải được chọn</span>
+        class="text-danger"
+        >Ngày thành lập phải được chọn</span
+      >
       <div>
-       <mat-form-field>
-         <mat-label>Lĩnh vực</mat-label>
-        <mat-select formControlName='category' required="false" multiple >
-
-          <mat-select-trigger>
-            <mat-chip-list>
-              <mat-chip *ngFor='let e of organizationControl.category.value' [removable]="true" (removed)='onRemoveCategory(e)'>
-                  {{e.vietsub}}
+        <mat-form-field>
+          <mat-label>Lĩnh vực</mat-label>
+          <mat-select formControlName="category" required="false" multiple>
+            <mat-select-trigger>
+              <mat-chip-list>
+                <mat-chip
+                  *ngFor="let e of organizationControl.category.value"
+                  [removable]="true"
+                  (removed)="onRemoveCategory(e)"
+                >
+                  {{ e.vietsub }}
                   <mat-icon matChipRemove>cancel</mat-icon>
-              </mat-chip>
-            </mat-chip-list>
-          </mat-select-trigger>
-          <mat-option *ngFor='let e of category' [value]='e' >
-            {{e.vietsub}}
-          </mat-option>
-        </mat-select>
-       </mat-form-field>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-select-trigger>
+            <mat-option *ngFor="let e of category" [value]="e">
+              {{ e.vietsub }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
       <div>
         <label style="width: 100px"> Ảnh bìa:</label>
@@ -143,6 +148,26 @@
           formControlName="logo"
           (change)="onChangeLogo($event)"
         />
+      </div>
+
+      <label > Giấy phép hoạt động:</label>
+      <div>
+        <ngx-dropzone
+          accept="application/pdf"
+          class="text-center"
+          style="width: 100%"
+          [multiple]="false"
+          (change)="onSelectPDF($event)"
+        >
+          <ngx-dropzone-label
+            >Kéo và thả tài liệu về giấy phép hoạt động vào đây hoặc
+
+            <label class="custom-file-upload">
+              <i class="fa fa-cloud-upload"></i> Chọn tài liệu
+            </label>
+          </ngx-dropzone-label>
+          <ngx-dropzone-label>(.PDF) </ngx-dropzone-label>
+        </ngx-dropzone>
       </div>
     </div>
   </form>

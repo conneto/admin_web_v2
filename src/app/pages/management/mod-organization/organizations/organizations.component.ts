@@ -70,14 +70,20 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
   }
   handleTitle(e: any) {
+    this.noResultBySearch=false;
+    
     if (e == 'list') {
       this.isList = true;
     } else {
+    
       this.isList = false;
     }
   }
   changeToGrid() {
     this.viewGrid?.changeView(true);
+  }
+  getOrganizations(e:any){
+    this.organizations=e;
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {

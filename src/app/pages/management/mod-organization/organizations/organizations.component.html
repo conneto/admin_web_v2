@@ -20,7 +20,9 @@
       Tạo tổ chức
     </button>
   </ng-template>
-
+  <div *ngIf="isEmpty && isDeleted == false">
+    Hiện tại không có tổ chức nào được tạo!
+  </div>
   <div *ngIf="isRequest">
     <div class="search-bar" *ngIf="!isEmpty">
       <div *ngIf="!noResultBySearch; then name; else result"></div>
@@ -50,7 +52,7 @@
     <app-list-view
       [whichEntity]="'org'"
       *ngIf="isList"
-      [entity]="organizations"
+      [entity]="oldData"
     ></app-list-view>
     <div *ngIf="!isList" class="request-component">
       <app-organization-infor-card
@@ -63,9 +65,7 @@
     </div>
   </div>
 
-  <div *ngIf="isEmpty && isDeleted == false">
-    Hiện tại không có tổ chức nào được tạo!
-  </div>
+
 
   <div *ngIf="isAdmin">
     <div *ngIf="!isRequest">
@@ -93,13 +93,15 @@
             ></app-search-bar>
             <app-change-to-list
               #viewGrid
+            [entityOrganization]="oldData"
+            (entitys)="getOrganizations($event)"
               (handleTitle)="handleTitle($event)"
             ></app-change-to-list>
           </div>
           <app-list-view
             *ngIf="isList"
             [whichEntity]="'org'"
-            [entity]="organizations"
+            [entity]="oldData"
           ></app-list-view>
           <div *ngIf="!isList" class="box">
             <div class="box__item" *ngFor="let organization of organizations">

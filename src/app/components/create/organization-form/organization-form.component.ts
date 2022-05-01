@@ -141,4 +141,7 @@ export class OrganizationFormComponent implements OnInit {
     }
     this.organizationForm.controls.category.patchValue(category);
   }
+  onSelectPDF(e:any){
+
+  }
 }

@@ -179,6 +179,8 @@ var OrganizationFormComponent = /** @class */ (function () {
         }
         this.organizationForm.controls.category.patchValue(category);
     };
+    OrganizationFormComponent.prototype.onSelectPDF = function (e) {
+    };
     var OrganizationFormComponent_1;
     OrganizationFormComponent.CREATE = 'create';
     __decorate([

@@ -1,4 +1,5 @@
 
+import { BooleanInput } from '@angular/cdk/coercion';
 import { Injectable } from '@angular/core';
 import { Adapter } from 'src/app/interface/adapter';
 
@@ -26,6 +27,8 @@ export class Organization {
     public result_note?: string,
     public created_at?: number,
     public created_name?: number,
+    public is_enable?:boolean,
+    public is_modify?:boolean,
 
   ) { }
 }
@@ -57,7 +60,9 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.result_message,
       item.result_note,
       item.created_at,
-      item.created_by_name
+      item.created_by_name,
+      item.is_enable,
+      item.is_modify,
 
     );
   }

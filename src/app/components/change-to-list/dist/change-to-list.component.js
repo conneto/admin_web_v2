@@ -12,6 +12,7 @@ var ChangeToListComponent = /** @class */ (function () {
     function ChangeToListComponent() {
         this.icon_view = 'view_list';
         this.handleTitle = new core_1.EventEmitter();
+        this.entitys = new core_1.EventEmitter();
     }
     ChangeToListComponent.prototype.ngOnInit = function () {
     };
@@ -19,12 +20,14 @@ var ChangeToListComponent = /** @class */ (function () {
         if (isTab) {
             {
                 this.handleTitle.emit(this.whichView = 'grid');
+                this.entitys.emit(this.entityOrganization);
                 this.icon_view = 'view_list';
             }
         }
         else {
             if (this.icon_view == 'grid_view') {
                 this.handleTitle.emit(this.whichView = 'grid');
+                this.entitys.emit(this.entityOrganization);
                 this.icon_view = 'view_list';
             }
             else {
@@ -36,6 +39,12 @@ var ChangeToListComponent = /** @class */ (function () {
     __decorate([
         core_1.Output()
     ], ChangeToListComponent.prototype, "handleTitle");
+    __decorate([
+        core_1.Input()
+    ], ChangeToListComponent.prototype, "entityOrganization");
+    __decorate([
+        core_1.Output()
+    ], ChangeToListComponent.prototype, "entitys");
     ChangeToListComponent = __decorate([
         core_1.Component({
             selector: 'app-change-to-list',
