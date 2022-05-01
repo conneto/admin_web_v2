@@ -45,6 +45,7 @@ exports.__esModule = true;
 exports.OrganizationFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
+var environment_1 = require("src/environments/environment");
 var OrganizationFormComponent = /** @class */ (function () {
     function OrganizationFormComponent(org, getEntityService, loadingService, location, router, snackBar, formBuilder, orgApi, user) {
         this.org = org;
@@ -56,6 +57,9 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.formBuilder = formBuilder;
         this.orgApi = orgApi;
         this.user = user;
+        this.category = environment_1.category;
+        this.categoryString = '';
+        this.categoryStringClone = '';
     }
     OrganizationFormComponent_1 = OrganizationFormComponent;
     OrganizationFormComponent.prototype.ngOnInit = function () {
@@ -64,12 +68,29 @@ var OrganizationFormComponent = /** @class */ (function () {
     OrganizationFormComponent.prototype.create = function () {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var uploadData, res, res;
+            var i, i, uploadData, res, res;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
+                        if (this.organizationForm.controls.category.value.length != 0 && this.organizationForm.controls.category.value) {
+                            if (this.isRemoved == true || this.isSubmitted == true) {
+                                this.categoryStringClone = '';
+                                for (i = 0; i < this.organizationForm.controls.category.value.length; i++) {
+                                    this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                                }
+                            }
+                            else {
+                                for (i = 0; i < this.organizationForm.controls.category.value.length; i++) {
+                                    this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                                }
+                            }
+                        }
+                        this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
                         this.isSubmitted = true;
+                        this.organizationForm.value.category = this.categoryString;
+                        console.log(this.organizationForm.value);
                         if (!this.organizationForm.valid) return [3 /*break*/, 4];
+                        console.log(this.organizationForm.value);
                         uploadData = new FormData();
                         uploadData.append('organization', JSON.stringify(this.organizationForm.value));
                         uploadData.append('logo', this.logoFile, (_a = this.logoFile) === null || _a === void 0 ? void 0 : _a.name);
@@ -145,6 +166,19 @@ var OrganizationFormComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    OrganizationFormComponent.prototype.onRemoveCategory = function (e) {
+        this.isRemoved = true;
+        var category = this.organizationForm.controls.category.value;
+        var index = category.indexOf(e);
+        console.log(index);
+        if (index !== -1) {
+            category.splice(index, 1);
+        }
+        if (index == 0) {
+            this.categoryStringClone = '';
+        }
+        this.organizationForm.controls.category.patchValue(category);
+    };
     var OrganizationFormComponent_1;
     OrganizationFormComponent.CREATE = 'create';
     __decorate([

@@ -6,7 +6,7 @@ import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Organization } from 'src/app/models/organization/organization';
 import { CampaignRequestComponent } from 'src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.component';
 import { OrganizationRequestComponent } from 'src/app/pages/manage-request/mod-organization/organization-request/organization-request.component';
-import { ProjectRequestComponent } from 'src/app/pages/manage-request/mod-project/project-request/project-request.component';
+
 import { CampaignsComponent } from 'src/app/pages/management/mod-campaign/campaigns/campaigns.component';
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { ProjectComponent } from 'src/app/pages/management/mod-project/project/project.component';
@@ -28,7 +28,7 @@ export class OrganizationInforCardComponent implements OnInit {
   urlApi?: string;
   urlLogo?: string;
   @Input() checkType?: any;
-  constructor(private pro: ProjectComponent, private cam: CampaignsComponent, private orga: OrganizationsComponent, private loadingApi: LoadingServiceService, private proApi: ProjectRequestComponent, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
+  constructor(private pro: ProjectComponent, private cam: CampaignsComponent, private orga: OrganizationsComponent, private loadingApi: LoadingServiceService, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
 
   }
 
@@ -61,7 +61,7 @@ export class OrganizationInforCardComponent implements OnInit {
           status: 'approve',
           note: 'Approve this',
         }
-
+        console.log(this.checkType,checkType);
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
 
         if (res?.status == 0) {
@@ -71,7 +71,7 @@ export class OrganizationInforCardComponent implements OnInit {
             this.orga.checkToGetData('pending');
           } else if (checkType == 'pro' || this.checkType == 'pro') {
             this.pro.checkToGetData('pending');
-          } else {
+          } else if(checkType=='cam' || this.checkType=='cam') {
             this.cam.checkToGetData('pending');
           }
           this.snackBar.showMessage("Chấp nhận thành công !", true);
@@ -111,7 +111,7 @@ export class OrganizationInforCardComponent implements OnInit {
             this.orga.checkToGetData('pending');
           } else if (checkType == 'pro' || this.checkType == 'pro') {
             this.pro.checkToGetData('pending');
-          } else if (checkType == 'cam' || this.checkType == 'cam') {
+          } else if(checkType=='cam' || this.checkType=='cam') {
             this.cam.checkToGetData('pending');
           }
           this.snackBar.showMessage("Từ chối thành công", true);

@@ -74,9 +74,7 @@ var ApproveDeclineButtonComponent = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_d) {
                 switch (_d.label) {
-                    case 0:
-                        console.log(this.isPro, this.isOrg, this.isCam);
-                        return [4 /*yield*/, this.dialogConfirm.approve(((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id) || ((_b = this.project) === null || _b === void 0 ? void 0 : _b.id) || ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id), this.isPro || this.isOrg || this.isCam)];
+                    case 0: return [4 /*yield*/, this.dialogConfirm.approve(((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id) || ((_b = this.project) === null || _b === void 0 ? void 0 : _b.id) || ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id), this.isPro || this.isOrg || this.isCam)];
                     case 1:
                         _d.sent();
                         return [2 /*return*/];
@@ -89,9 +87,7 @@ var ApproveDeclineButtonComponent = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_d) {
                 switch (_d.label) {
-                    case 0:
-                        console.log(this.isPro, this.isOrg, this.isCam);
-                        return [4 /*yield*/, this.dialogConfirm.reject(((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id) || ((_b = this.project) === null || _b === void 0 ? void 0 : _b.id) || ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id), this.isPro || this.isOrg || this.isCam)];
+                    case 0: return [4 /*yield*/, this.dialogConfirm.reject(((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id) || ((_b = this.project) === null || _b === void 0 ? void 0 : _b.id) || ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id), this.isPro || this.isOrg || this.isCam)];
                     case 1:
                         _d.sent();
                         return [2 /*return*/];

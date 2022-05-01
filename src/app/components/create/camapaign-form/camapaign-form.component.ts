@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
@@ -23,10 +23,12 @@ export class CamapaignFormComponent implements OnInit {
   organizations: Organization[] = [];
   projects: Project[] = [];
   selectedValue?: string;
-  selectedRadio?: string;
+  selectedRadio: string = 'Quyên góp';
+  cloneProjects: Project[] = [];
   type: string[] = ['Quyên góp', 'Tuyển tình nguyện viên'];
   ngOnInit(): void {
     this.initForm();
+
     let uploadData: any = new FormData();
     uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
 
@@ -41,21 +43,21 @@ export class CamapaignFormComponent implements OnInit {
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : Validators.required],
-      end_working_date: ['', this.selectedRadio == "Quyên góp" ?"" : Validators.required],
+      end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : Validators.required],
       request_type: ['create'],
-      type: [this.selectedRadio == "Quyên góp" ? 'donate' : 'recruitment', Validators.required],
+      type: ['', Validators.required],
       target_number: ['', Validators.required],
-      job_requirement: ['',this.selectedRadio == "Quyên góp"  ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
-      job_description: ['', this.selectedRadio == "Quyên góp"  ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
-      job_benefit: ['', this.selectedRadio == "Quyên góp"  ? "" : [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
-      project_id: [this.loadingService.projectId.value],
+      job_requirement: [''],
+      job_description: [''],
+      job_benefit: [''],
+      project_id: [''],
       cover: [''],
 
     })
     this.organizations = await this.organizationApi.getAll();
     if (this.organizations) {
-      this.projects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
-      this.projects = this.projects.filter(x => {
+      this.cloneProjects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
+      this.projects = this.cloneProjects.filter(x => {
         return x.resultCode == 610;
       })
     }
@@ -67,17 +69,35 @@ export class CamapaignFormComponent implements OnInit {
   }
   uploadData: any = new FormData();
   yesClick() {
+    console.log(this.selectedRadio);
     this.isSubmitted = true;
-    console.log('ngu');
+
+    this.projects = this.cloneProjects.filter(x => {
+      return x.name == this.campaignForm.value.selected;
+    })
+
+    this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` })
+    if (this.selectedRadio == 'Quyên góp' ) {
+ 
+      this.campaignForm.patchValue({ start_working_date: `${this.campaignForm.value.start_date}` })
+      this.campaignForm.patchValue({ end_working_date: `${this.campaignForm.value.end_date}` })
+      this.campaignForm.patchValue({ type: 'donation' })
+      this.campaignForm.removeControl('job_requirement');
+      this.campaignForm.removeControl('job_description');
+      this.campaignForm.removeControl('job_benefit');
+      console.log(this.campaignForm.valid);
+    } else if (
+      this.selectedRadio == 'Tuyển tình nguyện viên' 
+    ) {
+      this.campaignForm.patchValue({ type: 'recruitment' })
+    
+    }
     console.log(this.campaignForm.value);
     if (this.campaignForm.valid) {
 
-      // if (this.selectedRadio == "Quyên góp" ) {
-      //   this.campaignForm.value.start_working_date = this.campaignForm.value.start_date;
-      //   this.campaignForm.value.end_working_date = this.campaignForm.value.end_date;
-      // }
+      console.log(this.campaignForm.value);
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
-      // uploadData.append('cover', this.coverImage, this.coverImage?.name);
+
 
       this.dialogRef.close(this.uploadData);
     }
@@ -94,4 +114,18 @@ export class CamapaignFormComponent implements OnInit {
   get campaignControl() {
     return this.campaignForm.controls;
   }
+  getType(e: string) {
+    console.log(e);
+    if(e=='Quyên góp'){
+      this.campaignForm.removeControl('job_requirement');
+      this.campaignForm.removeControl('job_description');
+      this.campaignForm.removeControl('job_benefit');
+    }else if(e=='Tuyển tình nguyện viên'){
+
+      this.campaignForm.setControl('job_requirement', new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]));
+      this.campaignForm.setControl('job_description', new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]));
+      this.campaignForm.setControl('job_benefit', new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]));
+    }
+
+   }
 }

@@ -137,7 +137,7 @@ var AuthServiceService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.put(AuthServiceService_1.ADMIN + '/' + AuthServiceService_1.APPROVEMENTS, data)];
+                    case 0: return [4 /*yield*/, this.apiService.put(AuthServiceService_1.ADMIN + '/' + AuthServiceService_1.APPROVEADMIN, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -187,7 +187,8 @@ var AuthServiceService = /** @class */ (function () {
     AuthServiceService.KEY = '_CoNn3t0Se(R3T';
     AuthServiceService.ROLE = 'organization_manager';
     AuthServiceService.ADMIN = 'admins';
-    AuthServiceService.APPROVEMENTS = 'approve';
+    AuthServiceService.APPROVEADMIN = 'approve';
+    AuthServiceService.APPROVEMENTS = 'approvements';
     AuthServiceService.APPROVE = 'chấp nhận';
     AuthServiceService.REJECT = 'từ chối';
     AuthServiceService.PROJECT = 'project';

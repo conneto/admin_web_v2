@@ -105,21 +105,25 @@
         "
       class="text-danger"
       >Ngày thành lập phải được chọn</span>
-      <!-- <div>
-        <mat-label style="width: 130px">Lĩnh vực:</mat-label>
+      <div>
+       <mat-form-field>
+         <mat-label>Lĩnh vực</mat-label>
+        <mat-select formControlName='category' required="false" multiple >
 
-        <input
-          type="text"
-         
-          [matAutocomplete]="auto"
-          class="input login"
-          placeholder="Chọn lĩnh vực"
-          formControlName="category"
-        />
-        <mat-autocomplete autoActiveFirstOption #auto='matAutocomplete'>
-          <mat-option> </mat-option>
-        </mat-autocomplete>
-      </div> -->
+          <mat-select-trigger>
+            <mat-chip-list>
+              <mat-chip *ngFor='let e of organizationControl.category.value' [removable]="true" (removed)='onRemoveCategory(e)'>
+                  {{e.vietsub}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip>
+            </mat-chip-list>
+          </mat-select-trigger>
+          <mat-option *ngFor='let e of category' [value]='e' >
+            {{e.vietsub}}
+          </mat-option>
+        </mat-select>
+       </mat-form-field>
+      </div>
       <div>
         <label style="width: 100px"> Ảnh bìa:</label>
         <input

@@ -12,16 +12,29 @@
         [(ngModel)]="selectedValue"
       >
         <mat-option *ngFor="let project of projects" [value]="project.name">
-          {{ project.name }}
+          {{ project.name }} ({{ project.startDate | date: "dd/MM/yyyy" }} -
+          {{ project.endDate | date: "dd/MM/yyyy" }}
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <div class="w-100">
+      <div class="row d-flex ">
+      
+          <mat-label class='col-3'>Loại chiến dịch:</mat-label>
 
-    <mat-radio-group [(ngModel)]="selectedRadio" formControlName="type"> 
-      <mat-radio-button *ngFor="let t of type" [value]="t">{{
-        t
-      }}</mat-radio-button>
-    </mat-radio-group>
+     
+          <mat-radio-group class='col-8 d-flex justify-content-around' [(ngModel)]="selectedRadio" formControlName="type">
+            <mat-radio-button
+              (click)="getType(t)"
+              [checked]="t == 'Quyên góp'"
+              *ngFor="let t of type"
+              [value]="t"
+              >{{ t }}</mat-radio-button
+            >
+          </mat-radio-group>
+    
+      </div>
+    </div>
 
     <div class="login-form">
       <div>
@@ -72,7 +85,14 @@
           formControlName="target_number"
         />
       </div>
-      <div *ngIf="data.type == 'recruitment'">
+      <div
+        *ngIf="
+          selectedRadio == 'Tuyển tình nguyện viên' &&
+          campaignControl.job_requirement &&
+          campaignControl.job_description &&
+          campaignControl.job_benefit
+        "
+      >
         <div>
           <input
             placeholder="Công việc yêu cầu"

@@ -22,7 +22,8 @@ export class AuthServiceService {
   public static readonly KEY = '_CoNn3t0Se(R3T';
   public static readonly ROLE = 'organization_manager';
   public static readonly ADMIN = 'admins';
-  public static readonly APPROVEMENTS = 'approve';
+  public static readonly APPROVEADMIN = 'approve';
+  public static readonly APPROVEMENTS = 'approvements';
   public static readonly APPROVE = 'chấp nhận';
   public static readonly REJECT = 'từ chối';
   public static readonly PROJECT = 'project';
@@ -72,9 +73,6 @@ export class AuthServiceService {
     } else {
       return res;
     }
-
-
-
     return res;
   }
   async register(data: any) {
@@ -101,7 +99,7 @@ export class AuthServiceService {
   }
 
   async updateRequestByAdmin(data: any) {
-    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEMENTS, data);
+    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEADMIN, data);
     if (res.status != 0) {
       return res;
     }
