@@ -12,7 +12,7 @@
         />
         <button><mat-icon>search</mat-icon></button>
       </div>
- 
+
       <div class="ordering-item">
         <select>
           <option>Đang hoạt động</option>
@@ -26,8 +26,8 @@
   <div *ngIf='!isList'  class="decoration">
 
     <div *ngIf="isEmpty">Không tìm thấy kết quả phù hợp</div>
-    <div  *ngFor="let user of users">
-      <app-user-card [user]="user"> </app-user-card>
+    <div class="row mt-2">
+      <app-user-card class="user-card mb-2 col-xxl-3 col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let user of users" [user]="user"> </app-user-card>
     </div>
     <div class="button-showmore" *ngIf="!isNoMore && isLoaded">
       <button mat-button (click)="showMore()">Xem thêm</button>

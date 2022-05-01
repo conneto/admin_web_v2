@@ -15,7 +15,7 @@ import { LoadingServiceService } from 'src/app/services/loading/loading-service.
 })
 export class CampaignDetailsComponent implements OnInit {
   campaign?: Campaign;
-  urlApi = this.loadingService.getApiGetLink.value;
+  urlApi?: string;
   urlCover?: string;
   urlLogo?: string;
   urlProjectLogo?: string;
@@ -30,9 +30,15 @@ export class CampaignDetailsComponent implements OnInit {
   isShow?: boolean;
   documentPDF?: any;
   documentExcel?: any;
+  isPDF?: boolean;
+  isExcel?: boolean;
+  isUpload?: boolean;
+  pdfName?:any;
+
   constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
 
   ngOnInit(): void {
+    this.isPDF = true;
     this.getByID();
     this.isInformation = true;
     if (localStorage.getItem("approve")) {
@@ -42,15 +48,17 @@ export class CampaignDetailsComponent implements OnInit {
       this.isAdmin = true;
     }
   }
-  async getDocument() {
+  getDocument() {
     this.type = 'pdf';
 
-
+    this.isPDF = true; this.isExcel = false;
+    this.isUpload = false;
 
   }
-  async getDocumentExcel() {
+  getDocumentExcel() {
     this.type = 'excel';
-
+    this.isPDF = false; this.isExcel = true;
+    this.isUpload = false;
 
 
   }
@@ -64,7 +72,8 @@ export class CampaignDetailsComponent implements OnInit {
   }
   async getByID() {
     const id = this.activated.snapshot.paramMap.get('id');
-
+    this.urlApi = this.loadingService.getApiGetLink.value;
+    console.log(this.urlApi);
     this.campaign = await this.campaignApi.getById(`${id}`);
 
     this.urlLogo = this.campaign?.org_logo?.replace(/\\/g, '\/');
@@ -93,7 +102,7 @@ export class CampaignDetailsComponent implements OnInit {
     this.location.back();
   }
   getResult(e: any) {
-    console.log(e);
+
     if (e == true) {
       this.getTab('ano');
     }
@@ -104,21 +113,47 @@ export class CampaignDetailsComponent implements OnInit {
         this.isInformation = true;
         this.isDocument = false;
         this.isAnother = false;
+        this.isShow = false;
         break;
       case 'doc':
+
         this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
         this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
+        if(this.documentPDF){
+          for (let i = 0; i < this.documentPDF?.length; i++) {
+            this.pdfName = this.documentPDF[i].url.split('/');
+    
+            Object.assign(this.documentPDF[i], {
+              // name: this.pdfName[3],
+            })
+    
+          }
+        }
+        console.log(this.documentExcel);
+        if (this.isAdmin) {
+          if (this.documentPDF.length <= 0) {
+            this.isEmpty = true;
+          } else if (this.documentExcel) {
+            this.getDocumentExcel();
+          } else {
+            this.getDocument();
+          }
+          console.log(this.isPDF);
+        } else {
+          this.isUpload = true;
+        }
         this.isDocument = true;
         this.isInformation = false;
         this.isAnother = false;
+        this.isShow = false;
         break;
       case 'ano':
         this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
-        console.log(this.volunteer);
+
         if (this.volunteer?.length == 0) {
           this.isEmpty = true;
         }
-        console.log(this.isEmpty);
+
         switch (this.campaign?.type) {
           case 'Quyên góp': this.type = 'donation'; break;
           case 'Tuyển người': this.type = 'recruitment'; break;
@@ -126,6 +161,7 @@ export class CampaignDetailsComponent implements OnInit {
         this.isAnother = true;
         this.isDocument = false;
         this.isInformation = false;
+        this.isShow = false;
 
 
 

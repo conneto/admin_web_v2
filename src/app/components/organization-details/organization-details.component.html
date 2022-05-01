@@ -1,111 +1,161 @@
 <div *ngIf="organization">
-    <div class="container">
-      <div class="box">
-        <button class="close-button" (click)="goBack()">
-          <mat-icon>close</mat-icon>
-        </button>
-        <div class="header">
-          <img
-            loading="lazy"
-            src="{{ urlApi }}/show/images?p={{ urlCover }}"
-            alt=""
-          />
+  <div class="container">
+    <div class="box">
+      <button class="close-button" (click)="goBack()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="header">
+        <div
+          class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75"
+        >
+          <span
+            class="font-size-8"
+            [ngClass]="{
+              'label-approved': organization.result_code == 510,
+              'label-rejected': organization.result_code == 511,
+              'label-pending': organization.result_code == 501
+            }"
+            >{{ organization.result_message }}</span
+          >
         </div>
-        <div class="content__tab">
-          <ul>
-            <li
-              [class.content__tab-active]="isInformation"
-              (click)="getTab('infor')"
+        <img
+          loading="lazy"
+          src="{{ urlApi }}/show/images?p={{ urlCover }}"
+          alt=""
+        />
+      </div>
+      <div class="content__tab">
+        <ul>
+          <li
+            [class.content__tab-active]="isInformation"
+            (click)="getTab('infor')"
+          >
+            Thông tin
+          </li>
+          <li [class.content__tab-active]="isProjects" (click)="getTab('pro')">
+            Dự án
+          </li>
+          <li [class.content__tab-active]="isCampaigns" (click)="getTab('cam')">
+            Chiến dịch
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div *ngIf="isInformation" class="box box__content">
+      <div class="content">
+        <div class="content-information">
+          <div>
+            <div class="icon">
+              <img
+                loading="lazy"
+                src="{{ urlApi }}/show/images?p={{ urlLogo }}"
+                alt=""
+              />
+            </div>
+            <div>
+              <p>{{ organization.name ? organization.name : "Anh Phuc" }}</p>
+            </div>
+          </div>
+          <div>
+            <p class="title">Được tạo bởi</p>
+            <p>
+              {{
+                organization.created_name
+                  ? organization.created_name
+                  : "Anh Phuc"
+              }}
+            </p>
+          </div>
+          <div>
+            <p class="title">Ngày thành lập</p>
+            <p>
+              {{ organization.founding_date | date: "dd/MM/yyyy" }}
+            </p>
+          </div>
+          <div>
+            <p>{{ organization.type ? organization.type : "" }}</p>
+          </div>
+        </div>
+        <div class="content-main">
+          <div class="content-introduce">
+            <div>Giới thiệu tổ chức:</div>
+            <div>
+              {{ organization.description ? organization.description : "" }}
+            </div>
+          </div>
+          <div class="content-field">
+            <div>Tầm nhin của tổ chức:</div>
+            <div>{{ organization.vision ? organization.vision : "" }}</div>
+          </div>
+          <div class="content-area">
+            <div>Nhiệm vụ của tổ chức:</div>
+            <div>
+              {{ organization.mission ? organization.mission : "Nothing" }}
+            </div>
+          </div>
+          <div class="content-area">
+            <div>Website:</div>
+            <a
+              href="{{
+                organization.website ? organization.website : 'google.com'
+              }}"
+              >{{ organization.website ? organization.website : "Null" }}</a
             >
-              Thông tin
-            </li>
-            <li [class.content__tab-active]="isProjects" (click)="getTab('pro')">
-              Dự án
-            </li>
-            <li [class.content__tab-active]="isCampaigns" (click)="getTab('cam')">
-              Chiến dịch
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div *ngIf="isInformation" class="box box__content">
-        <div class="content">
-          <div class="content-information">
-            <div>
-              <div class="icon">
-                <img
-                  loading="lazy"
-                  src="{{ urlApi }}/show/images?p={{ urlLogo }}"
-                  alt=""
-                />
-              </div>
-              <div>
-                <p>{{ organization.name ? organization.name : "Anh Phuc" }}</p>
-              </div>
-            </div>
-            <div>
-              <p class="title">Được tạo bởi</p>
-              <p>
-                {{
-                  organization.created_name
-                    ? organization.created_name
-                    : "Anh Phuc"
-                }}
-              </p>
-            </div>
-            <div>
-              <p class="title">Ngày thành lập</p>
-              <p>
-                {{ organization.founding_date | date: "dd/MM/yyyy" }}
-              </p>
-            </div>
-            <div>
-              <p>{{ organization.type ? organization.type : "" }}</p>
-            </div>
           </div>
-          <div class="content-main">
-            <div class="content-introduce">
-              <div>Giới thiệu tổ chức:</div>
-              <div>
-                {{ organization.description ? organization.description : "" }}
-              </div>
-            </div>
-            <div class="content-field">
-              <div>Tầm nhin của tổ chức:</div>
-              <div>{{ organization.vision ? organization.vision : "" }}</div>
-            </div>
-            <div class="content-area">
-              <div>Nhiệm vụ của tổ chức:</div>
-              <div>
-                {{ organization.mission ? organization.mission : "Nothing" }}
-              </div>
-            </div>
-            <div class="content-area">
-              <div>Website:</div>
-              <a
-                href="{{
-                  organization.website ? organization.website : 'google.com'
-                }}"
-                >{{ organization.website ? organization.website : "Null" }}</a
-              >
-            </div>
-  
-            <div *ngIf="isApproved" class="content-button">
-              <div *ngIf='isApproved'>
-                <app-delete-entity [type]='"org"' [entity]="organization"></app-delete-entity>
-              </div>
+
+          <div *ngIf="isApproved" class="content-button">
+            <div *ngIf="isApproved">
+              <app-delete-entity
+                [type]="'org'"
+                [entity]="organization"
+              ></app-delete-entity>
             </div>
           </div>
         </div>
       </div>
-      <div class="container" *ngIf="isCampaigns">
-        <div *ngIf="campaignsCopy?.length! > 0">
-          <div class="search_bar search-bar">
+    </div>
+    <div class="container" *ngIf="isCampaigns">
+      <div *ngIf="campaignsCopy?.length! > 0">
+        <div class="search_bar search-bar">
+          <div *ngIf="!noResultBySearch; then name; else result"></div>
+          <div>
+            <ng-template #name>
+              <div class="name">
+                <h3>Chiến Dịch</h3>
+                <p>{{ status ? status : "" }}</p>
+              </div>
+            </ng-template>
+            <ng-template #result>
+              <div class="name">
+                <h3>Không tìm thấy kết quả phù hợp</h3>
+              </div>
+            </ng-template>
+          </div>
+          <div>
+            <app-search-bar
+              (getItem)="getData($event)"
+              [entityCopy]="passDataCampaigns"
+            ></app-search-bar>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <app-campaign-card-info
+          class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+          *ngFor="let cam of campaigns"
+          [campaign]="cam"
+        ></app-campaign-card-info>
+      </div>
+    </div>
+    <div class="project__list-item" *ngIf="isProjects">
+      <div class="project__button">
+        <div class="search_bar" *ngIf="projectsCopy?.length! > 0">
+          <div class="search_bar">
             <div *ngIf="!noResultBySearch; then name; else result"></div>
             <div>
               <ng-template #name>
                 <div class="name">
-                  <h3>Chiến Dịch</h3>
+                  <h3>Dự án</h3>
                   <p>{{ status ? status : "" }}</p>
                 </div>
               </ng-template>
@@ -118,63 +168,14 @@
             <div>
               <app-search-bar
                 (getItem)="getData($event)"
-                [entityCopy]="passDataCampaigns"
+                [entityCopy]="passDataProjects"
               ></app-search-bar>
             </div>
           </div>
         </div>
-        <div class="row p-3">
-          <app-campaign-card-info
-            class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
-            *ngFor="let cam of campaigns"
-            [campaign]="cam"
-          ></app-campaign-card-info>
-        </div>
-       
       </div>
-      <div class="project__list-item" *ngIf="isProjects">
-        <div class="project__button">
-          <div *ngIf="!isAdmin && isApproved">
-            <div class='project__button-create'>
-  
-              <button
-                (click)="openProjectForm()"
-                mat-raised-button
-                color="primary"
-              >
-              <mat-icon>add</mat-icon>
-                Tạo dự án
-              </button>
-            </div>
-          </div>
-          <div class='search_bar'*ngIf="projectsCopy?.length! > 0">
-            <div class="search_bar">
-              <div *ngIf="!noResultBySearch; then name; else result"></div>
-              <div>
-                <ng-template #name>
-                  <div class="name">
-                    <h3>Dự án</h3>
-                    <p>{{ status ? status : "" }}</p>
-                  </div>
-                </ng-template>
-                <ng-template #result>
-                  <div class="name">
-                    <h3>Không tìm thấy kết quả phù hợp</h3>
-                  </div>
-                </ng-template>
-              </div>
-              <div>
-                <app-search-bar
-                  (getItem)="getData($event)"
-                  [entityCopy]="passDataProjects"
-                ></app-search-bar>
-              </div>
-            </div>
-          </div>
-        </div>
-  
-        <app-project-item [projects]="projects"></app-project-item>
-      </div>
+
+      <app-project-item [projects]="projects"></app-project-item>
     </div>
   </div>
-  
+</div>

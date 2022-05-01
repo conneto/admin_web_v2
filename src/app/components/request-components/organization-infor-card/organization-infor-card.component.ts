@@ -34,10 +34,6 @@ export class OrganizationInforCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.urlApi = this.loadingApi.getApiGetLink.value;
-
-
-
-
   }
 
   viewDetails(id: string) {

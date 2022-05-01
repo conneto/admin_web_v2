@@ -1,14 +1,33 @@
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
+@media only screen and (max-width: 576px) {
+  .campaign-card {
+    height: 60vh !important;
+  }
 }
-
-.campaign-card {
-  height: 60vh !important;
-  width: 370px;
+@media only screen and (max-width: 768px) {
+  .campaign-card {
+    height: 56vh !important;
+  }
 }
-
+@media only screen and (min-width: 768px) {
+  .campaign-card {
+    height: 76vh !important;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .campaign-card {
+    height: 456px !important;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .campaign-card {
+    height: 68vh !important;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .campaign-card {
+    height: 64vh !important;
+  }
+}
 .search-bar {
   display: flex;
   align-items: flex-end;
@@ -17,7 +36,6 @@
 .name {
   display: flex;
   align-items: center;
-  flex-grow: 1;
 }
 .name > p {
   font-size: 15px;

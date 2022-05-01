@@ -26,6 +26,9 @@ p {
 :root {
   --heading-card-color: #9a9a9a;
   overflow: hidden;
+  --green: #00f531;
+  --blue: #3737dc;
+  --red: #e93535;
 }
 
 html {
@@ -149,6 +152,24 @@ html {
   object-fit: contain;
 }
 
+.circle-avatar-big {
+  width: 128px;
+  height: 128px;
+  border-radius: 50% !important;
+  border: 0.5px solid #cccccc;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-avatar-big img {
+  width: 128px;
+  height: 128px;
+  border-radius: 50% !important;
+  object-fit: contain;
+}
+
 .font-size-8 {
   font-size: 8px;
 }
@@ -213,4 +234,22 @@ html {
 
 .mat-cell {
   border: none !important;
+}
+
+.label-pending {
+  color: var(--blue);
+}
+.label-approved {
+  color: var(--green);
+}
+
+.label-rejected {
+  color: var(--red);
+}
+
+th, td {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

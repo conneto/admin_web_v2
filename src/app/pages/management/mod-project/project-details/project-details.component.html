@@ -61,20 +61,18 @@
               {{ project.endDate | date: "dd/MM/yyyy" }}
             </p>
           </div>
-          <div *ngIf='isApproved' class='delete-button'>
-            <app-delete-entity [type]="'pro'" [entity]="project"></app-delete-entity>
+          <div *ngIf="isApproved" class="delete-button">
+            <app-delete-entity
+              [type]="'pro'"
+              [entity]="project"
+            ></app-delete-entity>
           </div>
         </div>
       </div>
     </div>
     <div *ngIf="isCampaigns && isApproved">
       <div class="campaigns__button">
-        <div *ngIf='!isAdmin' class="campaigns__button-create">
-          <button (click)="openSelectCampaign()" mat-raised-button color="accent">
-            <mat-icon>add</mat-icon>
-            Tạo chiến dịch
-          </button>
-        </div>
+     
         <div style="width: 100%" *ngIf="campaignsCopy?.length! > 0">
           <div class="search_bar">
             <div *ngIf="!noResultBySearch; then name; else result"></div>

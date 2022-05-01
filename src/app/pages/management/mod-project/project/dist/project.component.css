@@ -75,7 +75,6 @@ button:hover {
 .name {
   display: flex;
   align-items: center;
-  flex-grow: 1;
 }
 .name > p {
   font-size: 15px;

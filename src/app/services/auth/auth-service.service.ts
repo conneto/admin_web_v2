@@ -30,7 +30,7 @@ export class AuthServiceService {
   public static readonly CAMPAIGN = 'campaign';
   public static readonly ORGANIZATION_MANAGER = 'organization_manager';
   public static readonly ACTIVATE = 'activate';
-  constructor(private loadingService:LoadingServiceService,private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
+  constructor(private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
 
     this.curUserSubject = new BehaviorSubject<any>(
       JSON.parse(localStorage.getItem('USER_WEB')!)
@@ -48,24 +48,28 @@ export class AuthServiceService {
       AuthServiceService.ACCOUNTS + AuthServiceService.LOGIN,
       this.userRequest.adapt({
         username: username,
-      
         password: md5.appendStr(password.concat(AuthServiceService.KEY)).end(),
       })
     );
     if (res.status == 0) {
       this.loadingService.isLoading.next(false);
-      this.snackBar.showMessage('Đăng nhập thành công',true);
+
       let userLoginResponse: UserLoginResponse =
         this.userResponse.adapt(res.data);
-      localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
+      console.log(userLoginResponse.role);
+      if (userLoginResponse.role == 'volunteer') {
+        this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
+      } else {
+        this.snackBar.showMessage("Đăng nhập thành công !", true);
+        localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
 
-      localStorage.setItem('USER_TOKEN', userLoginResponse.token);
-      this.curUserSubject.next(userLoginResponse);
-
+        localStorage.setItem('USER_TOKEN', userLoginResponse.token);
+        this.curUserSubject.next(userLoginResponse);
+      }
     } else if (res.status == 6) {
       this.loadingService.isLoading.next(false);
-      this.snackBar.showMessage(res.message,false);
-    }else {
+      this.snackBar.showMessage(res.message, false);
+    } else {
       return res;
     }
 
@@ -93,7 +97,7 @@ export class AuthServiceService {
     localStorage.removeItem('reject');
     localStorage.removeItem('pending');
     this.curUserSubject.next(null);
-    console.log(  localStorage.getItem('USER_TOKEN'));
+    console.log(localStorage.getItem('USER_TOKEN'));
   }
 
   async updateRequestByAdmin(data: any) {
@@ -103,7 +107,7 @@ export class AuthServiceService {
     }
     return res;
   }
-  async activateEntity(data:any){
+  async activateEntity(data: any) {
     let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.ACTIVATE, data);
     if (res.status != 0) {
       return res;

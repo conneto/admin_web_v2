@@ -80,7 +80,6 @@ var ApiService = /** @class */ (function () {
     };
     ApiService.prototype.get = function (api_name, params) {
         var _this = this;
-        this.loadingService.getApiGetLink.next(this.fetchUri);
         var api_uri = this.getFetchUri(api_name, params);
         if (localStorage.getItem('USER_TOKEN')) {
             this.corsHeaders = this.corsHeaders.set('Authorization', 'Bearer ' + localStorage.getItem('USER_TOKEN'));

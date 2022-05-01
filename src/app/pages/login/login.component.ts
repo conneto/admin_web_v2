@@ -55,6 +55,8 @@ export class LoginComponent implements OnInit {
           await this.router.navigate(['manager']);
         } else if (this.authService.currentUserValue.role === 'admin') {
           await this.router.navigate(['admin/dashboard']);
+        } else {
+          this.isError = true;
         }
       } else if (baseResponse?.status == 6) {
         this.isError = true;

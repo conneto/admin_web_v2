@@ -35,7 +35,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'user-service-management',
+        path: 'user-management',
         loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule)
       },
       {

@@ -45,12 +45,12 @@ exports.__esModule = true;
 exports.OrganizationsComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationsComponent = /** @class */ (function () {
-    function OrganizationsComponent(convertType, loading, getUser, service, userService) {
-        this.convertType = convertType;
-        this.loading = loading;
-        this.getUser = getUser;
-        this.service = service;
+    function OrganizationsComponent(utilService, loadingService, userService, organizationService, authService) {
+        this.utilService = utilService;
+        this.loadingService = loadingService;
         this.userService = userService;
+        this.organizationService = organizationService;
+        this.authService = authService;
         this.organizations = [];
         this.oldData = [];
         this.isShow = false;
@@ -60,15 +60,19 @@ var OrganizationsComponent = /** @class */ (function () {
         this.passData = [];
         this.isDeleted = false;
         this.isList = false;
+        this.isAdmin = false;
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
-        this.checkToGetData();
-        this.userService.currentUserValue;
-        this.urlApi = this.loading.getApiGetLink.value;
-        if (this.userService.currentUserValue.role == 'admin') {
+        if (this.authService.currentUserValue.role == 'admin') {
             this.isAdmin = true;
+            this.checkToGetData();
         }
-        this.loading.isSkeleton.next(true);
+        else if (this.authService.currentUserValue.role == 'organization_manager') {
+            this.isAdmin = false;
+            this.getAllOrganization();
+        }
+        this.urlApi = this.loadingService.getApiGetLink.value;
+        this.loadingService.isSkeleton.next(true);
     };
     OrganizationsComponent.prototype.ngAfterViewInit = function () {
     };
@@ -106,10 +110,9 @@ var OrganizationsComponent = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.service.getAll()];
+                        return [4 /*yield*/, this.organizationService.getAll()];
                     case 1:
                         _a.organizations = _b.sent();
-                        console.log(this.organizations);
                         this.passData = this.organizations;
                         if (getStatus == 'pending') {
                             this.getAllOrganizationByStatus('pending');
@@ -147,7 +150,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     this.organizations = org;
                 }
                 if (status) {
-                    if (this.userService.currentUserValue.role == 'organization_manager') {
+                    if (this.authService.currentUserValue.role == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
                         });
@@ -165,7 +168,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.organizations[i].type = 'Tổ chức phi chính phủ' :
                                     this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
-                            if (this.userService.currentUserValue.role == 'organization_manager') {
+                            if (this.authService.currentUserValue.role == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
                                     this.organizations = [];
                                     this.noOrg = true;
@@ -182,14 +185,14 @@ var OrganizationsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            if (this.userService.currentUserValue.role == 'admin') {
+                            if (this.authService.currentUserValue.role == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
                                 this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
                                 this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
                             }
                             setTimeout(function () {
-                                _this.loading.isSkeleton.next(false);
+                                _this.loadingService.isSkeleton.next(false);
                                 _this.isLoaded = true;
                             }, 1000);
                             break;
@@ -209,7 +212,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.isEmpty = true;
                             }
                             setTimeout(function () {
-                                _this.loading.isSkeleton.next(false);
+                                _this.loadingService.isSkeleton.next(false);
                                 _this.isLoaded = true;
                             }, 1000);
                             break;
@@ -221,7 +224,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.organizations[i].type = 'Tổ chức phi chính phủ' :
                                     this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
-                            if (this.userService.currentUserValue.role == 'admin') {
+                            if (this.authService.currentUserValue.role == 'admin') {
                                 this.isRequest = true;
                             }
                             else {
@@ -229,12 +232,13 @@ var OrganizationsComponent = /** @class */ (function () {
                             }
                             this.organizations = this.organizations.filter(function (x) { return x.result_code === 501; });
                             this.oldData = this.passData.filter(function (x) { return x.result_code == 501; });
+                            console.log(this.organizations);
                             this.isEmpty = false;
                             if (this.organizations == null || this.organizations.length <= 0) {
                                 this.isEmpty = true;
                             }
                             setTimeout(function () {
-                                _this.loading.isSkeleton.next(false);
+                                _this.loadingService.isSkeleton.next(false);
                                 _this.isLoaded = true;
                             }, 1000);
                             break;
@@ -257,7 +261,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     this.organizations = org;
                 }
                 if (status) {
-                    if (this.userService.currentUserValue.role == 'organization_manager') {
+                    if (this.authService.currentUserValue.role == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
                         });
@@ -274,7 +278,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                             }
-                            if (this.userService.currentUserValue.role == 'organization_manager') {
+                            if (this.authService.currentUserValue.role == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
                                     this.organizations = [];
                                     this.noOrg = true;
@@ -291,14 +295,14 @@ var OrganizationsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            else if (this.userService.currentUserValue.role == 'admin') {
+                            else if (this.authService.currentUserValue.role == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
                                 this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
                                 this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
                             }
                             setTimeout(function () {
-                                _this.loading.isSkeleton.next(false);
+                                _this.loadingService.isSkeleton.next(false);
                                 _this.isLoaded = true;
                             }, 1000);
                             break;
@@ -315,7 +319,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.isEmpty = true;
                             }
                             setTimeout(function () {
-                                _this.loading.isSkeleton.next(false);
+                                _this.loadingService.isSkeleton.next(false);
                                 _this.isLoaded = true;
                             }, 1000);
                             break;
@@ -324,7 +328,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                             }
-                            if (this.userService.currentUserValue.role == 'admin') {
+                            if (this.authService.currentUserValue.role == 'admin') {
                                 this.isRequest = true;
                             }
                             else {
@@ -337,7 +341,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.isEmpty = true;
                             }
                             setTimeout(function () {
-                                _this.loading.isSkeleton.next(false);
+                                _this.loadingService.isSkeleton.next(false);
                                 _this.isLoaded = true;
                             }, 1000);
                             break;
@@ -352,39 +356,33 @@ var OrganizationsComponent = /** @class */ (function () {
     OrganizationsComponent.prototype.getAllOrganization = function () {
         var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var _c, i, check;
+            var _c, i;
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
+                        this.isRequest = false;
                         _c = this;
-                        return [4 /*yield*/, this.service.getAll()];
+                        return [4 /*yield*/, this.organizationService.getAll()];
                     case 1:
                         _c.organizations = _d.sent();
                         if (this.organizations == null || this.organizations.length <= 0) {
+                            this.isEmpty = true;
                             this.noOrg = true;
+                        }
+                        else {
+                            this.noOrg = false;
+                            this.isEmpty = false;
+                            this.isShow = false;
                         }
                         for (i = 0; i < this.organizations.length; i++) {
                             this.organizationId = this.organizations[i].id;
+                            this.loadingService.getOrganizationId.next("" + this.organizationId);
                             this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                            this.organizations[i].type = this.organizations[i].type == 'ngo' ?
+                                this.organizations[i].type = 'Tổ chức phi chính phủ' :
+                                this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                         }
-                        if (this.userService.currentUserValue.role === 'organization_manager') {
-                            check = this.organizations.every(function (x) {
-                                return x.result_code === 511;
-                            });
-                            if (check || this.organizations.length == 0) {
-                                this.organizations = [];
-                                this.noOrg = true;
-                            }
-                            else {
-                                this.noOrg = false;
-                                this.organizations = this.organizations.filter(function (x) {
-                                    return x.result_code !== 511;
-                                });
-                            }
-                        }
-                        else
-                            this.noOrg = false;
-                        this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
+                        this.isLoaded = true;
                         return [2 /*return*/];
                 }
             });

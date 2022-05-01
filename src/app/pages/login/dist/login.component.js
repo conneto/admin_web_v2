@@ -78,29 +78,32 @@ var LoginComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         this.isSubmitData = true;
-                        if (!this.loginForm.valid) return [3 /*break*/, 7];
+                        if (!this.loginForm.valid) return [3 /*break*/, 8];
                         return [4 /*yield*/, this.authService.login(this.isChecked, this.loginForm.value.username, this.loginForm.value.password)];
                     case 1:
                         baseResponse = _a.sent();
-                        if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 0)) return [3 /*break*/, 6];
+                        if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 0)) return [3 /*break*/, 7];
                         if (!(this.authService.currentUserValue.role === 'organization_manager')) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.router.navigate(['manager'])];
                     case 2:
                         _a.sent();
-                        return [3 /*break*/, 5];
+                        return [3 /*break*/, 6];
                     case 3:
                         if (!(this.authService.currentUserValue.role === 'admin')) return [3 /*break*/, 5];
                         return [4 /*yield*/, this.router.navigate(['admin/dashboard'])];
                     case 4:
                         _a.sent();
-                        _a.label = 5;
-                    case 5: return [3 /*break*/, 7];
-                    case 6:
+                        return [3 /*break*/, 6];
+                    case 5:
+                        this.isError = true;
+                        _a.label = 6;
+                    case 6: return [3 /*break*/, 8];
+                    case 7:
                         if ((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 6) {
                             this.isError = true;
                         }
-                        _a.label = 7;
-                    case 7: return [2 /*return*/];
+                        _a.label = 8;
+                    case 8: return [2 /*return*/];
                 }
             });
         });

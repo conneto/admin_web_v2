@@ -38,6 +38,7 @@ import { ListViewComponent } from '../list-view/list-view.component';
 import { TableCampaignParticipationsComponent } from '../table-campaign-participations/table-campaign-participations.component';
 import { ShowDocumentComponent } from '../show-document/show-document.component';
 import { OrganizationDetailsComponent } from '../organization-details/organization-details.component';
+import { OrganizationDetailsModule } from 'src/app/pages/management/mod-organization/organization-details/organization-details.module';
 
 
 const componentModules = [
@@ -72,7 +73,7 @@ const componentModules = [
   TableCampaignParticipationsComponent,
   ShowDocumentComponent,
   OrganizationDetailsComponent,
-
+  
 ]
 
 @NgModule({

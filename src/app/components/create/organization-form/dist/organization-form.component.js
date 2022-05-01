@@ -83,7 +83,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                             this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
                             this.router.navigate(['/manager/manage-organization']);
-                            this.org.checkToGetData('pending');
+                            this.org.getAllOrganization();
                         }
                         else {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
@@ -98,10 +98,11 @@ var OrganizationFormComponent = /** @class */ (function () {
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
-                            this.router.navigate(['/manager/manage-organization']);
-                            this.org.checkToGetData('pending');
+                            this.org.getAllOrganization();
+                            this.router.navigate(['/manager']);
                         }
                         else {
+                            this.router.navigate(['/manager/manage-organization']);
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
                             this.loadingService.isLoading.next(false);
                         }
