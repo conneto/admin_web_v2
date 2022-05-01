@@ -19,33 +19,42 @@ var AdminComponent = /** @class */ (function () {
                 id: '1',
                 name: 'Bảng điều khiển',
                 path: 'dashboard',
-                icon: 'assets/icons/dashboard_icon.png'
+                icon: 'assets/icons/dashboard_icon.png',
+                role: 'organization_manager_admin'
             },
             {
                 id: '2',
                 name: 'Quản lý người dùng',
                 path: 'user-management',
-                icon: 'assets/icons/user_icon.png'
+                icon: 'assets/icons/user_icon.png',
+                role: 'admin'
             },
             {
                 id: '3',
                 name: 'Quản lý tổ chức',
                 path: 'manage-organization',
-                icon: 'assets/icons/organization-icon.png',
-                role: 'organization_manager'
+                icon: 'assets/icons/organization_icon.png',
+                role: 'organization_manager_admin'
             },
             {
                 id: '4',
                 name: 'Quản lý dự án',
                 path: 'manage-project',
                 icon: 'assets/icons/project_icon.png',
-                role: 'organization_manager'
+                role: 'organization_manager_admin'
             },
             {
                 id: '5',
                 name: 'Quản lý chiến dịch',
                 path: 'manage-campaign',
                 icon: 'assets/icons/campaign_icon.png',
+                role: 'organization_manager_admin'
+            },
+            {
+                id: '6',
+                name: 'Quản lý tình nguyện viên',
+                path: 'manage-volunteer',
+                icon: 'assets/icons/volunteer_icon.png',
                 role: 'organization_manager'
             },
         ];
@@ -54,13 +63,19 @@ var AdminComponent = /** @class */ (function () {
     AdminComponent.prototype.ngOnInit = function () {
         var _a;
         this.user = this.authService.currentUserValue;
-        console.log((_a = this.user) === null || _a === void 0 ? void 0 : _a.id);
+        console.log((_a = this.user) === null || _a === void 0 ? void 0 : _a.role);
         if (this.user) {
-            if (this.authService.currentUserValue.role === 'organization_manager') {
+            if (this.authService.currentUserValue.role == 'organization_manager') {
                 this.menus = this.menus.filter(function (x) {
-                    return x.role === 'organization_manager';
+                    return x.role == 'organization_manager' || x.role == 'organization_manager_admin';
                 });
             }
+            else if (this.user.role == 'admin') {
+                this.menus = this.menus.filter(function (x) {
+                    return x.role == 'organization_manager_admin' || x.role == 'admin';
+                });
+            }
+            console.log(this.menus);
         }
     };
     AdminComponent.prototype.ngAfterContentChecked = function () {
