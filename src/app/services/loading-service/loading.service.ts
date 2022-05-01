@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class LoadingServiceService {
+export class LoadingService {
   private fetchUri=environment.api_fetch;
   constructor() { }
   public isNewTab:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
@@ -15,4 +15,3 @@ export class LoadingServiceService {
   public projectId:BehaviorSubject<string>=new BehaviorSubject<string>('');
   public isSkeleton:BehaviorSubject<boolean>=new BehaviorSubject<boolean>(false);
 }
- 

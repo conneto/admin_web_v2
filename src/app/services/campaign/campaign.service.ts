@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { CampaignAdapter } from 'src/app/models/campaign/campaign.model';
 import { ApiService } from '../api/api.service';
+import { Constant } from 'src/app/constant/constant';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CampaignApiService {
+export class CampaignService {
   public static readonly CAMPAIGNS = 'campaigns'
-  public static readonly DONATION_DOCUMENTS = 'donation_documents'
+  public static readonly DONATION_DOCUMENT = 'donation_documents'
   public static readonly CASHFLOW_DETAILS = 'cashflow_details'
   public static readonly CAMPAIGN_PARTICIPATIONS = 'campaign_participations';
   constructor(private apiService: ApiService, private campaignAdap: CampaignAdapter) {
 
   }
   async getAll() {
-    let res: BaseResponse = await this.apiService.get(CampaignApiService.CAMPAIGNS);
+    let res: BaseResponse = await this.apiService.get(Constant.CAMPAIGN);
     res.data = res.data?.map((item: any) =>
       this.campaignAdap.adapt(item)
     )
@@ -23,55 +24,55 @@ export class CampaignApiService {
     return res.data || [];
   }
   async getById(id: string) {
-    let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}`);
+    let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGN}/${id}`);
     res.data = this.campaignAdap.adapt(res.data);
     return res.data || [];
   }
   async createById(data: any, id: string) {
     console.log(id);
-    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGNS}/${id}`, data);
+    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}/${id}`, data);
     if (res.status != 0) {
       return null;
     }
     return res;
   }
   async create(data: any) {
-    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGNS}`, data);
+    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}`, data);
     if (res.status != 0) {
       return res;
     }
     return res
   }
   async uploadCashFlow(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}/${CampaignApiService.CASHFLOW_DETAILS}`, data);
+    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}/${Constant.CASHFLOW_DETAIL}`, data);
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async uploadPdf(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.post(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}`, data);
+    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}`, data);
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async getCashFlow(id: string) {
-    let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}/${CampaignApiService.CASHFLOW_DETAILS}`);
-  
+    let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}/${Constant.CASHFLOW_DETAIL}`);
+
     return res.data || [];
   }
   async getParticipations(id: string) {
     console.log(id);
-    let res: BaseResponse = await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.CAMPAIGN_PARTICIPATIONS}`);
+    let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.CAMPAIGN_PARTICIPATION}`);
     return res.data||[];
   }
   async delete(id:string){
-    let res:BaseResponse=await this.apiService.delete(`${CampaignApiService.CAMPAIGNS}/${id}`);
+    let res:BaseResponse=await this.apiService.delete(`${Constant.CAMPAIGN}/${id}`);
     return res;
   }
   async getPdf(id:string){
-    let res:BaseResponse=await this.apiService.get(`${CampaignApiService.CAMPAIGNS}/${id}/${CampaignApiService.DONATION_DOCUMENTS}`);
+    let res:BaseResponse=await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}`);
     return res.data||[];
   }
 }

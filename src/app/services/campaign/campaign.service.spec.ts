@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CampaignApiService } from './campaign-api.service';
+import { CampaignService } from './campaign.service';
 
-describe('CampaignApiService', () => {
-  let service: CampaignApiService;
+describe('CampaignService', () => {
+  let service: CampaignService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CampaignApiService);
+    service = TestBed.inject(CampaignService);
   });
 
   it('should be created', () => {

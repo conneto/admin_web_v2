@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OrganizationInforCardComponent } from 'src/app/components/request-components/organization-infor-card/organization-infor-card.component';
 import { Organization } from 'src/app/models/organization/organization';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class OrganizationRequestDetailsComponent implements OnInit {
   uriApi = this.loadingService.getApiGetLink.value;
   urlLogo?:string;
   urlCover?:string;
-  constructor(private loadingService: LoadingServiceService, private route: ActivatedRoute, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) { }
+  constructor(private loadingService: LoadingService, private route: ActivatedRoute, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) { }
 
   ngOnInit(): void {
     this.getValueFromRoute();

@@ -6,9 +6,9 @@ import { Project } from 'src/app/models/projects/project.model';
 import { OrganizationDetailsComponent } from 'src/app/pages/management/mod-organization/organization-details/organization-details.component';
 
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-camapaign-form',
@@ -17,7 +17,7 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
 })
 export class CamapaignFormComponent implements OnInit {
   coverImage?: File;
-  constructor(private organizationApi: OrganizationApiService, private projectApi: ProjectApiService, public loadingService: LoadingServiceService, public authApi: AuthServiceService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  constructor(private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthServiceService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
   campaignForm!: FormGroup;
   isSubmitted?: boolean;
   organizations: Organization[] = [];
@@ -78,7 +78,7 @@ export class CamapaignFormComponent implements OnInit {
 
     this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` })
     if (this.selectedRadio == 'Quyên góp' ) {
- 
+
       this.campaignForm.patchValue({ start_working_date: `${this.campaignForm.value.start_date}` })
       this.campaignForm.patchValue({ end_working_date: `${this.campaignForm.value.end_date}` })
       this.campaignForm.patchValue({ type: 'donation' })
@@ -87,10 +87,10 @@ export class CamapaignFormComponent implements OnInit {
       this.campaignForm.removeControl('job_benefit');
       console.log(this.campaignForm.valid);
     } else if (
-      this.selectedRadio == 'Tuyển tình nguyện viên' 
+      this.selectedRadio == 'Tuyển tình nguyện viên'
     ) {
       this.campaignForm.patchValue({ type: 'recruitment' })
-    
+
     }
     console.log(this.campaignForm.value);
     if (this.campaignForm.valid) {

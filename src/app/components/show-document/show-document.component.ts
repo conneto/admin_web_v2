@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 
 @Component({
   selector: 'app-show-document',
@@ -16,7 +16,7 @@ export class ShowDocumentComponent implements OnInit {
   uriApi?: string;
   name?: any;
   showName?: any;
-  constructor(private loading: LoadingServiceService) { }
+  constructor(private loading: LoadingService) { }
   dataSource = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class ShowDocumentComponent implements OnInit {
   }
   ngViewAfterInit(): void {
 
- 
+
     this.dataSource.paginator = this.paginator;
   }
 }

@@ -8,7 +8,7 @@ import { Organization } from 'src/app/models/organization/organization';
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
 import { category } from 'src/environments/environment';
@@ -29,7 +29,7 @@ export class OrganizationFormComponent implements OnInit {
   categoryString: string = '';
   categoryStringClone: string = '';
   isRemoved?: boolean;
-  constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingServiceService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
+  constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
 
   ngOnInit(): void {
     this.initFormBuilder();
@@ -56,7 +56,7 @@ export class OrganizationFormComponent implements OnInit {
     this.organizationForm.value.category=this.categoryString;
     console.log(this.organizationForm.value);
     if (this.organizationForm.valid) {
-   
+
       console.log(this.organizationForm.value);
       let uploadData: any = new FormData();
       uploadData.append('organization', JSON.stringify(this.organizationForm.value));

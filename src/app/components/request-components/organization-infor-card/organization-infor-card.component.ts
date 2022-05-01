@@ -11,7 +11,7 @@ import { CampaignsComponent } from 'src/app/pages/management/mod-campaign/campai
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { ProjectComponent } from 'src/app/pages/management/mod-project/project/project.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { DialogConfirmComponent } from '../../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
 
@@ -28,7 +28,7 @@ export class OrganizationInforCardComponent implements OnInit {
   urlApi?: string;
   urlLogo?: string;
   @Input() checkType?: any;
-  constructor(private pro: ProjectComponent, private cam: CampaignsComponent, private orga: OrganizationsComponent, private loadingApi: LoadingServiceService, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
+  constructor(private pro: ProjectComponent, private cam: CampaignsComponent, private orga: OrganizationsComponent, private loadingApi: LoadingService, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
 
   }
 

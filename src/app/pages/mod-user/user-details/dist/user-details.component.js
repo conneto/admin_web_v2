@@ -42,97 +42,67 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.ProjectApiService = void 0;
+exports.UserDetailsComponent = void 0;
 var core_1 = require("@angular/core");
-var campaign_api_service_1 = require("../campaign/campaign-api.service");
-var ProjectApiService = /** @class */ (function () {
-    function ProjectApiService(campaignAdapter, api, projectAdap) {
-        this.campaignAdapter = campaignAdapter;
-        this.api = api;
-        this.projectAdap = projectAdap;
+var UserDetailsComponent = /** @class */ (function () {
+    function UserDetailsComponent(utilService, activatedRoute, userService, loadingService) {
+        this.utilService = utilService;
+        this.activatedRoute = activatedRoute;
+        this.userService = userService;
+        this.loadingService = loadingService;
+        this.urlApi = "";
+        this.campaign_participations = [];
+        this.userId = this.activatedRoute.snapshot.paramMap.get('id') || '';
+        this.urlApi = this.loadingService.getApiGetLink.value;
     }
-    ProjectApiService_1 = ProjectApiService;
-    ProjectApiService.prototype.getAll = function () {
-        var _a;
+    UserDetailsComponent.prototype.ngOnInit = function () {
+        this.getUserDetails(this.userId || "");
+        this.getCampaignParticipations(this.userId || "");
+    };
+    UserDetailsComponent.prototype.getUserDetails = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var res;
-            var _this = this;
+            var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.api.get(ProjectApiService_1.PROJECT)];
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.userService.getById(id)];
                     case 1:
-                        res = _b.sent();
-                        res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) {
-                            return _this.projectAdap.adapt(item);
-                        });
-                        return [2 /*return*/, res.data || []];
+                        _a.user = _b.sent();
+                        return [2 /*return*/];
                 }
             });
         });
     };
-    ProjectApiService.prototype.getByID = function (id) {
+    UserDetailsComponent.prototype.getCampaignParticipations = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(ProjectApiService_1.PROJECT + "/" + ("" + id))];
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.userService.getCampaignParticipations(id)];
                     case 1:
-                        res = _a.sent();
-                        return [2 /*return*/, res.data = this.projectAdap.adapt(res.data) || []];
+                        _a.campaign_participations = _b.sent();
+                        return [2 /*return*/];
                 }
             });
         });
     };
-    ProjectApiService.prototype.getCampaignsByProjectId = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            var _this = this;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(ProjectApiService_1.PROJECT + "/" + id + "/" + campaign_api_service_1.CampaignApiService.CAMPAIGNS)];
-                    case 1:
-                        res = _a.sent();
-                        res.data = res.data.map(function (item) {
-                            return _this.campaignAdapter.adapt(item);
-                        });
-                        return [2 /*return*/, res.data || []];
-                }
-            });
-        });
+    UserDetailsComponent.prototype.getFirstCover = function (fullCover) {
+        return fullCover.split('|')[0];
     };
-    ProjectApiService.prototype.createProject = function (data) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post(ProjectApiService_1.PROJECT, data)];
-                    case 1:
-                        res = _a.sent();
-                        return [2 /*return*/, res || []];
-                }
-            });
-        });
+    UserDetailsComponent.prototype.enableUser = function () {
     };
-    ProjectApiService.prototype["delete"] = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var res;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api["delete"](ProjectApiService_1.PROJECT + "/" + id)];
-                    case 1:
-                        res = _a.sent();
-                        return [2 /*return*/, res];
-                }
-            });
-        });
+    UserDetailsComponent.prototype.disableUser = function () {
     };
-    var ProjectApiService_1;
-    ProjectApiService.PROJECT = 'projects';
-    ProjectApiService = ProjectApiService_1 = __decorate([
-        core_1.Injectable({
-            providedIn: 'root'
+    UserDetailsComponent = __decorate([
+        core_1.Component({
+            selector: 'app-user-details',
+            templateUrl: './user-details.component.html',
+            styleUrls: ['./user-details.component.scss']
         })
-    ], ProjectApiService);
-    return ProjectApiService;
+    ], UserDetailsComponent);
+    return UserDetailsComponent;
 }());
-exports.ProjectApiService = ProjectApiService;
+exports.UserDetailsComponent = UserDetailsComponent;

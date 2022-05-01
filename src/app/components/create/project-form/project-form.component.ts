@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 
 
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
-  constructor(private router:Router,public organizationId: LoadingServiceService, private authApi: AuthServiceService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
+  constructor(private router:Router,public organizationId: LoadingService, private authApi: AuthServiceService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
   projectForm!: FormGroup;
   coverImage?: File;
   logo?:File;
@@ -40,7 +40,7 @@ export class ProjectFormComponent implements OnInit {
     })
   }
   noClick() {
-   
+
     this.dialogRef.close(false);
 
   }

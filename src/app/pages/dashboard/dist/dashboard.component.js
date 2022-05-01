@@ -60,8 +60,7 @@ var DashboardComponent = /** @class */ (function () {
                         _a = this;
                         return [4 /*yield*/, this.userService.getStatistics()];
                     case 1:
-                        _a.cards = _b.sent();
-                        console.log(this.cards);
+                        _a.items = _b.sent();
                         return [2 /*return*/];
                 }
             });

@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor(private userService: UserService) {
   }
 
-  cards?: Dashboard;
+  items?: any;
 
 
   ngOnInit(): void {
@@ -20,7 +20,6 @@ export class DashboardComponent implements OnInit {
   }
 
   async getStatistics() {
-    this.cards = await this.userService.getStatistics();
-    console.log(this.cards);
+    this.items = await this.userService.getStatistics();
   }
 }

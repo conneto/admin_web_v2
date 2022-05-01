@@ -4,7 +4,7 @@ import {
 
   BaseResponseAdapter,
 } from 'src/app/models/base-response/base-response';
-import { LoadingServiceService } from '../loading/loading-service.service';
+import { LoadingService } from '../loading-service/loading.service';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -19,7 +19,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private baseResponseAdapter: BaseResponseAdapter,
-    public loadingService: LoadingServiceService
+    public loadingService: LoadingService
   ) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
@@ -106,7 +106,7 @@ export class ApiService {
     });
   }
   get(api_name: string, params?: any): any {
-   
+
     let api_uri = this.getFetchUri(api_name, params);
     if (localStorage.getItem('USER_TOKEN')) {
       this.corsHeaders = this.corsHeaders.set(

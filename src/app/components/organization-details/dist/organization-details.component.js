@@ -80,7 +80,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     OrganizationDetailsComponent.prototype.check = function () {
         var _a;
         this.user = this.auth.currentUserValue;
-        if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) == 'organization_manager') {
+        if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role_id) == 'organization_manager') {
             this.isAdmin = false;
         }
     };

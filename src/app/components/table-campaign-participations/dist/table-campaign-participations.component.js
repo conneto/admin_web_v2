@@ -124,8 +124,9 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
             width: '360px',
             data: {
-                button: "Từ chối",
-                message: "Từ chối"
+                button: "Đồng ý",
+                close: "Suy nghĩ lại",
+                message: "Bạn có chắc chắn muốn từ chối yêu cầu tham gia của tình nguyện viên này không?"
             }
         });
         dialogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {

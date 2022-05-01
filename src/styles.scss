@@ -33,7 +33,6 @@ p {
 
 html {
   overflow: hidden;
-  font-family: "Roboto";
 }
 
 .button-hover:hover {
@@ -44,15 +43,7 @@ html {
   color: var(--heading-card-color);
 }
 
-.decoration {
-  display: flex;
-  flex-wrap: wrap;
-  padding-bottom: 40px;
-
-}
-
 .closeButton {
-
   button {
     position: absolute;
     z-index: 1;
@@ -63,14 +54,12 @@ html {
     border: none;
     outline: none;
     background: unset;
-
   }
 
   button:hover {
     background-color: #ccc;
     opacity: 0.6;
     border-radius: 100%;
-
   }
 }
 
@@ -100,7 +89,6 @@ html {
 .success {
   background: rgb(145, 236, 145);
   color: black;
-
 }
 
 .success button {
@@ -117,12 +105,8 @@ html {
   color: black;
 }
 
-.search-bar {
-  margin-top: 15px;
-}
-
 .primary-text-color {
-  color: #FBB800 !important;
+  color: #fbb800 !important;
 }
 
 .mat-progress-bar {
@@ -131,7 +115,7 @@ html {
 }
 
 .mat-progress-bar-fill::after {
-  background-color: #FBB800;
+  background-color: #fbb800;
 }
 
 .circle-avatar {
@@ -139,36 +123,28 @@ html {
   height: 36px;
   border-radius: 50% !important;
   border: 0.5px solid #cccccc;
-  padding: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .circle-avatar img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50% !important;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .circle-avatar-big {
   width: 128px;
   height: 128px;
   border-radius: 50% !important;
-  border: 0.5px solid #cccccc;
-  padding: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  object-fit: cover;
 }
 
-.circle-avatar-big img {
-  width: 128px;
-  height: 128px;
-  border-radius: 50% !important;
-  object-fit: contain;
-}
+// .circle-avatar-big img {
+//   width: 128px;
+//   height: 128px;
+//   border-radius: 50% !important;
+//   object-fit: cover;
+// }
 
 .font-size-8 {
   font-size: 8px;
@@ -202,7 +178,6 @@ html {
   white-space: normal;
 }
 
-
 .cursor-pointer {
   cursor: pointer;
 }
@@ -225,7 +200,8 @@ html {
 }
 
 .box-shadow-2 {
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
 }
 
 .mat-header-cell {
@@ -274,4 +250,8 @@ td {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.bg-primary-color {
+  background-color: #fbb800 !important;
 }

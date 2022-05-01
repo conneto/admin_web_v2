@@ -10,10 +10,11 @@ import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
+import { CampaignService } from 'src/app/services/campaign/campaign.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+
 
 @Component({
   selector: 'app-campaigns',
@@ -39,7 +40,7 @@ export class CampaignsComponent implements OnInit {
   isApprovedProject?: boolean;
   projects: Project[] = [];
   @ViewChild('changeView') changeView?: ChangeToListComponent;
-  constructor(private projectService: ProjectApiService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignApiService, private loadingService: LoadingServiceService, private dialog: MatDialog, private api: CampaignApiService, private authApi: AuthServiceService) { }
+  constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
     this.checkToGetData();

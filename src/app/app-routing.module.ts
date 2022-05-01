@@ -20,6 +20,8 @@ const routes: Routes = [
     path: 'manager', canActivate: [Guard2Guard], loadChildren: () => import('./pages/admin/admin.module').then((m) => m.AdminModule),
   },
 
+  { path: 'user-details', loadChildren: () => import('./pages/mod-user/user-details/user-details.module').then(m => m.UserDetailsModule) },
+
   { path: '**', redirectTo: '' },
 
 

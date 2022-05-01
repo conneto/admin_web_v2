@@ -12,9 +12,9 @@ import { Project } from 'src/app/models/projects/project.model';
 
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-project',
@@ -40,7 +40,7 @@ export class ProjectComponent implements OnInit {
   isList?: boolean = false;
   organization: Organization[] = [];
   isAdmin?:boolean;
-  constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingServiceService, private api: ProjectApiService, private authApi: AuthServiceService) { }
+  constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
     this.checkToGetData();

@@ -9,9 +9,9 @@ exports.__esModule = true;
 exports.CampaignItemComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignItemComponent = /** @class */ (function () {
-    function CampaignItemComponent(utilService, userService, router, loadingService) {
+    function CampaignItemComponent(utilService, userApi, router, loadingService) {
         this.utilService = utilService;
-        this.userService = userService;
+        this.userApi = userApi;
         this.router = router;
         this.loadingService = loadingService;
     }
@@ -19,7 +19,7 @@ var CampaignItemComponent = /** @class */ (function () {
         var _a;
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.valueNumber = (Number((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_id) * 100).toFixed(2);
-        if (this.userService.currentUserValue.role == 'admin') {
+        if (this.userApi.currentUserValue.role == 'admin') {
             this.isAdmin = true;
         }
     };

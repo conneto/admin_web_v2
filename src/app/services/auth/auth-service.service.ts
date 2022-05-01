@@ -8,7 +8,7 @@ import { UserLoginResponse, UserLoginResponseApdater } from 'src/app/dtos/user-l
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Md5 } from 'ts-md5';
 import { ApiService } from '../api/api.service';
-import { LoadingServiceService } from '../loading/loading-service.service';
+import { LoadingService } from '../loading-service/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +31,7 @@ export class AuthServiceService {
   public static readonly CAMPAIGN = 'campaign';
   public static readonly ORGANIZATION_MANAGER = 'organization_manager';
   public static readonly ACTIVATE = 'activate';
-  constructor(private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
+  constructor(private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
 
     this.curUserSubject = new BehaviorSubject<any>(
       JSON.parse(localStorage.getItem('USER_WEB')!)

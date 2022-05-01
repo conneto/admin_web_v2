@@ -10,17 +10,31 @@ exports.UserCardComponent = void 0;
 var core_1 = require("@angular/core");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var UserCardComponent = /** @class */ (function () {
-    function UserCardComponent(dialog) {
+    function UserCardComponent(dialog, loadingService, utilService) {
         this.dialog = dialog;
+        this.loadingService = loadingService;
+        this.utilService = utilService;
     }
     UserCardComponent.prototype.ngOnInit = function () {
+        this.urlApi = this.loadingService.getApiGetLink.value;
     };
     UserCardComponent.prototype.disableUser = function () {
         var diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
             width: '360px',
             data: {
-                button: 'Kích hoạt',
-                message: 'kích hoạt'
+                button: 'Đồng ý',
+                close: 'Hủy',
+                message: 'Bạn có chắc chắn muốn khóa người dùng này?'
+            }
+        });
+    };
+    UserCardComponent.prototype.enableUser = function () {
+        var diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
+            width: '360px',
+            data: {
+                button: 'Đồng ý',
+                close: 'Hủy',
+                message: 'Bạn có chắc chắn muốn kích hoạt người dùng này?'
             }
         });
     };

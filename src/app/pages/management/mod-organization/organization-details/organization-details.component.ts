@@ -15,9 +15,9 @@ import { User } from 'src/app/models/user/user.model';
 import { UserManagementComponent } from 'src/app/pages/user-management/user-management.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 import { ProjectComponent } from '../../mod-project/project/project.component';
 
 import { OrganizationsComponent } from '../organizations/organizations.component';
@@ -55,7 +55,7 @@ export class OrganizationDetailsComponent implements OnInit {
   isGetCam?: boolean = false;
   passDataCampaigns:any;
   passDataProjects:any;
-  constructor(private pro: ProjectComponent, private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectApiService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
+  constructor(private pro: ProjectComponent, private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
 
@@ -68,7 +68,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   check() {
     this.user = this.auth.currentUserValue;
-    if (this.user?.role == 'organization_manager') {
+    if (this.user?.role_id == 'organization_manager') {
       this.isAdmin = false;
     }
   }

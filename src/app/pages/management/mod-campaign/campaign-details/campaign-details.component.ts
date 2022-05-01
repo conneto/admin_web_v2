@@ -5,8 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DownloadDocumentFormComponent } from 'src/app/components/download-document-form/download-document-form.component';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { CampaignService } from 'src/app/services/campaign/campaign.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 
 @Component({
   selector: 'app-campaign-details',
@@ -35,7 +35,7 @@ export class CampaignDetailsComponent implements OnInit {
   isUpload?: boolean;
   pdfName?:any;
 
-  constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingServiceService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignApiService) { }
+  constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
 
   ngOnInit(): void {
     this.isPDF = true;
@@ -122,11 +122,11 @@ export class CampaignDetailsComponent implements OnInit {
         if(this.documentPDF){
           for (let i = 0; i < this.documentPDF?.length; i++) {
             this.pdfName = this.documentPDF[i].url.split('/');
-    
+
             Object.assign(this.documentPDF[i], {
               // name: this.pdfName[3],
             })
-    
+
           }
         }
         console.log(this.documentExcel);

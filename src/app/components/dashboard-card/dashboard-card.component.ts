@@ -10,16 +10,15 @@ import { Dashboard } from 'src/app/models/dashboard/dashboard.model';
 export class DashboardCardComponent implements OnInit {
   @Input() isChange?: boolean;
   @Input() card?: Dashboard;
-  @Input() title?: string;
   @Input() isAmount?: boolean;
-  @Input() number?: number;
-  @Input() icon?: string;
+  @Input() item?: any;
   numberShow: number = 0;
   positionTooltip: TooltipPosition = 'above';
   constructor() { }
+
   counting: any = setInterval(() => {
     this.numberShow++;
-    if (this.numberShow == this.number) {
+    if (this.numberShow == this.item.number) {
       clearInterval(this.counting);
     }
   }, 40)

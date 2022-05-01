@@ -12,10 +12,10 @@ import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
+import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-project-details',
@@ -39,7 +39,7 @@ export class ProjectDetailsComponent implements OnInit {
   noResultBySearch?: boolean;
   passData?: any;
   whichType?: any;
-  constructor(private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private location: Location, private proApi: ProjectApiService, private campApi: CampaignApiService, private actived: ActivatedRoute, private dialog: MatDialog) { }
+  constructor(private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private location: Location, private proApi: ProjectService, private campApi: CampaignService, private actived: ActivatedRoute, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getByID();
@@ -51,7 +51,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
   check() {
     this.user = this.auth.currentUserValue;
-    if (this.user?.role === 'organization_manager') {
+    if (this.user?.role_id === 'organization_manager') {
       this.isAdmin = false;
     }
   }
@@ -146,7 +146,7 @@ export class ProjectDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
-       
+
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.campApi.create(data);
         if (res?.status == 0) {

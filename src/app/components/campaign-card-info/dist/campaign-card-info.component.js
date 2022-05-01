@@ -9,8 +9,9 @@ exports.__esModule = true;
 exports.CampaignCardInfoComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignCardInfoComponent = /** @class */ (function () {
-    function CampaignCardInfoComponent(loadingService) {
+    function CampaignCardInfoComponent(loadingService, utilService) {
         this.loadingService = loadingService;
+        this.utilService = utilService;
     }
     CampaignCardInfoComponent.prototype.ngOnInit = function () {
         var _a;
