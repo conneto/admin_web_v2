@@ -68,7 +68,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   check() {
     this.user = this.auth.currentUserValue;
-    if (this.user?.role == 'organization_manager') {
+    if (this.user?.role_id == 'organization_manager') {
       this.isAdmin = false;
     }
   }

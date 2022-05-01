@@ -43,12 +43,6 @@ html {
   color: var(--heading-card-color);
 }
 
-.decoration {
-  display: flex;
-  flex-wrap: wrap;
-  padding-bottom: 40px;
-}
-
 .closeButton button {
   position: absolute;
   z-index: 1;
@@ -109,7 +103,7 @@ html {
 }
 
 .primary-text-color {
-  color: #FBB800 !important;
+  color: #fbb800 !important;
 }
 
 .mat-progress-bar {
@@ -118,7 +112,7 @@ html {
 }
 
 .mat-progress-bar-fill::after {
-  background-color: #FBB800;
+  background-color: #fbb800;
 }
 
 .circle-avatar {
@@ -126,17 +120,20 @@ html {
   height: 36px;
   border-radius: 50% !important;
   border: 0.5px solid #cccccc;
-  padding: 2px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .circle-avatar img {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50% !important;
   object-fit: contain;
+}
+
+.circle-avatar-big {
+  width: 128px;
+  height: 128px;
+  border-radius: 50% !important;
+  border: 0.5px solid #cccccc;
 }
 
 .font-size-8 {
@@ -212,4 +209,12 @@ html {
 
 .label-rejected {
   color: var(--red);
+}
+
+th,
+td {
+  overflow: hidden;
+  width: auto;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

@@ -15,7 +15,7 @@ var DashboardCardComponent = /** @class */ (function () {
         this.positionTooltip = 'above';
         this.counting = setInterval(function () {
             _this.numberShow++;
-            if (_this.numberShow == _this.number) {
+            if (_this.numberShow == _this.item.number) {
                 clearInterval(_this.counting);
             }
         }, 40);
@@ -30,16 +30,10 @@ var DashboardCardComponent = /** @class */ (function () {
     ], DashboardCardComponent.prototype, "card");
     __decorate([
         core_1.Input()
-    ], DashboardCardComponent.prototype, "title");
-    __decorate([
-        core_1.Input()
     ], DashboardCardComponent.prototype, "isAmount");
     __decorate([
         core_1.Input()
-    ], DashboardCardComponent.prototype, "number");
-    __decorate([
-        core_1.Input()
-    ], DashboardCardComponent.prototype, "icon");
+    ], DashboardCardComponent.prototype, "item");
     DashboardCardComponent = __decorate([
         core_1.Component({
             selector: 'app-dashboard-card',

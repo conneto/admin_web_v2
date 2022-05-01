@@ -9,17 +9,17 @@ exports.__esModule = true;
 exports.UserAdapter = exports.User = void 0;
 var core_1 = require("@angular/core");
 var User = /** @class */ (function () {
-    function User(id, username, email, gender, birthday, role, token, first_name, last_name, number_phone, operating_unit, is_active, is_block, created_at, updated_at, role_id) {
+    function User(id, username, email, gender, birthday, token, first_name, last_name, number_phone, avatar, operating_unit, is_active, is_block, created_at, updated_at, role_id) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.gender = gender;
         this.birthday = birthday;
-        this.role = role;
         this.token = token;
         this.first_name = first_name;
         this.last_name = last_name;
         this.number_phone = number_phone;
+        this.avatar = avatar;
         this.operating_unit = operating_unit;
         this.is_active = is_active;
         this.is_block = is_block;
@@ -34,7 +34,7 @@ var UserAdapter = /** @class */ (function () {
     function UserAdapter() {
     }
     UserAdapter.prototype.adapt = function (item) {
-        return new User(item.id, item.username, item.email, item.gender, item.birthday, item.role, item.token, item.first_name, item.last_name, item.number_phone, item.operating_unit, item.is_active, item.is_block, item.created_at, item.updated_at, item.role_id);
+        return new User(item.id, item.username, item.email, item.gender, item.birthday, item.token, item.first_name, item.last_name, item.number_phone, item.avatar, item.operating_unit, item.is_active, item.is_block, item.created_at, item.updated_at, item.role_id);
     };
     UserAdapter = __decorate([
         core_1.Injectable({

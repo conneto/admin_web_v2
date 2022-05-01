@@ -51,7 +51,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
   check() {
     this.user = this.auth.currentUserValue;
-    if (this.user?.role === 'organization_manager') {
+    if (this.user?.role_id === 'organization_manager') {
       this.isAdmin = false;
     }
   }
@@ -146,7 +146,7 @@ export class ProjectDetailsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
-       
+
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.campApi.create(data);
         if (res?.status == 0) {

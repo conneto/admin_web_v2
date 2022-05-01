@@ -79,29 +79,27 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     OrganizationDetailsComponent.prototype.check = function () {
         var _a;
         this.user = this.auth.currentUserValue;
-        if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role) == 'organization_manager') {
+        if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role_id) == 'organization_manager') {
             this.isAdmin = false;
         }
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-        var _a, _b, _c, _d, _e, _f;
+        var _a, _b;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _g;
-            return __generator(this, function (_h) {
-                switch (_h.label) {
+            var id, _c;
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         id = this.route.snapshot.paramMap.get('id');
-                        _g = this;
+                        _c = this;
                         return [4 /*yield*/, this.orgApi.getById("" + id)];
                     case 1:
-                        _g.organization = _h.sent();
+                        _c.organization = _d.sent();
                         if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
                             this.isApproved = true;
                         }
                         this.loadingService.getOrganizationId.next("" + id);
-                        this.urlLogo = (_c = (_b = this.organization) === null || _b === void 0 ? void 0 : _b.logo) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
-                        this.urlCover = (_e = (_d = this.organization) === null || _d === void 0 ? void 0 : _d.cover) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
-                        switch ((_f = this.organization) === null || _f === void 0 ? void 0 : _f.type) {
+                        switch ((_b = this.organization) === null || _b === void 0 ? void 0 : _b.type) {
                             case 'ngo':
                                 this.organization.type = 'Tổ chức phi chính phủ';
                                 break;

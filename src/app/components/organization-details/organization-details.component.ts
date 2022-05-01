@@ -63,12 +63,12 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   check() {
     this.user = this.auth.currentUserValue;
-    if (this.user?.role == 'organization_manager') {
+    if (this.user?.role_id == 'organization_manager') {
       this.isAdmin = false;
     }
   }
   async getValueFromRoute() {
-  
+
     this.organization = await this.orgApi.getById(`${this.organizationInput[0]?.id}`);
 
     if (this.organization?.result_code == 510) {

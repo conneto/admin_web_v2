@@ -36,7 +36,17 @@ const routes: Routes = [
 
       {
         path: 'user-management',
-        loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule)
+        loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule),
+        children: [
+          {
+        path: '',
+        loadChildren: () => import('src/app/pages/user-management/user-management.module').then((m) => m.UserManagementModule),
+          },
+          {
+        path: 'user-details/:id',
+        loadChildren: () => import('src/app/pages/mod-user/user-details/user-details.module').then((m) => m.UserDetailsModule),
+          }
+        ]
       },
       {
         path: 'organization-request',

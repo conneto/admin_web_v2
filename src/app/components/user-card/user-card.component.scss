@@ -2,6 +2,13 @@
   background-color: white;
 }
 
+.user__role {
+  z-index: 9999;
+  text-transform: uppercase;
+  background-color: #FBB800;
+  padding-inline: 8px !important;
+}
+
 .mat-card:hover {
   animation: moveFadein;
   animation-duration: 1s;

@@ -42,37 +42,74 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.DashboardComponent = void 0;
+exports.UserService = void 0;
 var core_1 = require("@angular/core");
-var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent(userService) {
-        this.userService = userService;
+var campaign_api_service_1 = require("../campaign/campaign-api.service");
+var UserService = /** @class */ (function () {
+    function UserService(api, dashboardAdapter, userAdapter) {
+        this.api = api;
+        this.dashboardAdapter = dashboardAdapter;
+        this.userAdapter = userAdapter;
     }
-    DashboardComponent.prototype.ngOnInit = function () {
-        this.getStatistics();
-    };
-    DashboardComponent.prototype.getStatistics = function () {
+    UserService_1 = UserService;
+    UserService.prototype.getStatistics = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.userService.getStatistics()];
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get(UserService_1.STATISTICS)];
                     case 1:
-                        _a.items = _b.sent();
-                        return [2 /*return*/];
+                        res = _a.sent();
+                        return [2 /*return*/, res.data || []];
                 }
             });
         });
     };
-    DashboardComponent = __decorate([
-        core_1.Component({
-            selector: 'app-dashboard',
-            templateUrl: './dashboard.component.html',
-            styleUrls: ['./dashboard.component.scss']
+    UserService.prototype.getRanking = function (type) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(type == 'recruitment')) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.api.get(campaign_api_service_1.CampaignApiService.CAMPAIGNS + "/top_volunteers?type=participate")];
+                    case 1:
+                        res = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 2: return [4 /*yield*/, this.api.get(campaign_api_service_1.CampaignApiService.CAMPAIGNS + "/top_volunteers?type=donate")];
+                    case 3:
+                        res = _a.sent();
+                        _a.label = 4;
+                    case 4: return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
+    UserService.prototype.getListUsers = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get(UserService_1.ACCOUNTS)];
+                    case 1:
+                        res = _a.sent();
+                        res.data = res.data.map(function (item) {
+                            return _this.userAdapter.adapt(item);
+                        });
+                        return [2 /*return*/, res.data || []];
+                }
+            });
+        });
+    };
+    var UserService_1;
+    UserService.STATISTICS = 'statistics';
+    UserService.ACCOUNTS = 'accounts';
+    UserService = UserService_1 = __decorate([
+        core_1.Injectable({
+            providedIn: 'root'
         })
-    ], DashboardComponent);
-    return DashboardComponent;
+    ], UserService);
+    return UserService;
 }());
-exports.DashboardComponent = DashboardComponent;
+exports.UserService = UserService;

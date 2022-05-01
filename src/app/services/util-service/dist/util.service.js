@@ -24,6 +24,10 @@ var UtilService = /** @class */ (function () {
                 return 'Tham gia';
             case 'recruitment':
                 return 'Tuyển TNV';
+            case 'volunteer':
+                return 'Tình nguyện viên';
+            case 'organization_manager':
+                return 'Quản lý tổ chức';
             default:
                 return '';
         }

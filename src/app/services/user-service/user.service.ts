@@ -15,8 +15,7 @@ export class UserService {
 
   async getStatistics() {
     let res: BaseResponse = await this.api.get(UserService.STATISTICS);
-    console.log(res.data);
-    res.data = this.dashboardAdapter.adapt(res.data);
+    
     return res.data || [];
   }
   async getRanking(type?: string) {

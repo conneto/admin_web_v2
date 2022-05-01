@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UtilService {
-
-  constructor() { }
-
+  constructor() {}
 
   public convertType(type: any): string {
     switch (type) {
@@ -21,6 +19,10 @@ export class UtilService {
         return 'Tham gia';
       case 'recruitment':
         return 'Tuyển TNV';
+      case 'volunteer':
+        return 'Tình nguyện viên';
+      case 'organization_manager':
+        return 'Quản lý tổ chức';
       default:
         return '';
     }
