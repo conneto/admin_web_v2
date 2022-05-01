@@ -17,7 +17,6 @@ var UserCardComponent = /** @class */ (function () {
     }
     UserCardComponent.prototype.ngOnInit = function () {
         this.urlApi = this.loadingService.getApiGetLink.value;
-        console.log(this.user);
     };
     UserCardComponent.prototype.disableUser = function () {
         var diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
@@ -29,7 +28,16 @@ var UserCardComponent = /** @class */ (function () {
             }
         });
     };
-    UserCardComponent.prototype.enableUser = function () { };
+    UserCardComponent.prototype.enableUser = function () {
+        var diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
+            width: '360px',
+            data: {
+                button: 'Đồng ý',
+                close: 'Hủy',
+                message: 'Bạn có chắc chắn muốn kích hoạt người dùng này?'
+            }
+        });
+    };
     __decorate([
         core_1.Input()
     ], UserCardComponent.prototype, "user");

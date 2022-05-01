@@ -41,11 +41,11 @@ export class ApproveDeclineButtonComponent implements OnInit {
     }
   }
   async approve() {
-    console.log(this.isPro,this.isOrg,this.isCam);
+
     await this.dialogConfirm.approve(this.organization?.id || this.project?.id || this.campaign?.id, this.isPro || this.isOrg || this.isCam);
   }
   async reject() {
-    console.log(this.isPro,this.isOrg,this.isCam);
+
     await this.dialogConfirm.reject(this.organization?.id || this.project?.id || this.campaign?.id, this.isPro || this.isOrg || this.isCam);
   }
 

@@ -1,47 +1,22 @@
-.sidenav-heading {
-  font-weight: bold;
-  text-align: center;
-  letter-spacing: 1.6px;
-  font-size: 24px;
-  text-transform: uppercase;
-}
-
-.content {
-  height: calc(100vh - 98px);
-  border-radius: 8px;
-  margin-left: 12px;
+mat-toolbar {
+  background: #ffd664;
 }
 
 mat-sidenav {
+  margin: 16px;
   width: 20%;
-  background: #ffd630;
+  border-right: none;
+  background: #ffd664;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.content {
+  border-radius: 16px;
+  margin: 16px;
+  margin-left: 32px;
 }
 
 mat-sidenav-container {
   height: calc(100vh - 65px);
-}
-
-.mat-toolbar {
-  background-color: hsla(50, 38%, 94%, 0.671);
-  border-bottom: 1px solid #ddd;
-
-}
-
-.toolbar-name {
-  float: right;
-}
-
-.toolbar-notification-button {
-  width: 100%;
-}
-
-.toolbar-notification-button a {
-  float: right;
-
-}
-
-.toolbar-title {
-  p {
-    margin: 0 !important;
-  }
 }

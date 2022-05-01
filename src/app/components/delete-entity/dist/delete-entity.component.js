@@ -137,8 +137,9 @@ var DeleteEntityComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '360px',
                     data: {
-                        button: 'Cấp quyền',
-                        message: "cấp quyền hoạt động"
+                        button: 'Đồng ý',
+                        close: 'Hủy',
+                        message: "Bạn có chắc chắn muốn cấp quyền hoạt động cho đối tượng này?"
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
@@ -197,7 +198,8 @@ var DeleteEntityComponent = /** @class */ (function () {
                     width: '360px',
                     data: {
                         button: 'Xóa',
-                        message: 'xóa'
+                        close: 'Hủy',
+                        message: 'Bạn có chắc chắn muốn xóa không?'
                     }
                 });
                 dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

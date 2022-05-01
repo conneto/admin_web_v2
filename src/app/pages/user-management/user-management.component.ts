@@ -2,7 +2,7 @@ import {Component, Injectable, OnInit} from '@angular/core';
 import {User} from 'src/app/models/user/user.model';
 import {UserService} from 'src/app/services/user-service/user.service';
 import 'lodash';
-import {LoadingServiceService} from 'src/app/services/loading/loading-service.service';
+import {LoadingService} from 'src/app/services/loading-service/loading.service';
 
 declare var _: any;
 
@@ -23,7 +23,7 @@ export class UserManagementComponent implements OnInit {
   isLoaded: boolean = false;
   isList?: boolean = false;
 
-  constructor(private loading: LoadingServiceService, private userService: UserService) {
+  constructor(private loading: LoadingService, private userService: UserService) {
   }
 
 

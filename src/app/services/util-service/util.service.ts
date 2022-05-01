@@ -23,6 +23,10 @@ export class UtilService {
         return 'Tình nguyện viên';
       case 'organization_manager':
         return 'Quản lý tổ chức';
+        case 'male':
+          return 'Nam';
+          case 'female':
+            return 'Nữ';
       default:
         return '';
     }

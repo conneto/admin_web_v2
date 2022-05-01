@@ -1,6 +1,6 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { Project } from 'src/app/models/projects/project.model';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-project-request',
@@ -13,7 +13,7 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
 export class ProjectRequestComponent implements OnInit {
 
   projects: Project[] = [];
-  constructor(private api: ProjectApiService) { }
+  constructor(private api: ProjectService) { }
 
   ngOnInit(): void {
     this.getRequest();

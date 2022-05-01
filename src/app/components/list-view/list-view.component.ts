@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Organization } from 'src/app/models/organization/organization';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { UtilService } from "../../services/util-service/util.service";
 
 @Component({
@@ -25,7 +25,7 @@ export class ListViewComponent implements OnInit {
 
   urlApi?: string;
 
-  constructor(private role: AuthServiceService, private router: Router, private loadingService: LoadingServiceService, public utilService: UtilService) {
+  constructor(private role: AuthServiceService, private router: Router, private loadingService: LoadingService, public utilService: UtilService) {
   }
 
   ngOnInit(): void {

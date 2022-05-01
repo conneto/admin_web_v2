@@ -47,12 +47,11 @@ var core_1 = require("@angular/core");
 var auth_service_service_1 = require("src/app/services/auth/auth-service.service");
 var dialog_confirm_component_1 = require("../../dialog-confirm/dialog-confirm.component");
 var OrganizationInforCardComponent = /** @class */ (function () {
-    function OrganizationInforCardComponent(pro, cam, orga, loadingApi, proApi, camApi, location, snackBar, router, dialog, authApi, org) {
+    function OrganizationInforCardComponent(pro, cam, orga, loadingApi, camApi, location, snackBar, router, dialog, authApi, org) {
         this.pro = pro;
         this.cam = cam;
         this.orga = orga;
         this.loadingApi = loadingApi;
-        this.proApi = proApi;
         this.camApi = camApi;
         this.location = location;
         this.snackBar = snackBar;
@@ -75,8 +74,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '360px',
                     data: {
-                        button: 'Chấp nhận',
-                        message: auth_service_service_1.AuthServiceService.APPROVE
+                        button: 'Đồng ý',
+                        close: 'Hủy',
+                        message: 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
@@ -94,6 +94,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     status: 'approve',
                                     note: 'Approve this'
                                 };
+                                console.log(this.checkType, checkType);
                                 return [4 /*yield*/, this.authApi.updateRequestByAdmin(data1)];
                             case 1:
                                 res = _b.sent();
@@ -105,7 +106,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     else if (checkType == 'pro' || this.checkType == 'pro') {
                                         this.pro.checkToGetData('pending');
                                     }
-                                    else {
+                                    else if (checkType == 'cam' || this.checkType == 'cam') {
                                         this.cam.checkToGetData('pending');
                                     }
                                     this.snackBar.showMessage("Chấp nhận thành công !", true);
@@ -131,8 +132,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '360px',
                     data: {
-                        button: 'Từ chối',
-                        message: auth_service_service_1.AuthServiceService.REJECT
+                        button: 'Đồng ý',
+                        close: 'Hủy',
+                        message: 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

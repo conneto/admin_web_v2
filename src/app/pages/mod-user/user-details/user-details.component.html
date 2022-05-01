@@ -1,19 +1,118 @@
-<div class="w-100 h-100 p-2">
-  <div class="row">
-    <div class="col-12 col-sm-6">
-
+<div class="p-4 user-container border-radius-16">
+  <div class="row m-4 justify-content-between">
+    <div class="col-12 col-sm-6 p-3 d-flex flex-column border-radius-16 box-shadow-2 bg-white position-relative">
+      <div class="d-flex flex-column justify-content-center align-items-center">
+        <img class="circle-avatar-big mb-3" onerror="this.src='assets/icons/user_icon.png'"
+          src="{{ urlApi }}/show/images?p={{ user?.avatar }}" />
+        <h5>{{user?.last_name}} {{user?.first_name}}</h5>
+        <p>{{utilService.convertType(user?.role_id)}}</p>
+      </div>
+      <div class="user-status content-center position-absolute top-0 left-0 p-2">
+        <span *ngIf="user?.is_active && !user?.is_block" title="Đang hoạt động" class="dot__green opacity-75">Đang hoạt động</span>
+        <span *ngIf="!user?.is_active" title="Ngưng hoạt động" class="dot__red opacity-75"></span>
+        <span *ngIf="user?.is_active && user?.is_block" title="Bị khóa" class="dot__yellow opacity-75"></span>
+      </div>
+      <div class="row d-flex align-items-center justify-content-around">
+        <div class="col-sm-6 my-2 d-flex flex-column align-items-center justify-content-center">
+          <h4>67</h4>
+          <p>Chiến dịch đã quyên góp</p>
+        </div>
+        <div class="col-sm-6 my-2 d-flex flex-column align-items-center justify-content-center">
+          <h4>{{67000000 | currency : 'VND'}}</h4>
+          <p>Số tiền đã quyên góp</p>
+        </div>
+        <div class="col-sm-6 my-2 d-flex flex-column align-items-center justify-content-center">
+          <h4>67</h4>
+          <p>Chiến dịch đã tham gia</p>
+        </div>
+        <div class="col-sm-6 my-2 d-flex flex-column align-items-center justify-content-center">
+          <h4>67</h4>
+          <p>Số lượt tham gia</p>
+        </div>
+      </div>
     </div>
-    <div class="col-12 col-sm-6">
-
+    <div class="col-12 col-sm-5 p-3 d-flex flex-column border-radius-16 box-shadow-2 bg-white">
+      <h5>Thông tin cá nhân</h5>
+      <div class="row d-flex justify-content-between">
+        <div class="col-xl-6 my-2">
+          <div class="bg-white border-radius-8 p-2 box-shadow-1">
+            <p class="small">Họ</p>
+            <h6>{{user?.last_name}}</h6>
+          </div>
+        </div>
+        <div class="col-xl-6 my-2">
+          <div class="bg-white border-radius-8 p-2 box-shadow-1">
+            <p class="small">Tên</p>
+            <h6>{{user?.first_name}}</h6>
+          </div>
+        </div>
+        <div class="col-xl-6 my-2">
+          <div *ngIf="user?.gender" class="bg-white border-radius-8 p-2 box-shadow-1">
+            <p class="small">Giới tính</p>
+            <h6>{{user?.gender}}</h6>
+          </div>
+        </div>
+        <div class="col-xl-6 my-2">
+          <div class="bg-white border-radius-8 p-2 box-shadow-1">
+            <p class="small">Số điện thoại</p>
+            <h6>{{user?.number_phone}}</h6>
+          </div>
+        </div>
+        <div class="col-xl-6 my-2">
+          <div class="bg-white border-radius-8 p-2 box-shadow-1">
+            <p class="small">Địa chỉ email</p>
+            <h6>{{user?.email}}</h6>
+          </div>
+        </div>
+        <div class="col-xl-6 my-2">
+          <div class="bg-white border-radius-8 p-2 box-shadow-1">
+            <p class="small">Sinh nhật</p>
+            <h6>{{user?.birthday}}</h6>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-12 col-sm-6">
+  <div class="row m-4 justify-content-between">
+    <div class="bg-white col-12 col-sm-6 p-2 d-flex flex-column justify-content-center border-radius-16 box-shadow-2">
+      <div class="d-flex justify-content-between">
+        <h5>Các chiến dịch gần nhất</h5>
+        <a class="cursor-pointer text-decoration-none">
+          <p class="text-primary">Xem thêm</p>
+        </a>
+      </div>
+      <div class="row d-flex justify-content-between">
+        <div class="col-xl-6 my-2 cursor-pointer" *ngFor="let cp of campaign_participations | slice:0:4; let i=index">
+          <div
+            class="campaign-item bg-white border-radius-8 p-2 d-flex flex-column justify-content-between box-shadow-1">
+            <div class="campaign-item__image border-radius-8">
+              <img class="border-radius-8" onerror="this.src='assets/images/temp_bg.png'"
+                src="{{ urlApi }}/show/images?p={{ getFirstCover(cp.campaign_cover) }}" />
+            </div>
+            <div class="campaign-item__info mt-2 d-flex flex-column justify-content-around">
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bold primary-text-color text-truncate" style="width: 70%">
+                  {{cp.campaign_name}}</p>
+                <p class="text-success fw-bold ms-3 d-flex justify-content-end" style="width: 30%"
+                  *ngIf="cp.donate_amount > 0">
+                  +{{cp.donate_amount | currency: 'VND'}}</p>
 
+                <button *ngIf="cp.participate_info" mat-icon-button matTooltip="{{cp.participate_info}}"
+                  matTooltipPosition="right">
+                  <mat-icon>info</mat-icon>
+                </button>
+              </div>
+              <p class="small text-truncate">{{utilService.convertType(cp.type)}} lúc {{cp.participate_date}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="col-12 col-sm-6">
-
+    <div class="bg-white col-12 col-sm-5 border-radius-16 box-shadow-2 p-2 justify-content-center align-items-center d-flex">
+      <button *ngIf="user?.is_active && user?.is_block" (click)='enableUser()'
+      mat-flat-button color="success">Mở khóa</button>
+      <button *ngIf="user?.is_active && !user?.is_block" (click)='disableUser()'
+      mat-flat-button color="warn">Khóa tài khoản</button>
     </div>
   </div>
 </div>
-

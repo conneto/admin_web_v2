@@ -1,3 +1,4 @@
+import { AngularMaterialModule } from './../../../angular-material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,6 +12,7 @@ import { UserDetailsComponent } from './user-details.component';
   ],
   imports: [
     CommonModule,
+    AngularMaterialModule,
     UserDetailsRoutingModule
   ]
 })

@@ -44,8 +44,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationApiService = void 0;
 var core_1 = require("@angular/core");
-var campaign_api_service_1 = require("../campaign/campaign-api.service");
-var project_api_service_1 = require("../project/project-api.service");
+var constant_1 = require("src/app/constant/constant");
+var project_service_1 = require("../project-service/project.service");
 var OrganizationApiService = /** @class */ (function () {
     function OrganizationApiService(campaignAdapter, projectAdapter, apiService, adapter, authApi) {
         this.campaignAdapter = campaignAdapter;
@@ -80,7 +80,7 @@ var OrganizationApiService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + project_api_service_1.ProjectApiService.PROJECT)];
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + project_service_1.ProjectService.PROJECT)];
                     case 1:
                         res = _a.sent();
                         res.data = res.data.map(function (item) {
@@ -97,7 +97,7 @@ var OrganizationApiService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + campaign_api_service_1.CampaignApiService.CAMPAIGNS)];
+                    case 0: return [4 /*yield*/, this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + constant_1.Constant.CAMPAIGN)];
                     case 1:
                         res = _a.sent();
                         res.data = res.data.map(function (item) {

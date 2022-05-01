@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   isChecked: boolean = false;
   isError: boolean = false;
   hide = true;
-  constructor(public loadService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private router: Router,
+  constructor(public loadService: LoadingService, private snackBar: SnackBarMessageComponent, private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthServiceService) { }
 

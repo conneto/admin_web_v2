@@ -1,49 +1,49 @@
 <mat-toolbar>
-  <mat-toolbar-row>
-    <button (click)="this.sidenav.toggle()" mat-icon-button>
-      <mat-icon>menu</mat-icon>
-    </button>
-    <div class="toolbar-title">
-      <p>{{title}}</p>
+  <mat-toolbar-row class="d-flex justify-content-between">
+    <div class="d-flex align-items-center">
+      <button (click)="this.sidenav.toggle()" mat-icon-button>
+        <mat-icon>menu</mat-icon>
+      </button>
+      <div class="toolbar-title">
+        <p>{{title}}</p>
+      </div>
     </div>
     <div class="toolbar-notification-button">
+      <span class="toolbar-name" *ngIf="user">
+        Xin chào, {{ user.last_name + " " + user.first_name }}
+      </span>
+      <a mat-button>
+        <mat-icon matBadge="3">notifications</mat-icon>
+      </a>
       <a mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>
       </a>
       <mat-menu #menu="matMenu">
         <a mat-menu-item>
           <mat-icon>people</mat-icon>
-         Thông tin cá nhân
+          Thông tin cá nhân
         </a>
         <a mat-menu-item (click)="logout()">
           <mat-icon>exit_to_app</mat-icon>
           Đăng xuất
         </a>
       </mat-menu>
-      <a mat-button>
-        <mat-icon matBadge="3">notifications</mat-icon>
-      </a>
-      <span class="toolbar-name" *ngIf="user">
-        Xin chào, {{ user.first_name + " " + user.last_name }}
-      </span>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" opened="true" class="border-radius-16 box-shadow-2 mt-2">
+  <mat-sidenav #sidenav mode="side" opened="true" class="mat-elevation-z8">
     <mat-nav-list>
       <div class="sidenav-heading mb-4">
-        <p class="">Conneto</p>
+        <p style="font-size: 36px; font-weight: bold; letter-spacing: 1.6px">Conneto</p>
       </div>
-      <app-menu-icon
-        class="ms-3"
-        *ngFor="let item of menus"
-        [menu]="item"
-      >
+      <app-menu-icon class="ms-3" *ngFor="let item of menus" [menu]="item">
       </app-menu-icon>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class="content"><router-outlet></router-outlet></div>
+    <div class="content mat-elevation-z8">
+      <router-outlet></router-outlet>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

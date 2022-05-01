@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { Md5 } from 'ts-md5';
 
 import { LoginComponent } from '../login/login.component';
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   isSubmited: boolean = false;
 
   public static readonly KEY = '_CoNn3t0Se(R3T';
-  constructor(private userComponent: UserManagementComponent, private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private router: Router, private authService: AuthServiceService, private formBuilder: FormBuilder,) { }
+  constructor(private userComponent: UserManagementComponent, private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private router: Router, private authService: AuthServiceService, private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.initRegisterForm();
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       // this.registerForm.value.number_phone = "0" + "" + oldPhone;
       // this.registerForm.patchValue({ password: md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end() });
       this.registerForm.value.password = md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end();
-     
+
       uploadData.append('account', JSON.stringify(this.registerForm.value));
       console.log(uploadData.get('account'));
       let res: BaseResponse = await this.authService.register(
@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
           oldPass,
         );
         if (baseResponse?.status == 0) {
-         
+
           await this.router.navigate(['admin']);
         }
       } else {

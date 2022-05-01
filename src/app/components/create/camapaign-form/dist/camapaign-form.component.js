@@ -61,6 +61,8 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.organizatioNDetail = organizatioNDetail;
         this.organizations = [];
         this.projects = [];
+        this.selectedRadio = 'Quyên góp';
+        this.cloneProjects = [];
         this.type = ['Quyên góp', 'Tuyển tình nguyện viên'];
         this.uploadData = new FormData();
     }
@@ -84,12 +86,12 @@ var CamapaignFormComponent = /** @class */ (function () {
                             start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
                             end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
                             request_type: ['create'],
-                            type: [this.selectedRadio == "Quyên góp" ? 'donate' : 'recruitment', forms_1.Validators.required],
+                            type: ['', forms_1.Validators.required],
                             target_number: ['', forms_1.Validators.required],
-                            job_requirement: ['', this.selectedRadio == "Quyên góp" ? "" : [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-                            job_description: ['', this.selectedRadio == "Quyên góp" ? "" : [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-                            job_benefit: ['', this.selectedRadio == "Quyên góp" ? "" : [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-                            project_id: [this.loadingService.projectId.value],
+                            job_requirement: [''],
+                            job_description: [''],
+                            job_benefit: [''],
+                            project_id: [''],
                             cover: ['']
                         });
                         _a = this;
@@ -100,8 +102,8 @@ var CamapaignFormComponent = /** @class */ (function () {
                         _b = this;
                         return [4 /*yield*/, this.organizationApi.getProjectsByOrgId("" + this.organizations[0].id)];
                     case 2:
-                        _b.projects = _c.sent();
-                        this.projects = this.projects.filter(function (x) {
+                        _b.cloneProjects = _c.sent();
+                        this.projects = this.cloneProjects.filter(function (x) {
                             return x.resultCode == 610;
                         });
                         _c.label = 3;
@@ -115,16 +117,29 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.dialogRef.close(false);
     };
     CamapaignFormComponent.prototype.yesClick = function () {
+        var _this = this;
+        console.log(this.selectedRadio);
         this.isSubmitted = true;
-        console.log('ngu');
+        this.projects = this.cloneProjects.filter(function (x) {
+            return x.name == _this.campaignForm.value.selected;
+        });
+        this.campaignForm.patchValue({ project_id: "" + this.projects[0].id });
+        if (this.selectedRadio == 'Quyên góp') {
+            this.campaignForm.patchValue({ start_working_date: "" + this.campaignForm.value.start_date });
+            this.campaignForm.patchValue({ end_working_date: "" + this.campaignForm.value.end_date });
+            this.campaignForm.patchValue({ type: 'donation' });
+            this.campaignForm.removeControl('job_requirement');
+            this.campaignForm.removeControl('job_description');
+            this.campaignForm.removeControl('job_benefit');
+            console.log(this.campaignForm.valid);
+        }
+        else if (this.selectedRadio == 'Tuyển tình nguyện viên') {
+            this.campaignForm.patchValue({ type: 'recruitment' });
+        }
         console.log(this.campaignForm.value);
         if (this.campaignForm.valid) {
-            // if (this.selectedRadio == "Quyên góp" ) {
-            //   this.campaignForm.value.start_working_date = this.campaignForm.value.start_date;
-            //   this.campaignForm.value.end_working_date = this.campaignForm.value.end_date;
-            // }
+            console.log(this.campaignForm.value);
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
-            // uploadData.append('cover', this.coverImage, this.coverImage?.name);
             this.dialogRef.close(this.uploadData);
         }
     };
@@ -143,6 +158,19 @@ var CamapaignFormComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    CamapaignFormComponent.prototype.getType = function (e) {
+        console.log(e);
+        if (e == 'Quyên góp') {
+            this.campaignForm.removeControl('job_requirement');
+            this.campaignForm.removeControl('job_description');
+            this.campaignForm.removeControl('job_benefit');
+        }
+        else if (e == 'Tuyển tình nguyện viên') {
+            this.campaignForm.setControl('job_requirement', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
+            this.campaignForm.setControl('job_description', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
+            this.campaignForm.setControl('job_benefit', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
+        }
+    };
     CamapaignFormComponent = __decorate([
         core_1.Component({
             selector: 'app-camapaign-form',

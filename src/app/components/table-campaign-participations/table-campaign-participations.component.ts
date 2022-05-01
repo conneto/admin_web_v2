@@ -4,8 +4,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { CampaignService } from 'src/app/services/campaign/campaign.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { UtilService } from 'src/app/services/util-service/util.service';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
@@ -28,7 +28,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
 
   urlApi?: string;
 
-  constructor(private camApi:CampaignApiService,private snackBar: SnackBarMessageComponent, private api: AuthServiceService, private dialog: MatDialog, private loadingService: LoadingServiceService, public utilService: UtilService) {
+  constructor(private camApi:CampaignService,private snackBar: SnackBarMessageComponent, private api: AuthServiceService, private dialog: MatDialog, private loadingService: LoadingService, public utilService: UtilService) {
   }
 
   ngOnInit(): void {

@@ -8,7 +8,7 @@ import { UserLoginResponse, UserLoginResponseApdater } from 'src/app/dtos/user-l
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Md5 } from 'ts-md5';
 import { ApiService } from '../api/api.service';
-import { LoadingServiceService } from '../loading/loading-service.service';
+import { LoadingService } from '../loading-service/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,8 @@ export class AuthServiceService {
   public static readonly KEY = '_CoNn3t0Se(R3T';
   public static readonly ROLE = 'organization_manager';
   public static readonly ADMIN = 'admins';
-  public static readonly APPROVEMENTS = 'approve';
+  public static readonly APPROVEADMIN = 'approve';
+  public static readonly APPROVEMENTS = 'approvements';
   public static readonly APPROVE = 'chấp nhận';
   public static readonly REJECT = 'từ chối';
   public static readonly PROJECT = 'project';
@@ -30,7 +31,7 @@ export class AuthServiceService {
   public static readonly CAMPAIGN = 'campaign';
   public static readonly ORGANIZATION_MANAGER = 'organization_manager';
   public static readonly ACTIVATE = 'activate';
-  constructor(private loadingService: LoadingServiceService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
+  constructor(private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
 
     this.curUserSubject = new BehaviorSubject<any>(
       JSON.parse(localStorage.getItem('USER_WEB')!)
@@ -72,9 +73,6 @@ export class AuthServiceService {
     } else {
       return res;
     }
-
-
-
     return res;
   }
   async register(data: any) {
@@ -101,7 +99,7 @@ export class AuthServiceService {
   }
 
   async updateRequestByAdmin(data: any) {
-    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEMENTS, data);
+    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEADMIN, data);
     if (res.status != 0) {
       return res;
     }

@@ -33,7 +33,6 @@ p {
 
 html {
   overflow: hidden;
-  font-family: "Roboto";
 }
 
 .button-hover:hover {
@@ -106,10 +105,6 @@ html {
   color: black;
 }
 
-.search-bar {
-  margin-top: 15px;
-}
-
 .primary-text-color {
   color: #fbb800 !important;
 }
@@ -134,14 +129,14 @@ html {
   width: 36px;
   height: 36px;
   border-radius: 50% !important;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .circle-avatar-big {
   width: 128px;
   height: 128px;
   border-radius: 50% !important;
-  border: 0.5px solid #cccccc;
+  object-fit: cover;
 }
 
 // .circle-avatar-big img {
@@ -234,4 +229,8 @@ td {
   width: auto;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.bg-primary-color {
+  background-color: #fbb800 !important;
 }

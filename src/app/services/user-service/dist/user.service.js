@@ -44,20 +44,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.UserService = void 0;
 var core_1 = require("@angular/core");
-var campaign_api_service_1 = require("../campaign/campaign-api.service");
+var constant_1 = require("src/app/constant/constant");
 var UserService = /** @class */ (function () {
     function UserService(api, dashboardAdapter, userAdapter) {
         this.api = api;
         this.dashboardAdapter = dashboardAdapter;
         this.userAdapter = userAdapter;
     }
-    UserService_1 = UserService;
     UserService.prototype.getStatistics = function () {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(UserService_1.STATISTICS)];
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.STATISTIC)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res.data || []];
@@ -72,11 +71,11 @@ var UserService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!(type == 'recruitment')) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.api.get(campaign_api_service_1.CampaignApiService.CAMPAIGNS + "/top_volunteers?type=participate")];
+                        return [4 /*yield*/, this.api.get(constant_1.Constant.CAMPAIGN + "/top_volunteers?type=participate")];
                     case 1:
                         res = _a.sent();
                         return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.api.get(campaign_api_service_1.CampaignApiService.CAMPAIGNS + "/top_volunteers?type=donate")];
+                    case 2: return [4 /*yield*/, this.api.get(constant_1.Constant.CAMPAIGN + "/top_volunteers?type=donate")];
                     case 3:
                         res = _a.sent();
                         _a.label = 4;
@@ -91,7 +90,7 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(UserService_1.ACCOUNTS)];
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNT)];
                     case 1:
                         res = _a.sent();
                         res.data = res.data.map(function (item) {
@@ -102,10 +101,36 @@ var UserService = /** @class */ (function () {
             });
         });
     };
-    var UserService_1;
-    UserService.STATISTICS = 'statistics';
-    UserService.ACCOUNTS = 'accounts';
-    UserService = UserService_1 = __decorate([
+    UserService.prototype.getById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNT + "/" + id)];
+                    case 1:
+                        res = _a.sent();
+                        res.data = this.userAdapter.adapt(res.data);
+                        console.log(res.data);
+                        return [2 /*return*/, res.data || null];
+                }
+            });
+        });
+    };
+    UserService.prototype.getCampaignParticipations = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNT + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATION)];
+                    case 1:
+                        res = _a.sent();
+                        console.log(res.data);
+                        return [2 /*return*/, res.data || null];
+                }
+            });
+        });
+    };
+    UserService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })

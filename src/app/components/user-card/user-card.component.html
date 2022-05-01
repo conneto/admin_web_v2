@@ -1,7 +1,6 @@
 <div *ngIf='user' class="user-card w-100 h-100 border-radius-16 p-2 box-shadow-1 position-relative cursor-pointer">
   <a class="" routerLink="user-details/{{ user.id }}" style="text-decoration: none; color: #000000"
     class="w-100 h-100 d-flex flex-column align-items-center">
-
     <div>
       <img class="circle-avatar-big" onerror="this.src='assets/icons/user_icon.png'"
         src="{{ urlApi }}/show/images?p={{ user.avatar }}" />

@@ -8,6 +8,56 @@ export const environment = {
   api_core: 'http://conneto.org:5000/core/api/v1',
   api_fetch: 'http://conneto.org:5001/fetch_data/api/v1'
 };
+export const category = [
+  {
+    name: 'covid19',
+    vietsub: 'Covid-19'
+  },
+  {
+    name: 'children',
+    vietsub: 'Trẻ em'
+  },
+  {
+    name: 'woman',
+    vietsub: 'Phụ nữ'
+  },
+  {
+    name: 'environment',
+    vietsub: 'Môi trường'
+  },
+  {
+    name: 'student',
+    vietsub: 'Học sinh'
+  },
+  {
+    name: 'animal',
+    vietsub: 'Động vật'
+  },
+  {
+    name: 'disability',
+    vietsub: 'Khuyết tật'
+  }
+  ,
+  {
+    name: 'education',
+    vietsub: 'Giáo dục'
+  }
+  ,
+  {
+    name: 'community',
+    vietsub: 'Cộng đồng'
+  }
+  ,
+  {
+    name: 'social',
+    vietsub: 'Xã hội'
+  }
+  ,
+  {
+    name: 'oldster',
+    vietsub: 'Người già'
+  }
+]
 
 /*
  * For easier debugging in development mode, you can import the following file

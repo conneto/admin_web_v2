@@ -5,7 +5,7 @@ import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.compone
 import { Organization } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { UtilService } from 'src/app/services/util-service/util.service';
@@ -43,7 +43,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isList?: boolean = false;
   isAdmin?: boolean = false;
 
-  constructor(public utilService: UtilService, private loadingService: LoadingServiceService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthServiceService) { }
+  constructor(public utilService: UtilService, private loadingService: LoadingService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthServiceService) { }
 
   ngOnInit(): void {
     if (this.authService.currentUserValue.role == 'admin') {

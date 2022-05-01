@@ -1,6 +1,6 @@
 import { Component, Injectable, OnInit } from '@angular/core';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
+import { CampaignService } from 'src/app/services/campaign/campaign.service';
 
 @Component({
   selector: 'app-campaign-request',
@@ -10,7 +10,7 @@ import { CampaignApiService } from 'src/app/services/campaign/campaign-api.servi
 @Injectable({providedIn:'root'})
 export class CampaignRequestComponent implements OnInit {
   campaigns: Campaign[] = [];
-  constructor(private campaingApi: CampaignApiService) { }
+  constructor(private campaingApi: CampaignService) { }
 
   ngOnInit(): void {
     this.getRequest();
@@ -20,7 +20,7 @@ export class CampaignRequestComponent implements OnInit {
     console.log(this.campaigns);
   }
 
-  
+
 
   async getRequest() {
     this.campaigns = await this.campaingApi.getAll();

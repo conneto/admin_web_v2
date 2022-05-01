@@ -4,7 +4,7 @@ import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { DialogConfirmComponent } from '../../dialog-confirm/dialog-confirm.component';
 import { OrganizationInforCardComponent } from '../organization-infor-card/organization-infor-card.component';
 
@@ -26,7 +26,7 @@ export class ProjectRequestCardComponent implements OnInit {
   urlLogo?:string;
   urlApi?:string;
   urlCover?:string;
-  constructor(private loadingApi:LoadingServiceService,private dialog: MatDialog, private authApi: AuthServiceService, private dialogConfirm: OrganizationInforCardComponent) { }
+  constructor(private loadingApi:LoadingService,private dialog: MatDialog, private authApi: AuthServiceService, private dialogConfirm: OrganizationInforCardComponent) { }
   ngOnInit(): void {
     this.check();
     this.urlApi = this.loadingApi.getApiGetLink.value;

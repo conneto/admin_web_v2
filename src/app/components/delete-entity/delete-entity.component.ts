@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
+import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
@@ -22,7 +22,7 @@ export class DeleteEntityComponent implements OnInit {
   isAdmin?: boolean;
   @Input() type: any;
 
-  constructor(private data: LoadingDataService, private loading: LoadingServiceService, private camApi: CampaignApiService, private proApi: ProjectApiService, private user: AuthServiceService, private snackBar: SnackBarMessageComponent, private orgApi: OrganizationApiService, private dialog: MatDialog) { }
+  constructor(private data: LoadingDataService, private loading: LoadingService, private camApi: CampaignService, private proApi: ProjectService, private user: AuthServiceService, private snackBar: SnackBarMessageComponent, private orgApi: OrganizationApiService, private dialog: MatDialog) { }
   e: any;
   ngOnInit(): void {
     if (this.user.currentUserValue.role == 'admin') {

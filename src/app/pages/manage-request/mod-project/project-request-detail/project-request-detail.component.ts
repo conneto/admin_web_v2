@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Project } from 'src/app/models/projects/project.model';
-import { ProjectApiService } from 'src/app/services/project/project-api.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-project-request-detail',
@@ -12,7 +12,7 @@ import { ProjectApiService } from 'src/app/services/project/project-api.service'
 })
 export class ProjectRequestDetailComponent implements OnInit {
   project?: Project;
-  constructor(private location: Location, private projectApi: ProjectApiService, private actived: ActivatedRoute) { }
+  constructor(private location: Location, private projectApi: ProjectService, private actived: ActivatedRoute) { }
 
   ngOnInit(): void {
   this.getByID();

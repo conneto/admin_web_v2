@@ -46,9 +46,9 @@ exports.UserManagementComponent = void 0;
 var core_1 = require("@angular/core");
 require("lodash");
 var UserManagementComponent = /** @class */ (function () {
-    function UserManagementComponent(loading, userApi) {
+    function UserManagementComponent(loading, userService) {
         this.loading = loading;
-        this.userApi = userApi;
+        this.userService = userService;
         this.users = [];
         this.usersFull = [];
         this.oldUsers = [];
@@ -60,8 +60,6 @@ var UserManagementComponent = /** @class */ (function () {
     UserManagementComponent.prototype.ngOnInit = function () {
         this.getListMangerAndVolunteer();
     };
-    UserManagementComponent.prototype.ngAfterContentChecked = function () {
-    };
     UserManagementComponent.prototype.getListUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
@@ -69,7 +67,7 @@ var UserManagementComponent = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.userApi.getListUsers()];
+                        return [4 /*yield*/, this.userService.getListUsers()];
                     case 1:
                         _a.users = _b.sent();
                         return [2 /*return*/];
@@ -92,7 +90,7 @@ var UserManagementComponent = /** @class */ (function () {
                 switch (_b.label) {
                     case 0:
                         _a = this;
-                        return [4 /*yield*/, this.userApi.getListUsers()];
+                        return [4 /*yield*/, this.userService.getListUsers()];
                     case 1:
                         _a.usersFull = _b.sent();
                         this.users = this.usersFull.filter(function (x) {

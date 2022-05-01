@@ -4,11 +4,11 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import * as XLSX from 'xlsx';
 import * as _ from 'lodash';
-import { CampaignApiService } from 'src/app/services/campaign/campaign-api.service';
+import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
-import { LoadingServiceService } from 'src/app/services/loading/loading-service.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class DownloadDocumentFormComponent implements OnInit {
   formDataExcel: any = new FormData();
   @Output() isUploaded = new EventEmitter<string>();
 
-  constructor(private loading: LoadingServiceService, private snackBar: SnackBarMessageComponent, private camApi: CampaignApiService, private formBuilder: FormBuilder,) {
+  constructor(private loading: LoadingService, private snackBar: SnackBarMessageComponent, private camApi: CampaignService, private formBuilder: FormBuilder,) {
 
   }
   passValue(e: any) {
