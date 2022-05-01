@@ -3,15 +3,14 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Constant } from 'src/app/constant/constant';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
-import { Organization } from 'src/app/models/organization/organization';
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
-import { category } from 'src/environments/environment';
 
 @Component({
   selector: 'app-organization-form',
@@ -25,7 +24,7 @@ export class OrganizationFormComponent implements OnInit {
   logoFile?: File;
   coverFile?: File;
   public static readonly CREATE = 'create';
-  category: any[] = category;
+  category: any[] = Constant.CATEGORY;
   categoryString: string = '';
   categoryStringClone: string = '';
   isRemoved?: boolean;

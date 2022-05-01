@@ -45,7 +45,7 @@ exports.__esModule = true;
 exports.OrganizationFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var environment_1 = require("src/environments/environment");
+var constant_1 = require("src/app/constant/constant");
 var OrganizationFormComponent = /** @class */ (function () {
     function OrganizationFormComponent(org, getEntityService, loadingService, location, router, snackBar, formBuilder, orgApi, user) {
         this.org = org;
@@ -57,7 +57,7 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.formBuilder = formBuilder;
         this.orgApi = orgApi;
         this.user = user;
-        this.category = environment_1.category;
+        this.category = constant_1.Constant.CATEGORY;
         this.categoryString = '';
         this.categoryStringClone = '';
     }
