@@ -8,6 +8,7 @@ import { LoadingDataService } from 'src/app/services/get-entity/loading-data.ser
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
+import { OrganizationUpdateFormComponent } from '../update/organization-form/organization-form.component';
 
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
@@ -43,13 +44,22 @@ export class DeleteEntityComponent implements OnInit {
   }
   change() {
     this.isSave = !this.isSave;
+    console.log(this.entity);
+    const dialogRef = this.dialog.open(OrganizationUpdateFormComponent, {
+      width: '700px',
+      data: {
+        title: 'Tạo chiến dịch',
+
+      }
+    })
   }
   async disable() {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
-        button: 'Vô hiệu hóa',
-        message: 'vô hiệu hóa',
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn vô hiệu hóa đối tượng này?',
       },
     });
     diaglogRef.afterClosed().subscribe(async (x) => {

@@ -16,7 +16,7 @@ import { StatusComponent } from '../status/status.component';
 import { OrganizationFormComponent } from '../create/organization-form/organization-form.component';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { ProjectFormComponent } from '../create/project-form/project-form.component';
-import { CamapaignFormComponent } from '../create/campaign-form/campaign-form.component';
+import { CampaignForm } from '../create/campaign-form/campaign-form.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
 
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
@@ -40,6 +40,7 @@ import { ShowDocumentComponent } from '../show-document/show-document.component'
 import { OrganizationDetailsComponent } from '../organization-details/organization-details.component';
 import { OrganizationDetailsModule } from 'src/app/pages/management/mod-organization/organization-details/organization-details.module';
 import { EntityStatusComponent } from '../entity-status/entity-status.component';
+import { OrganizationUpdateFormComponent } from '../update/organization-form/organization-form.component';
 
 
 const componentModules = [
@@ -53,9 +54,10 @@ const componentModules = [
   ApproveDeclineButtonComponent,
   StatusComponent,
   OrganizationFormComponent,
+  OrganizationUpdateFormComponent,
   DialogConfirmComponent,
   ProjectFormComponent,
-  CamapaignFormComponent,
+  CampaignForm,
   SnackBarMessageComponent,
   LoadingSpinnerComponent,
   TabgroupComponent,

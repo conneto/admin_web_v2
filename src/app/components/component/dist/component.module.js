@@ -51,6 +51,7 @@ var table_campaign_participations_component_1 = require("../table-campaign-parti
 var show_document_component_1 = require("../show-document/show-document.component");
 var organization_details_component_1 = require("../organization-details/organization-details.component");
 var entity_status_component_1 = require("../entity-status/entity-status.component");
+var organization_form_component_2 = require("../update/organization-form/organization-form.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -62,9 +63,10 @@ var componentModules = [
     approve_decline_button_component_1.ApproveDeclineButtonComponent,
     status_component_1.StatusComponent,
     organization_form_component_1.OrganizationFormComponent,
+    organization_form_component_2.OrganizationUpdateFormComponent,
     dialog_confirm_component_1.DialogConfirmComponent,
     project_form_component_1.ProjectFormComponent,
-    campaign_form_component_1.CamapaignFormComponent,
+    campaign_form_component_1.CampaignForm,
     snack_bar_message_component_1.SnackBarMessageComponent,
     loading_spinner_component_1.LoadingSpinnerComponent,
     tabgroup_component_1.TabgroupComponent,

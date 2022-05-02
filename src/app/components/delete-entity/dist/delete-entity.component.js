@@ -45,6 +45,7 @@ exports.__esModule = true;
 exports.DeleteEntityComponent = void 0;
 var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
+var organization_form_component_1 = require("../update/organization-form/organization-form.component");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var DeleteEntityComponent = /** @class */ (function () {
     function DeleteEntityComponent(data, loading, camApi, proApi, user, snackBar, orgApi, dialog) {
@@ -68,6 +69,13 @@ var DeleteEntityComponent = /** @class */ (function () {
     };
     DeleteEntityComponent.prototype.change = function () {
         this.isSave = !this.isSave;
+        console.log(this.entity);
+        var dialogRef = this.dialog.open(organization_form_component_1.OrganizationUpdateFormComponent, {
+            width: '700px',
+            data: {
+                title: 'Tạo chiến dịch'
+            }
+        });
     };
     DeleteEntityComponent.prototype.disable = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -77,8 +85,9 @@ var DeleteEntityComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '360px',
                     data: {
-                        button: 'Vô hiệu hóa',
-                        message: 'vô hiệu hóa'
+                        button: 'Đồng ý',
+                        close: 'Hủy',
+                        message: 'Bạn có chắc chắn muốn vô hiệu hóa đối tượng này?'
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {

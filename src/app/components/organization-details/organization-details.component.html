@@ -4,30 +4,18 @@
 
       <div class="header">
         <div
-          class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75"
-        >
-          <span
-            class="font-size-8"
-            [ngClass]="{
+          class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75">
+          <span class="font-size-8" [ngClass]="{
               'label-approved': organization.result_code == 510,
               'label-rejected': organization.result_code == 511,
               'label-pending': organization.result_code == 501
-            }"
-            >{{ organization.result_message }}</span
-          >
+            }">{{ organization.result_message }}</span>
         </div>
-        <img
-          loading="lazy"
-          src="{{ urlApi }}/show/images?p={{ urlCover }}"
-          alt=""
-        />
+        <img loading="lazy" src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
       </div>
       <div class="content__tab">
         <ul>
-          <li
-            [class.content__tab-active]="isInformation"
-            (click)="getTab('infor')"
-          >
+          <li [class.content__tab-active]="isInformation" (click)="getTab('infor')">
             Thông tin
           </li>
           <li [class.content__tab-active]="isProjects" (click)="getTab('pro')">
@@ -44,11 +32,7 @@
         <div class="content-information">
           <div>
             <div class="icon">
-              <img
-                loading="lazy"
-                src="{{ urlApi }}/show/images?p={{ urlLogo }}"
-                alt=""
-              />
+              <img loading="lazy" src="{{ urlApi }}/show/images?p={{ urlLogo }}" alt="" />
             </div>
             <div>
               <p>{{ organization.name ? organization.name : "Anh Phuc" }}</p>
@@ -93,20 +77,14 @@
           </div>
           <div class="content-area">
             <div>Website:</div>
-            <a
-              href="{{
+            <a target="blank" href="{{
                 organization.website ? organization.website : 'google.com'
-              }}"
-              >{{ organization.website ? organization.website : "Null" }}</a
-            >
+              }}">{{ organization.website ? organization.website : "Null" }}</a>
           </div>
 
           <div *ngIf="isApproved" class="content-button">
             <div *ngIf="isApproved">
-              <app-delete-entity
-                [type]="'org'"
-                [entity]="organization"
-              ></app-delete-entity>
+              <app-delete-entity [type]="'org'" [entity]="organization"></app-delete-entity>
             </div>
           </div>
         </div>
@@ -130,19 +108,13 @@
             </ng-template>
           </div>
           <div>
-            <app-search-bar
-              (getItem)="getData($event)"
-              [entityCopy]="passDataCampaigns"
-            ></app-search-bar>
+            <app-search-bar (getItem)="getData($event)" [entityCopy]="passDataCampaigns"></app-search-bar>
           </div>
         </div>
       </div>
       <div class="row p-3">
-        <app-campaign-card-info
-          class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
-          *ngFor="let cam of campaigns"
-          [campaign]="cam"
-        ></app-campaign-card-info>
+        <app-campaign-card-info class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+          *ngFor="let cam of campaigns" [campaign]="cam"></app-campaign-card-info>
       </div>
     </div>
     <div class="project__list-item" *ngIf="isProjects">
@@ -164,10 +136,7 @@
               </ng-template>
             </div>
             <div>
-              <app-search-bar
-                (getItem)="getData($event)"
-                [entityCopy]="passDataProjects"
-              ></app-search-bar>
+              <app-search-bar (getItem)="getData($event)" [entityCopy]="passDataProjects"></app-search-bar>
             </div>
           </div>
         </div>

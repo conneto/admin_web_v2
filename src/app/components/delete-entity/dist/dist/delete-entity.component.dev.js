@@ -160,7 +160,7 @@ exports.DeleteEntityComponent = void 0;
 
 var core_1 = require("@angular/core");
 
-var auth_service_1 = require("src/app/services/auth/auth.service");
+var constant_1 = require("src/app/constant/constant");
 
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 
@@ -189,6 +189,13 @@ function () {
 
   DeleteEntityComponent.prototype.change = function () {
     this.isSave = !this.isSave;
+    console.log(this.entity);
+    var dialogRef = this.dialog.open(CampaignForm, {
+      width: '700px',
+      data: {
+        title: 'Tạo chiến dịch'
+      }
+    });
   };
 
   DeleteEntityComponent.prototype.disable = function () {
@@ -201,8 +208,9 @@ function () {
         diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
           width: '360px',
           data: {
-            button: 'Vô hiệu hóa',
-            message: 'vô hiệu hóa'
+            button: 'Đồng ý',
+            close: 'Hủy',
+            message: 'Bạn có chắc chắn muốn vô hiệu hóa đối tượng này?'
           }
         });
         diaglogRef.afterClosed().subscribe(function (x) {
@@ -220,7 +228,7 @@ function () {
                   this.loading.isLoading.next(true);
                   data1 = {
                     object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
-                    object_type: this.type == 'org' ? auth_service_1.Constant.ORGANIZATION : this.type == 'cam' ? auth_service_1.Constant.CAMPAIGN : this.type == 'pro' ? auth_service_1.Constant.PROJECT : auth_service_1.Constant.ORGANIZATION,
+                    object_type: this.type == 'org' ? constant_1.Constant.ORGANIZATION : this.type == 'cam' ? constant_1.Constant.CAMPAIGN : this.type == 'pro' ? constant_1.Constant.PROJECT : constant_1.Constant.ORGANIZATION,
                     status: 'disable',
                     note: 'Disable this'
                   };
@@ -301,7 +309,7 @@ function () {
                   this.loading.isLoading.next(true);
                   data1 = {
                     object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
-                    object_type: this.type == 'org' ? Constant.ORGANIZATION : this.type == 'cam' ? auth_service_1.Constant.CAMPAIGN : this.type == 'pro' ? auth_service_1.Constant.PROJECT : auth_service_1.Constant.ORGANIZATION,
+                    object_type: this.type == 'org' ? constant_1.Constant.ORGANIZATION : this.type == 'cam' ? constant_1.Constant.CAMPAIGN : this.type == 'pro' ? constant_1.Constant.PROJECT : constant_1.Constant.ORGANIZATION,
                     status: 'enable',
                     note: 'Enable this'
                   };

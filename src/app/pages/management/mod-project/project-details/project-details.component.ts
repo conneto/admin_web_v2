@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { _SnackBarContainer } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { CamapaignFormComponent } from 'src/app/components/create/campaign-form/campaign-form.component';
+import { CampaignForm } from 'src/app/components/create/campaign-form/campaign-form.component';
 import { ProjectFormComponent } from 'src/app/components/create/project-form/project-form.component';
 import { SelectTypeCampaignComponent } from 'src/app/components/select-type-campaign/select-type-campaign.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
@@ -137,7 +137,7 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
   openCampaignForm() {
-    const dialogRef = this.dialog.open(CamapaignFormComponent, {
+    const dialogRef = this.dialog.open(CampaignForm, {
       width: '700px',
       data: {
         title: 'Tạo chiến dịch',

@@ -160,7 +160,7 @@ exports.ProjectDetailsComponent = void 0;
 
 var core_1 = require("@angular/core");
 
-var camapaign_form_component_1 = require("src/app/components/create/campaign-form/campaign-form.component");
+var campaign_form_component_1 = require("src/app/components/create/campaign-form/campaign-form.component");
 
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 
@@ -321,7 +321,7 @@ function () {
   ProjectDetailsComponent.prototype.openCampaignForm = function () {
     var _this = this;
 
-    var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
+    var dialogRef = this.dialog.open(campaign_form_component_1.CampaignForm, {
       width: '700px',
       data: {
         title: 'Tạo chiến dịch',

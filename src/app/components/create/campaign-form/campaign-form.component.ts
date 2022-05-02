@@ -16,9 +16,9 @@ import { ProjectService } from 'src/app/services/project-service/project.service
   templateUrl: './campaign-form.component.html',
   styleUrls: ['./campaign-form.component.scss']
 })
-export class CamapaignFormComponent implements OnInit {
+export class CampaignForm implements OnInit {
   coverImage?: File;
-  constructor(private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  constructor(private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthService, public dialogRef: MatDialogRef<CampaignForm>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
   campaignForm!: FormGroup;
   isSubmitted?: boolean;
   organizations: Organization[] = [];

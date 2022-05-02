@@ -9,7 +9,6 @@ import { ApiService } from '../api/api.service';
   providedIn: 'root',
 })
 export class ProjectService {
-  public static readonly PROJECT = 'projects';
   constructor(
     private campaignAdapter: CampaignAdapter,
     private api: ApiService,
@@ -17,19 +16,19 @@ export class ProjectService {
   ) {}
 
   async getAll() {
-    let res: BaseResponse = await this.api.get(ProjectService.PROJECT);
+    let res: BaseResponse = await this.api.get(Constant.PROJECTS);
     res.data = res.data?.map((item: any) => this.projectAdap.adapt(item));
     return res.data || [];
   }
   async getByID(id: string) {
     let res: any = await this.api.get(
-      ProjectService.PROJECT + '/' + `${id}`
+      Constant.PROJECT + '/' + `${id}`
     );
     return (res.data = this.projectAdap.adapt(res.data) || []);
   }
   async getCampaignsByProjectId(id: string) {
     let res: BaseResponse = await this.api.get(
-      `${ProjectService.PROJECT}/${id}/${Constant.CAMPAIGN}`
+      `${Constant.PROJECTS}/${id}/${Constant.CAMPAIGNS}`
     );
   if(res.status!=8){
     res.data = res.data.map((item: any) => {
@@ -40,14 +39,14 @@ export class ProjectService {
   }
   async createProject(data: any) {
     let res: BaseResponse = await this.api.post(
-      ProjectService.PROJECT,
+      Constant.PROJECTS,
       data
     );
     return res || [];
   }
   async delete(id: string) {
     let res: BaseResponse = await this.api.delete(
-      `${ProjectService.PROJECT}/${id}`
+      `${Constant.PROJECTS}/${id}`
     );
     return res;
   }

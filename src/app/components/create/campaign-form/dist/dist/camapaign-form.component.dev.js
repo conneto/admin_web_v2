@@ -162,7 +162,7 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
 };
 
 exports.__esModule = true;
-exports.CamapaignFormComponent = void 0;
+exports.CampaignForm = void 0;
 
 var core_1 = require("@angular/core");
 
@@ -172,10 +172,10 @@ var dialog_1 = require("@angular/material/dialog");
 
 var constant_1 = require("src/app/constant/constant");
 
-var CamapaignFormComponent =
+var CampaignForm =
 /** @class */
 function () {
-  function CamapaignFormComponent(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+  function CampaignForm(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
     this.organizationApi = organizationApi;
     this.projectApi = projectApi;
     this.loadingService = loadingService;
@@ -195,13 +195,13 @@ function () {
     this.categoryStringClone = '';
   }
 
-  CamapaignFormComponent.prototype.ngOnInit = function () {
+  CampaignForm.prototype.ngOnInit = function () {
     this.initForm();
     this.check(); // let uploadData: any = new FormData();
     // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
   };
 
-  CamapaignFormComponent.prototype.initForm = function () {
+  CampaignForm.prototype.initForm = function () {
     this.campaignForm = this.formBuilder.group({
       selected: [this.selectedValue, forms_1.Validators.required],
       name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
@@ -222,7 +222,7 @@ function () {
     });
   };
 
-  CamapaignFormComponent.prototype.check = function () {
+  CampaignForm.prototype.check = function () {
     return __awaiter(this, void 0, void 0, function () {
       var _a, _b;
 
@@ -269,11 +269,11 @@ function () {
     });
   };
 
-  CamapaignFormComponent.prototype.noClick = function () {
+  CampaignForm.prototype.noClick = function () {
     this.dialogRef.close(false);
   };
 
-  CamapaignFormComponent.prototype.yesClick = function () {
+  CampaignForm.prototype.yesClick = function () {
     var _this = this;
 
     var _a;
@@ -338,7 +338,7 @@ function () {
     }
   };
 
-  CamapaignFormComponent.prototype.onChange = function (e) {
+  CampaignForm.prototype.onChange = function (e) {
     if (e.target.files && e.target.files.length > 0) {
       for (var i = 0; i < e.target.files.length; i++) {
         this.uploadData.append('cover', e.target.files[i], e.target.files[i].name);
@@ -347,7 +347,7 @@ function () {
     }
   };
 
-  Object.defineProperty(CamapaignFormComponent.prototype, "campaignControl", {
+  Object.defineProperty(CampaignForm.prototype, "campaignControl", {
     get: function get() {
       return this.campaignForm.controls;
     },
@@ -355,7 +355,7 @@ function () {
     configurable: true
   });
 
-  CamapaignFormComponent.prototype.getType = function (e) {
+  CampaignForm.prototype.getType = function (e) {
     console.log(e);
 
     if (e == 'Quyên góp') {
@@ -369,7 +369,7 @@ function () {
     }
   };
 
-  CamapaignFormComponent.prototype.onRemoveCategory = function (e) {
+  CampaignForm.prototype.onRemoveCategory = function (e) {
     this.isRemoved = true;
     var category = this.campaignForm.controls.category.value;
     var index = category.indexOf(e);
@@ -386,12 +386,12 @@ function () {
     this.campaignForm.controls.category.patchValue(category);
   };
 
-  CamapaignFormComponent = __decorate([core_1.Component({
+  CampaignForm = __decorate([core_1.Component({
     selector: 'app-campaign-form',
     templateUrl: './campaign-form.component.html',
     styleUrls: ['./campaign-form.component.scss']
-  }), __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))], CamapaignFormComponent);
-  return CamapaignFormComponent;
+  }), __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))], CampaignForm);
+  return CampaignForm;
 }();
 
-exports.CamapaignFormComponent = CamapaignFormComponent;
+exports.CampaignForm = CampaignForm;
