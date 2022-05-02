@@ -190,7 +190,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
                             for (i = 0; i < ((_c = this.documentPDF) === null || _c === void 0 ? void 0 : _c.length); i++) {
                                 this.pdfName = this.documentPDF[i].url.split('/');
                                 Object.assign(this.documentPDF[i], {
-                                // name: this.pdfName[3],
+                                    name: this.pdfName[3]
                                 });
                             }
                         }

@@ -103,8 +103,8 @@
             [whichEntity]="'org'"
             [entity]="oldData"
           ></app-list-view>
-          <div *ngIf="!isList" class="box">
-            <div class="box__item" *ngFor="let organization of organizations">
+          <div *ngIf="!isList" class="box row p-3">
+            <div class=" mb-3 col-xxl-4 col-md-6 col-sm-12 col-12" *ngFor="let organization of organizations">
               <mat-card title="Xem chi tiết" class="moveFadein">
                 <a
                   class="router"

@@ -26,7 +26,6 @@
       <th mat-header-cell *matHeaderCellDef>Mục đích</th>
       <td mat-cell *matCellDef="let e">
         {{ e.purpose }}
- 
       </td>
     </ng-container>
     <ng-container matColumnDef="payment_date">
@@ -65,10 +64,18 @@
         {{ e.recipient_name }}
       </td>
     </ng-container>
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef>Hình ảnh</th>
+      <td mat-cell *matCellDef="let e">
+        {{ e.recipient_name }}
+      </td>
+    </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
   </table>
-  <div class='button'>
-  <a href="{{ uriApi }}/show/files?p={{ entityExcel.url}}" download>Tải tài liệu gốc</a>
+  <div class="button">
+    <a href="{{ uriApi }}/show/files?p={{ entityExcel.url }}" download
+      >Tải tài liệu gốc</a
+    >
   </div>
 </div>

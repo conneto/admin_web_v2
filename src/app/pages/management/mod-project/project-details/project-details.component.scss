@@ -259,6 +259,7 @@
   flex-direction: row-reverse;
   align-items: center;
   margin-top:15px;
+  z-index:9999;
   &-create{
     margin-left:8px;
   }
@@ -266,4 +267,40 @@
 .delete-button{
   display: flex;
   justify-content: center;
+}
+@media only screen and (min-width: 576px) {
+  .campaign-card {
+    height: 448px !important;
+  }
+}
+
+@media only screen and (min-width: 576px) {
+  .campaign-card {
+    height: 448px !important;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .campaign-card {
+    height: 512px !important;
+  }
+}
+
+
+@media only screen and (min-width: 992px) {
+  .campaign-card {
+    height: 456px !important;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .campaign-card {
+    height: 68vh !important;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .campaign-card {
+    height: 64vh !important;
+  }
 }

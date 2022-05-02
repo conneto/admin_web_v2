@@ -71,6 +71,15 @@
       </div>
     </div>
     <div *ngIf="isCampaigns && isApproved">
+      <div *ngIf="isEmpty" class='d-flex '>
+        Hiện tại không có dự án nào được tạo!
+        <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
+          <button (click)="openCampaignForm()" mat-raised-button color="accent">
+            <mat-icon>add</mat-icon>
+            Tạo chiến dịch
+          </button>
+        </div>
+      </div>
       <div class="campaigns__button">
      
         <div style="width: 100%" *ngIf="campaignsCopy?.length! > 0">
@@ -88,6 +97,16 @@
                 </div>
               </ng-template>
             </div>
+            <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
+              <button
+                (click)="openCampaignForm()"
+                mat-raised-button
+                color="accent"
+              >
+                <mat-icon>add</mat-icon>
+                Tạo chiến dịch
+              </button>
+            </div>
             <div>
               <app-search-bar
                 (getItem)="getData($event)"
@@ -97,11 +116,14 @@
           </div>
         </div>
       </div>
-      <div class="container__item">
-        <div *ngFor="let cam of campaigns">
-          <app-campaign-item [campaign]="cam"></app-campaign-item>
-        </div>
+      <div class="row p-3">
+        <app-campaign-item
+          *ngFor="let cam of campaigns"
+          class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+          [campaign]="cam"
+        ></app-campaign-item>
       </div>
     </div>
   </div>
+
 </div>

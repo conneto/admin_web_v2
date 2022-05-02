@@ -83,7 +83,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     this.viewGrid?.changeView(true);
   }
   getOrganizations(e:any){
-    this.organizations=e;
+    
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {

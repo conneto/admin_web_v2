@@ -46,7 +46,9 @@ export class OrganizationInforCardComponent implements OnInit {
       data: {
         button: 'Đồng ý',
         close: 'Hủy',
-        message: 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
+        message: checkType == 'org' ? "Bạn có chắc chắn muốn chấp nhận tổ chức này không?" :
+          checkType == 'cam' ? "Bạn có chắc chắn muốn chấp nhận chiến dịch này không?" : checkType == 'pro' ?
+            "Bạn có chắc chắn muốn chấp nhận dự án này không?" : "Bạn có chắc chắn muốn chấp nhận tổ chức này không?",
       },
     })
 
@@ -61,7 +63,7 @@ export class OrganizationInforCardComponent implements OnInit {
           status: 'approve',
           note: 'Approve this',
         }
-        console.log(this.checkType,checkType);
+        console.log(this.checkType, checkType);
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
 
         if (res?.status == 0) {
@@ -71,7 +73,7 @@ export class OrganizationInforCardComponent implements OnInit {
             this.orga.checkToGetData('pending');
           } else if (checkType == 'pro' || this.checkType == 'pro') {
             this.pro.checkToGetData('pending');
-          } else if(checkType=='cam' || this.checkType=='cam') {
+          } else if (checkType == 'cam' || this.checkType == 'cam') {
             this.cam.checkToGetData('pending');
           }
           this.snackBar.showMessage("Chấp nhận thành công !", true);
@@ -89,7 +91,11 @@ export class OrganizationInforCardComponent implements OnInit {
       data: {
         button: 'Đồng ý',
         close: 'Hủy',
-        message: 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
+        reason: true,
+        message: checkType == 'org' ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?' :
+          checkType == 'cam' ? "Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?" : checkType == 'pro' ?
+            "Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?" : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
+
       }
     })
     diaglogRef.afterClosed().subscribe(async data => {
@@ -101,7 +107,7 @@ export class OrganizationInforCardComponent implements OnInit {
           object_type: checkType == 'org' ? AuthServiceService.ORGANIZATION
             : checkType == 'cam' ? AuthServiceService.CAMPAIGN : checkType == 'pro' ? AuthServiceService.PROJECT : AuthServiceService.ORGANIZATION,
           status: 'reject',
-          note: 'Reject this',
+          note: data,
         }
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
         this.loadingApi.isLoading.next(true);
@@ -111,7 +117,7 @@ export class OrganizationInforCardComponent implements OnInit {
             this.orga.checkToGetData('pending');
           } else if (checkType == 'pro' || this.checkType == 'pro') {
             this.pro.checkToGetData('pending');
-          } else if(checkType=='cam' || this.checkType=='cam') {
+          } else if (checkType == 'cam' || this.checkType == 'cam') {
             this.cam.checkToGetData('pending');
           }
           this.snackBar.showMessage("Từ chối thành công", true);

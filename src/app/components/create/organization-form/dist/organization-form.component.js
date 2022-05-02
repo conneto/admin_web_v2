@@ -57,6 +57,7 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.formBuilder = formBuilder;
         this.orgApi = orgApi;
         this.user = user;
+        this.filePDF = [];
         this.category = constant_1.Constant.CATEGORY;
         this.categoryString = '';
         this.categoryStringClone = '';
@@ -88,13 +89,13 @@ var OrganizationFormComponent = /** @class */ (function () {
                         this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
                         this.isSubmitted = true;
                         this.organizationForm.value.category = this.categoryString;
-                        console.log(this.organizationForm.value);
                         if (!this.organizationForm.valid) return [3 /*break*/, 4];
-                        console.log(this.organizationForm.value);
                         uploadData = new FormData();
                         uploadData.append('organization', JSON.stringify(this.organizationForm.value));
                         uploadData.append('logo', this.logoFile, (_a = this.logoFile) === null || _a === void 0 ? void 0 : _a.name);
                         uploadData.append('cover', this.coverFile, (_b = this.coverFile) === null || _b === void 0 ? void 0 : _b.name);
+                        uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
+                        console.log(uploadData.value);
                         if (!this.organizationId) return [3 /*break*/, 2];
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.createById(uploadData, "" + this.organizationId)];
@@ -180,6 +181,18 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.organizationForm.controls.category.patchValue(category);
     };
     OrganizationFormComponent.prototype.onSelectPDF = function (e) {
+        if (e) {
+            if (e.addedFiles[0].type != 'application/pdf') {
+                this.isWrongFile = true;
+            }
+            else {
+                this.filePDF = e.addedFiles;
+            }
+        }
+    };
+    OrganizationFormComponent.prototype.onRemove = function (event) {
+        console.log(event);
+        this.filePDF.splice(this.filePDF.indexOf(event), 1);
     };
     var OrganizationFormComponent_1;
     OrganizationFormComponent.CREATE = 'create';

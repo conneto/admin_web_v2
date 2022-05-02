@@ -95,7 +95,6 @@ var OrganizationsComponent = /** @class */ (function () {
         (_a = this.viewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
     };
     OrganizationsComponent.prototype.getOrganizations = function (e) {
-        this.organizations = e;
     };
     OrganizationsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {

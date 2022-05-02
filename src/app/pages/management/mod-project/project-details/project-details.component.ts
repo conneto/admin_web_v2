@@ -5,6 +5,7 @@ import { _SnackBarContainer } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CamapaignFormComponent } from 'src/app/components/create/camapaign-form/camapaign-form.component';
+import { ProjectFormComponent } from 'src/app/components/create/project-form/project-form.component';
 import { SelectTypeCampaignComponent } from 'src/app/components/select-type-campaign/select-type-campaign.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
@@ -15,7 +16,9 @@ import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
+import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
+import { OrganizationsComponent } from '../../mod-organization/organizations/organizations.component';
 
 @Component({
   selector: 'app-project-details',
@@ -27,7 +30,7 @@ export class ProjectDetailsComponent implements OnInit {
 
   project?: Project;
   user?: User;
-  isAdmin = true;
+  isAdmin?:boolean;
   urlApi: string = '';
   urlLogo?: string = '';
   urlCover?: string = '';
@@ -39,7 +42,9 @@ export class ProjectDetailsComponent implements OnInit {
   noResultBySearch?: boolean;
   passData?: any;
   whichType?: any;
-  constructor(private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private location: Location, private proApi: ProjectService, private campApi: CampaignService, private actived: ActivatedRoute, private dialog: MatDialog) { }
+  organization?: any;
+  isEmpty?:boolean;
+  constructor(private organizationService: OrganizationApiService, private getEntityService: LoadingDataService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private location: Location, private proApi: ProjectService, private campaignService: CampaignService, private actived: ActivatedRoute, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
     this.getByID();
@@ -50,14 +55,25 @@ export class ProjectDetailsComponent implements OnInit {
 
   }
   check() {
-    this.user = this.auth.currentUserValue;
-    if (this.user?.role_id === 'organization_manager') {
+
+
+    if (this.auth.currentUserValue.role == 'organization_manager') {
       this.isAdmin = false;
+    } else {
+      this.isAdmin = true;
     }
   }
   async getCampaigns() {
     this.campaignsCopy = await this.proApi.getCampaignsByProjectId(`${this.actived.snapshot.paramMap.get('id')}`);
-    this.campaigns = this.campaignsCopy;
+  
+    if(this.campaignsCopy.length==0)
+    {
+      this.isEmpty=true;
+    }else {
+      this.isEmpty=false;
+      this.campaigns = this.campaignsCopy;
+    }
+   
     if (this.campaigns) {
       for (var i = 0; i < this.campaigns.length; i++) {
         {
@@ -120,27 +136,12 @@ export class ProjectDetailsComponent implements OnInit {
         break;
     }
   }
-  openSelectCampaign() {
-    const diaglogRef = this.dialog.open(SelectTypeCampaignComponent, {
-      width: "300px",
-    })
-    diaglogRef.afterClosed().subscribe(data => {
-      if (data) {
-        if (data == 'donation') {
-          this.whichType = 'donation';
-        } else {
-          this.whichType = 'recruitment';
-        }
-        this.openCampaignForm();
-      }
-    })
-  }
   openCampaignForm() {
     const dialogRef = this.dialog.open(CamapaignFormComponent, {
       width: '700px',
       data: {
         title: 'Tạo chiến dịch',
-        type:this.whichType,
+        project: this.project,
       }
     })
 
@@ -148,10 +149,10 @@ export class ProjectDetailsComponent implements OnInit {
       if (data) {
 
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.campApi.create(data);
+        let res: BaseResponse | null = await this.campaignService.create(data);
         if (res?.status == 0) {
           this.loadingService.isLoading.next(false);
-          this.getEntityService.getByEntity('cam');
+
           this.router.navigate(['/manager/manage-campaign']);
           this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true)
         } else {
@@ -161,4 +162,38 @@ export class ProjectDetailsComponent implements OnInit {
       }
     })
   }
+  async openProjectForm() {
+    this.organization = await this.organizationService.getAll();
+    this.loadingService.getOrganizationId.next(`${this.organization[0].id}`);
+    const dialogRef = this.dialog.open(ProjectFormComponent, {
+      width: '700px',
+      data: {
+        title: 'Tạo dự án',
+      }
+    })
+
+    dialogRef.afterClosed().subscribe(async data => {
+      if (data) {
+        this.loadingService.isLoading.next(true);
+        let res: BaseResponse = await this.api.createProject(data);
+        if (res.status == 0) {
+          this.loadingService.isLoading.next(false);
+          this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
+
+          this.router.navigate(['/manager/manage-project']);
+
+        } else {
+          this.dialog.open(ProjectFormComponent, {
+            width: '700px',
+            data: {
+              title: 'Tạo dự án',
+            }
+          })
+          this.loadingService.isLoading.next(false);
+          this.snackbar.showMessage(res.message, false)
+        }
+      }
+    })
+  }
+
 }

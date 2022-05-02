@@ -130,8 +130,7 @@ var CampaignsComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
             width: '700px',
             data: {
-                title: 'Tạo chiến dịch',
-                project: this.campaigns
+                title: 'Tạo chiến dịch'
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

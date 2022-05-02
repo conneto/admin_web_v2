@@ -31,9 +31,11 @@ export class ProjectService {
     let res: BaseResponse = await this.api.get(
       `${ProjectService.PROJECT}/${id}/${Constant.CAMPAIGN}`
     );
+  if(res.status!=8){
     res.data = res.data.map((item: any) => {
       return this.campaignAdapter.adapt(item);
     });
+  }
     return res.data || [];
   }
   async createProject(data: any) {

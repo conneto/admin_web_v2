@@ -27,7 +27,7 @@ var ShowDocumentComponent = /** @class */ (function () {
             }
         }
         else {
-            this.displayColumns = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit"];
+            this.displayColumns = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit", 'image'];
             this.dataSource = new table_1.MatTableDataSource((_b = this.entityExcel) === null || _b === void 0 ? void 0 : _b.cashflow_details);
         }
         this.uriApi = this.loading.getApiGetLink.value;

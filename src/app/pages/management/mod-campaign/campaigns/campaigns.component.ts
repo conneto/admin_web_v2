@@ -96,7 +96,7 @@ export class CampaignsComponent implements OnInit {
       width: '700px',
       data: {
         title: 'Tạo chiến dịch',
-        project: this.campaigns,
+        
       }
     })
 

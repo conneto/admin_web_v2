@@ -42,7 +42,7 @@
 
   <div *ngIf="!isRequest">
     <div *ngIf="projects">
-      <div class="row p-3">
+      <div class="row ">
         <div class="search-bar mb-3" *ngIf="!isEmpty">
           <div *ngIf="!noResultBySearch; then name; else result"></div>
           <ng-template #name>
@@ -79,9 +79,9 @@
             (handleTitle)="handleTitle($event)"
           ></app-change-to-list>
         </div>
-        <div *ngIf="!isList" class='row'>
+        <div *ngIf="!isList" class='row p-3 project-card'>
           <div
-            class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+            class=" mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
             *ngFor="let project of projects"
           >
             <a

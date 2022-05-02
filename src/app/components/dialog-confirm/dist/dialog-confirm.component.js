@@ -11,34 +11,30 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 exports.__esModule = true;
 exports.DialogConfirmComponent = void 0;
 var core_1 = require("@angular/core");
+var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var DialogConfirmComponent = /** @class */ (function () {
     function DialogConfirmComponent(dialogRef, dialog, data) {
         this.dialogRef = dialogRef;
         this.dialog = dialog;
         this.data = data;
+        this.reasonFormControl = new forms_1.FormControl('', {
+            validators: forms_1.Validators.required
+        });
     }
-    DialogConfirmComponent_1 = DialogConfirmComponent;
     DialogConfirmComponent.prototype.ngOnInit = function () {
     };
     DialogConfirmComponent.prototype.noClick = function () {
         this.dialogRef.close(false);
     };
     DialogConfirmComponent.prototype.yesClick = function () {
-        this.dialogRef.close(true);
+        var _a;
+        this.reasonFormControl.markAllAsTouched();
+        if (!((_a = this.reasonFormControl.errors) === null || _a === void 0 ? void 0 : _a.required)) {
+            this.dialogRef.close(this.reasonFormControl.value);
+        }
     };
-    DialogConfirmComponent.prototype.createDialog = function (button, message) {
-        var dialogRef = this.dialog.open(DialogConfirmComponent_1, {
-            width: '300px,',
-            data: {
-                button: button,
-                message: message
-            }
-        });
-        return dialogRef;
-    };
-    var DialogConfirmComponent_1;
-    DialogConfirmComponent = DialogConfirmComponent_1 = __decorate([
+    DialogConfirmComponent = __decorate([
         core_1.Component({
             selector: 'app-dialog-confirm',
             templateUrl: './dialog-confirm.component.html',

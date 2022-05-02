@@ -12,12 +12,14 @@
 }
 
 mat-card {
-  width: 400px;
-  margin: 5px;
+  height: 175px;
 }
 mat-card a {
   text-decoration: none;
   color: black;
+}
+mat-card mat-card-subtitle {
+  height: 30px;
 }
 mat-card mat-card-title {
   font-size: 20px;

@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Constant } from 'src/app/constant/constant';
 
 
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
@@ -21,6 +22,10 @@ export class ProjectFormComponent implements OnInit {
   coverImage?: File;
   logo?:File;
   isSubmitted?:boolean;
+  isRemoved?:boolean;
+  category:any[]=Constant.CATEGORY;
+  categoryStringClone?:any;
+  categoryString?:any;
   ngOnInit(): void {
     this.initForm();
 
@@ -37,6 +42,7 @@ export class ProjectFormComponent implements OnInit {
       request_type: ['create'],
       cover: [''],
       logo:[''],
+      category:[''],
     })
   }
   noClick() {
@@ -45,7 +51,24 @@ export class ProjectFormComponent implements OnInit {
 
   }
   yesClick() {
-    this.isSubmitted=true;
+    
+    if (this.projectForm.controls.category.value.length != 0 && this.projectForm.controls.category.value) {
+      if (this.isRemoved == true || this.isSubmitted == true) {
+        this.categoryStringClone = '';
+        for (let i = 0; i < this.projectForm.controls.category.value.length; i++) {
+          this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+        }
+      } else {
+        for (let i = 0; i < this.projectForm.controls.category.value.length; i++) {
+          this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+
+        }
+      }
+    }
+    this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+    this.isSubmitted = true;
+    this.projectForm.value.category = this.categoryString;
+
     if (this.projectForm.valid) {
       let uploadData: any = new FormData();
       uploadData.append('cover', this.coverImage, this.coverImage?.name);
@@ -67,5 +90,18 @@ export class ProjectFormComponent implements OnInit {
   }
   get projectControl(){
     return this.projectForm.controls;
+  }
+  onRemoveCategory(e: string) {
+    this.isRemoved = true;
+    const category = this.projectForm.controls.category.value as string[];
+    const index = category.indexOf(e);
+    console.log(index);
+    if (index !== -1) {
+      category.splice(index, 1);
+    }
+    if (index == 0) {
+      this.categoryStringClone = ''
+    }
+    this.projectForm.controls.category.patchValue(category);
   }
 }

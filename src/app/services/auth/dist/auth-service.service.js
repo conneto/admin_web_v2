@@ -82,7 +82,6 @@ var AuthServiceService = /** @class */ (function () {
                         if (res.status == 0) {
                             this.loadingService.isLoading.next(false);
                             userLoginResponse = this.userResponse.adapt(res.data);
-                            console.log(userLoginResponse.role);
                             if (userLoginResponse.role == 'volunteer') {
                                 this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
                             }

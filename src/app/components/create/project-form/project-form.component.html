@@ -4,6 +4,7 @@
     <h3 mat-dialog-title>{{ data.title }}</h3>
   </div>
   <form [formGroup]="projectForm" action="">
+ 
     <div class="login-form">
       <div>
         <input
@@ -63,6 +64,28 @@
           required=""
           formControlName="end_date"
         />
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Lĩnh vực</mat-label>
+          <mat-select formControlName="category" required="false" multiple>
+            <mat-select-trigger>
+              <mat-chip-list>
+                <mat-chip
+                  *ngFor="let e of projectControl.category.value"
+                  [removable]="true"
+                  (removed)="onRemoveCategory(e)"
+                >
+                  {{ e.vietsub }}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </mat-select-trigger>
+            <mat-option *ngFor="let e of category" [value]="e">
+              {{ e.vietsub }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
       <div>
         <label style="width: 100px"> Ảnh bìa:</label>
