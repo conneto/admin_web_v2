@@ -28,20 +28,21 @@ export class CamapaignFormComponent implements OnInit {
   cloneProjects: Project[] = [];
   type: string[] = ['Quyên góp', 'Tuyển tình nguyện viên'];
   uploadData: any = new FormData();
-  isOnlyProject?:boolean;
-  isRemoved?:boolean;
-  category:any[]=Constant.CATEGORY;
-  categoryStringClone?:any;
-  categoryString?:any;
+  isOnlyProject?: boolean;
+  isRemoved?: boolean;
+  category: any[] = Constant.CATEGORY;
+  categoryString: string = '';
+  categoryStringClone: string = '';
+  projectName?:string;
   ngOnInit(): void {
     this.initForm();
-
-    let uploadData: any = new FormData();
-    uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
+    this.check();
+    // let uploadData: any = new FormData();
+    // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
 
   }
 
-  async initForm() {
+  initForm() {
 
     this.campaignForm = this.formBuilder.group({
       selected: [this.selectedValue, Validators.required],
@@ -59,11 +60,14 @@ export class CamapaignFormComponent implements OnInit {
       job_benefit: [''],
       project_id: [''],
       cover: [''],
-      category:[''],
+      category: [''],
 
     })
+
+  }
+  async check() {
     if (this.data.project) {
-      this.isOnlyProject=true;
+      this.isOnlyProject = true;
 
     } else {
       this.organizations = await this.organizationApi.getAll();
@@ -89,21 +93,29 @@ export class CamapaignFormComponent implements OnInit {
           this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
         }
       } else {
+        this.categoryStringClone = '';
         for (let i = 0; i < this.campaignForm.controls.category.value.length; i++) {
           this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
 
         }
       }
     }
-    this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+    if (this.categoryStringClone?.length > 0) {
+      this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+    }else {
+      this.categoryString='';
+    }
     this.isSubmitted = true;
-    this.campaignForm.value.category = this.categoryString;
+    
+ 
 
     this.projects = this.cloneProjects.filter(x => {
       return x.name == this.campaignForm.value.selected;
     })
 
-    this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` })
+    if (this.projects.length != 0) {
+      this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` })
+    }
     if (this.selectedRadio == 'Quyên góp') {
 
       this.campaignForm.patchValue({ start_working_date: `${this.campaignForm.value.start_date}` })
@@ -112,17 +124,18 @@ export class CamapaignFormComponent implements OnInit {
       this.campaignForm.removeControl('job_requirement');
       this.campaignForm.removeControl('job_description');
       this.campaignForm.removeControl('job_benefit');
-      console.log(this.campaignForm.valid);
+
     } else if (
       this.selectedRadio == 'Tuyển tình nguyện viên'
     ) {
       this.campaignForm.patchValue({ type: 'recruitment' })
 
     }
-    console.log(this.campaignForm.value);
-    if (this.campaignForm.valid) {
 
+    if (this.campaignForm.valid) {
+      this.campaignForm.value.category=this.categoryString;
       console.log(this.campaignForm.value);
+   
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
 
 

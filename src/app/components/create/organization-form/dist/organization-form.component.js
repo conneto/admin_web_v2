@@ -67,11 +67,11 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.initFormBuilder();
     };
     OrganizationFormComponent.prototype.create = function () {
-        var _a, _b;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
             var i, i, uploadData, res, res;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         if (this.organizationForm.controls.category.value.length != 0 && this.organizationForm.controls.category.value) {
                             if (this.isRemoved == true || this.isSubmitted == true) {
@@ -81,26 +81,29 @@ var OrganizationFormComponent = /** @class */ (function () {
                                 }
                             }
                             else {
+                                this.categoryStringClone = '';
                                 for (i = 0; i < this.organizationForm.controls.category.value.length; i++) {
                                     this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
                                 }
                             }
                         }
-                        this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+                        if (((_a = this.categoryStringClone) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                            this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+                        }
                         this.isSubmitted = true;
                         this.organizationForm.value.category = this.categoryString;
                         if (!this.organizationForm.valid) return [3 /*break*/, 4];
                         uploadData = new FormData();
                         uploadData.append('organization', JSON.stringify(this.organizationForm.value));
-                        uploadData.append('logo', this.logoFile, (_a = this.logoFile) === null || _a === void 0 ? void 0 : _a.name);
-                        uploadData.append('cover', this.coverFile, (_b = this.coverFile) === null || _b === void 0 ? void 0 : _b.name);
+                        uploadData.append('logo', this.logoFile, (_b = this.logoFile) === null || _b === void 0 ? void 0 : _b.name);
+                        uploadData.append('cover', this.coverFile, (_c = this.coverFile) === null || _c === void 0 ? void 0 : _c.name);
                         uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
                         console.log(uploadData.value);
                         if (!this.organizationId) return [3 /*break*/, 2];
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.createById(uploadData, "" + this.organizationId)];
                     case 1:
-                        res = _c.sent();
+                        res = _d.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
@@ -116,7 +119,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.create(uploadData)];
                     case 3:
-                        res = _c.sent();
+                        res = _d.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
@@ -128,7 +131,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                             this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
                             this.loadingService.isLoading.next(false);
                         }
-                        _c.label = 4;
+                        _d.label = 4;
                     case 4: return [2 /*return*/];
                 }
             });

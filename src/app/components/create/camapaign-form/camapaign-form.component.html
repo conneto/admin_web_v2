@@ -6,22 +6,25 @@
     <mat-form-field style="width: 100%" appearance="fill">
       <mat-label>Lựa chọn một trong các dự án của tổ chức</mat-label>
       <mat-select
-      *ngIf='isOnlyProject'
-      name="projects"
-      formControlName="selected"
-      required=""
-      [(ngModel)]="selectedValue"
-    >
-      <mat-option  [value]="this.data.project.name">
-        {{ this.data.project.name }} ({{ this.data.project.startDate | date: "dd/MM/yyyy" }} -
-        {{ this.data.project.endDate | date: "dd/MM/yyyy" }}
-      </mat-option>
-    </mat-select>
-      <mat-select
-      *ngIf='!isOnlyProject'
+        *ngIf="isOnlyProject"
         name="projects"
         formControlName="selected"
-        required=""
+        required
+        [(ngModel)]="selectedValue"
+      >
+        <mat-option [value]="this.data.project.name">
+          {{ this.data.project.name }} ({{
+            this.data.project.startDate | date: "dd/MM/yyyy"
+          }}
+          -
+          {{ this.data.project.endDate | date: "dd/MM/yyyy" }}
+        </mat-option>
+      </mat-select>
+      <mat-select
+        *ngIf="!isOnlyProject"
+        name="projects"
+        formControlName="selected"
+        required
         [(ngModel)]="selectedValue"
       >
         <mat-option *ngFor="let project of projects" [value]="project.name">
@@ -29,23 +32,27 @@
           {{ project.endDate | date: "dd/MM/yyyy" }}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="campaignControl.selected.errors?.required">
+        Vui lòng chọn dự án !
+      </mat-error>
     </mat-form-field>
     <div class="w-100">
-      <div class="row d-flex ">
-      
-          <mat-label class='col-3'>Loại chiến dịch:</mat-label>
+      <div class="row d-flex">
+        <mat-label class="col-3">Loại chiến dịch:</mat-label>
 
-     
-          <mat-radio-group class='col-8 d-flex justify-content-around' [(ngModel)]="selectedRadio" formControlName="type">
-            <mat-radio-button
-              (click)="getType(t)"
-              [checked]="t == 'Quyên góp'"
-              *ngFor="let t of type"
-              [value]="t"
-              >{{ t }}</mat-radio-button
-            >
-          </mat-radio-group>
-    
+        <mat-radio-group
+          class="col-8 d-flex justify-content-around"
+          [(ngModel)]="selectedRadio"
+          formControlName="type"
+        >
+          <mat-radio-button
+            (click)="getType(t)"
+            [checked]="t == 'Quyên góp'"
+            *ngFor="let t of type"
+            [value]="t"
+            >{{ t }}</mat-radio-button
+          >
+        </mat-radio-group>
       </div>
     </div>
 

@@ -247,6 +247,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             }, 1000);
                             break;
                     }
+                    this.oldDataSearch = this.oldData;
                     this.number = this.organizations.length;
                     this.numberCount = new Array(this.organizations.length);
                 }
@@ -395,7 +396,7 @@ var OrganizationsComponent = /** @class */ (function () {
     OrganizationsComponent.prototype.getEntity = function (e) {
         if (e) {
             this.organizations = e;
-            this.oldDataSearch = this.organizations;
+            this.oldData = e;
         }
     };
     __decorate([

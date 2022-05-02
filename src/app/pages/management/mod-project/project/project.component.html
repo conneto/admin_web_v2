@@ -42,8 +42,12 @@
 
   <div *ngIf="!isRequest">
     <div *ngIf="projects">
-      <div class="row ">
-        <div class="search-bar mb-3" *ngIf="!isEmpty">
+      <div class="row">
+        <div
+          class="search-bar mb-3"
+          *ngIf="!isEmpty"
+        
+        >
           <div *ngIf="!noResultBySearch; then name; else result"></div>
           <ng-template #name>
             <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
@@ -79,9 +83,10 @@
             (handleTitle)="handleTitle($event)"
           ></app-change-to-list>
         </div>
-        <div *ngIf="!isList" class='row p-3 project-card'>
+        
+        <div *ngIf="!isList" class="row p-3 project-card">
           <div
-            class=" mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+            class="mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
             *ngFor="let project of projects"
           >
             <a
@@ -126,21 +131,19 @@
           *ngIf="isList"
           [entity]="oldData"
         ></app-list-view>
-
-   
       </div>
     </div>
   </div>
   <div class="search-bar" *ngIf="isEmpty">
     Hiện tại không có dự án nào được tạo!
-    <div
-      *ngIf="
-        !isAdmin && organization.length > 0 && organization[0].is_active == true
-      "
-      class="ms-2"
-    >
-      <div class="project__button-create">
-        <button (click)="openProjectForm()" mat-raised-button color="primary">
+    <div *ngIf="!isAdmin && organization.length != 0" class="ms-2">
+      <div *ngFor="let o of organization" class="project__button-create">
+        <button
+          *ngIf="o.result_code == 510 && o.is_active == true"
+          (click)="openProjectForm()"
+          mat-raised-button
+          color="primary"
+        >
           <mat-icon>add</mat-icon>
           Tạo dự án
         </button>

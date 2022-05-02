@@ -86,12 +86,12 @@
                 <h3>Không tìm thấy kết quả phù hợp</h3>
               </div>
             </ng-template>
-            <app-entity-status [entityData]='oldData' [type]='"org"'  (entity)="getEntity($event)"></app-entity-status>
+            <app-entity-status *ngIf='!isList' [entityData]='passData' [type]='"org"'  (entity)="getEntity($event)"></app-entity-status>
             <app-search-bar
               *ngIf="!isList"
               (getItem)="getData($event)"
               [entity]="passData"
-              [entityCopy]="oldDataSearch"
+              [entityCopy]="oldData"
             ></app-search-bar>
             <app-change-to-list
               #viewGrid

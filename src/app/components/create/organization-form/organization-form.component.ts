@@ -46,13 +46,16 @@ export class OrganizationFormComponent implements OnInit {
           this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
         }
       } else {
+        this.categoryStringClone = '';
         for (let i = 0; i < this.organizationForm.controls.category.value.length; i++) {
           this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
 
         }
       }
     }
-    this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+    if (this.categoryStringClone?.length > 0) {
+      this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+    }
     this.isSubmitted = true;
     this.organizationForm.value.category = this.categoryString;
 

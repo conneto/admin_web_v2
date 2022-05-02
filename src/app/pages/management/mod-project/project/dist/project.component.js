@@ -102,14 +102,18 @@ var ProjectComponent = /** @class */ (function () {
     };
     ProjectComponent.prototype.checkToGetData = function (status) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         _a = this;
                         return [4 /*yield*/, this.api.getAll()];
                     case 1:
-                        _a.projects = _b.sent();
+                        _a.projects = _c.sent();
+                        _b = this;
+                        return [4 /*yield*/, this.orgApi.getAll()];
+                    case 2:
+                        _b.organization = _c.sent();
                         this.passData = this.projects;
                         if (status == 'pending') {
                             this.getAllProjectsByStatus('pending', this.projects);
@@ -229,56 +233,49 @@ var ProjectComponent = /** @class */ (function () {
     };
     ProjectComponent.prototype.openProjectForm = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, dialogRef;
+            var dialogRef;
             var _this = this;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.orgApi.getAll()];
-                    case 1:
-                        _a.organization = _b.sent();
-                        this.loadingService.getOrganizationId.next("" + this.organization[0].id);
-                        dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                            width: '700px',
-                            data: {
-                                title: 'Tạo dự án'
-                            }
-                        });
-                        dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
-                            var res;
-                            return __generator(this, function (_a) {
-                                switch (_a.label) {
-                                    case 0:
-                                        if (!data) return [3 /*break*/, 2];
-                                        this.loadingService.isLoading.next(true);
-                                        return [4 /*yield*/, this.api.createProject(data)];
-                                    case 1:
-                                        res = _a.sent();
-                                        if (res.status == 0) {
-                                            this.loadingService.isLoading.next(false);
-                                            this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
-                                            this.getTab();
-                                            this.checkToGetData();
-                                            this.router.navigate(['/manager/manage-project']);
-                                        }
-                                        else {
-                                            this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                                                width: '700px',
-                                                data: {
-                                                    title: 'Tạo dự án'
-                                                }
-                                            });
-                                            this.loadingService.isLoading.next(false);
-                                            this.snackbar.showMessage(res.message, false);
-                                        }
-                                        _a.label = 2;
-                                    case 2: return [2 /*return*/];
+            return __generator(this, function (_a) {
+                this.loadingService.getOrganizationId.next("" + this.organization[0].id);
+                dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
+                    width: '700px',
+                    data: {
+                        title: 'Tạo dự án'
+                    }
+                });
+                dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
+                    var res;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                if (!data) return [3 /*break*/, 2];
+                                this.loadingService.isLoading.next(true);
+                                return [4 /*yield*/, this.api.createProject(data)];
+                            case 1:
+                                res = _a.sent();
+                                if (res.status == 0) {
+                                    this.loadingService.isLoading.next(false);
+                                    this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
+                                    this.getTab();
+                                    this.checkToGetData();
+                                    this.router.navigate(['/manager/manage-project']);
                                 }
-                            });
-                        }); });
-                        return [2 /*return*/];
-                }
+                                else {
+                                    this.dialog.open(project_form_component_1.ProjectFormComponent, {
+                                        width: '700px',
+                                        data: {
+                                            title: 'Tạo dự án'
+                                        }
+                                    });
+                                    this.loadingService.isLoading.next(false);
+                                    this.snackbar.showMessage(res.message, false);
+                                }
+                                _a.label = 2;
+                            case 2: return [2 /*return*/];
+                        }
+                    });
+                }); });
+                return [2 /*return*/];
             });
         });
     };

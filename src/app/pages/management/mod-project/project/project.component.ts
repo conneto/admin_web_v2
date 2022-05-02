@@ -39,16 +39,16 @@ export class ProjectComponent implements OnInit {
   noResultBySearch?: boolean;
   isList?: boolean = false;
   organization: Organization[] = [];
-  isAdmin?:boolean;
+  isAdmin?: boolean;
   constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
     this.urlApi = this.loadingService.getApiGetLink.value;
-    if(this.authApi.currentUserValue.role=='admin'){
-      this.isAdmin=true;
-    }else{
-      this.isAdmin=false;
+    if (this.authApi.currentUserValue.role == 'admin') {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
     }
   }
   ngOnDestroy(): void {
@@ -61,7 +61,7 @@ export class ProjectComponent implements OnInit {
     this.tabGroup?.getEntity('pending', 'pro');
   }
   handleTitle(e: any) {
-    this.noResultBySearch=false;
+    this.noResultBySearch = false;
     if (e == 'list') {
       this.isList = true;
     } else {
@@ -81,7 +81,8 @@ export class ProjectComponent implements OnInit {
   }
   async checkToGetData(status?: string) {
     this.projects = await this.api.getAll();
-
+    this.organization = await this.orgApi.getAll();
+ 
     this.passData = this.projects;
     if (status == 'pending') {
       this.getAllProjectsByStatus('pending', this.projects);
@@ -184,7 +185,7 @@ export class ProjectComponent implements OnInit {
   }
 
   async openProjectForm() {
-    this.organization = await this.orgApi.getAll();
+
     this.loadingService.getOrganizationId.next(`${this.organization[0].id}`);
     const dialogRef = this.dialog.open(ProjectFormComponent, {
       width: '700px',

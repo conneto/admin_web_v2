@@ -67,36 +67,41 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.type = ['Quyên góp', 'Tuyển tình nguyện viên'];
         this.uploadData = new FormData();
         this.category = constant_1.Constant.CATEGORY;
+        this.categoryString = '';
+        this.categoryStringClone = '';
     }
     CamapaignFormComponent.prototype.ngOnInit = function () {
         this.initForm();
-        var uploadData = new FormData();
-        uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
+        this.check();
+        // let uploadData: any = new FormData();
+        // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
     };
     CamapaignFormComponent.prototype.initForm = function () {
+        this.campaignForm = this.formBuilder.group({
+            selected: [this.selectedValue, forms_1.Validators.required],
+            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            start_date: ['', forms_1.Validators.required],
+            end_date: ['', forms_1.Validators.required],
+            start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
+            end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
+            request_type: ['create'],
+            type: ['', forms_1.Validators.required],
+            target_number: ['', forms_1.Validators.required],
+            job_requirement: [''],
+            job_description: [''],
+            job_benefit: [''],
+            project_id: [''],
+            cover: [''],
+            category: ['']
+        });
+    };
+    CamapaignFormComponent.prototype.check = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
-                        this.campaignForm = this.formBuilder.group({
-                            selected: [this.selectedValue, forms_1.Validators.required],
-                            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-                            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
-                            start_date: ['', forms_1.Validators.required],
-                            end_date: ['', forms_1.Validators.required],
-                            start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
-                            end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
-                            request_type: ['create'],
-                            type: ['', forms_1.Validators.required],
-                            target_number: ['', forms_1.Validators.required],
-                            job_requirement: [''],
-                            job_description: [''],
-                            job_benefit: [''],
-                            project_id: [''],
-                            cover: [''],
-                            category: ['']
-                        });
                         if (!this.data.project) return [3 /*break*/, 1];
                         this.isOnlyProject = true;
                         return [3 /*break*/, 4];
@@ -124,6 +129,7 @@ var CamapaignFormComponent = /** @class */ (function () {
     };
     CamapaignFormComponent.prototype.yesClick = function () {
         var _this = this;
+        var _a;
         if (this.campaignForm.controls.category.value.length != 0 && this.campaignForm.controls.category.value) {
             if (this.isRemoved == true || this.isSubmitted == true) {
                 this.categoryStringClone = '';
@@ -132,18 +138,25 @@ var CamapaignFormComponent = /** @class */ (function () {
                 }
             }
             else {
+                this.categoryStringClone = '';
                 for (var i = 0; i < this.campaignForm.controls.category.value.length; i++) {
                     this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
                 }
             }
         }
-        this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+        if (((_a = this.categoryStringClone) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+            this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+        }
+        else {
+            this.categoryString = '';
+        }
         this.isSubmitted = true;
-        this.campaignForm.value.category = this.categoryString;
         this.projects = this.cloneProjects.filter(function (x) {
             return x.name == _this.campaignForm.value.selected;
         });
-        this.campaignForm.patchValue({ project_id: "" + this.projects[0].id });
+        if (this.projects.length != 0) {
+            this.campaignForm.patchValue({ project_id: "" + this.projects[0].id });
+        }
         if (this.selectedRadio == 'Quyên góp') {
             this.campaignForm.patchValue({ start_working_date: "" + this.campaignForm.value.start_date });
             this.campaignForm.patchValue({ end_working_date: "" + this.campaignForm.value.end_date });
@@ -151,13 +164,12 @@ var CamapaignFormComponent = /** @class */ (function () {
             this.campaignForm.removeControl('job_requirement');
             this.campaignForm.removeControl('job_description');
             this.campaignForm.removeControl('job_benefit');
-            console.log(this.campaignForm.valid);
         }
         else if (this.selectedRadio == 'Tuyển tình nguyện viên') {
             this.campaignForm.patchValue({ type: 'recruitment' });
         }
-        console.log(this.campaignForm.value);
         if (this.campaignForm.valid) {
+            this.campaignForm.value.category = this.categoryString;
             console.log(this.campaignForm.value);
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
             this.dialogRef.close(this.uploadData);

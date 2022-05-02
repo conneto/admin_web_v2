@@ -236,7 +236,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           }, 1000)
           break;
       }
-
+      this.oldDataSearch=this.oldData;
       this.number = this.organizations.length;
       this.numberCount = new Array<number>(this.organizations.length);
 
@@ -384,7 +384,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   getEntity(e:any){
     if(e){
       this.organizations=e;
-      this.oldDataSearch=this.organizations;
+      this.oldData=e;
     }
   }
 }
