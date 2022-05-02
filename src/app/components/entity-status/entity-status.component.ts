@@ -28,13 +28,13 @@ export class EntityStatusComponent implements OnInit {
         break;
         case 'Vô hiệu hóa':
           this.passData=this.entityData.filter((x:any)=>{
-            return x.is_enable==false;
+            return x.is_active==false;
           })
           this.sendData(this.passData);
            break;
         case 'Cấp quyền':
           this.passData=this.entityData.filter((x:any)=>{
-            return x.is_enable==true;
+            return x.is_active==true;
           })
           this.sendData(this.passData);
            break;
