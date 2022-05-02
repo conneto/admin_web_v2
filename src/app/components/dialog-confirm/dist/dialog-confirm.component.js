@@ -29,9 +29,14 @@ var DialogConfirmComponent = /** @class */ (function () {
     };
     DialogConfirmComponent.prototype.yesClick = function () {
         var _a;
-        this.reasonFormControl.markAllAsTouched();
-        if (!((_a = this.reasonFormControl.errors) === null || _a === void 0 ? void 0 : _a.required)) {
-            this.dialogRef.close(this.reasonFormControl.value);
+        if (this.data.reason) {
+            this.reasonFormControl.markAllAsTouched();
+            if (!((_a = this.reasonFormControl.errors) === null || _a === void 0 ? void 0 : _a.required)) {
+                this.dialogRef.close(this.reasonFormControl.value);
+            }
+        }
+        else {
+            this.dialogRef.close(true);
         }
     };
     DialogConfirmComponent = __decorate([

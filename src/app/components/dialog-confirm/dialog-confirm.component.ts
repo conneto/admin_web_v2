@@ -26,9 +26,15 @@ export class DialogConfirmComponent implements OnInit {
   }
 
   yesClick() {
+   if(this.data.reason){
     this.reasonFormControl.markAllAsTouched();
     if (!this.reasonFormControl.errors?.required) {
       this.dialogRef.close(this.reasonFormControl.value);
     }
+  
+   }else{
+     this.dialogRef.close(true);
+   }
+   
   }
 }
