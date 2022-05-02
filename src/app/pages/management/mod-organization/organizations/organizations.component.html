@@ -16,7 +16,11 @@
   </div>
 
   <ng-template #createOrganization>
-    <button (click)="isShow = !isShow;isEmpty=!isEmpty" mat-raised-button color="primary">
+    <button
+      (click)="isShow = !isShow; isEmpty = !isEmpty"
+      mat-raised-button
+      color="primary"
+    >
       Tạo tổ chức
     </button>
   </ng-template>
@@ -65,8 +69,6 @@
     </div>
   </div>
 
-
-
   <div *ngIf="isAdmin">
     <div *ngIf="!isRequest">
       <div *ngIf="organizations && !noOrg">
@@ -84,27 +86,30 @@
                 <h3>Không tìm thấy kết quả phù hợp</h3>
               </div>
             </ng-template>
-
+            <app-entity-status [entityData]='oldData' [type]='"org"'  (entity)="getEntity($event)"></app-entity-status>
             <app-search-bar
               *ngIf="!isList"
               (getItem)="getData($event)"
               [entity]="passData"
-              [entityCopy]="oldData"
+              [entityCopy]="oldDataSearch"
             ></app-search-bar>
             <app-change-to-list
               #viewGrid
-            [entityOrganization]="oldData"
-            (entitys)="getOrganizations($event)"
+              [entityOrganization]="oldData"
+              (entitys)="getOrganizations($event)"
               (handleTitle)="handleTitle($event)"
             ></app-change-to-list>
           </div>
           <app-list-view
             *ngIf="isList"
             [whichEntity]="'org'"
-            [entity]="oldData"
+            [entity]="oldDataSearch"
           ></app-list-view>
           <div *ngIf="!isList" class="box row p-3">
-            <div class=" mb-3 col-xxl-4 col-md-6 col-sm-12 col-12" *ngFor="let organization of organizations">
+            <div
+              class="mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+              *ngFor="let organization of organizations"
+            >
               <mat-card title="Xem chi tiết" class="moveFadein">
                 <a
                   class="router"
@@ -147,8 +152,10 @@
       </div>
     </div>
   </div>
-  <div *ngIf='isAdmin==false && organizations'>
-    <app-organization-details [organizationInput]="organizations" ></app-organization-details>
+  <div *ngIf="isAdmin == false && organizations">
+    <app-organization-details
+      [organizationInput]="organizations"
+    ></app-organization-details>
   </div>
 </div>
 <div class="skeleton">

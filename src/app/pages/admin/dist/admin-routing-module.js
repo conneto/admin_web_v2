@@ -21,7 +21,6 @@ var routes = [
             },
             {
                 path: 'dashboard',
-                canActivateChild: [auth_guard_1.AuthGuard],
                 loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/dashboard/dashboard.module'); }).then((function (m) { return m.DashboardModule; })); }
             },
             {
@@ -41,8 +40,18 @@ var routes = [
                 ]
             },
             {
-                path: 'user-service-management',
-                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); }
+                path: 'user-management',
+                loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); },
+                children: [
+                    {
+                        path: '',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/user-management/user-management.module'); }).then(function (m) { return m.UserManagementModule; }); }
+                    },
+                    {
+                        path: 'user-details/:id',
+                        loadChildren: function () { return Promise.resolve().then(function () { return require('src/app/pages/mod-user/user-details/user-details.module'); }).then(function (m) { return m.UserDetailsModule; }); }
+                    }
+                ]
             },
             {
                 path: 'organization-request',

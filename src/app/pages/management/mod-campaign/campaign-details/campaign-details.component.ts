@@ -116,7 +116,8 @@ export class CampaignDetailsComponent implements OnInit {
         this.isShow = false;
         break;
       case 'doc':
-
+      this.isPDF=false;
+      this.isExcel=false;
         this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
         this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
         if(this.documentPDF){
@@ -129,7 +130,7 @@ export class CampaignDetailsComponent implements OnInit {
 
           }
         }
-        console.log(this.documentExcel);
+    
         if (this.isAdmin) {
           if (this.documentPDF.length <= 0) {
             this.isEmpty = true;
@@ -138,7 +139,7 @@ export class CampaignDetailsComponent implements OnInit {
           } else {
             this.getDocument();
           }
-          console.log(this.isPDF);
+  
         } else {
           this.isUpload = true;
         }

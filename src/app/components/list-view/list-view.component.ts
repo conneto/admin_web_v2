@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Organization } from 'src/app/models/organization/organization';
@@ -20,7 +21,7 @@ export class ListViewComponent implements OnInit {
 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
-
+  @ViewChild(MatSort) sort!: MatSort;
   dataSource = new MatTableDataSource;
 
   urlApi?: string;
@@ -47,6 +48,7 @@ export class ListViewComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
 
   }
   goToDetails(e?: any) {
@@ -66,6 +68,13 @@ export class ListViewComponent implements OnInit {
         case 'cam': this.router.navigate([`admin/manage-campaign/campaign-details/${e}`]); break;
 
       }
+    }
+  }
+  filterByName(e: any) {
+    const value = (e.target as HTMLInputElement).value;
+    this.dataSource.filter = value.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 }

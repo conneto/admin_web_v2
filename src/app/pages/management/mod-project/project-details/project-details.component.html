@@ -97,6 +97,13 @@
                 </div>
               </ng-template>
             </div>
+            
+            <div>
+              <app-search-bar
+                (getItem)="getData($event)"
+                [entityCopy]="passData"
+              ></app-search-bar>
+            </div>
             <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
               <button
                 (click)="openCampaignForm()"
@@ -106,12 +113,6 @@
                 <mat-icon>add</mat-icon>
                 Tạo chiến dịch
               </button>
-            </div>
-            <div>
-              <app-search-bar
-                (getItem)="getData($event)"
-                [entityCopy]="passData"
-              ></app-search-bar>
             </div>
           </div>
         </div>

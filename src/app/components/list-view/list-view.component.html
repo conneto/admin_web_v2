@@ -1,15 +1,19 @@
 <div *ngIf="entity">
   <div class="view-list">
-    <table mat-table [dataSource]="dataSource">
+    <mat-form-field>
+      <mat-label>Tìm kiếm theo tên</mat-label>
+      <input matInput #input (keyup)="filterByName($event)" />
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="no">
-        <th mat-header-cell *matHeaderCellDef>Số thứ tự</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Số thứ tự</th>
         <td mat-cell *matCellDef="let e">
           {{ e.no }}
         </td>
       </ng-container>
       <div *ngIf="whichEntity == 'org'">
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Tên</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên</th>
           <td mat-cell *matCellDef="let e">
             <img
               loading="lazy"
@@ -20,17 +24,21 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="created_name">
-          <th mat-header-cell *matHeaderCellDef>Người tạo</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Người tạo</th>
           <td mat-cell *matCellDef="let e">{{ e.created_name }}</td>
         </ng-container>
         <ng-container matColumnDef="founding_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày thành lập</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Ngày thành lập
+          </th>
           <td mat-cell *matCellDef="let e">
             {{ e.created_at | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>Loại tổ chức</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Loại tổ chức
+          </th>
           <td mat-cell *matCellDef="let e">
             {{
               utilService.convertType(e.type)
@@ -40,10 +48,9 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái</th>
           <td mat-cell *matCellDef="let e">
             <p class="isActive">
-    
               {{ e.is_enable == true ? "Đang hoạt động" : "Bị cấm hoạt động" }}
             </p>
           </td>
@@ -52,7 +59,9 @@
 
       <div *ngIf="whichEntity == 'pro'">
         <ng-container matColumnDef="org_name">
-          <th mat-header-cell *matHeaderCellDef>Thuộc tổ chức</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Thuộc tổ chức
+          </th>
           <td mat-cell *matCellDef="let e">
             <img
               loading="lazy"
@@ -62,24 +71,28 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Tên</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên</th>
           <td mat-cell *matCellDef="let e">{{ e.name }}</td>
         </ng-container>
         <ng-container matColumnDef="created_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày tạo</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</th>
           <td mat-cell *matCellDef="let e">
             {{ e.created_at | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="start_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày bắt đầu</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Ngày bắt đầu
+          </th>
           <td mat-cell *matCellDef="let e">
             {{ e.startDate | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="end_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày kết thúc</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Ngày kết thúc
+          </th>
           <td mat-cell *matCellDef="let e">
             {{ e.endDate | date: "dd/MM/yyyy" }}
           </td>
@@ -89,7 +102,7 @@
 
       <div *ngIf="whichEntity == 'cam'">
         <ng-container matColumnDef="pro_name">
-          <th mat-header-cell *matHeaderCellDef>Thuộc dự án</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Thuộc dự án</th>
           <td mat-cell *matCellDef="let e">
             <img
               loading="lazy"
@@ -99,24 +112,30 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Tên</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên</th>
           <td mat-cell *matCellDef="let e">{{ e.name }}</td>
         </ng-container>
         <ng-container matColumnDef="created_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày thành lập</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Ngày tạo
+          </th>
           <td mat-cell *matCellDef="let e">
             {{ e.createdAt | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="start_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày bắt đầu</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Ngày bắt đầu
+          </th>
           <td mat-cell *matCellDef="let e">
             {{ e.startDate | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="end_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày kết thúc</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            Ngày kết thúc
+          </th>
           <td mat-cell *matCellDef="let e">
             {{ e.endDate | date: "dd/MM/yyyy" }}
           </td>
@@ -126,7 +145,7 @@
 
       <div *ngIf="whichEntity == 'user'">
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Tên</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tên</th>
           <td mat-cell *matCellDef="let e">
             <img
               loading="lazy"
@@ -136,24 +155,24 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="username">
-          <th mat-header-cell *matHeaderCellDef>Tài khoản</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Tài khoản</th>
           <td mat-cell *matCellDef="let e">{{ e.username }}</td>
         </ng-container>
         <ng-container matColumnDef="created_date">
-          <th mat-header-cell *matHeaderCellDef>Ngày tạo</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</th>
           <td mat-cell *matCellDef="let e">
             {{ e.created_at | date: "dd/MM/yyyy" }}
           </td>
         </ng-container>
         <ng-container matColumnDef="role">
-          <th mat-header-cell *matHeaderCellDef>Vai trò</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Vai trò</th>
           <td mat-cell *matCellDef="let e">
             {{ e.role }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef>Trạng thái</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái</th>
           <td mat-cell *matCellDef="let e">
             {{ e.is_active == "true" ? "Đang hoạt động" : "Bị vô hiệu" }}
           </td>
@@ -167,6 +186,11 @@
         (click)="goToDetails(row.id)"
         *matRowDef="let row; columns: displayColumns"
       ></tr>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          Không có dữ liệu tương ứng với "{{ input.value }}"
+        </td>
+      </tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons>
     </mat-paginator>

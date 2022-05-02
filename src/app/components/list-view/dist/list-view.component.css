@@ -1,21 +1,3 @@
-.view-list table {
-  width: 100%;
-  text-align: center;
-}
-.view-list table td.mat-cell:nth-of-type(2), .view-list table td.mat-cell:nth-of-type(3) {
-  text-align: start;
-}
-.view-list th {
-  text-align: center;
-}
-.view-list .mat-card-avatar {
-  object-fit: contain;
-}
-.view-list img {
-  width: 50px;
-  height: 50px;
-}
-
 ::ng-deep .mat-paginator-page-size-label {
   display: none;
 }
@@ -31,4 +13,17 @@
   cursor: pointer;
   background-color: #ddd;
   opacity: 0.5;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
 }

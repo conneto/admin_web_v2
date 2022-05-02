@@ -20,7 +20,7 @@ var router_1 = require("@angular/router");
 var menu_icon_component_1 = require("../menu-icon/menu-icon.component");
 var angular_material_module_1 = require("src/app/angular-material.module");
 var dashboard_card_component_1 = require("../dashboard-card/dashboard-card.component");
-var user_card_component_1 = require("../user-service-card/user-service-card.component");
+var user_card_component_1 = require("../user-card/user-card.component");
 var campaign_card_info_component_1 = require("../campaign-card-info/campaign-card-info.component");
 var campaign_request_card_component_1 = require("../request-components/campaign-request-card/campaign-request-card.component");
 var project_request_card_component_1 = require("../request-components/project-request-card/project-request-card.component");
@@ -50,6 +50,7 @@ var list_view_component_1 = require("../list-view/list-view.component");
 var table_campaign_participations_component_1 = require("../table-campaign-participations/table-campaign-participations.component");
 var show_document_component_1 = require("../show-document/show-document.component");
 var organization_details_component_1 = require("../organization-details/organization-details.component");
+var entity_status_component_1 = require("../entity-status/entity-status.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -82,6 +83,7 @@ var componentModules = [
     table_campaign_participations_component_1.TableCampaignParticipationsComponent,
     show_document_component_1.ShowDocumentComponent,
     organization_details_component_1.OrganizationDetailsComponent,
+    entity_status_component_1.EntityStatusComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

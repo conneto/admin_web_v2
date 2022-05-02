@@ -61,6 +61,7 @@ var OrganizationsComponent = /** @class */ (function () {
         this.isDeleted = false;
         this.isList = false;
         this.isAdmin = false;
+        this.oldDataSearch = [];
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
         if (this.authService.currentUserValue.role == 'admin') {
@@ -390,6 +391,12 @@ var OrganizationsComponent = /** @class */ (function () {
                 }
             });
         });
+    };
+    OrganizationsComponent.prototype.getEntity = function (e) {
+        if (e) {
+            this.organizations = e;
+            this.oldDataSearch = this.organizations;
+        }
     };
     __decorate([
         core_1.ViewChild('tabGroup')

@@ -39,6 +39,7 @@ import { TableCampaignParticipationsComponent } from '../table-campaign-particip
 import { ShowDocumentComponent } from '../show-document/show-document.component';
 import { OrganizationDetailsComponent } from '../organization-details/organization-details.component';
 import { OrganizationDetailsModule } from 'src/app/pages/management/mod-organization/organization-details/organization-details.module';
+import { EntityStatusComponent } from '../entity-status/entity-status.component';
 
 
 const componentModules = [
@@ -73,6 +74,7 @@ const componentModules = [
   TableCampaignParticipationsComponent,
   ShowDocumentComponent,
   OrganizationDetailsComponent,
+  EntityStatusComponent,
   
 ]
 

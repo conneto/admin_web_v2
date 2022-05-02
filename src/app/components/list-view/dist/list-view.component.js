@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.ListViewComponent = void 0;
 var core_1 = require("@angular/core");
 var paginator_1 = require("@angular/material/paginator");
+var sort_1 = require("@angular/material/sort");
 var table_1 = require("@angular/material/table");
 var ListViewComponent = /** @class */ (function () {
     function ListViewComponent(role, router, loadingService, utilService) {
@@ -41,6 +42,7 @@ var ListViewComponent = /** @class */ (function () {
     };
     ListViewComponent.prototype.ngAfterViewInit = function () {
         this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
     };
     ListViewComponent.prototype.goToDetails = function (e) {
         if (this.role.currentUserValue.role != 'admin') {
@@ -70,6 +72,13 @@ var ListViewComponent = /** @class */ (function () {
             }
         }
     };
+    ListViewComponent.prototype.filterByName = function (e) {
+        var value = e.target.value;
+        this.dataSource.filter = value.trim().toLowerCase();
+        if (this.dataSource.paginator) {
+            this.dataSource.paginator.firstPage();
+        }
+    };
     __decorate([
         core_1.Input()
     ], ListViewComponent.prototype, "entity");
@@ -79,6 +88,9 @@ var ListViewComponent = /** @class */ (function () {
     __decorate([
         core_1.ViewChild(paginator_1.MatPaginator)
     ], ListViewComponent.prototype, "paginator");
+    __decorate([
+        core_1.ViewChild(sort_1.MatSort)
+    ], ListViewComponent.prototype, "sort");
     ListViewComponent = __decorate([
         core_1.Component({
             selector: 'app-list-view',

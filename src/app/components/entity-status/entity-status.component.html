@@ -1,0 +1,6 @@
+
+    <mat-form-field appearance="fill">
+        <mat-select [(value)]="default" (selectionChange)="getStatus($event.value)">
+         <mat-option  [value]="e" *ngFor='let e of status'>{{e}} </mat-option>
+        </mat-select>
+    </mat-form-field>

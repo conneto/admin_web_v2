@@ -42,6 +42,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isDeleted?: boolean = false;
   isList?: boolean = false;
   isAdmin?: boolean = false;
+  oldDataSearch:Organization[]=[];
 
   constructor(public utilService: UtilService, private loadingService: LoadingService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthServiceService) { }
 
@@ -379,5 +380,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     }
 
     this.isLoaded = true;
+  }
+  getEntity(e:any){
+    if(e){
+      this.organizations=e;
+      this.oldDataSearch=this.organizations;
+    }
   }
 }

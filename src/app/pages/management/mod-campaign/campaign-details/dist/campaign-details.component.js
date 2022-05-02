@@ -178,6 +178,8 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         this.isShow = false;
                         return [3 /*break*/, 7];
                     case 2:
+                        this.isPDF = false;
+                        this.isExcel = false;
                         _h = this;
                         return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
                     case 3:
@@ -194,7 +196,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
                                 });
                             }
                         }
-                        console.log(this.documentExcel);
                         if (this.isAdmin) {
                             if (this.documentPDF.length <= 0) {
                                 this.isEmpty = true;
@@ -205,7 +206,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
                             else {
                                 this.getDocument();
                             }
-                            console.log(this.isPDF);
                         }
                         else {
                             this.isUpload = true;

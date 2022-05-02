@@ -1,0 +1,61 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+exports.__esModule = true;
+exports.EntityStatusComponent = void 0;
+var core_1 = require("@angular/core");
+var EntityStatusComponent = /** @class */ (function () {
+    function EntityStatusComponent() {
+        this.status = ["Tất cả", "Vô hiệu hóa", "Cấp quyền"];
+        this["default"] = "Tất cả";
+        this.entity = new core_1.EventEmitter();
+    }
+    EntityStatusComponent.prototype.ngOnInit = function () {
+    };
+    EntityStatusComponent.prototype.sendData = function (e) {
+        this.entity.emit(e);
+    };
+    EntityStatusComponent.prototype.getStatus = function (e) {
+        if (e) {
+            switch (e) {
+                case 'Tất cả':
+                    this.sendData(this.entityData);
+                    break;
+                case 'Vô hiệu hóa':
+                    this.passData = this.entityData.filter(function (x) {
+                        return x.is_enable == false;
+                    });
+                    this.sendData(this.passData);
+                    break;
+                case 'Cấp quyền':
+                    this.passData = this.entityData.filter(function (x) {
+                        return x.is_enable == true;
+                    });
+                    this.sendData(this.passData);
+                    break;
+            }
+        }
+    };
+    __decorate([
+        core_1.Output()
+    ], EntityStatusComponent.prototype, "entity");
+    __decorate([
+        core_1.Input()
+    ], EntityStatusComponent.prototype, "type");
+    __decorate([
+        core_1.Input()
+    ], EntityStatusComponent.prototype, "entityData");
+    EntityStatusComponent = __decorate([
+        core_1.Component({
+            selector: 'app-entity-status',
+            templateUrl: './entity-status.component.html',
+            styleUrls: ['./entity-status.component.scss']
+        })
+    ], EntityStatusComponent);
+    return EntityStatusComponent;
+}());
+exports.EntityStatusComponent = EntityStatusComponent;
