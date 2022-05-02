@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CamapaignFormComponent } from './camapaign-form.component';
+import { CamapaignFormComponent } from './campaign-form.component';
 
 describe('CamapaignFormComponent', () => {
   let component: CamapaignFormComponent;

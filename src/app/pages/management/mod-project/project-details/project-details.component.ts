@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { _SnackBarContainer } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { CamapaignFormComponent } from 'src/app/components/create/camapaign-form/camapaign-form.component';
+import { CamapaignFormComponent } from 'src/app/components/create/campaign-form/campaign-form.component';
 import { ProjectFormComponent } from 'src/app/components/create/project-form/project-form.component';
 import { SelectTypeCampaignComponent } from 'src/app/components/select-type-campaign/select-type-campaign.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';

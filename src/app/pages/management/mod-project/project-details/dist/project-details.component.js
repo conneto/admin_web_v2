@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.ProjectDetailsComponent = void 0;
 var core_1 = require("@angular/core");
-var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
+var campaign_form_component_1 = require("src/app/components/create/campaign-form/campaign-form.component");
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var ProjectDetailsComponent = /** @class */ (function () {
     function ProjectDetailsComponent(organizationService, getEntityService, snackBar, auth, location, proApi, campaignService, actived, router, dialog, snackbar, loadingService, api, authApi) {
@@ -173,7 +173,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
     };
     ProjectDetailsComponent.prototype.openCampaignForm = function () {
         var _this = this;
-        var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
+        var dialogRef = this.dialog.open(campaign_form_component_1.CamapaignFormComponent, {
             width: '700px',
             data: {
                 title: 'Tạo chiến dịch',

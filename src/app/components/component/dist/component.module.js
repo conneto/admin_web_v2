@@ -30,7 +30,7 @@ var status_component_1 = require("../status/status.component");
 var organization_form_component_1 = require("../create/organization-form/organization-form.component");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var project_form_component_1 = require("../create/project-form/project-form.component");
-var camapaign_form_component_1 = require("../create/camapaign-form/camapaign-form.component");
+var campaign_form_component_1 = require("../create/campaign-form/campaign-form.component");
 var snack_bar_message_component_1 = require("../snack-bar-message/snack-bar-message.component");
 var loading_spinner_component_1 = require("../loading-spinner/loading-spinner.component");
 var tabgroup_component_1 = require("../tab-group/tabgroup.component");
@@ -64,7 +64,7 @@ var componentModules = [
     organization_form_component_1.OrganizationFormComponent,
     dialog_confirm_component_1.DialogConfirmComponent,
     project_form_component_1.ProjectFormComponent,
-    camapaign_form_component_1.CamapaignFormComponent,
+    campaign_form_component_1.CamapaignFormComponent,
     snack_bar_message_component_1.SnackBarMessageComponent,
     loading_spinner_component_1.LoadingSpinnerComponent,
     tabgroup_component_1.TabgroupComponent,

@@ -16,7 +16,7 @@ import { StatusComponent } from '../status/status.component';
 import { OrganizationFormComponent } from '../create/organization-form/organization-form.component';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { ProjectFormComponent } from '../create/project-form/project-form.component';
-import { CamapaignFormComponent } from '../create/camapaign-form/camapaign-form.component';
+import { CamapaignFormComponent } from '../create/campaign-form/campaign-form.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
 
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
@@ -75,7 +75,7 @@ const componentModules = [
   ShowDocumentComponent,
   OrganizationDetailsComponent,
   EntityStatusComponent,
-  
+
 ]
 
 @NgModule({

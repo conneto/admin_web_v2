@@ -218,9 +218,9 @@ var CamapaignFormComponent = /** @class */ (function () {
     };
     CamapaignFormComponent = __decorate([
         core_1.Component({
-            selector: 'app-camapaign-form',
-            templateUrl: './camapaign-form.component.html',
-            styleUrls: ['./camapaign-form.component.scss']
+            selector: 'app-campaign-form',
+            templateUrl: './campaign-form.component.html',
+            styleUrls: ['./campaign-form.component.scss']
         }),
         __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
     ], CamapaignFormComponent);

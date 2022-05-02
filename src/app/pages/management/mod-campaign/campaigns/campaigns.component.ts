@@ -2,7 +2,7 @@ import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
-import { CamapaignFormComponent } from 'src/app/components/create/camapaign-form/camapaign-form.component';
+import { CamapaignFormComponent } from 'src/app/components/create/campaign-form/campaign-form.component';
 
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';

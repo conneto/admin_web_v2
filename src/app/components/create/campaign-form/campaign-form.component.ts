@@ -12,9 +12,9 @@ import { OrganizationApiService } from 'src/app/services/organization/organizati
 import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
-  selector: 'app-camapaign-form',
-  templateUrl: './camapaign-form.component.html',
-  styleUrls: ['./camapaign-form.component.scss']
+  selector: 'app-campaign-form',
+  templateUrl: './campaign-form.component.html',
+  styleUrls: ['./campaign-form.component.scss']
 })
 export class CamapaignFormComponent implements OnInit {
   coverImage?: File;
