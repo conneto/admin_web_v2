@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Constant } from 'src/app/constant/constant';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Organization } from 'src/app/models/organization/organization';
 import { CampaignRequestComponent } from 'src/app/pages/manage-request/mod-campaign/campaign-request/campaign-request.component';
@@ -10,7 +11,7 @@ import { OrganizationRequestComponent } from 'src/app/pages/manage-request/mod-o
 import { CampaignsComponent } from 'src/app/pages/management/mod-campaign/campaigns/campaigns.component';
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
 import { ProjectComponent } from 'src/app/pages/management/mod-project/project/project.component';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { DialogConfirmComponent } from '../../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
@@ -18,7 +19,7 @@ import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-mess
 @Component({
   selector: 'app-organization-infor-card',
   templateUrl: './organization-infor-card.component.html',
-  styleUrls: ['./organization-infor-card.component.scss']
+  styleUrls: ['./organization-infor-card.component.scss'],
 })
 @Injectable({
   providedIn: 'root',
@@ -28,16 +29,28 @@ export class OrganizationInforCardComponent implements OnInit {
   urlApi?: string;
   urlLogo?: string;
   @Input() checkType?: any;
-  constructor(private pro: ProjectComponent, private cam: CampaignsComponent, private orga: OrganizationsComponent, private loadingApi: LoadingService, private camApi: CampaignRequestComponent, private location: Location, private snackBar: SnackBarMessageComponent, private router: Router, private dialog: MatDialog, private authApi: AuthServiceService, private org: OrganizationRequestComponent) {
-
-  }
+  constructor(
+    private pro: ProjectComponent,
+    private cam: CampaignsComponent,
+    private orga: OrganizationsComponent,
+    private loadingApi: LoadingService,
+    private camApi: CampaignRequestComponent,
+    private location: Location,
+    private snackBar: SnackBarMessageComponent,
+    private router: Router,
+    private dialog: MatDialog,
+    private authApi: AuthService,
+    private org: OrganizationRequestComponent
+  ) {}
 
   ngOnInit(): void {
     this.urlApi = this.loadingApi.getApiGetLink.value;
   }
 
   viewDetails(id: string) {
-    this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);
+    this.router.navigate([
+      'admin/organization-request/organization-request-detail/:' + id,
+    ]);
   }
 
   async approve(id?: string, checkType?: string) {
@@ -46,25 +59,37 @@ export class OrganizationInforCardComponent implements OnInit {
       data: {
         button: 'Đồng ý',
         close: 'Hủy',
-        message: checkType == 'org' ? "Bạn có chắc chắn muốn chấp nhận tổ chức này không?" :
-          checkType == 'cam' ? "Bạn có chắc chắn muốn chấp nhận chiến dịch này không?" : checkType == 'pro' ?
-            "Bạn có chắc chắn muốn chấp nhận dự án này không?" : "Bạn có chắc chắn muốn chấp nhận tổ chức này không?",
+        message:
+          checkType == 'org'
+            ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+            : checkType == 'cam'
+            ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+            : checkType == 'pro'
+            ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
+            : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
       },
-    })
+    });
 
     diaglogRef.afterClosed().subscribe(async (data) => {
-
       if (data) {
         this.loadingApi.isLoading.next(true);
         const data1 = {
           object_id: this.organizations?.id || id,
-          object_type: checkType == 'org' ? AuthServiceService.ORGANIZATION
-            : checkType == 'cam' ? AuthServiceService.CAMPAIGN : checkType == 'pro' ? AuthServiceService.PROJECT : AuthServiceService.ORGANIZATION,
+          object_type:
+            checkType == 'org'
+              ? Constant.ORGANIZATION
+              : checkType == 'cam'
+              ? Constant.CAMPAIGN
+              : checkType == 'pro'
+              ? Constant.PROJECT
+              : Constant.ORGANIZATION,
           status: 'approve',
           note: 'Approve this',
-        }
+        };
         console.log(this.checkType, checkType);
-        let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
+        let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(
+          data1
+        );
 
         if (res?.status == 0) {
           this.loadingApi.isLoading.next(false);
@@ -76,13 +101,13 @@ export class OrganizationInforCardComponent implements OnInit {
           } else if (checkType == 'cam' || this.checkType == 'cam') {
             this.cam.checkToGetData('pending');
           }
-          this.snackBar.showMessage("Chấp nhận thành công !", true);
+          this.snackBar.showMessage('Chấp nhận thành công !', true);
         } else {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
+          this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
         }
       }
-    })
+    });
   }
 
   async reject(id?: string, checkType?: string) {
@@ -92,24 +117,35 @@ export class OrganizationInforCardComponent implements OnInit {
         button: 'Đồng ý',
         close: 'Hủy',
         reason: true,
-        message: checkType == 'org' ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?' :
-          checkType == 'cam' ? "Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?" : checkType == 'pro' ?
-            "Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?" : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
-
-      }
-    })
-    diaglogRef.afterClosed().subscribe(async data => {
-
+        message:
+          checkType == 'org'
+            ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
+            : checkType == 'cam'
+            ? 'Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?'
+            : checkType == 'pro'
+            ? 'Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?'
+            : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
+      },
+    });
+    diaglogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         this.loadingApi.isLoading.next(true);
         const data1 = {
           object_id: this.organizations?.id || id,
-          object_type: checkType == 'org' ? AuthServiceService.ORGANIZATION
-            : checkType == 'cam' ? AuthServiceService.CAMPAIGN : checkType == 'pro' ? AuthServiceService.PROJECT : AuthServiceService.ORGANIZATION,
+          object_type:
+            checkType == 'org'
+              ? Constant.ORGANIZATION
+              : checkType == 'cam'
+              ? Constant.CAMPAIGN
+              : checkType == 'pro'
+              ? Constant.PROJECT
+              : Constant.ORGANIZATION,
           status: 'reject',
           note: data,
-        }
-        let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(data1);
+        };
+        let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(
+          data1
+        );
         this.loadingApi.isLoading.next(true);
         if (res?.status === 0) {
           this.loadingApi.isLoading.next(false);
@@ -120,14 +156,12 @@ export class OrganizationInforCardComponent implements OnInit {
           } else if (checkType == 'cam' || this.checkType == 'cam') {
             this.cam.checkToGetData('pending');
           }
-          this.snackBar.showMessage("Từ chối thành công", true);
+          this.snackBar.showMessage('Từ chối thành công', true);
         } else {
           this.loadingApi.isLoading.next(false);
-          this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
+          this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
         }
-
-
       }
-    })
+    });
   }
 }

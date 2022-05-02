@@ -1,19 +1,15 @@
-button {
-  margin-bottom: 10px;
-  color: black;
-  background: rgb(248, 79, 79);
-  margin-left:10px;
+.update {
+  background-color: rgb(167, 167, 255);
 }
 
-.update{
-
-  background-color: blue;
-}
-.enable{
-  background-color:#8af495;
+.delete {
+  background-color: rgb(255, 167, 167);
 }
 
-.disable{
-  background-color:#f48a8a;
+.enable {
+  background-color: #8af495;
+}
 
+.disable {
+  background-color: #f48a8a;
 }

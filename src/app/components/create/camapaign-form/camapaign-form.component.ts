@@ -6,7 +6,7 @@ import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 import { OrganizationDetailsComponent } from 'src/app/pages/management/mod-organization/organization-details/organization-details.component';
 
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
@@ -18,7 +18,7 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 })
 export class CamapaignFormComponent implements OnInit {
   coverImage?: File;
-  constructor(private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthServiceService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  constructor(private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthService, public dialogRef: MatDialogRef<CamapaignFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
   campaignForm!: FormGroup;
   isSubmitted?: boolean;
   organizations: Organization[] = [];
@@ -106,8 +106,8 @@ export class CamapaignFormComponent implements OnInit {
       this.categoryString='';
     }
     this.isSubmitted = true;
-    
- 
+
+
 
     this.projects = this.cloneProjects.filter(x => {
       return x.name == this.campaignForm.value.selected;
@@ -135,7 +135,7 @@ export class CamapaignFormComponent implements OnInit {
     if (this.campaignForm.valid) {
       this.campaignForm.value.category=this.categoryString;
       console.log(this.campaignForm.value);
-   
+
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
 
 

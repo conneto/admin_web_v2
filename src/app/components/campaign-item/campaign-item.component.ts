@@ -2,7 +2,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { UtilService } from 'src/app/services/util-service/util.service';
 
@@ -16,7 +16,7 @@ export class CampaignItemComponent implements OnInit {
   @Input() valueNumber?: any;
   urlApi?: string;
   isAdmin?: boolean;
-  constructor(public utilService: UtilService, private userApi: AuthServiceService, private router: Router, private loadingService: LoadingService) { }
+  constructor(public utilService: UtilService, private userApi: AuthService, private router: Router, private loadingService: LoadingService) { }
 
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;

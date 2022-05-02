@@ -56,7 +56,7 @@ var UserService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.STATISTIC)];
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.STATISTICS)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res.data || []];
@@ -90,12 +90,10 @@ var UserService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNT)];
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNTS)];
                     case 1:
                         res = _a.sent();
-                        res.data = res.data.map(function (item) {
-                            return _this.userAdapter.adapt(item);
-                        });
+                        res.data = res.data.map(function (item) { return _this.userAdapter.adapt(item); });
                         return [2 /*return*/, res.data || []];
                 }
             });
@@ -106,7 +104,7 @@ var UserService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNT + "/" + id)];
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNTS + "/" + id)];
                     case 1:
                         res = _a.sent();
                         res.data = this.userAdapter.adapt(res.data);
@@ -121,7 +119,7 @@ var UserService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNT + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATION)];
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNTS + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
                     case 1:
                         res = _a.sent();
                         console.log(res.data);

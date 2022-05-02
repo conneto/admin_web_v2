@@ -4,7 +4,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 @Injectable({
   providedIn: 'root',
@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   constructor(public loadService: LoadingService, private snackBar: SnackBarMessageComponent, private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthServiceService) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.initLoginForm();

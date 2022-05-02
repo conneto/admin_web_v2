@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { Constant } from 'src/app/constant/constant';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { OrganizationsComponent } from 'src/app/pages/management/mod-organization/organizations/organizations.component';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
@@ -30,7 +30,7 @@ export class OrganizationFormComponent implements OnInit {
   categoryStringClone: string = '';
   isRemoved?: boolean;
   isWrongFile?: boolean;
-  constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
+  constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthService) { }
 
   ngOnInit(): void {
     this.initFormBuilder();

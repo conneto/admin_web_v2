@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { OrganizationInforCardComponent } from '../request-components/organization-infor-card/organization-infor-card.component';
 
@@ -24,7 +24,7 @@ export class ApproveDeclineButtonComponent implements OnInit {
   isPro: string='';
   isOrg: string='';
   isCam: string='';
-  constructor(private router: Router, private authApi: AuthServiceService, private dialog: MatDialog, private dialogConfirm: OrganizationInforCardComponent) { }
+  constructor(private router: Router, private authApi: AuthService, private dialog: MatDialog, private dialogConfirm: OrganizationInforCardComponent) { }
 
   ngOnInit(): void {
     this.check();

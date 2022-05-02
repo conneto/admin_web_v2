@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { Constant } from 'src/app/constant/constant';
 
 
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
@@ -17,7 +17,7 @@ import { ProjectService } from 'src/app/services/project-service/project.service
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
-  constructor(private router:Router,public organizationId: LoadingService, private authApi: AuthServiceService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
+  constructor(private router:Router,public organizationId: LoadingService, private authApi: AuthService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
   projectForm!: FormGroup;
   coverImage?: File;
   logo?:File;
@@ -51,7 +51,7 @@ export class ProjectFormComponent implements OnInit {
 
   }
   yesClick() {
-    
+
     if (this.projectForm.controls.category.value.length != 0 && this.projectForm.controls.category.value) {
       if (this.isRemoved == true || this.isSubmitted == true) {
         this.categoryStringClone = '';

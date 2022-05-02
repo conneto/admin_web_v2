@@ -44,7 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationInforCardComponent = void 0;
 var core_1 = require("@angular/core");
-var auth_service_service_1 = require("src/app/services/auth/auth-service.service");
+var constant_1 = require("src/app/constant/constant");
 var dialog_confirm_component_1 = require("../../dialog-confirm/dialog-confirm.component");
 var OrganizationInforCardComponent = /** @class */ (function () {
     function OrganizationInforCardComponent(pro, cam, orga, loadingApi, camApi, location, snackBar, router, dialog, authApi, org) {
@@ -64,7 +64,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
         this.urlApi = this.loadingApi.getApiGetLink.value;
     };
     OrganizationInforCardComponent.prototype.viewDetails = function (id) {
-        this.router.navigate(['admin/organization-request/organization-request-detail/:' + id]);
+        this.router.navigate([
+            'admin/organization-request/organization-request-detail/:' + id,
+        ]);
     };
     OrganizationInforCardComponent.prototype.approve = function (id, checkType) {
         return __awaiter(this, void 0, void 0, function () {
@@ -76,9 +78,13 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                     data: {
                         button: 'Đồng ý',
                         close: 'Hủy',
-                        message: checkType == 'org' ? "Bạn có chắc chắn muốn chấp nhận tổ chức này không?" :
-                            checkType == 'cam' ? "Bạn có chắc chắn muốn chấp nhận chiến dịch này không?" : checkType == 'pro' ?
-                                "Bạn có chắc chắn muốn chấp nhận dự án này không?" : "Bạn có chắc chắn muốn chấp nhận tổ chức này không?"
+                        message: checkType == 'org'
+                            ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+                            : checkType == 'cam'
+                                ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+                                : checkType == 'pro'
+                                    ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
+                                    : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
@@ -91,8 +97,13 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 this.loadingApi.isLoading.next(true);
                                 data1 = {
                                     object_id: ((_a = this.organizations) === null || _a === void 0 ? void 0 : _a.id) || id,
-                                    object_type: checkType == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
-                                        : checkType == 'cam' ? auth_service_service_1.AuthServiceService.CAMPAIGN : checkType == 'pro' ? auth_service_service_1.AuthServiceService.PROJECT : auth_service_service_1.AuthServiceService.ORGANIZATION,
+                                    object_type: checkType == 'org'
+                                        ? constant_1.Constant.ORGANIZATION
+                                        : checkType == 'cam'
+                                            ? constant_1.Constant.CAMPAIGN
+                                            : checkType == 'pro'
+                                                ? constant_1.Constant.PROJECT
+                                                : constant_1.Constant.ORGANIZATION,
                                     status: 'approve',
                                     note: 'Approve this'
                                 };
@@ -111,11 +122,11 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     else if (checkType == 'cam' || this.checkType == 'cam') {
                                         this.cam.checkToGetData('pending');
                                     }
-                                    this.snackBar.showMessage("Chấp nhận thành công !", true);
+                                    this.snackBar.showMessage('Chấp nhận thành công !', true);
                                 }
                                 else {
                                     this.loadingApi.isLoading.next(false);
-                                    this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
+                                    this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
                                 }
                                 _b.label = 2;
                             case 2: return [2 /*return*/];
@@ -137,9 +148,13 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                         button: 'Đồng ý',
                         close: 'Hủy',
                         reason: true,
-                        message: checkType == 'org' ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?' :
-                            checkType == 'cam' ? "Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?" : checkType == 'pro' ?
-                                "Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?" : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
+                        message: checkType == 'org'
+                            ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
+                            : checkType == 'cam'
+                                ? 'Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?'
+                                : checkType == 'pro'
+                                    ? 'Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?'
+                                    : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
@@ -152,8 +167,13 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                 this.loadingApi.isLoading.next(true);
                                 data1 = {
                                     object_id: ((_a = this.organizations) === null || _a === void 0 ? void 0 : _a.id) || id,
-                                    object_type: checkType == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
-                                        : checkType == 'cam' ? auth_service_service_1.AuthServiceService.CAMPAIGN : checkType == 'pro' ? auth_service_service_1.AuthServiceService.PROJECT : auth_service_service_1.AuthServiceService.ORGANIZATION,
+                                    object_type: checkType == 'org'
+                                        ? constant_1.Constant.ORGANIZATION
+                                        : checkType == 'cam'
+                                            ? constant_1.Constant.CAMPAIGN
+                                            : checkType == 'pro'
+                                                ? constant_1.Constant.PROJECT
+                                                : constant_1.Constant.ORGANIZATION,
                                     status: 'reject',
                                     note: data
                                 };
@@ -172,11 +192,11 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     else if (checkType == 'cam' || this.checkType == 'cam') {
                                         this.cam.checkToGetData('pending');
                                     }
-                                    this.snackBar.showMessage("Từ chối thành công", true);
+                                    this.snackBar.showMessage('Từ chối thành công', true);
                                 }
                                 else {
                                     this.loadingApi.isLoading.next(false);
-                                    this.snackBar.showMessage("Lỗi.Xin hãy thử lại", false);
+                                    this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
                                 }
                                 _b.label = 2;
                             case 2: return [2 /*return*/];

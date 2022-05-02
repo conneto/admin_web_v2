@@ -9,7 +9,7 @@ import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
@@ -40,7 +40,7 @@ export class CampaignsComponent implements OnInit {
   isApprovedProject?: boolean;
   projects: Project[] = [];
   @ViewChild('changeView') changeView?: ChangeToListComponent;
-  constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthServiceService) { }
+  constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
@@ -96,7 +96,7 @@ export class CampaignsComponent implements OnInit {
       width: '700px',
       data: {
         title: 'Tạo chiến dịch',
-        
+
       }
     })
 

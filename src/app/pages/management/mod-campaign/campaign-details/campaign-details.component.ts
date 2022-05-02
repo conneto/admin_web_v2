@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { DownloadDocumentFormComponent } from 'src/app/components/download-document-form/download-document-form.component';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 
@@ -35,7 +35,7 @@ export class CampaignDetailsComponent implements OnInit {
   isUpload?: boolean;
   pdfName?:any;
 
-  constructor(private dialog: MatDialog, private userApi: AuthServiceService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
+  constructor(private dialog: MatDialog, private userApi: AuthService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
 
   ngOnInit(): void {
     this.isPDF = true;
@@ -130,7 +130,7 @@ export class CampaignDetailsComponent implements OnInit {
 
           }
         }
-    
+
         if (this.isAdmin) {
           if (this.documentPDF.length <= 0) {
             this.isEmpty = true;
@@ -139,7 +139,7 @@ export class CampaignDetailsComponent implements OnInit {
           } else {
             this.getDocument();
           }
-  
+
         } else {
           this.isUpload = true;
         }

@@ -1,27 +1,20 @@
 <div class="container">
   <div *ngIf="!isAdmin">
-    <button *ngIf="!isSave" class="update" mat-raised-button (click)="change()">
-      Chỉnh sửa
+    <button *ngIf="!isSave" class="update m-3" mat-icon-button (click)="change()">
+      <mat-icon>edit</mat-icon>
     </button>
-    <button *ngIf="isSave" class="update" mat-raised-button (click)="change()">
-      Lưu
+    <button *ngIf="isSave" class="update m-3" mat-icon-button (click)="change()">
+      <mat-icon>save</mat-icon>
     </button>
-    <button mat-raised-button (click)="delete()">Xóa</button>
+    <button mat-icon-button class="delete m-3" (click)="delete()">
+      <mat-icon>delete</mat-icon>
+    </button>
   </div>
   <div *ngIf="isAdmin">
-    <button
-      *ngIf="entity.is_active == false"
-      class="enable"
-      mat-raised-button
-      (click)="enable()"
-    >
+    <button *ngIf="entity.is_active == false" class="enable m-3" mat-raised-button (click)="enable()">
       Cấp quyền
     </button>
-    <button
-      *ngIf="entity.is_active == true"
-      mat-raised-button
-      (click)="disable()"
-    >
+    <button *ngIf="entity.is_active == true" class="disable m-3"  mat-raised-button (click)="disable()">
       Vô hiệu hóa
     </button>
   </div>

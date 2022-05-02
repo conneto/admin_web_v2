@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthServiceService } from '../services/auth/auth-service.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private authApi: AuthServiceService) {
+  constructor(private router: Router, private authApi: AuthService) {
 
   }
   canActivate(
@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
     const currentUser = this.authApi.currentUserValue;
     if (currentUser) {
       if(currentUser.role=='admin'){
-     
+
         return true;
       }else if(currentUser.role=='organization_manager'){
         this.router.navigate(['/manager']);
@@ -37,4 +37,3 @@ export class AuthGuard implements CanActivate {
     return false;
   }
 }
-

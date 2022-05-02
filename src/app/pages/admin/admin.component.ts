@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {UserLoginResponse} from 'src/app/dtos/user-login-response/user-login-response.model';
 import {Menu} from 'src/app/models/menu/menu';
-import {AuthServiceService} from 'src/app/services/auth/auth-service.service';
+import {AuthService} from 'src/app/services/auth/auth.service';
 import {OrganizationsComponent} from '../management/mod-organization/organizations/organizations.component';
 
 @Component({
@@ -58,7 +58,7 @@ export class AdminComponent implements OnInit {
   ]
   user?: UserLoginResponse;
 
-  constructor(private authService: AuthServiceService, private router: Router, private orgApi: OrganizationsComponent,) {
+  constructor(private authService: AuthService, private router: Router, private orgApi: OrganizationsComponent,) {
   }
 
   isExpanded: boolean = false;

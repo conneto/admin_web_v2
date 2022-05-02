@@ -44,27 +44,27 @@ export class CampaignService {
     return res
   }
   async uploadCashFlow(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}/${Constant.CASHFLOW_DETAIL}`, data);
+    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENTS}/${Constant.CASHFLOW_DETAILS}`, data);
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async uploadPdf(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}`, data);
+    let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENTS}`, data);
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async getCashFlow(id: string) {
-    let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}/${Constant.CASHFLOW_DETAIL}`);
+    let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENTS}/${Constant.CASHFLOW_DETAILS}`);
 
     return res.data || [];
   }
   async getParticipations(id: string) {
     console.log(id);
-    let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.CAMPAIGN_PARTICIPATION}`);
+    let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.CAMPAIGN_PARTICIPATIONS}`);
     return res.data||[];
   }
   async delete(id:string){
@@ -72,7 +72,7 @@ export class CampaignService {
     return res;
   }
   async getPdf(id:string){
-    let res:BaseResponse=await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENT}`);
+    let res:BaseResponse=await this.apiService.get(`${Constant.CAMPAIGN}/${id}/${Constant.DONATION_DOCUMENTS}`);
     return res.data||[];
   }
 }

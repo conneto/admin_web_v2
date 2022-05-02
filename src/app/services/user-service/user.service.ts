@@ -6,37 +6,42 @@ import { UserAdapter } from 'src/app/models/user/user.model';
 import { ApiService } from '../api/api.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-
-  constructor(private api: ApiService, private dashboardAdapter: DashboardApdater, private userAdapter: UserAdapter) { }
+  constructor(
+    private api: ApiService,
+    private dashboardAdapter: DashboardApdater,
+    private userAdapter: UserAdapter
+  ) {}
 
   async getStatistics() {
-    let res: BaseResponse = await this.api.get(Constant.STATISTIC);
+    let res: BaseResponse = await this.api.get(Constant.STATISTICS);
 
     return res.data || [];
   }
   async getRanking(type?: string) {
     let res!: BaseResponse;
     if (type == 'recruitment') {
-      res = await this.api.get(`${Constant.CAMPAIGN}/top_volunteers?type=participate`);
+      res = await this.api.get(
+        `${Constant.CAMPAIGN}/top_volunteers?type=participate`
+      );
     } else {
-      res = await this.api.get(`${Constant.CAMPAIGN}/top_volunteers?type=donate`);
+      res = await this.api.get(
+        `${Constant.CAMPAIGN}/top_volunteers?type=donate`
+      );
     }
     return res.data || [];
   }
   async getListUsers() {
-    let res: BaseResponse = await this.api.get(Constant.ACCOUNT);
+    let res: BaseResponse = await this.api.get(Constant.ACCOUNTS);
 
-    res.data = res.data.map((item: any) =>
-      this.userAdapter.adapt(item)
-    )
+    res.data = res.data.map((item: any) => this.userAdapter.adapt(item));
     return res.data || [];
   }
 
   async getById(id: string) {
-    let res: BaseResponse = await this.api.get(`${Constant.ACCOUNT}/${id}`);
+    let res: BaseResponse = await this.api.get(`${Constant.ACCOUNTS}/${id}`);
 
     res.data = this.userAdapter.adapt(res.data);
 
@@ -46,7 +51,9 @@ export class UserService {
   }
 
   async getCampaignParticipations(id: string) {
-    let res: BaseResponse = await this.api.get(`${Constant.ACCOUNT}/${id}/${Constant.CAMPAIGN_PARTICIPATION}`);
+    let res: BaseResponse = await this.api.get(
+      `${Constant.ACCOUNTS}/${id}/${Constant.CAMPAIGN_PARTICIPATIONS}`
+    );
 
     console.log(res.data);
 

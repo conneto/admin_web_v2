@@ -1,12 +1,9 @@
-button {
-  margin-bottom: 10px;
-  color: black;
-  background: #f84f4f;
-  margin-left: 10px;
+.update {
+  background-color: #a7a7ff;
 }
 
-.update {
-  background-color: blue;
+.delete {
+  background-color: #ffa7a7;
 }
 
 .enable {

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthServiceService } from '../services/auth/auth-service.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Guard3Guard implements CanActivate {
-  constructor(private user:AuthServiceService,private router:Router){
+  constructor(private user:AuthService,private router:Router){
 
   }
   canActivate(
@@ -25,5 +25,5 @@ export class Guard3Guard implements CanActivate {
       this.router.navigate(['/login']);
       return false;
   }
-  
+
 }

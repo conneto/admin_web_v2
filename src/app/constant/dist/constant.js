@@ -4,14 +4,28 @@ exports.Constant = void 0;
 var Constant = /** @class */ (function () {
     function Constant() {
     }
-    Constant.STATISTIC = 'statistics';
-    Constant.ACCOUNT = 'accounts';
-    Constant.ORGANIZATION = 'organizations';
-    Constant.PROJECT = 'projects';
-    Constant.CAMPAIGN = 'campaigns';
-    Constant.DONATION_DOCUMENT = 'donation_documents';
-    Constant.CASHFLOW_DETAIL = 'cashflow_details';
-    Constant.CAMPAIGN_PARTICIPATION = 'campaign_participations';
+    Constant.STATISTICS = 'statistics';
+    Constant.ACCOUNTS = 'accounts';
+    Constant.ORGANIZATIONS = 'organizations';
+    Constant.PROJECTS = 'projects';
+    Constant.CAMPAIGNS = 'campaigns';
+    Constant.DONATION_DOCUMENTS = 'donation_documents';
+    Constant.CASHFLOW_DETAILS = 'cashflow_details';
+    Constant.CAMPAIGN_PARTICIPATIONS = 'campaign_participations';
+    Constant.LOGIN = '/login';
+    Constant.REGISTER = '/register';
+    Constant.KEY = '_CoNn3t0Se(R3T';
+    Constant.ROLE = 'organization_manager';
+    Constant.ADMIN = 'admins';
+    Constant.APPROVEADMIN = 'approve';
+    Constant.APPROVEMENTS = 'approvements';
+    Constant.APPROVE = 'chấp nhận';
+    Constant.REJECT = 'từ chối';
+    Constant.PROJECT = 'project';
+    Constant.ORGANIZATION = 'organization';
+    Constant.CAMPAIGN = 'campaign';
+    Constant.ORGANIZATION_MANAGER = 'organization_manager';
+    Constant.ACTIVATE = 'activate';
     Constant.CATEGORY = [
         {
             name: 'covid19',

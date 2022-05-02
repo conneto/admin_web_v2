@@ -7,7 +7,7 @@ import { CampaignAdapter } from 'src/app/models/campaign/campaign.model';
 import { OrganizationAdapter } from 'src/app/models/organization/organization';
 import { ProjectAdapter } from 'src/app/models/projects/project.model';
 import { ApiService } from '../api/api.service';
-import { AuthServiceService } from '../auth/auth-service.service';
+import { AuthService } from '../auth/auth.service';
 import { CampaignService } from '../campaign/campaign.service';
 import { ProjectService } from '../project-service/project.service';
 
@@ -19,7 +19,7 @@ export class OrganizationApiService {
   public static readonly ORGANIZATION = 'organization';
   public static readonly CREATE = 'create';
   user?: UserLoginResponse
-  constructor(private campaignAdapter: CampaignAdapter, private projectAdapter: ProjectAdapter, private apiService: ApiService, private adapter: OrganizationAdapter, private authApi: AuthServiceService) {
+  constructor(private campaignAdapter: CampaignAdapter, private projectAdapter: ProjectAdapter, private apiService: ApiService, private adapter: OrganizationAdapter, private authApi: AuthService) {
     this.user = authApi.currentUserValue;
   }
 

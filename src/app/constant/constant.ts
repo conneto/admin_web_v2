@@ -1,12 +1,26 @@
 export class Constant {
-  public static readonly STATISTIC = 'statistics';
-  public static readonly ACCOUNT = 'accounts';
-  public static readonly ORGANIZATION = 'organizations';
-  public static readonly PROJECT = 'projects';
-  public static readonly CAMPAIGN = 'campaigns';
-  public static readonly DONATION_DOCUMENT = 'donation_documents';
-  public static readonly CASHFLOW_DETAIL = 'cashflow_details';
-  public static readonly CAMPAIGN_PARTICIPATION = 'campaign_participations';
+  public static readonly STATISTICS = 'statistics';
+  public static readonly ACCOUNTS = 'accounts';
+  public static readonly ORGANIZATIONS = 'organizations';
+  public static readonly PROJECTS = 'projects';
+  public static readonly CAMPAIGNS = 'campaigns';
+  public static readonly DONATION_DOCUMENTS = 'donation_documents';
+  public static readonly CASHFLOW_DETAILS = 'cashflow_details';
+  public static readonly CAMPAIGN_PARTICIPATIONS = 'campaign_participations';
+  public static readonly LOGIN = '/login';
+  public static readonly REGISTER = '/register';
+  public static readonly KEY = '_CoNn3t0Se(R3T';
+  public static readonly ROLE = 'organization_manager';
+  public static readonly ADMIN = 'admins';
+  public static readonly APPROVEADMIN = 'approve';
+  public static readonly APPROVEMENTS = 'approvements';
+  public static readonly APPROVE = 'chấp nhận';
+  public static readonly REJECT = 'từ chối';
+  public static readonly PROJECT = 'project';
+  public static readonly ORGANIZATION = 'organization';
+  public static readonly CAMPAIGN = 'campaign';
+  public static readonly ORGANIZATION_MANAGER = 'organization_manager';
+  public static readonly ACTIVATE = 'activate';
   public static readonly CATEGORY = [
     {
       name: 'covid19',

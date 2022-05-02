@@ -45,6 +45,7 @@ exports.__esModule = true;
 exports.AuthService = void 0;
 var core_1 = require("@angular/core");
 var rxjs_1 = require("rxjs");
+var constant_1 = require("src/app/constant/constant");
 var ts_md5_1 = require("ts-md5");
 var AuthService = /** @class */ (function () {
     function AuthService(loadingService, snackBar, apiService, userRequest, userResponse, registerRequest) {
@@ -57,7 +58,6 @@ var AuthService = /** @class */ (function () {
         this.curUserSubject = new rxjs_1.BehaviorSubject(JSON.parse(localStorage.getItem('USER_WEB')));
         this.curUser = this.curUserSubject.asObservable();
     }
-    AuthService_1 = AuthService;
     Object.defineProperty(Constant.prototype, "currentUserValue", {
         get: function () {
             return this.curUserSubject.value;
@@ -73,9 +73,9 @@ var AuthService = /** @class */ (function () {
                     case 0:
                         md5 = new ts_md5_1.Md5();
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.apiService.post(AuthService_1.ACCOUNTS + AuthService_1.LOGIN, this.userRequest.adapt({
+                        return [4 /*yield*/, this.apiService.post(constant_1.Constant.ACCOUNTS + constant_1.Constant.LOGIN, this.userRequest.adapt({
                                 username: username,
-                                password: md5.appendStr(password.concat(AuthService_1.KEY)).end()
+                                password: md5.appendStr(password.concat(constant_1.Constant.KEY)).end()
                             }))];
                     case 1:
                         res = _a.sent();
@@ -111,7 +111,7 @@ var AuthService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         md5 = new ts_md5_1.Md5();
-                        return [4 /*yield*/, this.apiService.post(AuthService_1.ACCOUNTS + AuthService_1.REGISTER, data)];
+                        return [4 /*yield*/, this.apiService.post(constant_1.Constant.ACCOUNTS + constant_1.Constant.REGISTER, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -129,14 +129,13 @@ var AuthService = /** @class */ (function () {
         localStorage.removeItem('reject');
         localStorage.removeItem('pending');
         this.curUserSubject.next(null);
-        console.log(localStorage.getItem('USER_TOKEN'));
     };
     Constant.prototype.updateRequestByAdmin = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.put(AuthService_1.ADMIN + '/' + AuthService_1.APPROVEADMIN, data)];
+                    case 0: return [4 /*yield*/, this.apiService.put(constant_1.Constant.ADMIN + '/' + constant_1.Constant.APPROVEADMIN, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -152,7 +151,7 @@ var AuthService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.put(AuthService_1.ADMIN + '/' + AuthService_1.ACTIVATE, data)];
+                    case 0: return [4 /*yield*/, this.apiService.put(constant_1.Constant.ADMIN + '/' + constant_1.Constant.ACTIVATE, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -168,7 +167,7 @@ var AuthService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.put(AuthService_1.ORGANIZATION_MANAGER + '/' + AuthService_1.APPROVEMENTS, data)];
+                    case 0: return [4 /*yield*/, this.apiService.put(constant_1.Constant.ORGANIZATION_MANAGER + '/' + constant_1.Constant.APPROVEMENTS, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -179,23 +178,7 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
-    var AuthService_1;
-    Constant.ACCOUNTS = 'accounts';
-    Constant.LOGIN = '/login';
-    Constant.REGISTER = '/register';
-    Constant.KEY = '_CoNn3t0Se(R3T';
-    Constant.ROLE = 'organization_manager';
-    Constant.ADMIN = 'admins';
-    Constant.APPROVEADMIN = 'approve';
-    Constant.APPROVEMENTS = 'approvements';
-    Constant.APPROVE = 'chấp nhận';
-    Constant.REJECT = 'từ chối';
-    Constant.PROJECT = 'project';
-    Constant.ORGANIZATION = 'organization';
-    Constant.CAMPAIGN = 'campaign';
-    Constant.ORGANIZATION_MANAGER = 'organization_manager';
-    Constant.ACTIVATE = 'activate';
-    AuthService = AuthService_1 = __decorate([
+    AuthService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })

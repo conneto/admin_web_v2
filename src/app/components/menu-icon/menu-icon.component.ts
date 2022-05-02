@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Menu } from 'src/app/models/menu/menu';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 
 @Component({
@@ -12,12 +12,12 @@ export class MenuIconComponent implements OnInit {
   @Input() menu?: Menu;
   @Input() isExpaned?: boolean;
   @Output() getTitle = new EventEmitter<Menu>();
-  
+
   isShowSubMenu=false;
-  constructor(private authApi:AuthServiceService){
-  
+  constructor(private authApi:AuthService){
+
   }
-  
+
 
   ngOnInit(): void {
 
@@ -29,4 +29,3 @@ export class MenuIconComponent implements OnInit {
   }
 
 }
-

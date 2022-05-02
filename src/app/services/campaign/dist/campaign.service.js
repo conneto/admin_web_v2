@@ -121,7 +121,7 @@ var CampaignService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENT + "/" + constant_1.Constant.CASHFLOW_DETAIL, data)];
+                    case 0: return [4 /*yield*/, this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS + "/" + constant_1.Constant.CASHFLOW_DETAILS, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -137,7 +137,7 @@ var CampaignService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENT, data)];
+                    case 0: return [4 /*yield*/, this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -153,7 +153,7 @@ var CampaignService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENT + "/" + constant_1.Constant.CASHFLOW_DETAIL)];
+                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS + "/" + constant_1.Constant.CASHFLOW_DETAILS)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res.data || []];
@@ -168,7 +168,7 @@ var CampaignService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         console.log(id);
-                        return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATION)];
+                        return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res.data || []];
@@ -194,7 +194,7 @@ var CampaignService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENT)];
+                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res.data || []];

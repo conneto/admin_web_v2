@@ -4,7 +4,7 @@ import { ChangeToListComponent } from 'src/app/components/change-to-list/change-
 import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
 import { Organization } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { UserService } from 'src/app/services/user-service/user.service';
@@ -44,7 +44,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isAdmin?: boolean = false;
   oldDataSearch:Organization[]=[];
 
-  constructor(public utilService: UtilService, private loadingService: LoadingService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthServiceService) { }
+  constructor(public utilService: UtilService, private loadingService: LoadingService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthService) { }
 
   ngOnInit(): void {
     if (this.authService.currentUserValue.role == 'admin') {
@@ -72,11 +72,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   }
   handleTitle(e: any) {
     this.noResultBySearch=false;
-    
+
     if (e == 'list') {
       this.isList = true;
     } else {
-    
+
       this.isList = false;
     }
   }
@@ -84,7 +84,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     this.viewGrid?.changeView(true);
   }
   getOrganizations(e:any){
-    
+
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {

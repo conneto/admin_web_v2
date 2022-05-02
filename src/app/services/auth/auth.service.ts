@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
+import { Constant } from 'src/app/constant/constant';
 import { RegisterAdapter } from 'src/app/dtos/register/register.model';
 import { UserLoginRequestAdapter } from 'src/app/dtos/user-login-request/user-login-request.model';
 import { UserLoginResponse, UserLoginResponseApdater } from 'src/app/dtos/user-login-response/user-login-response.model';
@@ -13,24 +14,10 @@ import { LoadingService } from '../loading-service/loading.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
   private curUserSubject: BehaviorSubject<any>;
   private curUser: Observable<any>;
-  public static readonly ACCOUNTS = 'accounts';
-  public static readonly LOGIN = '/login';
-  public static readonly REGISTER = '/register';
-  public static readonly KEY = '_CoNn3t0Se(R3T';
-  public static readonly ROLE = 'organization_manager';
-  public static readonly ADMIN = 'admins';
-  public static readonly APPROVEADMIN = 'approve';
-  public static readonly APPROVEMENTS = 'approvements';
-  public static readonly APPROVE = 'chấp nhận';
-  public static readonly REJECT = 'từ chối';
-  public static readonly PROJECT = 'project';
-  public static readonly ORGANIZATION = 'organization';
-  public static readonly CAMPAIGN = 'campaign';
-  public static readonly ORGANIZATION_MANAGER = 'organization_manager';
-  public static readonly ACTIVATE = 'activate';
+
   constructor(private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
 
     this.curUserSubject = new BehaviorSubject<any>(
@@ -46,10 +33,10 @@ export class AuthServiceService {
     const md5 = new Md5();
     this.loadingService.isLoading.next(true);
     let res: BaseResponse = await this.apiService.post(
-      AuthServiceService.ACCOUNTS + AuthServiceService.LOGIN,
+      Constant.ACCOUNTS + Constant.LOGIN,
       this.userRequest.adapt({
         username: username,
-        password: md5.appendStr(password.concat(AuthServiceService.KEY)).end(),
+        password: md5.appendStr(password.concat(Constant.KEY)).end(),
       })
     );
     if (res.status == 0) {
@@ -57,7 +44,7 @@ export class AuthServiceService {
       this.loadingService.isLoading.next(false);
       let userLoginResponse: UserLoginResponse =
         this.userResponse.adapt(res.data);
-   
+
       if (userLoginResponse.role == 'volunteer') {
         this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
       } else {
@@ -78,7 +65,7 @@ export class AuthServiceService {
   async register(data: any) {
 
     const md5 = new Md5();
-    let res: BaseResponse = await this.apiService.post(AuthServiceService.ACCOUNTS + AuthServiceService.REGISTER, data
+    let res: BaseResponse = await this.apiService.post(Constant.ACCOUNTS + Constant.REGISTER, data
     );
 
     if (res.status != 0) {
@@ -95,25 +82,24 @@ export class AuthServiceService {
     localStorage.removeItem('reject');
     localStorage.removeItem('pending');
     this.curUserSubject.next(null);
-    console.log(localStorage.getItem('USER_TOKEN'));
   }
 
   async updateRequestByAdmin(data: any) {
-    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.APPROVEADMIN, data);
+    let res: BaseResponse = await this.apiService.put(Constant.ADMIN + '/' + Constant.APPROVEADMIN, data);
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async activateEntity(data: any) {
-    let res: BaseResponse = await this.apiService.put(AuthServiceService.ADMIN + '/' + AuthServiceService.ACTIVATE, data);
+    let res: BaseResponse = await this.apiService.put(Constant.ADMIN + '/' + Constant.ACTIVATE, data);
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async updateRequestByManager(data: any) {
-    let res: BaseResponse = await this.apiService.put(AuthServiceService.ORGANIZATION_MANAGER + '/' + AuthServiceService.APPROVEMENTS, data);
+    let res: BaseResponse = await this.apiService.put(Constant.ORGANIZATION_MANAGER + '/' + Constant.APPROVEMENTS, data);
     if (res.status != 0) {
       return res;
     }

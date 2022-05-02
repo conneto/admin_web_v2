@@ -11,7 +11,7 @@ import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 
 import { User } from 'src/app/models/user/user.model';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
@@ -40,7 +40,7 @@ export class ProjectComponent implements OnInit {
   isList?: boolean = false;
   organization: Organization[] = [];
   isAdmin?: boolean;
-  constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthServiceService) { }
+  constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
@@ -82,7 +82,7 @@ export class ProjectComponent implements OnInit {
   async checkToGetData(status?: string) {
     this.projects = await this.api.getAll();
     this.organization = await this.orgApi.getAll();
- 
+
     this.passData = this.projects;
     if (status == 'pending') {
       this.getAllProjectsByStatus('pending', this.projects);

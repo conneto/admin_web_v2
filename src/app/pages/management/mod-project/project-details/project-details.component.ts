@@ -12,7 +12,7 @@ import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
-import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
@@ -44,7 +44,7 @@ export class ProjectDetailsComponent implements OnInit {
   whichType?: any;
   organization?: any;
   isEmpty?:boolean;
-  constructor(private organizationService: OrganizationApiService, private getEntityService: LoadingDataService, private snackBar: SnackBarMessageComponent, private auth: AuthServiceService, private location: Location, private proApi: ProjectService, private campaignService: CampaignService, private actived: ActivatedRoute, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthServiceService) { }
+  constructor(private organizationService: OrganizationApiService, private getEntityService: LoadingDataService, private snackBar: SnackBarMessageComponent, private auth: AuthService, private location: Location, private proApi: ProjectService, private campaignService: CampaignService, private actived: ActivatedRoute, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
     this.getByID();
@@ -65,7 +65,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
   async getCampaigns() {
     this.campaignsCopy = await this.proApi.getCampaignsByProjectId(`${this.actived.snapshot.paramMap.get('id')}`);
-  
+
     if(this.campaignsCopy.length==0)
     {
       this.isEmpty=true;
@@ -73,7 +73,7 @@ export class ProjectDetailsComponent implements OnInit {
       this.isEmpty=false;
       this.campaigns = this.campaignsCopy;
     }
-   
+
     if (this.campaigns) {
       for (var i = 0; i < this.campaigns.length; i++) {
         {

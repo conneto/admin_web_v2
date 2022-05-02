@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from 'src/app/guard/auth.guard';
 import {User} from 'src/app/models/user/user.model';
-import {AuthServiceService} from 'src/app/services/auth/auth-service.service';
+import {AuthService} from 'src/app/services/auth/auth.service';
 import {AdminComponent} from './admin.component';
 
 const routes: Routes = [
@@ -16,7 +16,7 @@ const routes: Routes = [
       },
       {
         path: 'dashboard',
-      
+
         loadChildren: () => import('src/app/pages/dashboard/dashboard.module').then(((m) => m.DashboardModule)),
       },
       {
