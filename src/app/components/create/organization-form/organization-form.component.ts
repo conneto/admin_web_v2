@@ -23,11 +23,13 @@ export class OrganizationFormComponent implements OnInit {
   isSubmitted?: boolean;
   logoFile?: File;
   coverFile?: File;
+  filePDF: File[] = [];
   public static readonly CREATE = 'create';
   category: any[] = Constant.CATEGORY;
   categoryString: string = '';
   categoryStringClone: string = '';
   isRemoved?: boolean;
+  isWrongFile?: boolean;
   constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthServiceService) { }
 
   ngOnInit(): void {
@@ -52,15 +54,15 @@ export class OrganizationFormComponent implements OnInit {
     }
     this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
     this.isSubmitted = true;
-    this.organizationForm.value.category=this.categoryString;
-    console.log(this.organizationForm.value);
-    if (this.organizationForm.valid) {
+    this.organizationForm.value.category = this.categoryString;
 
-      console.log(this.organizationForm.value);
+    if (this.organizationForm.valid) {
       let uploadData: any = new FormData();
       uploadData.append('organization', JSON.stringify(this.organizationForm.value));
       uploadData.append('logo', this.logoFile, this.logoFile?.name);
       uploadData.append('cover', this.coverFile, this.coverFile?.name);
+      uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
+      console.log(uploadData.value);
       if (this.organizationId) {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.createById(uploadData, `${this.organizationId}`);
@@ -70,17 +72,12 @@ export class OrganizationFormComponent implements OnInit {
 
           this.router.navigate(['/manager/manage-organization']);
           this.org.getAllOrganization();
-
-
         } else {
           this.snackBar.showMessage(`${res?.message}`, false);
 
           this.loadingService.isLoading.next(false);
-
-
         }
       } else {
-
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.create(uploadData);
         if (res?.status == 0) {
@@ -139,5 +136,19 @@ export class OrganizationFormComponent implements OnInit {
       this.categoryStringClone = ''
     }
     this.organizationForm.controls.category.patchValue(category);
+  }
+  onSelectPDF(e: any) {
+    if (e) {
+      if (e.addedFiles[0].type != 'application/pdf') {
+        this.isWrongFile = true;
+      } else {
+        this.filePDF = e.addedFiles;
+      }
+    }
+
+  }
+  onRemove(event: any) {
+    console.log(event);
+    this.filePDF.splice(this.filePDF.indexOf(event), 1);
   }
 }

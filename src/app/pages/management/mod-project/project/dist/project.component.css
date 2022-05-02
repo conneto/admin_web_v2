@@ -13,12 +13,6 @@ mat-card-title {
   white-space: nowrap;
 }
 
-mat-card {
-  max-width: 100%;
-  width: 380px;
-  margin: 5px 10px;
-}
-
 mat-card:hover {
   transform: scale(1.12);
   z-index: 99;
@@ -80,4 +74,9 @@ button:hover {
   font-size: 15px;
   margin-left: 5px;
   margin-bottom: 0 !important;
+}
+
+.project-card {
+  margin: 0;
+  padding: 0;
 }

@@ -19,13 +19,14 @@
           </ng-template>
         </div>
 
-        <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create flex-grow">
+        <div *ngIf="!isAdmin && isApprovedProject" class="ms-2 campaigns__button-create flex-grow">
           <button (click)="openCampaignForm()" mat-raised-button color="accent">
             <mat-icon>add</mat-icon>
             Tạo chiến dịch
           </button>
         </div>
         <app-search-bar
+          *ngIf="!isList"
           (getItem)="getData($event)"
           [entity]="passData"
           [entityCopy]="oldData"
@@ -40,7 +41,7 @@
       <app-list-view
         [whichEntity]="'cam'"
         *ngIf="isList"
-        [entity]="campaigns"
+        [entity]="oldData"
       ></app-list-view>
       <div *ngIf="!isList" class="row p-3">
         <app-campaign-card-info
@@ -55,7 +56,7 @@
   <div class="search-bar" *ngIf="isEmpty">
     <div>Hiện tại không có chiến dịch nào được tạo!</div>
     <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
-      <button (click)="openCampaignForm()" mat-raised-button color="accent">
+      <button (click)="openCampaignForm()" mat-raised-button color="accent" *ngIf='!isAdmin && isApprovedProject'>
         <mat-icon>add</mat-icon>
         Tạo chiến dịch
       </button>
@@ -93,7 +94,7 @@
       <app-list-view
         [whichEntity]="'cam'"
         *ngIf="isList"
-        [entity]="campaigns"
+        [entity]="oldData"
       ></app-list-view>
       <div class="center" *ngIf="!isList">
         <div *ngFor="let campaign of campaigns">

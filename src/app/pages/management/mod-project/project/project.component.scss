@@ -17,11 +17,7 @@ mat-card-title {
 
 
 
-mat-card {
-  max-width: 100%;
-  width: 380px;
-  margin: 5px 10px;
-}
+
 
 mat-card:hover {
 
@@ -105,4 +101,8 @@ button:hover {
     margin-left: 5px;
     margin-bottom: 0 !important;
   }
+}
+.project-card{
+  margin:0;
+  padding:0;
 }

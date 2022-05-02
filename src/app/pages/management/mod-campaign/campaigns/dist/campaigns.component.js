@@ -46,7 +46,8 @@ exports.CampaignsComponent = void 0;
 var core_1 = require("@angular/core");
 var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
 var CampaignsComponent = /** @class */ (function () {
-    function CampaignsComponent(snackBar, router, camApi, loadingService, dialog, api, authApi) {
+    function CampaignsComponent(projectService, snackBar, router, camApi, loadingService, dialog, api, authApi) {
+        this.projectService = projectService;
         this.snackBar = snackBar;
         this.router = router;
         this.camApi = camApi;
@@ -59,6 +60,7 @@ var CampaignsComponent = /** @class */ (function () {
         this.oldData = [];
         this.isEmpty = false;
         this.isList = false;
+        this.projects = [];
     }
     CampaignsComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
@@ -68,12 +70,40 @@ var CampaignsComponent = /** @class */ (function () {
         else {
             this.isAdmin = false;
         }
+        this.checkProject();
+    };
+    CampaignsComponent.prototype.checkProject = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!(this.authApi.currentUserValue.role == 'organization_manager')) return [3 /*break*/, 2];
+                        _a = this;
+                        return [4 /*yield*/, this.projectService.getAll()];
+                    case 1:
+                        _a.projects = _b.sent();
+                        this.projects = this.projects.filter(function (x) {
+                            return x.resultCode == 610;
+                        });
+                        if (this.projects.length > 0) {
+                            this.isApprovedProject = true;
+                        }
+                        else {
+                            this.isApprovedProject = false;
+                        }
+                        _b.label = 2;
+                    case 2: return [2 /*return*/];
+                }
+            });
+        });
     };
     CampaignsComponent.prototype.ngOnDestroy = function () {
         localStorage.removeItem('reject');
         localStorage.removeItem('pending');
     };
     CampaignsComponent.prototype.handleTitle = function (e) {
+        this.noResultBySearch = false;
         if (e == 'list') {
             this.isList = true;
         }
@@ -100,8 +130,7 @@ var CampaignsComponent = /** @class */ (function () {
         var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
             width: '700px',
             data: {
-                title: 'Tạo chiến dịch',
-                project: this.campaigns
+                title: 'Tạo chiến dịch'
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

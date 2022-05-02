@@ -82,6 +82,7 @@ var ProjectComponent = /** @class */ (function () {
         (_a = this.tabGroup) === null || _a === void 0 ? void 0 : _a.getEntity('pending', 'pro');
     };
     ProjectComponent.prototype.handleTitle = function (e) {
+        this.noResultBySearch = false;
         if (e == 'list') {
             this.isList = true;
         }

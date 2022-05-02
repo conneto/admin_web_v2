@@ -7,11 +7,14 @@ import { CamapaignFormComponent } from 'src/app/components/create/camapaign-form
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
+import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthServiceService } from 'src/app/services/auth/auth-service.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
-
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
+import { ProjectService } from 'src/app/services/project-service/project.service';
+
+
 
 @Component({
   selector: 'app-campaigns',
@@ -34,8 +37,10 @@ export class CampaignsComponent implements OnInit {
   value?: any;
   isList?: boolean = false;
   isAdmin?: boolean;
+  isApprovedProject?: boolean;
+  projects: Project[] = [];
   @ViewChild('changeView') changeView?: ChangeToListComponent;
-  constructor( private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthServiceService) { }
+  constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthServiceService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
@@ -44,6 +49,21 @@ export class CampaignsComponent implements OnInit {
     } else {
       this.isAdmin = false;
     }
+    this.checkProject();
+  }
+  async checkProject() {
+
+    if (this.authApi.currentUserValue.role == 'organization_manager') {
+      this.projects = await this.projectService.getAll();
+      this.projects = this.projects.filter(x => {
+        return x.resultCode == 610;
+      })
+      if (this.projects.length > 0) {
+        this.isApprovedProject = true;
+      } else {
+        this.isApprovedProject = false;
+      }
+    }
   }
   ngOnDestroy(): void {
 
@@ -51,6 +71,7 @@ export class CampaignsComponent implements OnInit {
     localStorage.removeItem('pending');
   }
   handleTitle(e: any) {
+    this.noResultBySearch = false;
     if (e == 'list') {
       this.isList = true;
     } else {
@@ -75,7 +96,7 @@ export class CampaignsComponent implements OnInit {
       width: '700px',
       data: {
         title: 'Tạo chiến dịch',
-        project:this.campaigns,
+        
       }
     })
 

@@ -124,7 +124,7 @@ export class CampaignDetailsComponent implements OnInit {
             this.pdfName = this.documentPDF[i].url.split('/');
 
             Object.assign(this.documentPDF[i], {
-              // name: this.pdfName[3],
+              name: this.pdfName[3],
             })
 
           }

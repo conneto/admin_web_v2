@@ -45,20 +45,23 @@ exports.__esModule = true;
 exports.ProjectDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var camapaign_form_component_1 = require("src/app/components/create/camapaign-form/camapaign-form.component");
-var select_type_campaign_component_1 = require("src/app/components/select-type-campaign/select-type-campaign.component");
+var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var ProjectDetailsComponent = /** @class */ (function () {
-    function ProjectDetailsComponent(getEntityService, router, loadingService, snackBar, auth, location, proApi, campApi, actived, dialog) {
+    function ProjectDetailsComponent(organizationService, getEntityService, snackBar, auth, location, proApi, campaignService, actived, router, dialog, snackbar, loadingService, api, authApi) {
+        this.organizationService = organizationService;
         this.getEntityService = getEntityService;
-        this.router = router;
-        this.loadingService = loadingService;
         this.snackBar = snackBar;
         this.auth = auth;
         this.location = location;
         this.proApi = proApi;
-        this.campApi = campApi;
+        this.campaignService = campaignService;
         this.actived = actived;
+        this.router = router;
         this.dialog = dialog;
-        this.isAdmin = true;
+        this.snackbar = snackbar;
+        this.loadingService = loadingService;
+        this.api = api;
+        this.authApi = authApi;
         this.urlApi = '';
         this.urlLogo = '';
         this.urlCover = '';
@@ -73,10 +76,11 @@ var ProjectDetailsComponent = /** @class */ (function () {
         this.getCampaigns();
     };
     ProjectDetailsComponent.prototype.check = function () {
-        var _a;
-        this.user = this.auth.currentUserValue;
-        if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role_id) === 'organization_manager') {
+        if (this.auth.currentUserValue.role == 'organization_manager') {
             this.isAdmin = false;
+        }
+        else {
+            this.isAdmin = true;
         }
     };
     ProjectDetailsComponent.prototype.getCampaigns = function () {
@@ -90,7 +94,13 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.proApi.getCampaignsByProjectId("" + this.actived.snapshot.paramMap.get('id'))];
                     case 1:
                         _e.campaignsCopy = _f.sent();
-                        this.campaigns = this.campaignsCopy;
+                        if (this.campaignsCopy.length == 0) {
+                            this.isEmpty = true;
+                        }
+                        else {
+                            this.isEmpty = false;
+                            this.campaigns = this.campaignsCopy;
+                        }
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 {
@@ -161,30 +171,13 @@ var ProjectDetailsComponent = /** @class */ (function () {
                 break;
         }
     };
-    ProjectDetailsComponent.prototype.openSelectCampaign = function () {
-        var _this = this;
-        var diaglogRef = this.dialog.open(select_type_campaign_component_1.SelectTypeCampaignComponent, {
-            width: "300px"
-        });
-        diaglogRef.afterClosed().subscribe(function (data) {
-            if (data) {
-                if (data == 'donation') {
-                    _this.whichType = 'donation';
-                }
-                else {
-                    _this.whichType = 'recruitment';
-                }
-                _this.openCampaignForm();
-            }
-        });
-    };
     ProjectDetailsComponent.prototype.openCampaignForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(camapaign_form_component_1.CamapaignFormComponent, {
             width: '700px',
             data: {
                 title: 'Tạo chiến dịch',
-                type: this.whichType
+                project: this.project
             }
         });
         dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
@@ -194,12 +187,11 @@ var ProjectDetailsComponent = /** @class */ (function () {
                     case 0:
                         if (!data) return [3 /*break*/, 2];
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.campApi.create(data)];
+                        return [4 /*yield*/, this.campaignService.create(data)];
                     case 1:
                         res = _a.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.loadingService.isLoading.next(false);
-                            this.getEntityService.getByEntity('cam');
                             this.router.navigate(['/manager/manage-campaign']);
                             this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true);
                         }
@@ -212,6 +204,59 @@ var ProjectDetailsComponent = /** @class */ (function () {
                 }
             });
         }); });
+    };
+    ProjectDetailsComponent.prototype.openProjectForm = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, dialogRef;
+            var _this = this;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.organizationService.getAll()];
+                    case 1:
+                        _a.organization = _b.sent();
+                        this.loadingService.getOrganizationId.next("" + this.organization[0].id);
+                        dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
+                            width: '700px',
+                            data: {
+                                title: 'Tạo dự án'
+                            }
+                        });
+                        dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
+                            var res;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        if (!data) return [3 /*break*/, 2];
+                                        this.loadingService.isLoading.next(true);
+                                        return [4 /*yield*/, this.api.createProject(data)];
+                                    case 1:
+                                        res = _a.sent();
+                                        if (res.status == 0) {
+                                            this.loadingService.isLoading.next(false);
+                                            this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
+                                            this.router.navigate(['/manager/manage-project']);
+                                        }
+                                        else {
+                                            this.dialog.open(project_form_component_1.ProjectFormComponent, {
+                                                width: '700px',
+                                                data: {
+                                                    title: 'Tạo dự án'
+                                                }
+                                            });
+                                            this.loadingService.isLoading.next(false);
+                                            this.snackbar.showMessage(res.message, false);
+                                        }
+                                        _a.label = 2;
+                                    case 2: return [2 /*return*/];
+                                }
+                            });
+                        }); });
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     ProjectDetailsComponent = __decorate([
         core_1.Component({

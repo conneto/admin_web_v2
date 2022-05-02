@@ -13,6 +13,7 @@ exports.ProjectFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
+var constant_1 = require("src/app/constant/constant");
 var ProjectFormComponent = /** @class */ (function () {
     function ProjectFormComponent(router, organizationId, authApi, dialogRef, data, formBuilder) {
         this.router = router;
@@ -21,6 +22,7 @@ var ProjectFormComponent = /** @class */ (function () {
         this.dialogRef = dialogRef;
         this.data = data;
         this.formBuilder = formBuilder;
+        this.category = constant_1.Constant.CATEGORY;
     }
     ProjectFormComponent.prototype.ngOnInit = function () {
         this.initForm();
@@ -35,7 +37,8 @@ var ProjectFormComponent = /** @class */ (function () {
             organization_id: [this.organizationId.getOrganizationId.value],
             request_type: ['create'],
             cover: [''],
-            logo: ['']
+            logo: [''],
+            category: ['']
         });
     };
     ProjectFormComponent.prototype.noClick = function () {
@@ -43,7 +46,22 @@ var ProjectFormComponent = /** @class */ (function () {
     };
     ProjectFormComponent.prototype.yesClick = function () {
         var _a, _b;
+        if (this.projectForm.controls.category.value.length != 0 && this.projectForm.controls.category.value) {
+            if (this.isRemoved == true || this.isSubmitted == true) {
+                this.categoryStringClone = '';
+                for (var i = 0; i < this.projectForm.controls.category.value.length; i++) {
+                    this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                }
+            }
+            else {
+                for (var i = 0; i < this.projectForm.controls.category.value.length; i++) {
+                    this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                }
+            }
+        }
+        this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
         this.isSubmitted = true;
+        this.projectForm.value.category = this.categoryString;
         if (this.projectForm.valid) {
             var uploadData = new FormData();
             uploadData.append('cover', this.coverImage, (_a = this.coverImage) === null || _a === void 0 ? void 0 : _a.name);
@@ -69,6 +87,19 @@ var ProjectFormComponent = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    ProjectFormComponent.prototype.onRemoveCategory = function (e) {
+        this.isRemoved = true;
+        var category = this.projectForm.controls.category.value;
+        var index = category.indexOf(e);
+        console.log(index);
+        if (index !== -1) {
+            category.splice(index, 1);
+        }
+        if (index == 0) {
+            this.categoryStringClone = '';
+        }
+        this.projectForm.controls.category.patchValue(category);
+    };
     ProjectFormComponent = __decorate([
         core_1.Component({
             selector: 'app-project-form',

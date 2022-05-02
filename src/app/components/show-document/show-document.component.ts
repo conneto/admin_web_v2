@@ -32,7 +32,7 @@ export class ShowDocumentComponent implements OnInit {
       }
 
     } else {
-      this.displayColumns = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit"];
+      this.displayColumns = ["payer_name", "purpose", "payment_date", "item", "price", "quantity", "recipient_name", "unit",'image'];
       this.dataSource = new MatTableDataSource(this.entityExcel?.cashflow_details);
 
     }

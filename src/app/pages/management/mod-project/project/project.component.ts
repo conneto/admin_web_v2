@@ -61,6 +61,7 @@ export class ProjectComponent implements OnInit {
     this.tabGroup?.getEntity('pending', 'pro');
   }
   handleTitle(e: any) {
+    this.noResultBySearch=false;
     if (e == 'list') {
       this.isList = true;
     } else {

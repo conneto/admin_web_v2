@@ -11,10 +11,9 @@ var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
 var environment_1 = require("src/environments/environment");
 var ApiService = /** @class */ (function () {
-    function ApiService(http, baseResponseAdapter, loadingService) {
+    function ApiService(http, baseResponseAdapter) {
         this.http = http;
         this.baseResponseAdapter = baseResponseAdapter;
-        this.loadingService = loadingService;
         this.fetchUri = environment_1.environment.api_fetch;
         this.postUri = environment_1.environment.api_core;
         this.corsHeaders = new http_1.HttpHeaders();

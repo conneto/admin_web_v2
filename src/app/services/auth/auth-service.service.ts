@@ -53,11 +53,11 @@ export class AuthServiceService {
       })
     );
     if (res.status == 0) {
-      this.loadingService.isLoading.next(false);
 
+      this.loadingService.isLoading.next(false);
       let userLoginResponse: UserLoginResponse =
         this.userResponse.adapt(res.data);
-      console.log(userLoginResponse.role);
+   
       if (userLoginResponse.role == 'volunteer') {
         this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
       } else {

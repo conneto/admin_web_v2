@@ -1,6 +1,7 @@
-.container{
-    width: 500px;
+.container {
+  width: 500px;
 }
+
 .login-form {
 
   input[type='text'],
@@ -17,7 +18,7 @@
     display: flex;
 
     align-items: center;
-    
+
 
   }
 
@@ -61,7 +62,7 @@
 }
 
 .login-form .mat-form-field {
-  width: 90%;
+  width: 100%;
 }
 
 .form-text {
@@ -172,6 +173,11 @@
   }
 }
 
-.text-danger{
-  color:red;
+.text-danger {
+  color: red;
 }
+
+// input[type="file"] {
+//   display: none;
+// }
+

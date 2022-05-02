@@ -49,6 +49,7 @@ exports.CamapaignFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
+var constant_1 = require("src/app/constant/constant");
 var CamapaignFormComponent = /** @class */ (function () {
     function CamapaignFormComponent(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
         this.organizationApi = organizationApi;
@@ -65,6 +66,7 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.cloneProjects = [];
         this.type = ['Quyên góp', 'Tuyển tình nguyện viên'];
         this.uploadData = new FormData();
+        this.category = constant_1.Constant.CATEGORY;
     }
     CamapaignFormComponent.prototype.ngOnInit = function () {
         this.initForm();
@@ -92,34 +94,52 @@ var CamapaignFormComponent = /** @class */ (function () {
                             job_description: [''],
                             job_benefit: [''],
                             project_id: [''],
-                            cover: ['']
+                            cover: [''],
+                            category: ['']
                         });
+                        if (!this.data.project) return [3 /*break*/, 1];
+                        this.isOnlyProject = true;
+                        return [3 /*break*/, 4];
+                    case 1:
                         _a = this;
                         return [4 /*yield*/, this.organizationApi.getAll()];
-                    case 1:
+                    case 2:
                         _a.organizations = _c.sent();
-                        if (!this.organizations) return [3 /*break*/, 3];
+                        if (!this.organizations) return [3 /*break*/, 4];
                         _b = this;
                         return [4 /*yield*/, this.organizationApi.getProjectsByOrgId("" + this.organizations[0].id)];
-                    case 2:
+                    case 3:
                         _b.cloneProjects = _c.sent();
                         this.projects = this.cloneProjects.filter(function (x) {
                             return x.resultCode == 610;
                         });
-                        _c.label = 3;
-                    case 3: return [2 /*return*/];
+                        _c.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     CamapaignFormComponent.prototype.noClick = function () {
-        console.log(this.selectedValue);
         this.dialogRef.close(false);
     };
     CamapaignFormComponent.prototype.yesClick = function () {
         var _this = this;
-        console.log(this.selectedRadio);
+        if (this.campaignForm.controls.category.value.length != 0 && this.campaignForm.controls.category.value) {
+            if (this.isRemoved == true || this.isSubmitted == true) {
+                this.categoryStringClone = '';
+                for (var i = 0; i < this.campaignForm.controls.category.value.length; i++) {
+                    this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                }
+            }
+            else {
+                for (var i = 0; i < this.campaignForm.controls.category.value.length; i++) {
+                    this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                }
+            }
+        }
+        this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
         this.isSubmitted = true;
+        this.campaignForm.value.category = this.categoryString;
         this.projects = this.cloneProjects.filter(function (x) {
             return x.name == _this.campaignForm.value.selected;
         });
@@ -170,6 +190,19 @@ var CamapaignFormComponent = /** @class */ (function () {
             this.campaignForm.setControl('job_description', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
             this.campaignForm.setControl('job_benefit', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
         }
+    };
+    CamapaignFormComponent.prototype.onRemoveCategory = function (e) {
+        this.isRemoved = true;
+        var category = this.campaignForm.controls.category.value;
+        var index = category.indexOf(e);
+        console.log(index);
+        if (index !== -1) {
+            category.splice(index, 1);
+        }
+        if (index == 0) {
+            this.categoryStringClone = '';
+        }
+        this.campaignForm.controls.category.patchValue(category);
     };
     CamapaignFormComponent = __decorate([
         core_1.Component({

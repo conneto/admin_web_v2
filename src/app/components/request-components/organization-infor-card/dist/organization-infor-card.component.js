@@ -76,7 +76,9 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                     data: {
                         button: 'Đồng ý',
                         close: 'Hủy',
-                        message: 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+                        message: checkType == 'org' ? "Bạn có chắc chắn muốn chấp nhận tổ chức này không?" :
+                            checkType == 'cam' ? "Bạn có chắc chắn muốn chấp nhận chiến dịch này không?" : checkType == 'pro' ?
+                                "Bạn có chắc chắn muốn chấp nhận dự án này không?" : "Bạn có chắc chắn muốn chấp nhận tổ chức này không?"
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
@@ -134,7 +136,10 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                     data: {
                         button: 'Đồng ý',
                         close: 'Hủy',
-                        message: 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
+                        reason: true,
+                        message: checkType == 'org' ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?' :
+                            checkType == 'cam' ? "Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?" : checkType == 'pro' ?
+                                "Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?" : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
@@ -150,7 +155,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     object_type: checkType == 'org' ? auth_service_service_1.AuthServiceService.ORGANIZATION
                                         : checkType == 'cam' ? auth_service_service_1.AuthServiceService.CAMPAIGN : checkType == 'pro' ? auth_service_service_1.AuthServiceService.PROJECT : auth_service_service_1.AuthServiceService.ORGANIZATION,
                                     status: 'reject',
-                                    note: 'Reject this'
+                                    note: data
                                 };
                                 return [4 /*yield*/, this.authApi.updateRequestByAdmin(data1)];
                             case 1:
