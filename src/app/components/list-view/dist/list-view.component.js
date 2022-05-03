@@ -45,7 +45,7 @@ var ListViewComponent = /** @class */ (function () {
         this.dataSource.sort = this.sort;
     };
     ListViewComponent.prototype.goToDetails = function (e) {
-        if (this.role.currentUserValue.role != 'admin') {
+        if (this.role.currentUserValue.role_id != 'admin') {
             switch (this.whichEntity) {
                 case 'org':
                     this.router.navigate(["manager/manage-organization/organization-request-detail/" + e]);

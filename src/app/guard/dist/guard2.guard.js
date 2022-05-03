@@ -15,20 +15,20 @@ var Guard2Guard = /** @class */ (function () {
     }
     Guard2Guard.prototype.canActivate = function (route, state) {
         if (this.user.currentUserValue) {
-            if (this.user.currentUserValue.role == 'admin') {
+            if (this.user.currentUserValue.role_id == 'admin') {
                 this.router.navigate(['/admin/dashboard']);
                 return true;
             }
-            else if (this.user.currentUserValue.role == 'organization_manager') {
+            else if (this.user.currentUserValue.role_id == 'organization_manager') {
                 return true;
             }
         }
         this.router.navigate(['/login']);
         return false;
         // if (this.user-service.currentUserValue) {
-        //   if (this.user-service.currentUserValue.role == 'organization_manager') {
+        //   if (this.user-service.currentUserValue.role_id == 'organization_manager') {
         //     return true;
-        //   }else if(this.user-service.currentUserValue.role=='admin'){
+        //   }else if(this.user-service.currentUserValue.role_id=='admin'){
         //     this.router.navigate(['/admin/dashboard']);
         //     return true;
         //   }

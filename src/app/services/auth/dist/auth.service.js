@@ -58,14 +58,14 @@ var AuthService = /** @class */ (function () {
         this.curUserSubject = new rxjs_1.BehaviorSubject(JSON.parse(localStorage.getItem('USER_WEB')));
         this.curUser = this.curUserSubject.asObservable();
     }
-    Object.defineProperty(Constant.prototype, "currentUserValue", {
+    Object.defineProperty(AuthService.prototype, "currentUserValue", {
         get: function () {
             return this.curUserSubject.value;
         },
         enumerable: false,
         configurable: true
     });
-    Constant.prototype.login = function (isSaveUser, username, password) {
+    AuthService.prototype.login = function (isSaveUser, username, password) {
         return __awaiter(this, void 0, void 0, function () {
             var md5, res, userLoginResponse;
             return __generator(this, function (_a) {
@@ -82,11 +82,11 @@ var AuthService = /** @class */ (function () {
                         if (res.status == 0) {
                             this.loadingService.isLoading.next(false);
                             userLoginResponse = this.userResponse.adapt(res.data);
-                            if (userLoginResponse.role == 'volunteer') {
+                            if (userLoginResponse.role_id == 'volunteer') {
                                 this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
                             }
                             else {
-                                this.snackBar.showMessage("Đăng nhập thành công !", true);
+                                this.snackBar.showMessage("Đăng nhập thành công", true);
                                 localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
                                 localStorage.setItem('USER_TOKEN', userLoginResponse.token);
                                 this.curUserSubject.next(userLoginResponse);
@@ -104,7 +104,7 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
-    Constant.prototype.register = function (data) {
+    AuthService.prototype.register = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var md5, res;
             return __generator(this, function (_a) {
@@ -122,7 +122,7 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
-    Constant.prototype.logout = function () {
+    AuthService.prototype.logout = function () {
         localStorage.removeItem('USER_WEB');
         localStorage.removeItem('USER_TOKEN');
         localStorage.removeItem('approve');
@@ -130,7 +130,7 @@ var AuthService = /** @class */ (function () {
         localStorage.removeItem('pending');
         this.curUserSubject.next(null);
     };
-    Constant.prototype.updateRequestByAdmin = function (data) {
+    AuthService.prototype.updateRequestByAdmin = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -146,7 +146,7 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
-    Constant.prototype.activateEntity = function (data) {
+    AuthService.prototype.activateEntity = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -162,7 +162,7 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
-    Constant.prototype.updateRequestByManager = function (data) {
+    AuthService.prototype.updateRequestByManager = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {

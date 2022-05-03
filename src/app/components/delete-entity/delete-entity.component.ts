@@ -36,20 +36,18 @@ export class DeleteEntityComponent implements OnInit {
   ) {}
   e: any;
   ngOnInit(): void {
-    if (this.user.currentUserValue.role == 'admin') {
+    if (this.user.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
     }
   }
   change() {
-    this.isSave = !this.isSave;
-    console.log(this.entity);
     const dialogRef = this.dialog.open(OrganizationUpdateFormComponent, {
-      width: '700px',
+      width: '768px',
       data: {
-        title: 'Tạo chiến dịch',
-
+        title: 'Cập nhật tổ chức',
+        object: this.entity,
       }
     })
   }

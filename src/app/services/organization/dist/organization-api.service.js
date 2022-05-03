@@ -64,9 +64,7 @@ var OrganizationApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.ORGANIZATIONS)];
                     case 1:
                         res = _b.sent();
-                        res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) {
-                            return _this.adapter.adapt(item);
-                        });
+                        res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) { return _this.adapter.adapt(item); });
                         return [2 /*return*/, res.data || []];
                 }
             });

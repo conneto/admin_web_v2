@@ -1,30 +1,26 @@
 .container {
-  width: 500px;
+  width: 90%;
 }
 
 .login-form {
-
-  input[type='text'],
-  input[type='password'] {}
+  input[type="text"],
+  input[type="password"] {
+  }
 
   ::placeholder {
     /* Edge */
 
     color: rgba(174, 174, 174, 1);
-
   }
 
   div {
     display: flex;
 
     align-items: center;
-
-
   }
 
   mat-form-filed {
     width: 100%;
-
   }
 
   .input {
@@ -36,12 +32,9 @@
     border: none;
     margin: 10px auto;
   }
-
 }
 
-
 .login-form {
-
   position: relative;
 
   justify-content: center;
@@ -51,14 +44,11 @@
 .login-form .form-icon {
   position: absolute;
   color: rgba(174, 174, 174, 1);
-  ;
-
 }
 
 .login-form form {
   display: inline-grid;
   width: 80%;
-
 }
 
 .login-form .mat-form-field {
@@ -80,7 +70,6 @@
 }
 
 .login-remember-box {
-
   display: flex;
   text-align: center;
   align-items: center;
@@ -94,12 +83,10 @@
 .login-forget a {
   text-decoration: none;
   color: rgba(255, 184, 0, 1);
-
 }
 
 .login-forget a:hover {
   text-decoration: underline;
-
 }
 
 #checkbox {
@@ -110,17 +97,20 @@
 
 .login-button {
   text-align: center;
-  margin: 15px 0;
-
 }
 
 .login-button button {
   width: 100%;
-  background: linear-gradient(to bottom left, rgba(254, 204, 78, 1), rgba(254, 223, 141, 1)) !important;
+  background: linear-gradient(
+    to bottom left,
+    rgba(254, 204, 78, 1),
+    rgba(254, 223, 141, 1)
+  ) !important;
   padding: 0 30px;
   font-size: 17px;
   border: none;
   border-radius: 3px;
+  height: 36px;
 }
 
 .login-button button:hover {
@@ -136,7 +126,6 @@
 .login-footer {
   display: flex;
   justify-content: space-between;
-
 }
 
 .hide-button {
@@ -150,14 +139,12 @@
   background-color: rgba(246, 246, 246, 1);
 }
 
-
 .register-button {
   text-align: center;
 
   a {
     font-size: 17px;
     text-decoration: none;
-
   }
 }
 
@@ -180,4 +167,3 @@
 // input[type="file"] {
 //   display: none;
 // }
-

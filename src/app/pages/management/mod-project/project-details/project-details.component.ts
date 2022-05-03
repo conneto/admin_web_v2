@@ -57,7 +57,7 @@ export class ProjectDetailsComponent implements OnInit {
   check() {
 
 
-    if (this.auth.currentUserValue.role == 'organization_manager') {
+    if (this.auth.currentUserValue.role_id == 'organization_manager') {
       this.isAdmin = false;
     } else {
       this.isAdmin = true;
@@ -138,7 +138,7 @@ export class ProjectDetailsComponent implements OnInit {
   }
   openCampaignForm() {
     const dialogRef = this.dialog.open(CampaignForm, {
-      width: '700px',
+      width: '768px',
       data: {
         title: 'Tạo chiến dịch',
         project: this.project,
@@ -166,7 +166,7 @@ export class ProjectDetailsComponent implements OnInit {
     this.organization = await this.organizationService.getAll();
     this.loadingService.getOrganizationId.next(`${this.organization[0].id}`);
     const dialogRef = this.dialog.open(ProjectFormComponent, {
-      width: '700px',
+      width: '768px',
       data: {
         title: 'Tạo dự án',
       }
@@ -184,7 +184,7 @@ export class ProjectDetailsComponent implements OnInit {
 
         } else {
           this.dialog.open(ProjectFormComponent, {
-            width: '700px',
+            width: '768px',
             data: {
               title: 'Tạo dự án',
             }

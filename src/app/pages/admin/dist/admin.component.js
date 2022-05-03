@@ -61,16 +61,15 @@ var AdminComponent = /** @class */ (function () {
         this.isExpanded = false;
     }
     AdminComponent.prototype.ngOnInit = function () {
-        var _a;
         this.user = this.authService.currentUserValue;
-        console.log((_a = this.user) === null || _a === void 0 ? void 0 : _a.role);
         if (this.user) {
-            if (this.authService.currentUserValue.role == 'organization_manager') {
+            if (this.authService.currentUserValue.role_id == 'organization_manager') {
                 this.menus = this.menus.filter(function (x) {
-                    return x.role == 'organization_manager' || x.role == 'organization_manager_admin';
+                    return (x.role == 'organization_manager' ||
+                        x.role == 'organization_manager_admin');
                 });
             }
-            else if (this.user.role == 'admin') {
+            else if (this.user.role_id == 'admin') {
                 this.menus = this.menus.filter(function (x) {
                     return x.role == 'organization_manager_admin' || x.role == 'admin';
                 });
@@ -83,8 +82,11 @@ var AdminComponent = /** @class */ (function () {
     };
     AdminComponent.prototype.getTitle = function () {
         var _this = this;
-        this.title = this.router.url.split('/')[this.router.url.split.length].trim();
-        if (this.title == 'organization-request' || this.title == 'project-request' || this.title == 'campaign-request') {
+        this.title = this.router.url
+            .split('/')[this.router.url.split.length].trim();
+        if (this.title == 'organization-request' ||
+            this.title == 'project-request' ||
+            this.title == 'campaign-request') {
             var tempMenu = this.menus.filter(function (x) {
                 return x.submenu;
             });

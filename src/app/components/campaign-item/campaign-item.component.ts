@@ -21,7 +21,7 @@ export class CampaignItemComponent implements OnInit {
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
     this.valueNumber = (Number(this.campaign?.org_id) * 100).toFixed(2);
-    if (this.userApi.currentUserValue.role == 'admin') {
+    if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
 

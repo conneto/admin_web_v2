@@ -44,7 +44,7 @@ export class CampaignDetailsComponent implements OnInit {
     if (localStorage.getItem("approve")) {
       this.isApproved = true;
     }
-    if (this.userApi.currentUserValue.role == 'admin') {
+    if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
   }

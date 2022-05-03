@@ -14,10 +14,10 @@ export class Guard3Guard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       if (this.user.currentUserValue) {
-        if(this.user.currentUserValue.role=='admin'){
+        if(this.user.currentUserValue.role_id=='admin'){
           this.router.navigate(['/admin/dashboard']);
           return true;
-        }else if(this.user.currentUserValue.role=='organization_manager'){
+        }else if(this.user.currentUserValue.role_id=='organization_manager'){
           this.router.navigate(['/manager']);
           return true;
         }

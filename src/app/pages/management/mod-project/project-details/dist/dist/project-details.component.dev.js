@@ -198,7 +198,7 @@ function () {
   };
 
   ProjectDetailsComponent.prototype.check = function () {
-    if (this.auth.currentUserValue.role == 'organization_manager') {
+    if (this.auth.currentUserValue.role_id == 'organization_manager') {
       this.isAdmin = false;
     } else {
       this.isAdmin = true;
@@ -322,7 +322,7 @@ function () {
     var _this = this;
 
     var dialogRef = this.dialog.open(campaign_form_component_1.CampaignForm, {
-      width: '700px',
+      width: '768px',
       data: {
         title: 'Tạo chiến dịch',
         project: this.project
@@ -384,7 +384,7 @@ function () {
             _a.organization = _b.sent();
             this.loadingService.getOrganizationId.next("" + this.organization[0].id);
             dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-              width: '700px',
+              width: '768px',
               data: {
                 title: 'Tạo dự án'
               }
@@ -412,7 +412,7 @@ function () {
                         this.router.navigate(['/manager/manage-project']);
                       } else {
                         this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                          width: '700px',
+                          width: '768px',
                           data: {
                             title: 'Tạo dự án'
                           }

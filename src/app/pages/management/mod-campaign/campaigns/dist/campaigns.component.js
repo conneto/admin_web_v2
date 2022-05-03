@@ -64,7 +64,7 @@ var CampaignsComponent = /** @class */ (function () {
     }
     CampaignsComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
-        if (this.authApi.currentUserValue.role == 'admin') {
+        if (this.authApi.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
         else {
@@ -78,7 +78,7 @@ var CampaignsComponent = /** @class */ (function () {
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (!(this.authApi.currentUserValue.role == 'organization_manager')) return [3 /*break*/, 2];
+                        if (!(this.authApi.currentUserValue.role_id == 'organization_manager')) return [3 /*break*/, 2];
                         _a = this;
                         return [4 /*yield*/, this.projectService.getAll()];
                     case 1:
@@ -128,7 +128,7 @@ var CampaignsComponent = /** @class */ (function () {
     CampaignsComponent.prototype.openCampaignForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(campaign_form_component_1.CampaignForm, {
-            width: '700px',
+            width: '768px',
             data: {
                 title: 'Tạo chiến dịch'
             }
@@ -262,7 +262,7 @@ var CampaignsComponent = /** @class */ (function () {
                             return x.result_code == 701;
                         });
                         this.oldData = this.passData.filter(function (x) { return x.result_code == 701; });
-                        if (this.authApi.currentUserValue.role == 'admin') {
+                        if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;
                         }
                         else {

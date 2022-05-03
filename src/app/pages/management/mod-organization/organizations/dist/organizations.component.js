@@ -64,11 +64,11 @@ var OrganizationsComponent = /** @class */ (function () {
         this.oldDataSearch = [];
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
-        if (this.authService.currentUserValue.role == 'admin') {
+        if (this.authService.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
             this.checkToGetData();
         }
-        else if (this.authService.currentUserValue.role == 'organization_manager') {
+        else if (this.authService.currentUserValue.role_id == 'organization_manager') {
             this.isAdmin = false;
             this.getAllOrganization();
         }
@@ -154,7 +154,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     this.organizations = org;
                 }
                 if (status) {
-                    if (this.authService.currentUserValue.role == 'organization_manager') {
+                    if (this.authService.currentUserValue.role_id == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
                         });
@@ -172,7 +172,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.organizations[i].type = 'Tổ chức phi chính phủ' :
                                     this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
-                            if (this.authService.currentUserValue.role == 'organization_manager') {
+                            if (this.authService.currentUserValue.role_id == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
                                     this.organizations = [];
                                     this.noOrg = true;
@@ -189,7 +189,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            if (this.authService.currentUserValue.role == 'admin') {
+                            if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
                                 this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
@@ -228,7 +228,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.organizations[i].type = 'Tổ chức phi chính phủ' :
                                     this.organizations[i].type = 'Tổ chức phi lợi nhuận';
                             }
-                            if (this.authService.currentUserValue.role == 'admin') {
+                            if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isRequest = true;
                             }
                             else {
@@ -266,7 +266,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     this.organizations = org;
                 }
                 if (status) {
-                    if (this.authService.currentUserValue.role == 'organization_manager') {
+                    if (this.authService.currentUserValue.role_id == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
                         });
@@ -283,7 +283,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                             }
-                            if (this.authService.currentUserValue.role == 'organization_manager') {
+                            if (this.authService.currentUserValue.role_id == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
                                     this.organizations = [];
                                     this.noOrg = true;
@@ -300,7 +300,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            else if (this.authService.currentUserValue.role == 'admin') {
+                            else if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
                                 this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
@@ -333,7 +333,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                             }
-                            if (this.authService.currentUserValue.role == 'admin') {
+                            if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isRequest = true;
                             }
                             else {

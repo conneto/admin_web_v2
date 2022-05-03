@@ -53,7 +53,7 @@ export class ListViewComponent implements OnInit {
   }
   goToDetails(e?: any) {
 
-    if (this.role.currentUserValue.role != 'admin') {
+    if (this.role.currentUserValue.role_id != 'admin') {
 
       switch (this.whichEntity) {
         case 'org': this.router.navigate([`manager/manage-organization/organization-request-detail/${e}`]); break;

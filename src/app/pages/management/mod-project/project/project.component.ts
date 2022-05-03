@@ -45,7 +45,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     this.checkToGetData();
     this.urlApi = this.loadingService.getApiGetLink.value;
-    if (this.authApi.currentUserValue.role == 'admin') {
+    if (this.authApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -162,7 +162,7 @@ export class ProjectComponent implements OnInit {
           return x.resultCode == 601;
         })
         this.oldData = this.passData.filter(x => x.resultCode == 601);
-        if (this.authApi.currentUserValue.role == 'admin') {
+        if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {
           this.isRequest = false;
@@ -188,7 +188,7 @@ export class ProjectComponent implements OnInit {
 
     this.loadingService.getOrganizationId.next(`${this.organization[0].id}`);
     const dialogRef = this.dialog.open(ProjectFormComponent, {
-      width: '700px',
+      width: '768px',
       data: {
         title: 'Tạo dự án',
       }
@@ -207,7 +207,7 @@ export class ProjectComponent implements OnInit {
 
         } else {
           this.dialog.open(ProjectFormComponent, {
-            width: '700px',
+            width: '768px',
             data: {
               title: 'Tạo dự án',
             }

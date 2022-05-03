@@ -64,7 +64,7 @@ var ProjectComponent = /** @class */ (function () {
     ProjectComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
         this.urlApi = this.loadingService.getApiGetLink.value;
-        if (this.authApi.currentUserValue.role == 'admin') {
+        if (this.authApi.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
         else {
@@ -199,7 +199,7 @@ var ProjectComponent = /** @class */ (function () {
                             return x.resultCode == 601;
                         });
                         this.oldData = this.passData.filter(function (x) { return x.resultCode == 601; });
-                        if (this.authApi.currentUserValue.role == 'admin') {
+                        if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;
                         }
                         else {
@@ -238,7 +238,7 @@ var ProjectComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 this.loadingService.getOrganizationId.next("" + this.organization[0].id);
                 dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                    width: '700px',
+                    width: '768px',
                     data: {
                         title: 'Tạo dự án'
                     }
@@ -262,7 +262,7 @@ var ProjectComponent = /** @class */ (function () {
                                 }
                                 else {
                                     this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                                        width: '700px',
+                                        width: '768px',
                                         data: {
                                             title: 'Tạo dự án'
                                         }

@@ -83,13 +83,13 @@ var LoginComponent = /** @class */ (function () {
                     case 1:
                         baseResponse = _a.sent();
                         if (!((baseResponse === null || baseResponse === void 0 ? void 0 : baseResponse.status) == 0)) return [3 /*break*/, 7];
-                        if (!(this.authService.currentUserValue.role === 'organization_manager')) return [3 /*break*/, 3];
+                        if (!(this.authService.currentUserValue.role_id === 'organization_manager')) return [3 /*break*/, 3];
                         return [4 /*yield*/, this.router.navigate(['manager'])];
                     case 2:
                         _a.sent();
                         return [3 /*break*/, 6];
                     case 3:
-                        if (!(this.authService.currentUserValue.role === 'admin')) return [3 /*break*/, 5];
+                        if (!(this.authService.currentUserValue.role_id === 'admin')) return [3 /*break*/, 5];
                         return [4 /*yield*/, this.router.navigate(['admin/dashboard'])];
                     case 4:
                         _a.sent();

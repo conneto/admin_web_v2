@@ -62,7 +62,6 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.categoryString = '';
         this.categoryStringClone = '';
     }
-    OrganizationFormComponent_1 = OrganizationFormComponent;
     OrganizationFormComponent.prototype.ngOnInit = function () {
         this.initFormBuilder();
     };
@@ -73,17 +72,20 @@ var OrganizationFormComponent = /** @class */ (function () {
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
-                        if (this.organizationForm.controls.category.value.length != 0 && this.organizationForm.controls.category.value) {
+                        if (this.organizationForm.controls.category.value.length != 0 &&
+                            this.organizationForm.controls.category.value) {
                             if (this.isRemoved == true || this.isSubmitted == true) {
                                 this.categoryStringClone = '';
                                 for (i = 0; i < this.organizationForm.controls.category.value.length; i++) {
-                                    this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                                    this.categoryStringClone =
+                                        this.organizationForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                                 }
                             }
                             else {
                                 this.categoryStringClone = '';
                                 for (i = 0; i < this.organizationForm.controls.category.value.length; i++) {
-                                    this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                                    this.categoryStringClone =
+                                        this.organizationForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                                 }
                             }
                         }
@@ -139,15 +141,45 @@ var OrganizationFormComponent = /** @class */ (function () {
     };
     OrganizationFormComponent.prototype.initFormBuilder = function () {
         this.organizationForm = this.formBuilder.group({
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128), forms_1.Validators.pattern('^(?!\\s*$).+')]],
+            name: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(8),
+                    forms_1.Validators.maxLength(128),
+                    forms_1.Validators.pattern('^(?!\\s*$).+'),
+                ],
+            ],
             eng_name: [''],
-            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
-            vision: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
+            description: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(128),
+                    forms_1.Validators.maxLength(1000),
+                ],
+            ],
+            vision: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(128),
+                    forms_1.Validators.maxLength(1000),
+                ],
+            ],
             website: [''],
             founding_date: ['', forms_1.Validators.required],
-            created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
-            request_type: [OrganizationFormComponent_1.CREATE],
-            mission: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
+            created_by: [
+                this.user.currentUserValue ? this.user.currentUserValue.id : '',
+            ],
+            mission: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(128),
+                    forms_1.Validators.maxLength(1000),
+                ],
+            ],
             category: [''],
             logo: [''],
             cover: ['']
@@ -197,12 +229,11 @@ var OrganizationFormComponent = /** @class */ (function () {
         console.log(event);
         this.filePDF.splice(this.filePDF.indexOf(event), 1);
     };
-    var OrganizationFormComponent_1;
     OrganizationFormComponent.CREATE = 'create';
     __decorate([
         core_1.Input()
     ], OrganizationFormComponent.prototype, "organizationId");
-    OrganizationFormComponent = OrganizationFormComponent_1 = __decorate([
+    OrganizationFormComponent = __decorate([
         core_1.Component({
             selector: 'app-organization-form',
             templateUrl: './organization-form.component.html',

@@ -15,7 +15,7 @@ import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-mess
 @Component({
   selector: 'app-organization-form',
   templateUrl: './organization-form.component.html',
-  styleUrls: ['./organization-form.component.scss']
+  styleUrls: ['./organization-form.component.scss'],
 })
 export class OrganizationFormComponent implements OnInit {
   organizationForm!: FormGroup;
@@ -30,47 +30,89 @@ export class OrganizationFormComponent implements OnInit {
   categoryStringClone: string = '';
   isRemoved?: boolean;
   isWrongFile?: boolean;
-  constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthService) { }
+  constructor(
+    private org: OrganizationsComponent,
+    private getEntityService: LoadingDataService,
+    private loadingService: LoadingService,
+    private location: Location,
+    private router: Router,
+    private snackBar: SnackBarMessageComponent,
+    private formBuilder: FormBuilder,
+    private orgApi: OrganizationApiService,
+    private user: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.initFormBuilder();
-
   }
 
   async create() {
-
-    if (this.organizationForm.controls.category.value.length != 0 && this.organizationForm.controls.category.value) {
+    if (
+      this.organizationForm.controls.category.value.length != 0 &&
+      this.organizationForm.controls.category.value
+    ) {
       if (this.isRemoved == true || this.isSubmitted == true) {
         this.categoryStringClone = '';
-        for (let i = 0; i < this.organizationForm.controls.category.value.length; i++) {
-          this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+        for (
+          let i = 0;
+          i < this.organizationForm.controls.category.value.length;
+          i++
+        ) {
+          this.categoryStringClone =
+            this.organizationForm.controls.category.value[i].name.concat(
+              '|',
+              this.categoryStringClone
+            );
         }
       } else {
         this.categoryStringClone = '';
-        for (let i = 0; i < this.organizationForm.controls.category.value.length; i++) {
-          this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
-
+        for (
+          let i = 0;
+          i < this.organizationForm.controls.category.value.length;
+          i++
+        ) {
+          this.categoryStringClone =
+            this.organizationForm.controls.category.value[i].name.concat(
+              '|',
+              this.categoryStringClone
+            );
         }
       }
     }
     if (this.categoryStringClone?.length > 0) {
-      this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+      this.categoryString = this.categoryStringClone.slice(
+        0,
+        this.categoryStringClone.length - 1
+      );
     }
     this.isSubmitted = true;
     this.organizationForm.value.category = this.categoryString;
 
     if (this.organizationForm.valid) {
       let uploadData: any = new FormData();
-      uploadData.append('organization', JSON.stringify(this.organizationForm.value));
+      uploadData.append(
+        'organization',
+        JSON.stringify(this.organizationForm.value)
+      );
       uploadData.append('logo', this.logoFile, this.logoFile?.name);
       uploadData.append('cover', this.coverFile, this.coverFile?.name);
-      uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
+      uploadData.append(
+        'operating_license',
+        this.filePDF[0],
+        this.filePDF[0].name
+      );
       console.log(uploadData.value);
       if (this.organizationId) {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.orgApi.createById(uploadData, `${this.organizationId}`);
+        let res: BaseResponse | null = await this.orgApi.createById(
+          uploadData,
+          `${this.organizationId}`
+        );
         if (res?.status == 0) {
-          this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
+          this.snackBar.showMessage(
+            'Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi',
+            true
+          );
           this.loadingService.isLoading.next(false);
 
           this.router.navigate(['/manager/manage-organization']);
@@ -84,7 +126,10 @@ export class OrganizationFormComponent implements OnInit {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.orgApi.create(uploadData);
         if (res?.status == 0) {
-          this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
+          this.snackBar.showMessage(
+            'Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi',
+            true
+          );
           this.loadingService.isLoading.next(false);
           this.org.getAllOrganization();
           this.router.navigate(['/manager']);
@@ -92,7 +137,6 @@ export class OrganizationFormComponent implements OnInit {
           this.router.navigate(['/manager/manage-organization']);
           this.snackBar.showMessage(`${res?.message}`, false);
           this.loadingService.isLoading.next(false);
-
         }
       }
     }
@@ -100,19 +144,49 @@ export class OrganizationFormComponent implements OnInit {
 
   initFormBuilder() {
     this.organizationForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128), Validators.pattern('^(?!\\s*$).+')]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(128),
+          Validators.pattern('^(?!\\s*$).+'),
+        ],
+      ],
       eng_name: [''],
-      description: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(1000)]],
-      vision: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(1000)]],
+      description: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(128),
+          Validators.maxLength(1000),
+        ],
+      ],
+      vision: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(128),
+          Validators.maxLength(1000),
+        ],
+      ],
       website: [''],
       founding_date: ['', Validators.required],
-      created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
-      request_type: [OrganizationFormComponent.CREATE],
-      mission: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(1000)]],
+      created_by: [
+        this.user.currentUserValue ? this.user.currentUserValue.id : '',
+      ],
+      mission: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(128),
+          Validators.maxLength(1000),
+        ],
+      ],
       category: [''],
       logo: [''],
       cover: [''],
-    })
+    });
   }
   onChangeCover(e: any) {
     if (e.target.files && e.target.files.length > 0) {
@@ -136,7 +210,7 @@ export class OrganizationFormComponent implements OnInit {
       category.splice(index, 1);
     }
     if (index == 0) {
-      this.categoryStringClone = ''
+      this.categoryStringClone = '';
     }
     this.organizationForm.controls.category.patchValue(category);
   }
@@ -148,8 +222,8 @@ export class OrganizationFormComponent implements OnInit {
         this.filePDF = e.addedFiles;
       }
     }
-
   }
+  
   onRemove(event: any) {
     console.log(event);
     this.filePDF.splice(this.filePDF.indexOf(event), 1);

@@ -162,6 +162,8 @@ var core_1 = require("@angular/core");
 
 var constant_1 = require("src/app/constant/constant");
 
+var organization_form_component_1 = require("../update/organization-form/organization-form.component");
+
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 
 var DeleteEntityComponent =
@@ -180,7 +182,7 @@ function () {
   }
 
   DeleteEntityComponent.prototype.ngOnInit = function () {
-    if (this.user.currentUserValue.role == 'admin') {
+    if (this.user.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -188,12 +190,11 @@ function () {
   };
 
   DeleteEntityComponent.prototype.change = function () {
-    this.isSave = !this.isSave;
-    console.log(this.entity);
-    var dialogRef = this.dialog.open(CampaignForm, {
-      width: '700px',
+    var dialogRef = this.dialog.open(organization_form_component_1.OrganizationUpdateFormComponent, {
+      width: '768px',
       data: {
-        title: 'Tạo chiến dịch'
+        title: 'Cập nhật tổ chức',
+        object: this.entity
       }
     });
   };

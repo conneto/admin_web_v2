@@ -20,7 +20,7 @@ export class ProjectItemComponent implements OnInit {
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
 
-    if (this.userApi.currentUserValue.role == 'admin') {
+    if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
   }
