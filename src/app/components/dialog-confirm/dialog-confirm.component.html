@@ -9,6 +9,15 @@
       </mat-error>
     </mat-form-field>
   </form>
+  <form action="" *ngIf="data.volunteer">
+    <mat-form-field class="w-100">
+      <mat-label>Ghi chú công việc </mat-label>
+      <input matInput required [formControl]="volunteerFormControl" />
+      <mat-error *ngIf="reasonFormControl.errors?.required">
+        Vui lòng nhập ghi chú công việc
+      </mat-error>
+    </mat-form-field>
+  </form>
   <div class="button mt-3">
     <button style="background-color: #fbb800" mat-button (click)="yesClick()">
       <mat-icon>done</mat-icon>

@@ -1,9 +1,8 @@
-<div class='box' *ngIf="projects">
+<div *ngIf="projects"   >
   <div *ngFor="let project of projects">
-    <div class='box__item' >
-      <mat-card (click)='goToDetail(project.id)'>
+
+      <mat-card (click)="goToDetail(project.id)">
         <div class="image">
-            
           <img
             loading="lazy"
             alt="Cover of this project"
@@ -11,9 +10,11 @@
             src="{{ urlApi }}/show/images?p={{ project.cover }}"
           />
         </div>
-        <mat-card-title> <p>
+        <mat-card-title>
+          <p>
             {{ project.name }}
-        </p></mat-card-title>
+          </p></mat-card-title
+        >
         <div class="card-icon">
           <div>
             <img
@@ -31,5 +32,5 @@
         </div>
       </mat-card>
     </div>
-  </div>
+
 </div>

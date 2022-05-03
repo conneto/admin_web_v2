@@ -21,6 +21,9 @@ var DialogConfirmComponent = /** @class */ (function () {
         this.reasonFormControl = new forms_1.FormControl('', {
             validators: forms_1.Validators.required
         });
+        this.volunteerFormControl = new forms_1.FormControl('', {
+            validators: forms_1.Validators.required
+        });
     }
     DialogConfirmComponent.prototype.ngOnInit = function () {
     };
@@ -28,11 +31,15 @@ var DialogConfirmComponent = /** @class */ (function () {
         this.dialogRef.close(false);
     };
     DialogConfirmComponent.prototype.yesClick = function () {
-        var _a;
-        if (this.data.reason) {
+        var _a, _b;
+        if (this.data.reason || this.data.volunteer) {
             this.reasonFormControl.markAllAsTouched();
+            this.volunteerFormControl.markAllAsTouched();
             if (!((_a = this.reasonFormControl.errors) === null || _a === void 0 ? void 0 : _a.required)) {
                 this.dialogRef.close(this.reasonFormControl.value);
+            }
+            if (!((_b = this.volunteerFormControl.errors) === null || _b === void 0 ? void 0 : _b.required)) {
+                this.dialogRef.close(this.volunteerFormControl.value);
             }
         }
         else {

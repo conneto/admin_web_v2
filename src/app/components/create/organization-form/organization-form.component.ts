@@ -1,6 +1,8 @@
-import { Location } from '@angular/common';
+
+
+import { CurrencyPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Constant } from 'src/app/constant/constant';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
@@ -10,6 +12,7 @@ import { LoadingDataService } from 'src/app/services/get-entity/loading-data.ser
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
+import PlaceResult = google.maps.places.PlaceResult;
 
 @Component({
   selector: 'app-organization-form',
@@ -34,24 +37,72 @@ export class OrganizationFormComponent implements OnInit {
   noLogo?: boolean;
   noFile?: boolean;
   selectedType = 'ngo';
+  position?: any;
   type: string[] = ['ngo', 'npo'];
+  locations: any[] = [];
+  locationObject = {};
+  noLocationName?: boolean;
+  noAddress?: boolean;
+  isSendRequest?: boolean;
+
+  public latitude?: number;
+  public longitude?: number;
+  public selectedAddress?: PlaceResult;
+
   constructor(
     private org: OrganizationsComponent,
     private getEntityService: LoadingDataService,
     private loadingService: LoadingService,
-    private location: Location,
+ 
     private router: Router,
     private snackBar: SnackBarMessageComponent,
     private formBuilder: FormBuilder,
     private orgApi: OrganizationApiService,
     private user: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initFormBuilder();
   }
 
+
+  userAddress: string = ''
+  userLatitude: string = ''
+  userLongitude: string = ''
+  getPosition(e: any) {
+    if (e) {
+      console.log(e);
+    }
+  }
+  getLocationName(e: any) {
+    if (e) {
+      this.locationObject = {
+        name: e.target.value
+      }
+    } else {
+      this.noLocationName = true;
+    }
+    console.log(this.locationObject);
+  }
+  handleAddressChange(address: any) {
+    this.userAddress = address.formatted_address
+    this.userLatitude = address.geometry.location.lat()
+    this.userLongitude = address.geometry.location.lng()
+    if (address) {
+      this.locationObject = {
+        ...this.locationObject, address: this.userAddress, latitude: this.userLatitude, longitude: this.userLongitude
+      }
+    } else {
+      this.noAddress = true;
+    }
+
+  }
+
+
+
   async create() {
+
+
     if (
       this.organizationForm.controls.category.value.length != 0 &&
       this.organizationForm.controls.category.value
@@ -93,7 +144,14 @@ export class OrganizationFormComponent implements OnInit {
     this.isSubmitted = true;
     this.organizationForm.value.category = this.categoryString;
 
-    if (this.organizationForm.valid && !this.noCover) {
+    if (this.organizationForm.valid && !this.noCover && !this.noFile && !this.noLocationName && !this.noAddress) {
+      if (!this.isSendRequest) {
+        this.locations.push(this.locationObject);
+      }
+      this.isSendRequest = true;
+
+      this.organizationForm.value.locations = this.locations;
+      console.log(this.organizationForm.value);
       this.uploadData.append(
         'organization',
         JSON.stringify(this.organizationForm.value)
@@ -148,15 +206,14 @@ export class OrganizationFormComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(128),
-          Validators.maxLength(1000),
+
         ],
       ],
       vision: [
         '',
         [
           Validators.required,
-          Validators.minLength(128),
-          Validators.maxLength(1000),
+
         ],
       ],
       website: [''],
@@ -168,14 +225,16 @@ export class OrganizationFormComponent implements OnInit {
         '',
         [
           Validators.required,
-          Validators.minLength(128),
-          Validators.maxLength(1000),
+
+
         ],
       ],
       category: [''],
       logo: ['', Validators.required],
       cover: [''],
       type: [this.selectedType],
+      locations: [''],
+
     });
   }
   onChangeCover(e: any) {
@@ -223,19 +282,21 @@ export class OrganizationFormComponent implements OnInit {
         this.isWrongFile = true;
       } else {
         this.filePDF = e.addedFiles;
-        this.uploadData.append(
-          'operating_license',
-          this.filePDF[0],
-          this.filePDF[0].name
-        );
+        if (this.filePDF.length > 0) {
+          this.uploadData.append(
+            'operating_license',
+            this.filePDF[0],
+            this.filePDF[0].name
+          );
+        } else {
+          this.noFile = true;
+        }
       }
-    } else {
-      this.noFile = true;
     }
   }
 
   onRemove(event: any) {
     this.filePDF.splice(this.filePDF.indexOf(event), 1);
   }
-  getType(e: any) {}
+  getType(e: any) { }
 }

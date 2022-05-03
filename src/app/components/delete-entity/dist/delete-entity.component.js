@@ -114,8 +114,9 @@ var DeleteEntityComponent = /** @class */ (function () {
                                                 ? constant_1.Constant.PROJECT
                                                 : constant_1.Constant.ORGANIZATION,
                                     status: 'disable',
-                                    note: 'hi'
+                                    note: x
                                 };
+                                console.log(data1);
                                 return [4 /*yield*/, this.user.activateEntity(data1)];
                             case 1:
                                 res = _b.sent();

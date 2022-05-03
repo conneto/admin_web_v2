@@ -76,6 +76,9 @@ var CampaignForm = /** @class */ (function () {
         // let uploadData: any = new FormData();
         // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
     };
+    CampaignForm.prototype.getValue = function (element) {
+        console.log(element.target.value);
+    };
     CampaignForm.prototype.initForm = function () {
         this.campaignForm = this.formBuilder.group({
             selected: [this.selectedValue, forms_1.Validators.required],

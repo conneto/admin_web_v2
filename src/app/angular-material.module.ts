@@ -26,7 +26,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTreeModule } from '@angular/material/tree';
+
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
@@ -35,11 +35,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+
+import { GoogleMapsModule } from '@angular/google-maps';
+
 
 
 const materialModules = [
@@ -68,7 +73,7 @@ const materialModules = [
     MatToolbarModule,
     MatFormFieldModule,
     MatButtonToggleModule,
-    MatTreeModule,
+
     OverlayModule,
     PortalModule,
     MatBadgeModule,
@@ -90,12 +95,17 @@ const materialModules = [
     NgxDropzoneModule,
     NgxSkeletonLoaderModule,
     MatSlideToggleModule,
+   
+    GooglePlaceModule,
+    GoogleMapsModule,
+   
 ];
 
 @NgModule({
     imports: [
         CommonModule,
         ...materialModules
+
     ],
     exports: [
         ...materialModules

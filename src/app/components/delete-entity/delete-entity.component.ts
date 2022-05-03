@@ -82,9 +82,9 @@ export class DeleteEntityComponent implements OnInit {
                   ? Constant.PROJECT
                   : Constant.ORGANIZATION,
           status: 'disable',
-          note: 'hi',
+          note: x,
         };
-
+        console.log(data1);
         let res: BaseResponse | null = await this.user.activateEntity(data1);
         if (res?.status == 0) {
           switch (this.type) {

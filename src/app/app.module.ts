@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FileUploadModule } from 'ng2-file-upload';
 
+
+
 @NgModule({
   declarations: [
     AppComponent, LoginComponent
@@ -27,8 +29,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     ReactiveFormsModule,
     FormsModule,
     FileUploadModule,
-
-
+  
 
   ],
   providers: [

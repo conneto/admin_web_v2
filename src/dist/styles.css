@@ -169,7 +169,6 @@ html {
   padding: 5px 5px;
   border-radius: 6px;
   margin: 0px 3px;
-  width: 100px;
 }
 
 .mat-table {
@@ -234,4 +233,12 @@ td {
 
 .bg-primary-color {
   background-color: #fbb800 !important;
+}
+
+.enable {
+  background-color: #8af495;
+}
+
+.disable {
+  background-color: #f48a8a;
 }

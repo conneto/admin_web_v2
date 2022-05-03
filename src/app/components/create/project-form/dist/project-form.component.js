@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -23,14 +34,41 @@ var ProjectFormComponent = /** @class */ (function () {
         this.data = data;
         this.formBuilder = formBuilder;
         this.category = constant_1.Constant.CATEGORY;
+        this.locations = [];
+        this.locationObject = {};
+        this.userAddress = '';
+        this.userLatitude = '';
+        this.userLongitude = '';
     }
     ProjectFormComponent.prototype.ngOnInit = function () {
         this.initForm();
     };
+    ProjectFormComponent.prototype.getLocationName = function (e) {
+        if (e) {
+            this.locationObject = {
+                name: e.target.value
+            };
+        }
+        else {
+            this.noLocationName = true;
+        }
+        console.log(this.locationObject);
+    };
+    ProjectFormComponent.prototype.handleAddressChange = function (address) {
+        this.userAddress = address.formatted_address;
+        this.userLatitude = address.geometry.location.lat();
+        this.userLongitude = address.geometry.location.lng();
+        if (address) {
+            this.locationObject = __assign(__assign({}, this.locationObject), { address: this.userAddress, latitude: this.userLatitude, longitude: this.userLongitude });
+        }
+        else {
+            this.noAddress = true;
+        }
+    };
     ProjectFormComponent.prototype.initForm = function () {
         this.projectForm = this.formBuilder.group({
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
             created_by: [this.authApi.currentUserValue.id],
@@ -38,7 +76,8 @@ var ProjectFormComponent = /** @class */ (function () {
             request_type: ['create'],
             cover: [''],
             logo: [''],
-            category: ['']
+            category: [''],
+            locations: ['']
         });
     };
     ProjectFormComponent.prototype.noClick = function () {
@@ -64,6 +103,11 @@ var ProjectFormComponent = /** @class */ (function () {
         this.isSubmitted = true;
         this.projectForm.value.category = this.categoryString;
         if (this.projectForm.valid) {
+            if (!this.isSendRequest) {
+                this.locations.push(this.locationObject);
+            }
+            this.isSendRequest = true;
+            this.projectForm.value.locations = this.locations;
             var uploadData = new FormData();
             uploadData.append('cover', this.coverImage, (_a = this.coverImage) === null || _a === void 0 ? void 0 : _a.name);
             uploadData.append('logo', this.logo, (_b = this.logo) === null || _b === void 0 ? void 0 : _b.name);

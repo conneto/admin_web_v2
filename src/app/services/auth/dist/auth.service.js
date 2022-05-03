@@ -167,7 +167,7 @@ var AuthService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.apiService.put(constant_1.Constant.ORGANIZATION_MANAGER + '/' + constant_1.Constant.APPROVEMENTS, data)];
+                    case 0: return [4 /*yield*/, this.apiService.put(constant_1.Constant.ORGANIZATION_MANAGER + '/' + constant_1.Constant.APPROVEADMIN, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
