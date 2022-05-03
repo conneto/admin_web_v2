@@ -22,7 +22,7 @@ export class ProjectService {
   }
   async getByID(id: string) {
     let res: any = await this.api.get(
-      Constant.PROJECT + '/' + `${id}`
+      Constant.PROJECTS + '/' + `${id}`
     );
     return (res.data = this.projectAdap.adapt(res.data) || []);
   }

@@ -43,15 +43,16 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isList?: boolean = false;
   isAdmin?: boolean = false;
   oldDataSearch: Organization[] = [];
+  isTabRejected?:boolean;
 
   constructor(public utilService: UtilService, private loadingService: LoadingService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthService) { }
 
   ngOnInit(): void {
-    if (this.authService.currentUserValue.role == 'admin') {
+    if (this.authService.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
       this.checkToGetData();
 
-    } else if (this.authService.currentUserValue.role == 'organization_manager') {
+    } else if (this.authService.currentUserValue.role_id == 'organization_manager') {
       this.isAdmin = false;
       this.getAllOrganization();
     }
@@ -66,8 +67,14 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
 
   }
-  getState(e: any) {
-    this.isChangeState = e;
+  getTabGroupState(e: any) {
+    if(e){
+      if(e=='reject'){
+        this.isTabRejected=true;
+      }else {
+        this.isTabRejected=false;
+      }
+    }
 
   }
   handleTitle(e: any) {
@@ -85,12 +92,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   }
   getOrganizations(e: any) {
     if (e) {
-
+      this.isEmpty=false;
+      this.oldData = e;
       this.organizations = e;
-      if(localStorage.getItem('approve')){
-        this.organizations=this.passData;
-      }
-
+    }else{
+      this.isEmpty=true;
     }
   }
   getData(e: any) {
@@ -140,7 +146,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       console.log(this.organizations);
     }
     if (status) {
-      if (this.authService.currentUserValue.role == 'organization_manager') {
+      if (this.authService.currentUserValue.role_id == 'organization_manager') {
         const check = this.organizations.every((a) => {
           return a.result_code == 503;
         })
@@ -154,7 +160,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
       switch (status) {
         case 'approve':
-
+          this.changeToGrid()
           this.isRequest = false;
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
@@ -162,23 +168,23 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
           }
 
-          if (this.authService.currentUserValue.role == 'organization_manager') {
+          if (this.authService.currentUserValue.role_id == 'organization_manager') {
             if (this.organizations.length <= 0 || this.organizations == null) {
               this.organizations = [];
               this.noOrg = true;
             } else {
               this.organizations = this.passData;
-              this.oldData = this.passData.filter(x => x.result_code == 510);
+              this.oldData = this.passData;
               this.noOrg = false;
               this.isEmpty = false;
               if (this.organizations.length <= 0 || this.organizations == null) {
                 this.isEmpty = true;
               }
             }
-          } else if (this.authService.currentUserValue.role == 'admin') {
+          } else if (this.authService.currentUserValue.role_id == 'admin') {
             this.isEmpty = false;
             this.noOrg = false;
-            this.organizations = this.passData;
+            this.organizations = this.passData.filter(x => x.result_code == 510);
             this.oldData = this.passData.filter(x => x.result_code == 510);
           }
           setTimeout(() => {
@@ -217,7 +223,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
 
           }
-          if (this.authService.currentUserValue.role == 'admin') {
+          if (this.authService.currentUserValue.role_id == 'admin') {
             this.isRequest = true;
           } else {
             this.isRequest = false;
@@ -273,8 +279,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   }
   getEntity(e: any) {
     if (e) {
+      this.isEmpty=false;
       this.organizations = e;
       this.oldData = e;
+    }else{
+      this.isEmpty=true;
     }
   }
 }

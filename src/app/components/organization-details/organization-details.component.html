@@ -18,7 +18,7 @@
         </div>
         <img
           loading="lazy"
-          src="{{ urlApi }}/show/images?p={{ e.cover }}"
+          src="{{ urlApi }}/show/images?p={{ e.urlCover }}"
           alt=""
         />
       </div>
@@ -97,7 +97,14 @@
               >{{ e.website ? e.website : "Không có" }}</a
             >
           </div>
-
+          <div class="content-introduce">
+            <div>Tài liệu chứng thực:</div>
+            <div>
+              <a href='{{urlApi}}/show/files/?p={{e.operating_license}}' download>
+                <img style="width: 25px" src="./assets/icons/pdf.svg" />
+              </a>
+            </div>
+          </div>
           <div *ngIf="isApproved" class="content-button">
             <div *ngIf="isApproved">
               <app-delete-entity [type]="'org'" [entity]="organization"></app-delete-entity>

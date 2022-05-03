@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { Constant } from 'src/app/constant/constant';
 
 @Component({
-  selector: 'app-organization-form',
+  selector: 'app-organization-update-form',
   templateUrl: './organization-form.component.html',
   styleUrls: ['./organization-form.component.scss']
 })

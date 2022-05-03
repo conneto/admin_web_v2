@@ -7,6 +7,7 @@ import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { ComponentModule } from 'src/app/components/component/component.module';
 
 
+
 @NgModule({
   declarations: [
     ProjectDetailsComponent

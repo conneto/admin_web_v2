@@ -39,7 +39,7 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
     };
     OrganizationUpdateFormComponent = __decorate([
         core_1.Component({
-            selector: 'app-organization-form',
+            selector: 'app-organization-update-form',
             templateUrl: './organization-form.component.html',
             styleUrls: ['./organization-form.component.scss']
         })

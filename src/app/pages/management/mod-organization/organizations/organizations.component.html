@@ -5,7 +5,7 @@
 
   <ng-template #tabgroup>
     <div *ngIf="isAdmin">
-      <app-tabgroup [organizations]="passData" [entity]="'org'"></app-tabgroup>
+      <app-tabgroup (getState)="getTabGroupState($event)" [organizations]="passData" [entity]="'org'"></app-tabgroup>
     </div>
   </ng-template>
 
@@ -89,7 +89,7 @@
               </div>
             </ng-template>
             <app-entity-status
-              *ngIf="!isList"
+              *ngIf="!isList && !isTabRejected"
               [entityData]="passData"
               [type]="'org'"
               (entity)="getEntity($event)"
@@ -97,7 +97,7 @@
             <app-search-bar
               *ngIf="!isList"
               (getItem)="getData($event)"
-              [entity]="passData"
+  
               [entityCopy]="oldData"
             ></app-search-bar>
             <app-change-to-list

@@ -40,18 +40,40 @@ export class ProjectComponent implements OnInit {
   isList?: boolean = false;
   organization: Organization[] = [];
   isAdmin?: boolean;
+  isTabRejected?: boolean;
   constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
     this.urlApi = this.loadingService.getApiGetLink.value;
-    if (this.authApi.currentUserValue.role == 'admin') {
+    if (this.authApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
     }
   }
   ngOnDestroy(): void {
+
+  }
+  getEntity(e: any) {
+    if (e!=[]) {
+      console.log(e);
+      this.isEmpty = false;
+      this.projects = e;
+      this.oldData = e;
+    } else {
+      this.isEmpty = true;
+    }
+  }
+  getTabGroupState(e: any) {
+    if (e) {
+      if (e == 'reject') {
+        this.isTabRejected = true;
+      } else {
+        this.isTabRejected = false;
+      }
+    }
+
 
   }
   changeView() {
@@ -162,7 +184,7 @@ export class ProjectComponent implements OnInit {
           return x.resultCode == 601;
         })
         this.oldData = this.passData.filter(x => x.resultCode == 601);
-        if (this.authApi.currentUserValue.role == 'admin') {
+        if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {
           this.isRequest = false;

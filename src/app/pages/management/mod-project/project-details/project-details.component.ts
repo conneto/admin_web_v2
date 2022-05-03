@@ -57,7 +57,7 @@ export class ProjectDetailsComponent implements OnInit {
   check() {
 
 
-    if (this.auth.currentUserValue.role == 'organization_manager') {
+    if (this.auth.currentUserValue.role_id == 'organization_manager') {
       this.isAdmin = false;
     } else {
       this.isAdmin = true;
@@ -71,7 +71,10 @@ export class ProjectDetailsComponent implements OnInit {
       this.isEmpty=true;
     }else {
       this.isEmpty=false;
-      this.campaigns = this.campaignsCopy;
+      this.campaigns = this.campaignsCopy.filter(x=>{
+        return  x.result_code!=703;
+      });
+    
     }
 
     if (this.campaigns) {

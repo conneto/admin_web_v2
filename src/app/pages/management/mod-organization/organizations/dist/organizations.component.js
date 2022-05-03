@@ -64,11 +64,11 @@ var OrganizationsComponent = /** @class */ (function () {
         this.oldDataSearch = [];
     }
     OrganizationsComponent.prototype.ngOnInit = function () {
-        if (this.authService.currentUserValue.role == 'admin') {
+        if (this.authService.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
             this.checkToGetData();
         }
-        else if (this.authService.currentUserValue.role == 'organization_manager') {
+        else if (this.authService.currentUserValue.role_id == 'organization_manager') {
             this.isAdmin = false;
             this.getAllOrganization();
         }
@@ -79,8 +79,15 @@ var OrganizationsComponent = /** @class */ (function () {
     };
     OrganizationsComponent.prototype.ngOnDestroy = function () {
     };
-    OrganizationsComponent.prototype.getState = function (e) {
-        this.isChangeState = e;
+    OrganizationsComponent.prototype.getTabGroupState = function (e) {
+        if (e) {
+            if (e == 'reject') {
+                this.isTabRejected = true;
+            }
+            else {
+                this.isTabRejected = false;
+            }
+        }
     };
     OrganizationsComponent.prototype.handleTitle = function (e) {
         this.noResultBySearch = false;
@@ -97,10 +104,12 @@ var OrganizationsComponent = /** @class */ (function () {
     };
     OrganizationsComponent.prototype.getOrganizations = function (e) {
         if (e) {
+            this.isEmpty = false;
+            this.oldData = e;
             this.organizations = e;
-            if (localStorage.getItem('approve')) {
-                this.organizations = this.passData;
-            }
+        }
+        else {
+            this.isEmpty = true;
         }
     };
     OrganizationsComponent.prototype.getData = function (e) {
@@ -161,7 +170,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     console.log(this.organizations);
                 }
                 if (status) {
-                    if (this.authService.currentUserValue.role == 'organization_manager') {
+                    if (this.authService.currentUserValue.role_id == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
                         });
@@ -172,19 +181,20 @@ var OrganizationsComponent = /** @class */ (function () {
                     this.isList = false;
                     switch (status) {
                         case 'approve':
+                            this.changeToGrid();
                             this.isRequest = false;
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                             }
-                            if (this.authService.currentUserValue.role == 'organization_manager') {
+                            if (this.authService.currentUserValue.role_id == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
                                     this.organizations = [];
                                     this.noOrg = true;
                                 }
                                 else {
                                     this.organizations = this.passData;
-                                    this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
+                                    this.oldData = this.passData;
                                     this.noOrg = false;
                                     this.isEmpty = false;
                                     if (this.organizations.length <= 0 || this.organizations == null) {
@@ -192,10 +202,10 @@ var OrganizationsComponent = /** @class */ (function () {
                                     }
                                 }
                             }
-                            else if (this.authService.currentUserValue.role == 'admin') {
+                            else if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
-                                this.organizations = this.passData;
+                                this.organizations = this.passData.filter(function (x) { return x.result_code == 510; });
                                 this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
                             }
                             setTimeout(function () {
@@ -228,7 +238,7 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizationId = this.organizations[i].id;
                                 this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                             }
-                            if (this.authService.currentUserValue.role == 'admin') {
+                            if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isRequest = true;
                             }
                             else {
@@ -290,8 +300,12 @@ var OrganizationsComponent = /** @class */ (function () {
     };
     OrganizationsComponent.prototype.getEntity = function (e) {
         if (e) {
+            this.isEmpty = false;
             this.organizations = e;
             this.oldData = e;
+        }
+        else {
+            this.isEmpty = true;
         }
     };
     __decorate([

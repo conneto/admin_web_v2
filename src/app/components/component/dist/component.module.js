@@ -89,6 +89,7 @@ var componentModules = [
     entity_status_component_1.EntityStatusComponent,
     organization_skeleton_loading_component_1.OrganizationSkeletonLoadingComponent,
     organization_form_component_2.OrganizationUpdateFormComponent,
+    organization_form_component_1.OrganizationFormComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

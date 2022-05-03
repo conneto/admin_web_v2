@@ -209,7 +209,7 @@ function () {
               this.loadingService.isLoading.next(false);
               userLoginResponse = this.userResponse.adapt(res.data);
 
-              if (userLoginResponse.role == 'volunteer') {
+              if (userLoginResponse.role_id == 'volunteer') {
                 this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
               } else {
                 this.snackBar.showMessage("Đăng nhập thành công !", true);

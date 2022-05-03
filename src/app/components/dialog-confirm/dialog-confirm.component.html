@@ -2,7 +2,7 @@
   <p>{{ data.message }}</p>
   <form action="" *ngIf="data.reason">
     <mat-form-field class="w-100">
-      <mat-label>Lý do từ chối </mat-label>
+      <mat-label>Lý do </mat-label>
       <input matInput required [formControl]="reasonFormControl" />
       <mat-error *ngIf="reasonFormControl.errors?.required">
         Vui lòng nhập lý do

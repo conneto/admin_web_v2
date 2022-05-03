@@ -60,9 +60,9 @@
             <p class="title">Được tạo bởi</p>
             <p>
               {{
-              organization.created_name
-              ? organization.created_name
-              : "Anh Phuc"
+                organization.created_name
+                  ? organization.created_name
+                  : "Anh Phuc"
               }}
             </p>
           </div>
@@ -100,10 +100,17 @@
               href="{{
                 organization.website ? organization.website : 'google.com'
               }}"
-            >{{ organization.website ? organization.website : "Không có" }}</a
+              >{{ organization.website ? organization.website : "Không có" }}</a
             >
           </div>
-
+          <div class="content-introduce">
+            <div>Tài liệu chứng thực:</div>
+            <div>
+              <a href='{{urlApi}}/show/files/?p={{organization.operating_license}}' download>
+                <img style="width: 25px" src="./assets/icons/pdf.svg" />
+              </a>
+            </div>
+          </div>
           <div *ngIf="isApproved" class="content-button">
             <div *ngIf="isApproved">
               <app-delete-entity

@@ -15,11 +15,11 @@ var Guard3Guard = /** @class */ (function () {
     }
     Guard3Guard.prototype.canActivate = function (route, state) {
         if (this.user.currentUserValue) {
-            if (this.user.currentUserValue.role == 'admin') {
+            if (this.user.currentUserValue.role_id == 'admin') {
                 this.router.navigate(['/admin/dashboard']);
                 return true;
             }
-            else if (this.user.currentUserValue.role == 'organization_manager') {
+            else if (this.user.currentUserValue.role_id == 'organization_manager') {
                 this.router.navigate(['/manager']);
                 return true;
             }

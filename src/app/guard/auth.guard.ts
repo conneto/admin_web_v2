@@ -15,10 +15,10 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const currentUser = this.authApi.currentUserValue;
     if (currentUser) {
-      if(currentUser.role=='admin'){
-
+      if(currentUser.role_id=='admin'){
+     
         return true;
-      }else if(currentUser.role=='organization_manager'){
+      }else if(currentUser.role_id=='organization_manager'){
         this.router.navigate(['/manager']);
         return true;
       }
@@ -30,10 +30,11 @@ export class AuthGuard implements CanActivate {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.authApi.currentUserValue;
-    if (currentUser.role == 'admin') {
+    if (currentUser.role_id == 'admin') {
       return true;
     }
-    this.router.navigate(['/'],);
+    this.router.navigate(['/']);
     return false;
   }
 }
+

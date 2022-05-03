@@ -16,10 +16,10 @@ var AuthGuard = /** @class */ (function () {
     AuthGuard.prototype.canActivate = function (route, state) {
         var currentUser = this.authApi.currentUserValue;
         if (currentUser) {
-            if (currentUser.role == 'admin') {
+            if (currentUser.role_id == 'admin') {
                 return true;
             }
-            else if (currentUser.role == 'organization_manager') {
+            else if (currentUser.role_id == 'organization_manager') {
                 this.router.navigate(['/manager']);
                 return true;
             }
@@ -29,7 +29,7 @@ var AuthGuard = /** @class */ (function () {
     };
     AuthGuard.prototype.canActivateChild = function (route, state) {
         var currentUser = this.authApi.currentUserValue;
-        if (currentUser.role == 'admin') {
+        if (currentUser.role_id == 'admin') {
             return true;
         }
         this.router.navigate(['/']);

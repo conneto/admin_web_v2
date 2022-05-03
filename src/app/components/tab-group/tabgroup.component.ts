@@ -60,7 +60,7 @@ export class TabgroupComponent implements OnInit {
 
   getEntity(name: string, entity: any) {
     
-    this.passData(this.isChangeState = true);
+    this.passData(name);
     switch (name) {
       case 'approve':
         localStorage.setItem('approve', 'true');

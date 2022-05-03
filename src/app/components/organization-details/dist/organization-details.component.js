@@ -91,7 +91,8 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                 }
                 this.loadingService.getOrganizationId.next("" + ((_b = this.organizationInput[0]) === null || _b === void 0 ? void 0 : _b.id));
                 this.urlLogo = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                this.urlCover = (_f = (_e = this.organization) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                this.urlCover = (_f = (_e = this.organization) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.split('|')[0];
+                console.log(this.urlCover);
                 switch ((_g = this.organization) === null || _g === void 0 ? void 0 : _g.type) {
                     case 'ngo':
                         this.organization.type = 'Tổ chức phi chính phủ';

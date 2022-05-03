@@ -64,7 +64,7 @@ var ProjectComponent = /** @class */ (function () {
     ProjectComponent.prototype.ngOnInit = function () {
         this.checkToGetData();
         this.urlApi = this.loadingService.getApiGetLink.value;
-        if (this.authApi.currentUserValue.role == 'admin') {
+        if (this.authApi.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
         else {
@@ -72,6 +72,27 @@ var ProjectComponent = /** @class */ (function () {
         }
     };
     ProjectComponent.prototype.ngOnDestroy = function () {
+    };
+    ProjectComponent.prototype.getEntity = function (e) {
+        if (e != []) {
+            console.log(e);
+            this.isEmpty = false;
+            this.projects = e;
+            this.oldData = e;
+        }
+        else {
+            this.isEmpty = true;
+        }
+    };
+    ProjectComponent.prototype.getTabGroupState = function (e) {
+        if (e) {
+            if (e == 'reject') {
+                this.isTabRejected = true;
+            }
+            else {
+                this.isTabRejected = false;
+            }
+        }
     };
     ProjectComponent.prototype.changeView = function () {
         var _a;
@@ -199,7 +220,7 @@ var ProjectComponent = /** @class */ (function () {
                             return x.resultCode == 601;
                         });
                         this.oldData = this.passData.filter(function (x) { return x.resultCode == 601; });
-                        if (this.authApi.currentUserValue.role == 'admin') {
+                        if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;
                         }
                         else {

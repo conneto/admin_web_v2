@@ -198,7 +198,7 @@ function () {
   };
 
   ProjectDetailsComponent.prototype.check = function () {
-    if (this.auth.currentUserValue.role == 'organization_manager') {
+    if (this.auth.currentUserValue.role_id == 'organization_manager') {
       this.isAdmin = false;
     } else {
       this.isAdmin = true;
@@ -226,7 +226,9 @@ function () {
               this.isEmpty = true;
             } else {
               this.isEmpty = false;
-              this.campaigns = this.campaignsCopy;
+              this.campaigns = this.campaignsCopy.filter(function (x) {
+                return x.result_code != 703;
+              });
             }
 
             if (this.campaigns) {

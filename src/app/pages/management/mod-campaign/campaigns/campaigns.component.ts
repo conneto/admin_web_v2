@@ -44,7 +44,7 @@ export class CampaignsComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkToGetData();
-    if (this.authApi.currentUserValue.role == 'admin') {
+    if (this.authApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -53,7 +53,7 @@ export class CampaignsComponent implements OnInit {
   }
   async checkProject() {
 
-    if (this.authApi.currentUserValue.role == 'organization_manager') {
+    if (this.authApi.currentUserValue.role_id == 'organization_manager') {
       this.projects = await this.projectService.getAll();
       this.projects = this.projects.filter(x => {
         return x.resultCode == 610;
@@ -215,7 +215,7 @@ export class CampaignsComponent implements OnInit {
           return x.result_code == 701;
         })
         this.oldData = this.passData.filter(x => x.result_code == 701);
-        if (this.authApi.currentUserValue.role == 'admin') {
+        if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {
           this.isRequest = false;

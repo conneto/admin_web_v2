@@ -66,13 +66,13 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
 
     this.user = this.authService.currentUserValue;
-    console.log(this.user?.role);
+    console.log(this.user?.role_id);
     if (this.user) {
-      if (this.authService.currentUserValue.role == 'organization_manager') {
+      if (this.authService.currentUserValue.role_id == 'organization_manager') {
         this.menus = this.menus.filter(x => {
           return x.role == 'organization_manager' || x.role=='organization_manager_admin';
         })
-      }else if(this.user.role=='admin'){
+      }else if(this.user.role_id=='admin'){
         this.menus = this.menus.filter(x => {
           return x.role=='organization_manager_admin' || x.role=='admin';
         })

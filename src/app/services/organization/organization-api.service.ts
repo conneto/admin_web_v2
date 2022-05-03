@@ -31,18 +31,13 @@ export class OrganizationApiService {
   }
   async getProjectsByOrgId(id: string) {
     let res: BaseResponse = await this.apiService.get(`${Constant.ORGANIZATIONS}/${id}/${Constant.PROJECTS}`)
-    res.data = res.data.map((item: any) => {
-
-      return this.projectAdapter.adapt(item);
-    })
+ 
 
     return res.data || [];
   }
   async getCampaignsByOrgId(id: string) {
     let res: BaseResponse = await this.apiService.get(`${Constant.ORGANIZATIONS}/${id}/${Constant.CAMPAIGNS}`)
-    res.data = res.data.map((item: any) => {
-      return this.campaignAdapter.adapt(item);
-    })
+  
     return res.data || [];
   }
   async getById(id: string) {

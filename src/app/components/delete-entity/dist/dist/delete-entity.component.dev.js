@@ -180,7 +180,7 @@ function () {
   }
 
   DeleteEntityComponent.prototype.ngOnInit = function () {
-    if (this.user.currentUserValue.role == 'admin') {
+    if (this.user.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;

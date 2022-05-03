@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.initLoginForm();
     var enter = document.getElementsByClassName('input');
-    console.log(enter);
+  
     for (var i = 0; i < enter.length; i++) {
       (<HTMLElement>enter[i]).addEventListener("keyup", function (e) {
         if (e.key == 'Enter') {
@@ -49,11 +49,12 @@ export class LoginComponent implements OnInit {
         this.loginForm.value.username,
         this.loginForm.value.password
       );
+  
       if (baseResponse?.status == 0) {
-
-        if (this.authService.currentUserValue.role === 'organization_manager') {
+        console.log(this.authService.currentUserValue.role_id );
+        if (this.authService.currentUserValue.role_id == 'organization_manager') {
           await this.router.navigate(['manager']);
-        } else if (this.authService.currentUserValue.role === 'admin') {
+        } else if (this.authService.currentUserValue.role_id == 'admin') {
           await this.router.navigate(['admin/dashboard']);
         } else {
           this.isError = true;

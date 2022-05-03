@@ -72,7 +72,7 @@ var ProjectService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.PROJECT + '/' + ("" + id))];
+                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.PROJECTS + '/' + ("" + id))];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, (res.data = this.projectAdap.adapt(res.data) || [])];

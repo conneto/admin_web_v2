@@ -75,7 +75,8 @@ export class OrganizationDetailsComponent implements OnInit {
     }
     this.loadingService.getOrganizationId.next(`${this.organizationInput[0]?.id}`);
     this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
-    this.urlCover = this.organization?.cover?.replace(/\\/g, '\/');
+    this.urlCover = this.organization?.cover?.split('|')[0];
+    console.log(this.urlCover);
     switch (this.organization?.type) {
       case 'ngo': this.organization.type = 'Tổ chức phi chính phủ';
         break;
