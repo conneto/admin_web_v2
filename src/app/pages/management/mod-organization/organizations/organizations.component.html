@@ -5,7 +5,11 @@
 
   <ng-template #tabgroup>
     <div *ngIf="isAdmin">
-      <app-tabgroup (getState)="getTabGroupState($event)" [organizations]="passData" [entity]="'org'"></app-tabgroup>
+      <app-tabgroup
+        (getState)="getTabGroupState($event)"
+        [organizations]="passData"
+        [entity]="'org'"
+      ></app-tabgroup>
     </div>
   </ng-template>
 
@@ -97,7 +101,6 @@
             <app-search-bar
               *ngIf="!isList"
               (getItem)="getData($event)"
-  
               [entityCopy]="oldData"
             ></app-search-bar>
             <app-change-to-list
@@ -164,9 +167,9 @@
       [organizationInput]="organizations"
     ></app-organization-details>
   </div>
-</div>
-<div class="skeleton">
-  <div *ngFor="let i of numberCount">
-    <app-skeletion-loading></app-skeletion-loading>
+  <div class="skeleton">
+    <div *ngFor="let i of numberCount">
+      <app-skeletion-loading></app-skeletion-loading>
+    </div>
   </div>
 </div>

@@ -45,22 +45,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-<<<<<<< Updated upstream
 exports.CampaignForm = void 0;
-=======
-exports.CamapaignFormComponent = void 0;
->>>>>>> Stashed changes
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var constant_1 = require("src/app/constant/constant");
-<<<<<<< Updated upstream
 var CampaignForm = /** @class */ (function () {
     function CampaignForm(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
-=======
-var CamapaignFormComponent = /** @class */ (function () {
-    function CamapaignFormComponent(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
->>>>>>> Stashed changes
         this.organizationApi = organizationApi;
         this.projectApi = projectApi;
         this.loadingService = loadingService;
@@ -79,31 +70,23 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.categoryString = '';
         this.categoryStringClone = '';
     }
-<<<<<<< Updated upstream
     CampaignForm.prototype.ngOnInit = function () {
-=======
-    CamapaignFormComponent.prototype.ngOnInit = function () {
->>>>>>> Stashed changes
         this.initForm();
         this.check();
         // let uploadData: any = new FormData();
         // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
     };
-<<<<<<< Updated upstream
     CampaignForm.prototype.initForm = function () {
-=======
-    CamapaignFormComponent.prototype.initForm = function () {
->>>>>>> Stashed changes
         this.campaignForm = this.formBuilder.group({
             selected: [this.selectedValue, forms_1.Validators.required],
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
             start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
             end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
             request_type: ['create'],
-            type: ['', forms_1.Validators.required],
+            type: [this.selectedRadio, forms_1.Validators.required],
             target_number: ['', forms_1.Validators.required],
             job_requirement: [''],
             job_description: [''],
@@ -113,49 +96,51 @@ var CamapaignFormComponent = /** @class */ (function () {
             category: ['']
         });
     };
-<<<<<<< Updated upstream
     CampaignForm.prototype.check = function () {
-=======
-    CamapaignFormComponent.prototype.check = function () {
->>>>>>> Stashed changes
         return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            var _a, _b, _c, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
-                        if (!this.data.project) return [3 /*break*/, 1];
+                        if (!this.data.project) return [3 /*break*/, 4];
                         this.isOnlyProject = true;
-                        return [3 /*break*/, 4];
-                    case 1:
                         _a = this;
                         return [4 /*yield*/, this.organizationApi.getAll()];
-                    case 2:
-                        _a.organizations = _c.sent();
-                        if (!this.organizations) return [3 /*break*/, 4];
+                    case 1:
+                        _a.organizations = _e.sent();
+                        if (!this.organizations) return [3 /*break*/, 3];
                         _b = this;
                         return [4 /*yield*/, this.organizationApi.getProjectsByOrgId("" + this.organizations[0].id)];
-                    case 3:
-                        _b.cloneProjects = _c.sent();
+                    case 2:
+                        _b.cloneProjects = _e.sent();
                         this.projects = this.cloneProjects.filter(function (x) {
                             return x.resultCode == 610;
                         });
-                        _c.label = 4;
-                    case 4: return [2 /*return*/];
+                        _e.label = 3;
+                    case 3: return [3 /*break*/, 7];
+                    case 4:
+                        _c = this;
+                        return [4 /*yield*/, this.organizationApi.getAll()];
+                    case 5:
+                        _c.organizations = _e.sent();
+                        if (!this.organizations) return [3 /*break*/, 7];
+                        _d = this;
+                        return [4 /*yield*/, this.organizationApi.getProjectsByOrgId("" + this.organizations[0].id)];
+                    case 6:
+                        _d.cloneProjects = _e.sent();
+                        this.projects = this.cloneProjects.filter(function (x) {
+                            return x.resultCode == 610;
+                        });
+                        _e.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         });
     };
-<<<<<<< Updated upstream
     CampaignForm.prototype.noClick = function () {
         this.dialogRef.close(false);
     };
     CampaignForm.prototype.yesClick = function () {
-=======
-    CamapaignFormComponent.prototype.noClick = function () {
-        this.dialogRef.close(false);
-    };
-    CamapaignFormComponent.prototype.yesClick = function () {
->>>>>>> Stashed changes
         var _this = this;
         var _a;
         if (this.campaignForm.controls.category.value.length != 0 && this.campaignForm.controls.category.value) {
@@ -182,6 +167,7 @@ var CamapaignFormComponent = /** @class */ (function () {
         this.projects = this.cloneProjects.filter(function (x) {
             return x.name == _this.campaignForm.value.selected;
         });
+        console.log(this.projects);
         if (this.projects.length != 0) {
             this.campaignForm.patchValue({ project_id: "" + this.projects[0].id });
         }
@@ -203,11 +189,7 @@ var CamapaignFormComponent = /** @class */ (function () {
             this.dialogRef.close(this.uploadData);
         }
     };
-<<<<<<< Updated upstream
     CampaignForm.prototype.onChange = function (e) {
-=======
-    CamapaignFormComponent.prototype.onChange = function (e) {
->>>>>>> Stashed changes
         if (e.target.files && e.target.files.length > 0) {
             for (var i = 0; i < e.target.files.length; i++) {
                 this.uploadData.append('cover', e.target.files[i], e.target.files[i].name);
@@ -215,39 +197,29 @@ var CamapaignFormComponent = /** @class */ (function () {
             // this.coverImage = e.target.files[0];
         }
     };
-<<<<<<< Updated upstream
     Object.defineProperty(CampaignForm.prototype, "campaignControl", {
-=======
-    Object.defineProperty(CamapaignFormComponent.prototype, "campaignControl", {
->>>>>>> Stashed changes
         get: function () {
             return this.campaignForm.controls;
         },
         enumerable: false,
         configurable: true
     });
-<<<<<<< Updated upstream
     CampaignForm.prototype.getType = function (e) {
-=======
-    CamapaignFormComponent.prototype.getType = function (e) {
->>>>>>> Stashed changes
         console.log(e);
         if (e == 'Quyên góp') {
+            this.campaignForm.patchValue({ start_working_date: "" + this.campaignForm.value.start_date });
+            this.campaignForm.patchValue({ end_working_date: "" + this.campaignForm.value.end_date });
             this.campaignForm.removeControl('job_requirement');
             this.campaignForm.removeControl('job_description');
             this.campaignForm.removeControl('job_benefit');
         }
         else if (e == 'Tuyển tình nguyện viên') {
-            this.campaignForm.setControl('job_requirement', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
-            this.campaignForm.setControl('job_description', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
-            this.campaignForm.setControl('job_benefit', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
+            this.campaignForm.setControl('job_requirement', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8)]));
+            this.campaignForm.setControl('job_description', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8)]));
+            this.campaignForm.setControl('job_benefit', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8)]));
         }
     };
-<<<<<<< Updated upstream
     CampaignForm.prototype.onRemoveCategory = function (e) {
-=======
-    CamapaignFormComponent.prototype.onRemoveCategory = function (e) {
->>>>>>> Stashed changes
         this.isRemoved = true;
         var category = this.campaignForm.controls.category.value;
         var index = category.indexOf(e);
@@ -260,25 +232,14 @@ var CamapaignFormComponent = /** @class */ (function () {
         }
         this.campaignForm.controls.category.patchValue(category);
     };
-<<<<<<< Updated upstream
     CampaignForm = __decorate([
-=======
-    CamapaignFormComponent = __decorate([
->>>>>>> Stashed changes
         core_1.Component({
             selector: 'app-campaign-form',
             templateUrl: './campaign-form.component.html',
             styleUrls: ['./campaign-form.component.scss']
         }),
         __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
-<<<<<<< Updated upstream
     ], CampaignForm);
     return CampaignForm;
 }());
 exports.CampaignForm = CampaignForm;
-=======
-    ], CamapaignFormComponent);
-    return CamapaignFormComponent;
-}());
-exports.CamapaignFormComponent = CamapaignFormComponent;
->>>>>>> Stashed changes

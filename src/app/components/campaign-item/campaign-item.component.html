@@ -1,65 +1,65 @@
 <div  style='cursor:pointer;' (click)='goToDetails(campaign.id)' *ngIf="campaign" class="w-100 h-100 shadow rounded-3">
 
 
-    <div class="cover-container position-relative">
-      <div
-        class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute top-0 end-0 border-radius-8 mt-2 me-2 opacity-75">
-        <span class="font-size-8">{{ utilService.convertType(campaign.type) }}</span>
-      </div>
-      <div class="cover">
-        <img class="rounded-top"
-             onerror="this.src='assets/images/temp_bg.png'"
-             src="{{ urlApi }}/show/images?p={{ campaign.cover }}"/>
-      </div>
+  <div class="cover-container position-relative">
+    <div
+      class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute top-0 end-0 border-radius-8 mt-2 me-2 opacity-75">
+      <span class="font-size-8">{{ utilService.convertType(campaign.type) }}</span>
     </div>
-    <div class="info-container p-2 d-flex flex-column justify-content-between">
-      <mat-card-title class="fs-5 primary-text-color text-truncate-2">
-        {{ campaign.name }}
-      </mat-card-title>
-      <div>
-        <div class="d-flex align-items-center">
-          <div class="circle-avatar">
-            <img
-              onerror="this.src='assets/icons/user_icon.png'"
-              src="{{ urlApi }}/show/images?p={{ campaign.pro_logo }}"
-            />
-          </div>
-          <p class="fw-bold ms-2 text-truncate">{{ campaign.pro_name }}</p>
+    <div class="cover">
+      <img class="rounded-top"
+           onerror="this.src='assets/images/temp_bg.png'"
+           src="{{ urlApi }}/show/images?p={{ campaign.cover }}"/>
+    </div>
+  </div>
+  <div class="info-container p-2 d-flex flex-column justify-content-between">
+    <mat-card-title class="fs-5 primary-text-color text-truncate-2">
+      {{ campaign.name }}
+    </mat-card-title>
+    <div>
+      <div class="d-flex align-items-center">
+        <div class="circle-avatar">
+          <img
+            onerror="this.src='assets/icons/user_icon.png'"
+            src="{{ urlApi }}/show/images?p={{ campaign.pro_logo }}"
+          />
         </div>
-        <div class="my-2">
-          <p class="text-truncate"><b>Diễn ra:</b> {{campaign.startDate | date: 'dd/MM/yyyy hh:mm'}}
-            - {{campaign.endDate | date: 'dd/MM/yyyy hh:mm'}}</p>
+        <p class="fw-bold ms-2 text-truncate">{{ campaign.pro_name }}</p>
+      </div>
+      <div class="my-2">
+        <p class="text-truncate"><b>Diễn ra:</b> {{campaign.startDate | date: 'dd/MM/yyyy hh:mm'}}
+          - {{campaign.endDate | date: 'dd/MM/yyyy hh:mm'}}</p>
+      </div>
+      <div>
+        <p class="mb-2">
+          <span
+            class="fs-5 fw-bold primary-text-color">{{ campaign.type == 'donation' ? (campaign.totalDonated | currency: "VND") : campaign.totalPaticipant}}
+            / </span>
+          <span
+            class="fs-6">{{ campaign.type == 'donation' ? (campaign.target | currency: "VND") : campaign.target + ' người' }}</span>
+        </p>
+        <div class="campaign__progress-bar">
+          <mat-progress-bar
+            mode="determinate"
+            value="{{valueNumber}}"
+          ></mat-progress-bar>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <div>
+          <p>
+            <span>Lượt {{ campaign.type == 'donation' ? 'quyên góp' : 'tham gia'}}: </span>
+            <span class="fw-bold">{{ campaign.totalPaticipant }}</span>
+          </p>
         </div>
         <div>
-          <p class="mb-2">
-            <span
-              class="fs-5 fw-bold primary-text-color">{{ campaign.type == 'donation' ? (campaign.totalDonated | currency: "VND") : campaign.totalPaticipant}}
-              / </span>
-            <span
-              class="fs-6">{{ campaign.type == 'donation' ? (campaign.target | currency: "VND") : ((campaign.target | number: '1.0':'en-US') + ' người' )}}</span>
+          <p>
+            <span>Đạt được: </span>
+            <span class="fw-bold">{{ campaign.org_id | percent: "1.0-2" }}</span>
           </p>
-          <div class="campaign__progress-bar">
-            <mat-progress-bar
-              mode="determinate"
-              value="{{valueNumber}}"
-            ></mat-progress-bar>
-          </div>
-        </div>
-        <div class="d-flex justify-content-between">
-          <div>
-            <p>
-              <span>Lượt {{ campaign.type == 'donation' ? 'quyên góp' : 'tham gia'}}: </span>
-              <span class="fw-bold">{{ campaign.totalPaticipant }}</span>
-            </p>
-          </div>
-          <div>
-            <p>
-              <span>Đạt được: </span>
-              <span class="fw-bold">{{ campaign.org_id | percent: "1.0-2" }}</span>
-            </p>
-          </div>
         </div>
       </div>
     </div>
+  </div>
 
 </div>

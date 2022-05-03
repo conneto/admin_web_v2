@@ -170,12 +170,12 @@ export class DeleteEntityComponent implements OnInit {
         button: 'Xóa',
         close: 'Hủy',
         message: this.type == 'org'
-          ? 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo'
+          ? 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ xóa theo'
           : this.type == 'cam'
-            ? 'Bạn có chắc chắn muốn xóa chiến dịch này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ bị tạm dừng theo'
+            ? 'Bạn có chắc chắn muốn xóa chiến dịch này không?'
             : this.type == 'pro'
-              ? 'Bạn có chắc chắn muốn xóa dự án này không?'
-              : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo',
+              ? 'Bạn có chắc chắn muốn xóa dự án này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ xóa theo'
+              : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị xóa theo',
       },
     });
     dialogRef.afterClosed().subscribe(async (data) => {

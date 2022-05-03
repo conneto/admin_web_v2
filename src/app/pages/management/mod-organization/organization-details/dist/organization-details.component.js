@@ -143,34 +143,17 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getCampaigns = function () {
-        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var _e, i;
-            return __generator(this, function (_f) {
-                switch (_f.label) {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
-                        _e = this;
+                        _a = this;
                         return [4 /*yield*/, this.orgApi.getCampaignsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
                     case 1:
-                        _e.campaignsCopy = _f.sent();
+                        _a.campaignsCopy = _b.sent();
                         this.campaigns = this.campaignsCopy;
                         if (this.campaigns) {
-                            for (i = 0; i < this.campaigns.length; i++) {
-                                {
-                                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                                    switch (this.campaigns[i].type) {
-                                        case 'donation':
-                                            this.campaigns[i].type = 'Quyên Góp';
-                                            this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
-                                            break;
-                                        case 'recruitment':
-                                            this.campaigns[i].type = 'Thiện Nguyện';
-                                            this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
-                                            break;
-                                    }
-                                }
-                            }
                             this.passDataCampaigns = this.campaignsCopy;
                         }
                         return [2 /*return*/];

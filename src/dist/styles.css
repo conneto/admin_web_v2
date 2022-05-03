@@ -19,7 +19,6 @@ p {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  margin-top: 30px;
 }
 
 :root {

@@ -87,6 +87,12 @@ var ProjectComponent = /** @class */ (function () {
     };
     ProjectComponent.prototype.getTabGroupState = function (e) {
         if (e) {
+            if (e == 'pending') {
+                this.isTabPending = true;
+            }
+            else {
+                this.isTabPending = false;
+            }
             if (e == 'reject') {
                 this.isTabRejected = true;
             }

@@ -33,7 +33,7 @@ export class CampaignForm implements OnInit {
   category: any[] = Constant.CATEGORY;
   categoryString: string = '';
   categoryStringClone: string = '';
-  projectName?:string;
+  projectName?: string;
   ngOnInit(): void {
     this.initForm();
     this.check();
@@ -47,13 +47,13 @@ export class CampaignForm implements OnInit {
     this.campaignForm = this.formBuilder.group({
       selected: [this.selectedValue, Validators.required],
       name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
-      description: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(256)]],
+      description: ['', [Validators.required, Validators.minLength(128)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : Validators.required],
       end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : Validators.required],
       request_type: ['create'],
-      type: ['', Validators.required],
+      type: [this.selectedRadio, Validators.required],
       target_number: ['', Validators.required],
       job_requirement: [''],
       job_description: [''],
@@ -68,11 +68,21 @@ export class CampaignForm implements OnInit {
   async check() {
     if (this.data.project) {
       this.isOnlyProject = true;
+      this.organizations = await this.organizationApi.getAll();
+      if (this.organizations) {
 
+        this.cloneProjects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
+
+        this.projects = this.cloneProjects.filter(x => {
+          return x.resultCode == 610;
+        })
+      }
     } else {
       this.organizations = await this.organizationApi.getAll();
       if (this.organizations) {
+
         this.cloneProjects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
+
         this.projects = this.cloneProjects.filter(x => {
           return x.resultCode == 610;
         })
@@ -102,17 +112,16 @@ export class CampaignForm implements OnInit {
     }
     if (this.categoryStringClone?.length > 0) {
       this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
-    }else {
-      this.categoryString='';
+    } else {
+      this.categoryString = '';
     }
     this.isSubmitted = true;
-
 
 
     this.projects = this.cloneProjects.filter(x => {
       return x.name == this.campaignForm.value.selected;
     })
-
+    console.log(this.projects);
     if (this.projects.length != 0) {
       this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` })
     }
@@ -133,7 +142,7 @@ export class CampaignForm implements OnInit {
     }
 
     if (this.campaignForm.valid) {
-      this.campaignForm.value.category=this.categoryString;
+      this.campaignForm.value.category = this.categoryString;
       console.log(this.campaignForm.value);
 
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
@@ -157,14 +166,16 @@ export class CampaignForm implements OnInit {
   getType(e: string) {
     console.log(e);
     if (e == 'Quyên góp') {
+      this.campaignForm.patchValue({ start_working_date: `${this.campaignForm.value.start_date}` })
+      this.campaignForm.patchValue({ end_working_date: `${this.campaignForm.value.end_date}` })
       this.campaignForm.removeControl('job_requirement');
       this.campaignForm.removeControl('job_description');
       this.campaignForm.removeControl('job_benefit');
     } else if (e == 'Tuyển tình nguyện viên') {
 
-      this.campaignForm.setControl('job_requirement', new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]));
-      this.campaignForm.setControl('job_description', new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]));
-      this.campaignForm.setControl('job_benefit', new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]));
+      this.campaignForm.setControl('job_requirement', new FormControl('', [Validators.required, Validators.minLength(8)]));
+      this.campaignForm.setControl('job_description', new FormControl('', [Validators.required, Validators.minLength(8)]));
+      this.campaignForm.setControl('job_benefit', new FormControl('', [Validators.required, Validators.minLength(8)]));
     }
   }
   onRemoveCategory(e: string) {

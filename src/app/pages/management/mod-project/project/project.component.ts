@@ -41,6 +41,7 @@ export class ProjectComponent implements OnInit {
   organization: Organization[] = [];
   isAdmin?: boolean;
   isTabRejected?: boolean;
+  isTabPending?:boolean;
   constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
@@ -68,6 +69,11 @@ export class ProjectComponent implements OnInit {
   }
   getTabGroupState(e: any) {
     if (e) {
+      if(e=='pending'){
+        this.isTabPending=true;
+      }else {
+        this.isTabPending=false;
+      }
       if (e == 'reject') {
         this.isTabRejected = true;
       } else {

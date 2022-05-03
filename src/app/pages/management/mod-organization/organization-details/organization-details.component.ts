@@ -50,11 +50,11 @@ export class OrganizationDetailsComponent implements OnInit {
   projectsCopy?: Project[] = [];
   campaignsCopy?: Campaign[] = [];
   status?: any;
-  campaigns?: Campaign[]=[];
+  campaigns?: Campaign[] = [];
   isGetPro?: boolean = false;
   isGetCam?: boolean = false;
-  passDataCampaigns:any;
-  passDataProjects:any;
+  passDataCampaigns: any;
+  passDataProjects: any;
   constructor(private pro: ProjectComponent, private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private auth: AuthService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
 
   }
@@ -124,21 +124,6 @@ export class OrganizationDetailsComponent implements OnInit {
     this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
     this.campaigns = this.campaignsCopy;
     if (this.campaigns) {
-      for (var i = 0; i < this.campaigns.length; i++) {
-        {
-          this.campaigns[i].cover = this.campaigns[i]?.cover?.replace(/\\/g, '\/');
-
-          this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(/\\/g, '\/');
-          switch (this.campaigns[i].type) {
-            case 'donation': this.campaigns[i].type = 'Quyên Góp';
-              this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
-              break;
-            case 'recruitment': this.campaigns[i].type = 'Thiện Nguyện';
-              this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString();
-              break;
-          }
-        }
-      }
 
 
       this.passDataCampaigns = this.campaignsCopy;

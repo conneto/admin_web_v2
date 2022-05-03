@@ -53,7 +53,7 @@
       </div>
     </div>
   </ng-template>
-  <div class="p-3 justify-content-between mb-3 d-flex align-items-center" *ngIf="isEmpty">
+  <div class="p-3  mb-3 d-flex align-items-center" *ngIf="isEmpty">
     <div>Hiện tại không có chiến dịch nào được tạo!</div>
     <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
       <button (click)="openCampaignForm()" mat-raised-button color="accent" *ngIf='!isAdmin && isApprovedProject'>
