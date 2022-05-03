@@ -76,7 +76,7 @@
         </mat-form-field>
       </div>
       <div>
-        <input (keyup)='getValue($event)'  placeholder="Mục tiêu cần đạt" class="input login" type="number" formControlName="target_number" />
+        <input (change)='getValue($event)' [(ngModel)]="defaultNumber"  placeholder="Mục tiêu cần đạt" class="input login" type="text" formControlName="target_number" />
       </div>
       <div *ngIf="
           selectedRadio == 'Tuyển tình nguyện viên' &&

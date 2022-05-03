@@ -1,3 +1,4 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, Injectable, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
