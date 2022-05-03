@@ -61,32 +61,34 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.category = constant_1.Constant.CATEGORY;
         this.categoryString = '';
         this.categoryStringClone = '';
+        this.uploadData = new FormData();
         this.selectedType = 'ngo';
         this.type = ['ngo', 'npo'];
-        this.uploadData = new FormData();
     }
-    OrganizationFormComponent_1 = OrganizationFormComponent;
     OrganizationFormComponent.prototype.ngOnInit = function () {
         this.initFormBuilder();
     };
     OrganizationFormComponent.prototype.create = function () {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var i, i, res;
+            var i, i, res, res_1;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
-                        if (this.organizationForm.controls.category.value.length != 0 && this.organizationForm.controls.category.value) {
+                        if (this.organizationForm.controls.category.value.length != 0 &&
+                            this.organizationForm.controls.category.value) {
                             if (this.isRemoved == true || this.isSubmitted == true) {
                                 this.categoryStringClone = '';
                                 for (i = 0; i < this.organizationForm.controls.category.value.length; i++) {
-                                    this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                                    this.categoryStringClone =
+                                        this.organizationForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                                 }
                             }
                             else {
                                 this.categoryStringClone = '';
                                 for (i = 0; i < this.organizationForm.controls.category.value.length; i++) {
-                                    this.categoryStringClone = this.organizationForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                                    this.categoryStringClone =
+                                        this.organizationForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                                 }
                             }
                         }
@@ -95,13 +97,24 @@ var OrganizationFormComponent = /** @class */ (function () {
                         }
                         this.isSubmitted = true;
                         this.organizationForm.value.category = this.categoryString;
-                        if (!(this.organizationForm.valid && this.noCover == false)) return [3 /*break*/, 2];
+                        if (!(this.organizationForm.valid && !this.noCover)) return [3 /*break*/, 4];
                         this.uploadData.append('organization', JSON.stringify(this.organizationForm.value));
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.create(this.uploadData)];
                     case 1:
                         res = _b.sent();
-                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                        if (!((res === null || res === void 0 ? void 0 : res.status) == 0)) return [3 /*break*/, 2];
+                        this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
+                        this.loadingService.isLoading.next(false);
+                        this.org.getAllOrganization();
+                        this.router.navigate(['/manager']);
+                        return [3 /*break*/, 4];
+                    case 2:
+                        this.loadingService.isLoading.next(true);
+                        return [4 /*yield*/, this.orgApi.create(this.uploadData)];
+                    case 3:
+                        res_1 = _b.sent();
+                        if ((res_1 === null || res_1 === void 0 ? void 0 : res_1.status) == 0) {
                             this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
                             this.org.getAllOrganization();
@@ -109,26 +122,56 @@ var OrganizationFormComponent = /** @class */ (function () {
                         }
                         else {
                             this.router.navigate(['/manager/manage-organization']);
-                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
+                            this.snackBar.showMessage("" + (res_1 === null || res_1 === void 0 ? void 0 : res_1.message), false);
                             this.loadingService.isLoading.next(false);
                         }
-                        _b.label = 2;
-                    case 2: return [2 /*return*/];
+                        _b.label = 4;
+                    case 4: return [2 /*return*/];
                 }
             });
         });
     };
     OrganizationFormComponent.prototype.initFormBuilder = function () {
         this.organizationForm = this.formBuilder.group({
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128), forms_1.Validators.pattern('^(?!\\s*$).+')]],
+            name: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(8),
+                    forms_1.Validators.maxLength(128),
+                    forms_1.Validators.pattern('^(?!\\s*$).+'),
+                ],
+            ],
             eng_name: [''],
-            description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
-            vision: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
+            description: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(128),
+                    forms_1.Validators.maxLength(1000),
+                ],
+            ],
+            vision: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(128),
+                    forms_1.Validators.maxLength(1000),
+                ],
+            ],
             website: [''],
             founding_date: ['', forms_1.Validators.required],
-            created_by: [this.user.currentUserValue ? this.user.currentUserValue.id : ''],
-            request_type: [OrganizationFormComponent_1.CREATE],
-            mission: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(1000)]],
+            created_by: [
+                this.user.currentUserValue ? this.user.currentUserValue.id : '',
+            ],
+            mission: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(128),
+                    forms_1.Validators.maxLength(1000),
+                ],
+            ],
             category: [''],
             logo: ['', forms_1.Validators.required],
             cover: [''],
@@ -170,7 +213,6 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.isRemoved = true;
         var category = this.organizationForm.controls.category.value;
         var index = category.indexOf(e);
-        console.log(index);
         if (index !== -1) {
             category.splice(index, 1);
         }
@@ -194,17 +236,14 @@ var OrganizationFormComponent = /** @class */ (function () {
         }
     };
     OrganizationFormComponent.prototype.onRemove = function (event) {
-        console.log(event);
         this.filePDF.splice(this.filePDF.indexOf(event), 1);
     };
-    OrganizationFormComponent.prototype.getType = function (e) {
-    };
-    var OrganizationFormComponent_1;
+    OrganizationFormComponent.prototype.getType = function (e) { };
     OrganizationFormComponent.CREATE = 'create';
     __decorate([
         core_1.Input()
     ], OrganizationFormComponent.prototype, "organizationId");
-    OrganizationFormComponent = OrganizationFormComponent_1 = __decorate([
+    OrganizationFormComponent = __decorate([
         core_1.Component({
             selector: 'app-organization-form',
             templateUrl: './organization-form.component.html',

@@ -211,7 +211,7 @@ export class ProjectComponent implements OnInit {
 
     this.loadingService.getOrganizationId.next(`${this.organization[0].id}`);
     const dialogRef = this.dialog.open(ProjectFormComponent, {
-      width: '700px',
+      width: '768px',
       data: {
         title: 'Tạo dự án',
       }
@@ -230,7 +230,7 @@ export class ProjectComponent implements OnInit {
 
         } else {
           this.dialog.open(ProjectFormComponent, {
-            width: '700px',
+            width: '768px',
             data: {
               title: 'Tạo dự án',
             }

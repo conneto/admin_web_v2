@@ -75,10 +75,8 @@ var OrganizationsComponent = /** @class */ (function () {
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.loadingService.isSkeleton.next(true);
     };
-    OrganizationsComponent.prototype.ngAfterViewInit = function () {
-    };
-    OrganizationsComponent.prototype.ngOnDestroy = function () {
-    };
+    OrganizationsComponent.prototype.ngAfterViewInit = function () { };
+    OrganizationsComponent.prototype.ngOnDestroy = function () { };
     OrganizationsComponent.prototype.getTabGroupState = function (e) {
         if (e) {
             if (e == 'reject') {
@@ -137,8 +135,9 @@ var OrganizationsComponent = /** @class */ (function () {
                             this.getAllOrganizationByStatus('pending');
                             localStorage.setItem('pending', 'true');
                         }
-                        else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-                            && !localStorage.getItem('pending')) {
+                        else if (!localStorage.getItem('reject') &&
+                            !localStorage.getItem('approve') &&
+                            !localStorage.getItem('pending')) {
                             this.getAllOrganizationByStatus('approve');
                             localStorage.setItem('approve', 'true');
                         }
@@ -185,7 +184,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             this.isRequest = false;
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
                             }
                             if (this.authService.currentUserValue.role_id == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
@@ -197,7 +196,8 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.oldData = this.passData;
                                     this.noOrg = false;
                                     this.isEmpty = false;
-                                    if (this.organizations.length <= 0 || this.organizations == null) {
+                                    if (this.organizations.length <= 0 ||
+                                        this.organizations == null) {
                                         this.isEmpty = true;
                                     }
                                 }
@@ -219,7 +219,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             this.isRequest = false;
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
                             }
                             this.organizations = this.organizations.filter(function (x) { return x.result_code == 511; });
                             console.log(this.organizations);
@@ -236,7 +236,7 @@ var OrganizationsComponent = /** @class */ (function () {
                         case 'pending':
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
                             }
                             if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isRequest = true;
@@ -288,10 +288,11 @@ var OrganizationsComponent = /** @class */ (function () {
                         for (i = 0; i < this.organizations.length; i++) {
                             this.organizationId = this.organizations[i].id;
                             this.loadingService.getOrganizationId.next("" + this.organizationId);
-                            this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                            this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                this.organizations[i].type = 'Tổ chức phi lợi nhuận';
+                            this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                            this.organizations[i].type =
+                                this.organizations[i].type == 'ngo'
+                                    ? (this.organizations[i].type = 'Tổ chức phi chính phủ')
+                                    : (this.organizations[i].type = 'Tổ chức phi lợi nhuận');
                         }
                         return [2 /*return*/];
                 }

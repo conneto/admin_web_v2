@@ -71,11 +71,11 @@ var UserService = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         if (!(type == 'recruitment')) return [3 /*break*/, 2];
-                        return [4 /*yield*/, this.api.get(constant_1.Constant.CAMPAIGN + "/top_volunteers?type=participate")];
+                        return [4 /*yield*/, this.api.get(constant_1.Constant.CAMPAIGNS + "/top_volunteers?type=participate")];
                     case 1:
                         res = _a.sent();
                         return [3 /*break*/, 4];
-                    case 2: return [4 /*yield*/, this.api.get(constant_1.Constant.CAMPAIGN + "/top_volunteers?type=donate")];
+                    case 2: return [4 /*yield*/, this.api.get(constant_1.Constant.CAMPAIGNS + "/top_volunteers?type=donate")];
                     case 3:
                         res = _a.sent();
                         _a.label = 4;

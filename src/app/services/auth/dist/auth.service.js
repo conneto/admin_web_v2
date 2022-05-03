@@ -86,7 +86,7 @@ var AuthService = /** @class */ (function () {
                                 this.snackBar.showMessage('Rất tiếc bạn không có quyền truy cập vào hệ thống ', false);
                             }
                             else {
-                                this.snackBar.showMessage("Đăng nhập thành công !", true);
+                                this.snackBar.showMessage("Đăng nhập thành công", true);
                                 localStorage.setItem('USER_WEB', JSON.stringify(userLoginResponse));
                                 localStorage.setItem('USER_TOKEN', userLoginResponse.token);
                                 this.curUserSubject.next(userLoginResponse);

@@ -93,7 +93,7 @@ export class CampaignsComponent implements OnInit {
   }
   openCampaignForm() {
     const dialogRef = this.dialog.open(CampaignForm, {
-      width: '700px',
+      width: '768px',
       data: {
         title: 'Tạo chiến dịch',
 

@@ -169,7 +169,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   openProjectForm() {
     const dialogRef = this.dialog.open(ProjectFormComponent, {
-      width: '700px',
+      width: '768px',
       data: {
         title: 'Tạo dự án',
       }
@@ -188,7 +188,7 @@ export class OrganizationDetailsComponent implements OnInit {
 
         } else {
           this.dialog.open(ProjectFormComponent, {
-            width: '700px',
+            width: '768px',
             data: {
               title: 'Tạo dự án',
             }

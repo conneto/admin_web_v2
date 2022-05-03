@@ -68,6 +68,7 @@
         >Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span
       >
       <div>
+        <mat-label style="width: 24%">Tầm nhìn</mat-label>
         <textarea
           class="input login"
           type="text"
@@ -112,7 +113,7 @@
         />
       </div>
       <div>
-        <mat-label style="width: 130px">Ngày thành lập</mat-label>
+        <mat-label style="width: 24%">Ngày thành lập</mat-label>
 
         <input
           class="input login"
@@ -174,12 +175,17 @@
           (change)="onChangeLogo($event)"
         />
       </div>
+<<<<<<< HEAD
+
+      <label class="mb-2"> Giấy phép hoạt động:</label>
+=======
       <span
         *ngIf="organizationControl.logo.errors?.required && isSubmitted"
         class="text-danger"
         >Vui lòng tải lên logo !</span
       >
       <p> Giấy phép hoạt động:</p>
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
       <div>
         <ngx-dropzone
 
@@ -215,7 +221,7 @@
     </div>
   </form>
 
-  <div class="login-button">
+  <div class="login-button mt-2">
     <button type="submit" (click)="create()">Tạo</button>
   </div>
 </div>

@@ -156,56 +156,136 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
 };
 
 exports.__esModule = true;
-exports.ProjectDetailsComponent = void 0;
+exports.OrganizationDetailsComponent = void 0;
 
 var core_1 = require("@angular/core");
 
-var campaign_form_component_1 = require("src/app/components/create/campaign-form/campaign-form.component");
-
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 
-var ProjectDetailsComponent =
+var OrganizationDetailsComponent =
 /** @class */
 function () {
-  function ProjectDetailsComponent(organizationService, getEntityService, snackBar, auth, location, proApi, campaignService, actived, router, dialog, snackbar, loadingService, api, authApi) {
-    this.organizationService = organizationService;
+  function OrganizationDetailsComponent(pro, org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
+    this.pro = pro;
+    this.org = org;
+    this.usersCom = usersCom;
     this.getEntityService = getEntityService;
+    this.router = router;
+    this.loadingService = loadingService;
     this.snackBar = snackBar;
     this.auth = auth;
-    this.location = location;
-    this.proApi = proApi;
-    this.campaignService = campaignService;
-    this.actived = actived;
-    this.router = router;
     this.dialog = dialog;
-    this.snackbar = snackbar;
-    this.loadingService = loadingService;
-    this.api = api;
-    this.authApi = authApi;
-    this.urlApi = '';
-    this.urlLogo = '';
-    this.urlCover = '';
-    this.campaigns = [];
+    this.route = route;
+    this.proApi = proApi;
+    this.location = location;
+    this.orgApi = orgApi;
+    this.orgComponent = orgComponent;
+    this.users = [];
+    this.isAdmin = true;
+    this.urlApi = this.loadingService.getApiGetLink.value;
+    this.projects = [];
+    this.projectsCopy = [];
     this.campaignsCopy = [];
+    this.campaigns = [];
+    this.isGetPro = false;
+    this.isGetCam = false;
   }
 
-  ProjectDetailsComponent.prototype.ngOnInit = function () {
-    this.getByID();
+  OrganizationDetailsComponent.prototype.ngOnInit = function () {
+    this.getValueFromRoute();
     this.check();
-    this.urlApi = this.loadingService.getApiGetLink.value;
     this.isInformation = true;
-    this.getCampaigns();
   };
 
-  ProjectDetailsComponent.prototype.check = function () {
-    if (this.auth.currentUserValue.role_id == 'organization_manager') {
+  OrganizationDetailsComponent.prototype.check = function () {
+    var _a;
+
+    this.user = this.auth.currentUserValue;
+
+    if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role_id) == 'organization_manager') {
       this.isAdmin = false;
-    } else {
-      this.isAdmin = true;
     }
   };
 
-  ProjectDetailsComponent.prototype.getCampaigns = function () {
+  OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
+    var _a, _b;
+
+    return __awaiter(this, void 0, void 0, function () {
+      var id, _c;
+
+      return __generator(this, function (_d) {
+        switch (_d.label) {
+          case 0:
+            id = this.route.snapshot.paramMap.get('id');
+            _c = this;
+            return [4
+            /*yield*/
+            , this.orgApi.getById("" + id)];
+
+          case 1:
+            _c.organization = _d.sent();
+
+            if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
+              this.isApproved = true;
+            }
+
+            this.loadingService.getOrganizationId.next("" + id);
+
+            switch ((_b = this.organization) === null || _b === void 0 ? void 0 : _b.type) {
+              case 'ngo':
+                this.organization.type = 'Tổ chức phi chính phủ';
+                break;
+
+              case 'npo':
+                this.organization.type = 'Tổ chức phi lợi nhuận';
+                break;
+            }
+
+            return [2
+            /*return*/
+            ];
+        }
+      });
+    });
+  };
+
+  OrganizationDetailsComponent.prototype.goBack = function () {
+    this.location.back();
+  };
+
+  OrganizationDetailsComponent.prototype.getTab = function (id) {
+    switch (id) {
+      case 'infor':
+        this.isInformation = true;
+        this.isCampaigns = false;
+        this.isProjects = false;
+        break;
+
+      case 'pro':
+        if (this.isGetPro == false) {
+          this.getProjects();
+          this.isGetPro = true;
+        }
+
+        this.isProjects = true;
+        this.isInformation = false;
+        this.isCampaigns = false;
+        break;
+
+      case 'cam':
+        if (this.isGetCam == false) {
+          this.getCampaigns();
+          this.isGetCam = true;
+        }
+
+        this.isCampaigns = true;
+        this.isInformation = false;
+        this.isProjects = false;
+        break;
+    }
+  };
+
+  OrganizationDetailsComponent.prototype.getCampaigns = function () {
     var _a, _b, _c, _d;
 
     return __awaiter(this, void 0, void 0, function () {
@@ -217,19 +297,11 @@ function () {
             _e = this;
             return [4
             /*yield*/
-            , this.proApi.getCampaignsByProjectId("" + this.actived.snapshot.paramMap.get('id'))];
+            , this.orgApi.getCampaignsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
 
           case 1:
             _e.campaignsCopy = _f.sent();
-
-            if (this.campaignsCopy.length == 0) {
-              this.isEmpty = true;
-            } else {
-              this.isEmpty = false;
-              this.campaigns = this.campaignsCopy.filter(function (x) {
-                return x.result_code != 703;
-              });
-            }
+            this.campaigns = this.campaignsCopy;
 
             if (this.campaigns) {
               for (i = 0; i < this.campaigns.length; i++) {
@@ -239,18 +311,21 @@ function () {
 
                   switch (this.campaigns[i].type) {
                     case 'donation':
+                      this.campaigns[i].type = 'Quyên Góp';
                       this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
                       break;
 
                     case 'recruitment':
+                      this.campaigns[i].type = 'Thiện Nguyện';
                       this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
                       break;
                   }
                 }
               }
+
+              this.passDataCampaigns = this.campaignsCopy;
             }
 
-            this.passData = this.campaignsCopy;
             return [2
             /*return*/
             ];
@@ -259,41 +334,36 @@ function () {
     });
   };
 
-  ProjectDetailsComponent.prototype.getData = function (e) {
-    if (e == null || e.length <= 0) {
-      this.noResultBySearch = true;
-      this.campaigns = e;
-    } else {
-      this.noResultBySearch = false;
-      this.campaigns = e;
-    }
-  };
-
-  ProjectDetailsComponent.prototype.getByID = function () {
-    var _a, _b, _c, _d;
+  OrganizationDetailsComponent.prototype.getProjects = function () {
+    var _a, _b, _c, _d, _e, _f;
 
     return __awaiter(this, void 0, void 0, function () {
-      var id, _e;
+      var _g, i;
 
-      return __generator(this, function (_f) {
-        switch (_f.label) {
+      return __generator(this, function (_h) {
+        switch (_h.label) {
           case 0:
-            id = this.actived.snapshot.paramMap.get('id');
-            _e = this;
+            _g = this;
             return [4
             /*yield*/
-            , this.proApi.getByID("" + id)];
+            , this.orgApi.getProjectsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
 
           case 1:
-            _e.project = _f.sent();
-            this.loadingService.projectId.next("" + id);
+            _g.projectsCopy = _h.sent();
+            this.projects = this.projectsCopy;
 
-            if (this.project.resultCode == 610) {
-              this.isApproved = true;
+            if (this.projects) {
+              for (i = 0; i < this.projects.length; i++) {
+                {
+                  this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                  this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                  this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                }
+              }
+
+              this.passDataProjects = this.projectsCopy;
             }
 
-            this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.organizationLogo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-            this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
             return [2
             /*return*/
             ];
@@ -302,32 +372,23 @@ function () {
     });
   };
 
-  ProjectDetailsComponent.prototype.goBack = function () {
-    this.location.back();
-  };
+  Object.defineProperty(OrganizationDetailsComponent.prototype, "getId", {
+    get: function get() {
+      this.getValueFromRoute();
+      var id = console.log(this.route.snapshot.paramMap.get('id'));
+      return this.route.snapshot.paramMap.get('id');
+    },
+    enumerable: false,
+    configurable: true
+  });
 
-  ProjectDetailsComponent.prototype.getTab = function (id) {
-    switch (id) {
-      case 'infor':
-        this.isInformation = true;
-        this.isCampaigns = false;
-        break;
-
-      case 'cam':
-        this.isCampaigns = true;
-        this.isInformation = false;
-        break;
-    }
-  };
-
-  ProjectDetailsComponent.prototype.openCampaignForm = function () {
+  OrganizationDetailsComponent.prototype.openProjectForm = function () {
     var _this = this;
 
-    var dialogRef = this.dialog.open(campaign_form_component_1.CampaignForm, {
+    var dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
       width: '768px',
       data: {
-        title: 'Tạo chiến dịch',
-        project: this.project
+        title: 'Tạo dự án'
       }
     });
     dialogRef.afterClosed().subscribe(function (data) {
@@ -342,18 +403,25 @@ function () {
               this.loadingService.isLoading.next(true);
               return [4
               /*yield*/
-              , this.campaignService.create(data)];
+              , this.proApi.createProject(data)];
 
             case 1:
               res = _a.sent();
 
-              if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+              if (res.status == 0) {
                 this.loadingService.isLoading.next(false);
-                this.router.navigate(['/manager/manage-campaign']);
-                this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true);
+                this.snackBar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
+                this.router.navigate(['/manager/manage-project']);
+                this.pro.checkToGetData('pending');
               } else {
+                this.dialog.open(project_form_component_1.ProjectFormComponent, {
+                  width: '768px',
+                  data: {
+                    title: 'Tạo dự án'
+                  }
+                });
                 this.loadingService.isLoading.next(false);
-                this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
+                this.snackBar.showMessage(res.message, false);
               }
 
               _a.label = 2;
@@ -368,87 +436,34 @@ function () {
     });
   };
 
-  ProjectDetailsComponent.prototype.openProjectForm = function () {
-    return __awaiter(this, void 0, void 0, function () {
-      var _a, dialogRef;
-
-      var _this = this;
-
-      return __generator(this, function (_b) {
-        switch (_b.label) {
-          case 0:
-            _a = this;
-            return [4
-            /*yield*/
-            , this.organizationService.getAll()];
-
-          case 1:
-            _a.organization = _b.sent();
-            this.loadingService.getOrganizationId.next("" + this.organization[0].id);
-            dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-              width: '768px',
-              data: {
-                title: 'Tạo dự án'
-              }
-            });
-            dialogRef.afterClosed().subscribe(function (data) {
-              return __awaiter(_this, void 0, void 0, function () {
-                var res;
-                return __generator(this, function (_a) {
-                  switch (_a.label) {
-                    case 0:
-                      if (!data) return [3
-                      /*break*/
-                      , 2];
-                      this.loadingService.isLoading.next(true);
-                      return [4
-                      /*yield*/
-                      , this.api.createProject(data)];
-
-                    case 1:
-                      res = _a.sent();
-
-                      if (res.status == 0) {
-                        this.loadingService.isLoading.next(false);
-                        this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
-                        this.router.navigate(['/manager/manage-project']);
-                      } else {
-                        this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                          width: '768px',
-                          data: {
-                            title: 'Tạo dự án'
-                          }
-                        });
-                        this.loadingService.isLoading.next(false);
-                        this.snackbar.showMessage(res.message, false);
-                      }
-
-                      _a.label = 2;
-
-                    case 2:
-                      return [2
-                      /*return*/
-                      ];
-                  }
-                });
-              });
-            });
-            return [2
-            /*return*/
-            ];
-        }
-      });
-    });
+  OrganizationDetailsComponent.prototype.getData = function (e) {
+    if (e == null || e.length <= 0) {
+      if (this.isProjects) {
+        this.noResultBySearch = true;
+        this.projects = e;
+      } else {
+        this.noResultBySearch = true;
+        this.campaigns = e;
+      }
+    } else {
+      if (this.isProjects) {
+        this.noResultBySearch = false;
+        this.projects = e;
+      } else {
+        this.noResultBySearch = false;
+        this.campaigns = e;
+      }
+    }
   };
 
-  ProjectDetailsComponent = __decorate([core_1.Component({
-    selector: 'app-project-details',
-    templateUrl: './project-details.component.html',
-    styleUrls: ['./project-details.component.scss']
+  OrganizationDetailsComponent = __decorate([core_1.Component({
+    selector: 'app-organization-details',
+    templateUrl: './organization-details.component.html',
+    styleUrls: ['./organization-details.component.scss']
   }), core_1.Injectable({
     providedIn: 'root'
-  })], ProjectDetailsComponent);
-  return ProjectDetailsComponent;
+  })], OrganizationDetailsComponent);
+  return OrganizationDetailsComponent;
 }();
 
-exports.ProjectDetailsComponent = ProjectDetailsComponent;
+exports.OrganizationDetailsComponent = OrganizationDetailsComponent;

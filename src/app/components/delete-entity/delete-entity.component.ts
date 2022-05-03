@@ -45,13 +45,11 @@ export class DeleteEntityComponent implements OnInit {
     }
   }
   change() {
-    this.isSave = !this.isSave;
-    console.log(this.entity);
     const dialogRef = this.dialog.open(OrganizationUpdateFormComponent, {
-      width: '700px',
+      width: '768px',
       data: {
-        title: 'Tạo chiến dịch',
-
+        title: 'Cập nhật tổ chức',
+        object: this.entity,
       }
     })
   }

@@ -89,7 +89,6 @@
 .login-button button {
   width: 100%;
   background: linear-gradient(to bottom left, #fecc4e, #fedf8d) !important;
-  padding: 0 30px;
   font-size: 17px;
   border: none;
   border-radius: 3px;
@@ -131,6 +130,7 @@
 }
 
 .login-name :first-child {
+  width: 47%;
   margin: 0 !important;
 }
 .login-name :nth-child(2) {

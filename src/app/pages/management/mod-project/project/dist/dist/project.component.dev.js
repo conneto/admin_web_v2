@@ -409,7 +409,11 @@ function () {
       return __generator(this, function (_a) {
         this.loadingService.getOrganizationId.next("" + this.organization[0].id);
         dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
+<<<<<<< HEAD
+          width: '768px',
+=======
           width: '700px',
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
           data: {
             title: 'Tạo dự án'
           }
@@ -439,7 +443,11 @@ function () {
                     this.router.navigate(['/manager/manage-project']);
                   } else {
                     this.dialog.open(project_form_component_1.ProjectFormComponent, {
+<<<<<<< HEAD
+                      width: '768px',
+=======
                       width: '700px',
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
                       data: {
                         title: 'Tạo dự án'
                       }

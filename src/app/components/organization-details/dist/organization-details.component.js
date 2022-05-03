@@ -201,7 +201,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     OrganizationDetailsComponent.prototype.openProjectForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-            width: '700px',
+            width: '768px',
             data: {
                 title: 'Tạo dự án'
             }
@@ -224,7 +224,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         }
                         else {
                             this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                                width: '700px',
+                                width: '768px',
                                 data: {
                                     title: 'Tạo dự án'
                                 }

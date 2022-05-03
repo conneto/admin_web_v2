@@ -176,7 +176,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
     ProjectDetailsComponent.prototype.openCampaignForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(campaign_form_component_1.CampaignForm, {
-            width: '700px',
+            width: '768px',
             data: {
                 title: 'Tạo chiến dịch',
                 project: this.project
@@ -220,7 +220,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         _a.organization = _b.sent();
                         this.loadingService.getOrganizationId.next("" + this.organization[0].id);
                         dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                            width: '700px',
+                            width: '768px',
                             data: {
                                 title: 'Tạo dự án'
                             }
@@ -242,7 +242,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
                                         }
                                         else {
                                             this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                                                width: '700px',
+                                                width: '768px',
                                                 data: {
                                                     title: 'Tạo dự án'
                                                 }

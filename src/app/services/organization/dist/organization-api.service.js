@@ -64,9 +64,7 @@ var OrganizationApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.ORGANIZATIONS)];
                     case 1:
                         res = _b.sent();
-                        res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) {
-                            return _this.adapter.adapt(item);
-                        });
+                        res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) { return _this.adapter.adapt(item); });
                         return [2 /*return*/, res.data || []];
                 }
             });
@@ -75,11 +73,15 @@ var OrganizationApiService = /** @class */ (function () {
     OrganizationApiService.prototype.getProjectsByOrgId = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.ORGANIZATIONS + "/" + id + "/" + constant_1.Constant.PROJECTS)];
                     case 1:
                         res = _a.sent();
+                        res.data = res.data.map(function (item) {
+                            return _this.projectAdapter.adapt(item);
+                        });
                         return [2 /*return*/, res.data || []];
                 }
             });
@@ -88,11 +90,15 @@ var OrganizationApiService = /** @class */ (function () {
     OrganizationApiService.prototype.getCampaignsByOrgId = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
+            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.ORGANIZATIONS + "/" + id + "/" + constant_1.Constant.CAMPAIGNS)];
                     case 1:
                         res = _a.sent();
+                        res.data = res.data.map(function (item) {
+                            return _this.campaignAdapter.adapt(item);
+                        });
                         return [2 /*return*/, res.data || []];
                 }
             });

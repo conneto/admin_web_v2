@@ -12,32 +12,43 @@ import { CampaignService } from '../campaign/campaign.service';
 import { ProjectService } from '../project-service/project.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OrganizationApiService {
   public static readonly CREATE = 'create';
-  user?: UserLoginResponse
-  constructor(private campaignAdapter: CampaignAdapter, private projectAdapter: ProjectAdapter, private apiService: ApiService, private adapter: OrganizationAdapter, private authApi: AuthService) {
+  user?: UserLoginResponse;
+  constructor(
+    private campaignAdapter: CampaignAdapter,
+    private projectAdapter: ProjectAdapter,
+    private apiService: ApiService,
+    private adapter: OrganizationAdapter,
+    private authApi: AuthService
+  ) {
     this.user = authApi.currentUserValue;
   }
 
-
   async getAll() {
     let res: BaseResponse = await this.apiService.get(Constant.ORGANIZATIONS);
-    res.data = res.data?.map((item: any) =>
-      this.adapter.adapt(item));
+    res.data = res.data?.map((item: any) => this.adapter.adapt(item));
     return res.data || [];
-
   }
   async getProjectsByOrgId(id: string) {
-    let res: BaseResponse = await this.apiService.get(`${Constant.ORGANIZATIONS}/${id}/${Constant.PROJECTS}`)
- 
+    let res: BaseResponse = await this.apiService.get(
+      `${Constant.ORGANIZATIONS}/${id}/${Constant.PROJECTS}`
+    );
+    res.data = res.data.map((item: any) => {
+      return this.projectAdapter.adapt(item);
+    });
 
     return res.data || [];
   }
   async getCampaignsByOrgId(id: string) {
-    let res: BaseResponse = await this.apiService.get(`${Constant.ORGANIZATIONS}/${id}/${Constant.CAMPAIGNS}`)
-  
+    let res: BaseResponse = await this.apiService.get(
+      `${Constant.ORGANIZATIONS}/${id}/${Constant.CAMPAIGNS}`
+    );
+    res.data = res.data.map((item: any) => {
+      return this.campaignAdapter.adapt(item);
+    });
     return res.data || [];
   }
   async getById(id: string) {
@@ -46,31 +57,38 @@ export class OrganizationApiService {
     return res.data || [];
   }
   async create(data: any) {
-
-    let res: BaseResponse = await this.apiService.post(`${Constant.ORGANIZATIONS}`, data);
+    let res: BaseResponse = await this.apiService.post(
+      `${Constant.ORGANIZATIONS}`,
+      data
+    );
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async delete(id: any) {
-
-    let res: BaseResponse = await this.apiService.delete(`${Constant.ORGANIZATIONS}/${id}`);
+    let res: BaseResponse = await this.apiService.delete(
+      `${Constant.ORGANIZATIONS}/${id}`
+    );
 
     return res;
   }
   async createById(data: any, id: string) {
     console.log(id);
-    let res: BaseResponse = await this.apiService.post(`${Constant.ORGANIZATIONS}/${id}`, data);
+    let res: BaseResponse = await this.apiService.post(
+      `${Constant.ORGANIZATIONS}/${id}`,
+      data
+    );
     if (res.status == 0) {
       return res;
     }
     return res;
   }
   async updateById(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.put(`${Constant.ORGANIZATIONS}/${id}`, data);
+    let res: BaseResponse = await this.apiService.put(
+      `${Constant.ORGANIZATIONS}/${id}`,
+      data
+    );
     return res;
   }
-
-
 }

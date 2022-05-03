@@ -2,6 +2,7 @@
   <form [formGroup]="organizationForm" action="">
     <div class="login-form">
       <div>
+        <mat-label style="width: 24%">Tên</mat-label>
         <input class="input login" type="text" placeholder="Tên tổ chức" required="" formControlName="name" />
       </div>
       <span *ngIf="  ( organizationControl.name.touched||isSubmitted) &&
@@ -9,10 +10,12 @@
             ||
             organizationControl.name.errors?.['minlength'] ||   organizationControl.name.errors?.['maxlength']
           " class="text-danger">Tên tổ chức bắt buộc và có độ dài tối thiểu 8, tối đa 128 kí tự</span>
-      <div class="login-name">
+      <div>
+        <mat-label style="width: 24%">Tên tiếng anh</mat-label>
         <input class="input login" type="text" placeholder="Tên tiếng anh ( nếu có )" formControlName="eng_name" />
       </div>
       <div>
+        <mat-label style="width: 24%">Giới thiệu</mat-label>
         <textarea class="input login" type="text" placeholder="Giới thiệu" required=""
           formControlName="description"></textarea>
       </div>
@@ -20,8 +23,9 @@
       organizationControl.description.errors?.required|| organizationControl.description.errors?.pattern
       ||
       organizationControl.description.errors?.['minlength'] ||   organizationControl.description.errors?.['maxlength']
-    " class="text-danger">Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span>
+    " class="text-danger">Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span>
       <div>
+        <mat-label style="width: 24%">Tầm nhìn</mat-label>
         <textarea class="input login" type="text" placeholder="Tầm nhìn của tổ chức" required=""
           formControlName="vision"></textarea>
       </div>
@@ -29,21 +33,23 @@
       organizationControl.vision.errors?.required|| organizationControl.vision.errors?.pattern
       ||
       organizationControl.vision.errors?.['minlength'] ||   organizationControl.vision.errors?.['maxlength']
-    " class="text-danger">Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span>
+    " class="text-danger">Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span>
       <div>
-        <input class="input login" type="text" placeholder="Sứ mệnh của tổ chức" required=""
-          formControlName="mission" />
+        <mat-label style="width: 24%">Nhiệm vụ</mat-label>
+        <textarea class="input login" type="text" placeholder="Nhiệm vụ của tổ chức" required=""
+          formControlName="mission" ></textarea>
       </div>
       <span *ngIf="  ( organizationControl.mission.touched||isSubmitted) &&
       organizationControl.mission.errors?.required|| organizationControl.mission.errors?.pattern
       ||
       organizationControl.mission.errors?.['minlength'] ||   organizationControl.mission.errors?.['maxlength']
-    " class="text-danger">Sứ mệnh bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span>
+    " class="text-danger">Nhiệm vụ bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span>
       <div>
+        <mat-label style="width: 24%">Website</mat-label>
         <input class="input login" type="text" placeholder="Website" formControlName="website" />
       </div>
       <div>
-        <mat-label style="width: 130px">Ngày thành lập</mat-label>
+        <mat-label style="width: 24%">Ngày thành lập</mat-label>
 
         <input class="input login" type="date" required="" formControlName="founding_date" />
       </div>
@@ -70,18 +76,20 @@
           </mat-select>
         </mat-form-field>
       </div>
+      <p>Bạn không cần chọn hình ảnh nếu không muốn cập nhật ảnh bìa</p>
       <div>
         <label style="width: 100px"> Ảnh bìa:</label>
         <input class="input login" type="file" accept="image/png,image/jpg,image/jpeg" formControlName="cover"
           (change)="onChangeCover($event)" />
       </div>
+      <p>Bạn không cần chọn hình ảnh nếu không muốn cập nhật logo</p>
       <div>
         <label style="width: 100px"> Logo:</label>
         <input accept="image/png,image/jpg,image/jpeg" class="input login" type="file" formControlName="logo"
           (change)="onChangeLogo($event)" />
       </div>
 
-      <label> Giấy phép hoạt động:</label>
+      <label class="mb-2"> Giấy phép hoạt động:</label>
       <div>
         <ngx-dropzone class="text-center" style="width: 100%" [multiple]="false" (change)="onSelectPDF($event)">
           <ngx-dropzone-label>Kéo và thả tài liệu về giấy phép hoạt động vào đây hoặc
@@ -100,7 +108,7 @@
     </div>
   </form>
 
-  <div class="login-button">
-    <button type="submit" (click)="update()">Tạo</button>
+  <div class="login-button mt-2">
+    <button type="submit" (click)="update()">Cập nhật</button>
   </div>
 </div>

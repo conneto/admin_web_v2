@@ -17,6 +17,5 @@ export class UserLoginResponseApdater implements Adapter<UserLoginResponse>{
     }
 
 
-    
-}
 
+}

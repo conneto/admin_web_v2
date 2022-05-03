@@ -128,7 +128,7 @@ var CampaignsComponent = /** @class */ (function () {
     CampaignsComponent.prototype.openCampaignForm = function () {
         var _this = this;
         var dialogRef = this.dialog.open(campaign_form_component_1.CampaignForm, {
-            width: '700px',
+            width: '768px',
             data: {
                 title: 'Tạo chiến dịch'
             }

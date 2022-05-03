@@ -260,7 +260,7 @@ var ProjectComponent = /** @class */ (function () {
             return __generator(this, function (_a) {
                 this.loadingService.getOrganizationId.next("" + this.organization[0].id);
                 dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                    width: '700px',
+                    width: '768px',
                     data: {
                         title: 'Tạo dự án'
                     }
@@ -284,7 +284,7 @@ var ProjectComponent = /** @class */ (function () {
                                 }
                                 else {
                                     this.dialog.open(project_form_component_1.ProjectFormComponent, {
-                                        width: '700px',
+                                        width: '768px',
                                         data: {
                                             title: 'Tạo dự án'
                                         }

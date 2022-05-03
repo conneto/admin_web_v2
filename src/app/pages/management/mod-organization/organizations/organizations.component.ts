@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, Injectable, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Injectable,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+} from '@angular/core';
 import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
 
 import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
@@ -13,7 +20,7 @@ import { UtilService } from 'src/app/services/util-service/util.service';
 @Component({
   selector: 'app-organizations',
   templateUrl: './organizations.component.html',
-  styleUrls: ['./organizations.component.scss']
+  styleUrls: ['./organizations.component.scss'],
 })
 @Injectable({
   providedIn: 'root',
@@ -45,14 +52,21 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   oldDataSearch: Organization[] = [];
   isTabRejected?: boolean;
 
-  constructor(public utilService: UtilService, private loadingService: LoadingService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthService) { }
+  constructor(
+    public utilService: UtilService,
+    private loadingService: LoadingService,
+    private userService: UserService,
+    private organizationService: OrganizationApiService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     if (this.authService.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
       this.checkToGetData();
-
-    } else if (this.authService.currentUserValue.role_id == 'organization_manager') {
+    } else if (
+      this.authService.currentUserValue.role_id == 'organization_manager'
+    ) {
       this.isAdmin = false;
       this.getAllOrganization();
     }
@@ -60,13 +74,8 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     this.loadingService.isSkeleton.next(true);
   }
 
-  ngAfterViewInit(): void {
-
-  }
-  ngOnDestroy(): void {
-
-
-  }
+  ngAfterViewInit(): void {}
+  ngOnDestroy(): void {}
   getTabGroupState(e: any) {
     if (e) {
       if (e == 'reject') {
@@ -75,7 +84,6 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
         this.isTabRejected = false;
       }
     }
-
   }
   handleTitle(e: any) {
     this.noResultBySearch = false;
@@ -83,7 +91,6 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     if (e == 'list') {
       this.isList = true;
     } else {
-
       this.isList = false;
     }
   }
@@ -106,37 +113,33 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     } else {
       this.organizations = e;
       this.noResultBySearch = false;
-
     }
-
   }
 
   async checkToGetData(getStatus?: string) {
     this.organizations = await this.organizationService.getAll();
 
-
     this.passData = this.organizations;
     if (getStatus == 'pending') {
       this.getAllOrganizationByStatus('pending');
       localStorage.setItem('pending', 'true');
-    } else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-      && !localStorage.getItem('pending')
+    } else if (
+      !localStorage.getItem('reject') &&
+      !localStorage.getItem('approve') &&
+      !localStorage.getItem('pending')
     ) {
       this.getAllOrganizationByStatus('approve');
       localStorage.setItem('approve', 'true');
     } else {
       if (localStorage.getItem('reject')) {
         this.getAllOrganizationByStatus('reject');
-
       } else if (localStorage.getItem('approve')) {
         this.getAllOrganizationByStatus('approve');
       } else if (localStorage.getItem('pending')) {
         this.getAllOrganizationByStatus('pending');
       }
     }
-
   }
-
 
   async getAllOrganizationByStatus(status?: string, org?: any) {
     this.status = status;
@@ -149,7 +152,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       if (this.authService.currentUserValue.role_id == 'organization_manager') {
         const check = this.organizations.every((a) => {
           return a.result_code == 503;
-        })
+        });
 
         if (check == true) {
           this.isDeleted = true;
@@ -157,18 +160,21 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       }
       this.isList = false;
 
-
       switch (status) {
         case 'approve':
-          this.changeToGrid()
+          this.changeToGrid();
           this.isRequest = false;
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
-            this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-
+            this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+              /\\/g,
+              '/'
+            );
           }
 
-          if (this.authService.currentUserValue.role_id == 'organization_manager') {
+          if (
+            this.authService.currentUserValue.role_id == 'organization_manager'
+          ) {
             if (this.organizations.length <= 0 || this.organizations == null) {
               this.organizations = [];
               this.noOrg = true;
@@ -177,20 +183,25 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
               this.oldData = this.passData;
               this.noOrg = false;
               this.isEmpty = false;
-              if (this.organizations.length <= 0 || this.organizations == null) {
+              if (
+                this.organizations.length <= 0 ||
+                this.organizations == null
+              ) {
                 this.isEmpty = true;
               }
             }
           } else if (this.authService.currentUserValue.role_id == 'admin') {
             this.isEmpty = false;
             this.noOrg = false;
-            this.organizations = this.passData.filter(x => x.result_code == 510);
-            this.oldData = this.passData.filter(x => x.result_code == 510);
+            this.organizations = this.passData.filter(
+              (x) => x.result_code == 510
+            );
+            this.oldData = this.passData.filter((x) => x.result_code == 510);
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
             this.isLoaded = true;
-          }, 1000)
+          }, 1000);
           break;
         case 'reject':
           console.log(org);
@@ -198,60 +209,60 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           this.isRequest = false;
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
-            this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-
+            this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+              /\\/g,
+              '/'
+            );
           }
-          this.organizations = this.organizations.filter(x => x.result_code == 511);
+          this.organizations = this.organizations.filter(
+            (x) => x.result_code == 511
+          );
           console.log(this.organizations);
-          this.oldData = this.passData.filter(x => x.result_code == 511);
+          this.oldData = this.passData.filter((x) => x.result_code == 511);
 
           this.isEmpty = false;
           if (this.organizations == null || this.organizations.length <= 0) {
             this.isEmpty = true;
-
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
             this.isLoaded = true;
-          }, 1000)
+          }, 1000);
           break;
         case 'pending':
-
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
-            this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-
-
+            this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+              /\\/g,
+              '/'
+            );
           }
           if (this.authService.currentUserValue.role_id == 'admin') {
             this.isRequest = true;
           } else {
             this.isRequest = false;
           }
-          this.organizations = this.organizations.filter(x => x.result_code === 501);
-          this.oldData = this.passData.filter(x => x.result_code == 501);
+          this.organizations = this.organizations.filter(
+            (x) => x.result_code === 501
+          );
+          this.oldData = this.passData.filter((x) => x.result_code == 501);
 
           this.isEmpty = false;
 
           if (this.organizations == null || this.organizations.length <= 0) {
             this.isEmpty = true;
-
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
             this.isLoaded = true;
-          }, 1000)
+          }, 1000);
           break;
       }
 
-
       this.number = this.organizations.length;
       this.numberCount = new Array<number>(this.organizations.length);
-
     }
-
   }
-
 
   async getAllOrganization() {
     this.isLoaded = true;
@@ -264,18 +275,19 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       this.noOrg = false;
       this.isEmpty = false;
       this.isShow = false;
-
     }
     for (var i = 0; i < this.organizations.length; i++) {
       this.organizationId = this.organizations[i].id;
       this.loadingService.getOrganizationId.next(`${this.organizationId}`);
-      this.organizations[i].logo = this.organizations[i]?.logo?.replace(/\\/g, '\/');
-      this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-        this.organizations[i].type = 'Tổ chức phi chính phủ' :
-        this.organizations[i].type = 'Tổ chức phi lợi nhuận'
+      this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+        /\\/g,
+        '/'
+      );
+      this.organizations[i].type =
+        this.organizations[i].type == 'ngo'
+          ? (this.organizations[i].type = 'Tổ chức phi chính phủ')
+          : (this.organizations[i].type = 'Tổ chức phi lợi nhuận');
     }
-
-
   }
   getEntity(e: any) {
     if (e?.length != 0) {
