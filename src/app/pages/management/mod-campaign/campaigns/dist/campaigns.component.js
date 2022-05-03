@@ -261,6 +261,7 @@ var CampaignsComponent = /** @class */ (function () {
                         this.campaigns = this.campaigns.filter(function (x) {
                             return x.result_code == 701;
                         });
+                        console.log(this.campaigns);
                         this.oldData = this.passData.filter(function (x) { return x.result_code == 701; });
                         if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;

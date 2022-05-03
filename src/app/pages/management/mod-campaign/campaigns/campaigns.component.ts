@@ -214,6 +214,7 @@ export class CampaignsComponent implements OnInit {
         this.campaigns = this.campaigns.filter(x => {
           return x.result_code == 701;
         })
+        console.log(this.campaigns);
         this.oldData = this.passData.filter(x => x.result_code == 701);
         if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
