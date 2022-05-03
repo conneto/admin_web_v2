@@ -52,6 +52,7 @@ var show_document_component_1 = require("../show-document/show-document.componen
 var organization_details_component_1 = require("../organization-details/organization-details.component");
 var entity_status_component_1 = require("../entity-status/entity-status.component");
 var organization_form_component_2 = require("../update/organization-form/organization-form.component");
+var organization_skeleton_loading_component_1 = require("../organization-skeleton-loading/organization-skeleton-loading.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -86,6 +87,8 @@ var componentModules = [
     show_document_component_1.ShowDocumentComponent,
     organization_details_component_1.OrganizationDetailsComponent,
     entity_status_component_1.EntityStatusComponent,
+    organization_skeleton_loading_component_1.OrganizationSkeletonLoadingComponent,
+    organization_form_component_2.OrganizationUpdateFormComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

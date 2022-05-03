@@ -1,5 +1,5 @@
 .container {
-  width: 500px;
+  width: 570px;
 }
 
 .login-form ::placeholder {
@@ -9,6 +9,7 @@
 .login-form div {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 .login-form mat-form-filed {
   width: 100%;
@@ -131,7 +132,6 @@
 }
 
 .login-name :first-child {
-  width: 47%;
   margin: 0 !important;
 }
 .login-name :nth-child(2) {

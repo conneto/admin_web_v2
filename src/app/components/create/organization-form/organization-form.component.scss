@@ -1,5 +1,5 @@
 .container {
-  width: 500px;
+  width: 570px;
 }
 
 .login-form {
@@ -19,7 +19,7 @@
 
     align-items: center;
 
-
+    width:100%;
   }
 
   mat-form-filed {
@@ -163,7 +163,7 @@
 
 .login-name {
   :first-child {
-    width: 47%;
+
     margin: 0 !important;
   }
 

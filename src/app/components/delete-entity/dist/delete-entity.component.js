@@ -85,9 +85,15 @@ var DeleteEntityComponent = /** @class */ (function () {
                 diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '360px',
                     data: {
-                        button: 'Đồng ý',
-                        close: 'Hủy',
-                        message: 'Bạn có chắc chắn muốn vô hiệu hóa đối tượng này?'
+                        button: 'Vô hiệu hóa',
+                        message: this.type == 'org'
+                            ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+                            : this.type == 'cam'
+                                ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+                                : this.type == 'pro'
+                                    ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
+                                    : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
+                        reason: true
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
@@ -108,7 +114,7 @@ var DeleteEntityComponent = /** @class */ (function () {
                                                 ? constant_1.Constant.PROJECT
                                                 : constant_1.Constant.ORGANIZATION,
                                     status: 'disable',
-                                    note: 'Disable this'
+                                    note: 'hi'
                                 };
                                 return [4 /*yield*/, this.user.activateEntity(data1)];
                             case 1:
@@ -217,7 +223,13 @@ var DeleteEntityComponent = /** @class */ (function () {
                     data: {
                         button: 'Xóa',
                         close: 'Hủy',
-                        message: 'Bạn có chắc chắn muốn xóa không?'
+                        message: this.type == 'org'
+                            ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+                            : this.type == 'cam'
+                                ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+                                : this.type == 'pro'
+                                    ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
+                                    : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
                     }
                 });
                 dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {

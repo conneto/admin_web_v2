@@ -37,6 +37,7 @@ export class ChangeToListComponent implements OnInit {
         this.icon_view = 'view_list';
       } else {
         this.handleTitle.emit(this.whichView = 'list');
+        this.entitys.emit(this.entityOrganization);
         this.icon_view = 'grid_view';
       }
     }

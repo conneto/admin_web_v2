@@ -72,8 +72,6 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.isGetCam = false;
     }
     OrganizationDetailsComponent.prototype.ngOnInit = function () {
-        console.log(this.organizationInput);
-        this.getValueFromRoute();
         this.check();
         this.isInformation = true;
     };
@@ -85,32 +83,24 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-        var _a, _b, _c, _d, _e, _f, _g, _h;
+        var _a, _b, _c, _d, _e, _f, _g;
         return __awaiter(this, void 0, void 0, function () {
-            var _j;
-            return __generator(this, function (_k) {
-                switch (_k.label) {
-                    case 0:
-                        _j = this;
-                        return [4 /*yield*/, this.orgApi.getById("" + ((_a = this.organizationInput[0]) === null || _a === void 0 ? void 0 : _a.id))];
-                    case 1:
-                        _j.organization = _k.sent();
-                        if (((_b = this.organization) === null || _b === void 0 ? void 0 : _b.result_code) == 510) {
-                            this.isApproved = true;
-                        }
-                        this.loadingService.getOrganizationId.next("" + ((_c = this.organizationInput[0]) === null || _c === void 0 ? void 0 : _c.id));
-                        this.urlLogo = (_e = (_d = this.organization) === null || _d === void 0 ? void 0 : _d.logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
-                        this.urlCover = (_g = (_f = this.organization) === null || _f === void 0 ? void 0 : _f.cover) === null || _g === void 0 ? void 0 : _g.replace(/\\/g, '\/');
-                        switch ((_h = this.organization) === null || _h === void 0 ? void 0 : _h.type) {
-                            case 'ngo':
-                                this.organization.type = 'Tổ chức phi chính phủ';
-                                break;
-                            case 'npo':
-                                this.organization.type = 'Tổ chức phi lợi nhuận';
-                                break;
-                        }
-                        return [2 /*return*/];
+            return __generator(this, function (_h) {
+                if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
+                    this.isApproved = true;
                 }
+                this.loadingService.getOrganizationId.next("" + ((_b = this.organizationInput[0]) === null || _b === void 0 ? void 0 : _b.id));
+                this.urlLogo = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                this.urlCover = (_f = (_e = this.organization) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                switch ((_g = this.organization) === null || _g === void 0 ? void 0 : _g.type) {
+                    case 'ngo':
+                        this.organization.type = 'Tổ chức phi chính phủ';
+                        break;
+                    case 'npo':
+                        this.organization.type = 'Tổ chức phi lợi nhuận';
+                        break;
+                }
+                return [2 /*return*/];
             });
         });
     };

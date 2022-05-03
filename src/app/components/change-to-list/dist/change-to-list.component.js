@@ -32,6 +32,7 @@ var ChangeToListComponent = /** @class */ (function () {
             }
             else {
                 this.handleTitle.emit(this.whichView = 'list');
+                this.entitys.emit(this.entityOrganization);
                 this.icon_view = 'grid_view';
             }
         }

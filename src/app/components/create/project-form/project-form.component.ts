@@ -59,6 +59,7 @@ export class ProjectFormComponent implements OnInit {
           this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
         }
       } else {
+        this.categoryStringClone = '';
         for (let i = 0; i < this.projectForm.controls.category.value.length; i++) {
           this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
 

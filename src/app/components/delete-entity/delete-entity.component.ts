@@ -33,7 +33,7 @@ export class DeleteEntityComponent implements OnInit {
     private snackBar: SnackBarMessageComponent,
     private orgApi: OrganizationApiService,
     private dialog: MatDialog
-  ) {}
+  ) { }
   e: any;
   ngOnInit(): void {
     if (this.user.currentUserValue.role == 'admin') {
@@ -57,9 +57,15 @@ export class DeleteEntityComponent implements OnInit {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
-        button: 'Đồng ý',
-        close: 'Hủy',
-        message: 'Bạn có chắc chắn muốn vô hiệu hóa đối tượng này?',
+        button: 'Vô hiệu hóa',
+        message: this.type == 'org'
+          ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+          : this.type == 'cam'
+            ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+            : this.type == 'pro'
+              ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
+              : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
+        reason: true,
       },
     });
     diaglogRef.afterClosed().subscribe(async (x) => {
@@ -71,12 +77,12 @@ export class DeleteEntityComponent implements OnInit {
             this.type == 'org'
               ? Constant.ORGANIZATION
               : this.type == 'cam'
-              ? Constant.CAMPAIGN
-              : this.type == 'pro'
-              ? Constant.PROJECT
-              : Constant.ORGANIZATION,
+                ? Constant.CAMPAIGN
+                : this.type == 'pro'
+                  ? Constant.PROJECT
+                  : Constant.ORGANIZATION,
           status: 'disable',
-          note: 'Disable this',
+          note: 'hi',
         };
 
         let res: BaseResponse | null = await this.user.activateEntity(data1);
@@ -121,10 +127,10 @@ export class DeleteEntityComponent implements OnInit {
             this.type == 'org'
               ? Constant.ORGANIZATION
               : this.type == 'cam'
-              ? Constant.CAMPAIGN
-              : this.type == 'pro'
-              ? Constant.PROJECT
-              : Constant.ORGANIZATION,
+                ? Constant.CAMPAIGN
+                : this.type == 'pro'
+                  ? Constant.PROJECT
+                  : Constant.ORGANIZATION,
           status: 'enable',
           note: 'Enable this',
         };
@@ -157,7 +163,13 @@ export class DeleteEntityComponent implements OnInit {
       data: {
         button: 'Xóa',
         close: 'Hủy',
-        message: 'Bạn có chắc chắn muốn xóa không?',
+        message: this.type == 'org'
+          ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+          : this.type == 'cam'
+            ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+            : this.type == 'pro'
+              ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
+              : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
       },
     });
     dialogRef.afterClosed().subscribe(async (data) => {

@@ -23,9 +23,31 @@
         <input
           class="input login"
           type="text"
-          placeholder="Tên tiếng anh ( nếu có )"
+          placeholder="Tên tiếng anh (nếu có)"
           formControlName="eng_name"
         />
+      </div>
+      <div class="w-100">
+        <div class="row d-flex">
+          <mat-label class="col-3">Loại chiến dịch:</mat-label>
+
+          <mat-radio-group
+            class="col-8 d-flex justify-content-around"
+            [(ngModel)]="selectedType"
+            formControlName="type"
+          >
+            <mat-radio-button
+              class="ms-1"
+              (click)="getType(t)"
+              [checked]="t == 'ngo'"
+              *ngFor="let t of type"
+              [value]="t"
+              >{{
+                t == "ngo" ? "Tổ chức phi chính phủ" : "Tổ chức phi lợi nhuận"
+              }}</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
       </div>
       <div>
         <textarea
@@ -43,7 +65,7 @@
       organizationControl.description.errors?.['minlength'] ||   organizationControl.description.errors?.['maxlength']
     "
         class="text-danger"
-        >Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span
+        >Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span
       >
       <div>
         <textarea
@@ -61,7 +83,7 @@
       organizationControl.vision.errors?.['minlength'] ||   organizationControl.vision.errors?.['maxlength']
     "
         class="text-danger"
-        >Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span
+        >Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span
       >
       <div>
         <input
@@ -79,13 +101,13 @@
       organizationControl.mission.errors?.['minlength'] ||   organizationControl.mission.errors?.['maxlength']
     "
         class="text-danger"
-        >Sứ mệnh bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tứ</span
+        >Sứ mệnh bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span
       >
       <div>
         <input
           class="input login"
           type="text"
-          placeholder="Website"
+          placeholder="Website (nếu có)"
           formControlName="website"
         />
       </div>
@@ -137,8 +159,10 @@
           accept="image/png,image/jpg,image/jpeg"
           formControlName="cover"
           (change)="onChangeCover($event)"
+          multiple
         />
       </div>
+      <span *ngIf="noCover" class="text-danger">Ảnh bìa không quá 5 tấm !</span>
       <div>
         <label style="width: 100px"> Logo:</label>
         <input
@@ -146,11 +170,16 @@
           class="input login"
           type="file"
           formControlName="logo"
+          required
           (change)="onChangeLogo($event)"
         />
       </div>
-
-      <label > Giấy phép hoạt động:</label>
+      <span
+        *ngIf="organizationControl.logo.errors?.required && isSubmitted"
+        class="text-danger"
+        >Vui lòng tải lên logo !</span
+      >
+      <p> Giấy phép hoạt động:</p>
       <div>
         <ngx-dropzone
 
@@ -166,11 +195,25 @@
               <i class="fa fa-cloud-upload"></i> Chọn tài liệu
             </label>
           </ngx-dropzone-label>
-          <ngx-dropzone-preview *ngFor="let f of filePDF" [removable]="true" (removed)="onRemove(f)">
+          <ngx-dropzone-preview
+            *ngFor="let f of filePDF"
+            [removable]="true"
+            (removed)="onRemove(f)"
+          >
             <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
           </ngx-dropzone-preview>
           <ngx-dropzone-label>(.PDF) </ngx-dropzone-label>
+<<<<<<< Updated upstream
           <ngx-dropzone-label *ngIf='isWrongFile'>Tài liệu không đúng dịnh dạng. Vui lòng gửi lại !</ngx-dropzone-label>
+=======
+          <ngx-dropzone-label *ngIf="isWrongFile"
+            >Tài liệu không đúng dịnh dạng.Vui lòng gửi lại
+            !</ngx-dropzone-label
+          >
+          <ngx-dropzone-label *ngIf="noFile"
+            >Vui lòng gửi lên tài liệu</ngx-dropzone-label
+          >
+>>>>>>> Stashed changes
         </ngx-dropzone>
       </div>
     </div>

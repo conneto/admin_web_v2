@@ -30,6 +30,12 @@ export class OrganizationFormComponent implements OnInit {
   categoryStringClone: string = '';
   isRemoved?: boolean;
   isWrongFile?: boolean;
+  selectedType = 'ngo';
+  type: string[] = ['ngo', 'npo'];
+  noFile?: boolean;
+  uploadData: any = new FormData();
+  noCover?: boolean;
+  noLogo?: boolean;
   constructor(private org: OrganizationsComponent, private getEntityService: LoadingDataService, private loadingService: LoadingService, private location: Location, private router: Router, private snackBar: SnackBarMessageComponent, private formBuilder: FormBuilder, private orgApi: OrganizationApiService, private user: AuthService) { }
 
   ngOnInit(): void {
@@ -59,42 +65,26 @@ export class OrganizationFormComponent implements OnInit {
     this.isSubmitted = true;
     this.organizationForm.value.category = this.categoryString;
 
-    if (this.organizationForm.valid) {
-      let uploadData: any = new FormData();
-      uploadData.append('organization', JSON.stringify(this.organizationForm.value));
-      uploadData.append('logo', this.logoFile, this.logoFile?.name);
-      uploadData.append('cover', this.coverFile, this.coverFile?.name);
-      uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
-      console.log(uploadData.value);
-      if (this.organizationId) {
-        this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.orgApi.createById(uploadData, `${this.organizationId}`);
-        if (res?.status == 0) {
-          this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
-          this.loadingService.isLoading.next(false);
+    if (this.organizationForm.valid && this.noCover==false) {
 
-          this.router.navigate(['/manager/manage-organization']);
-          this.org.getAllOrganization();
-        } else {
-          this.snackBar.showMessage(`${res?.message}`, false);
+      this.uploadData.append('organization', JSON.stringify(this.organizationForm.value));
 
-          this.loadingService.isLoading.next(false);
-        }
+
+
+      this.loadingService.isLoading.next(true);
+      let res: BaseResponse | null = await this.orgApi.create(this.uploadData);
+      if (res?.status == 0) {
+        this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
+        this.loadingService.isLoading.next(false);
+        this.org.getAllOrganization();
+        this.router.navigate(['/manager']);
       } else {
-        this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.orgApi.create(uploadData);
-        if (res?.status == 0) {
-          this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
-          this.loadingService.isLoading.next(false);
-          this.org.getAllOrganization();
-          this.router.navigate(['/manager']);
-        } else {
-          this.router.navigate(['/manager/manage-organization']);
-          this.snackBar.showMessage(`${res?.message}`, false);
-          this.loadingService.isLoading.next(false);
+        this.router.navigate(['/manager/manage-organization']);
+        this.snackBar.showMessage(`${res?.message}`, false);
+        this.loadingService.isLoading.next(false);
 
-        }
       }
+
     }
   }
 
@@ -110,18 +100,32 @@ export class OrganizationFormComponent implements OnInit {
       request_type: [OrganizationFormComponent.CREATE],
       mission: ['', [Validators.required, Validators.minLength(128), Validators.maxLength(1000)]],
       category: [''],
-      logo: [''],
+      logo: ['',Validators.required],
       cover: [''],
+      type: [this.selectedType],
     })
   }
   onChangeCover(e: any) {
+
     if (e.target.files && e.target.files.length > 0) {
-      this.coverFile = e.target.files[0];
+      if (e.target.files.length > 5) {
+        this.noCover = true;
+      } else {
+        this.noCover = false;
+        for (let i = 0; i < e.target.files.length; i++) {
+          this.uploadData.append('cover', e.target.files[i], e.target.files[i]?.name);
+        }
+      }
+
     }
   }
   onChangeLogo(e: any) {
     if (e.target.files && e.target.files.length > 0) {
       this.logoFile = e.target.files[0];
+      this.uploadData.append('logo', this.logoFile, this.logoFile?.name);
+
+    } else {
+      this.noLogo = true;
     }
   }
   get organizationControl() {
@@ -146,12 +150,18 @@ export class OrganizationFormComponent implements OnInit {
         this.isWrongFile = true;
       } else {
         this.filePDF = e.addedFiles;
+        this.uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
       }
+    } else {
+      this.noFile = true;
     }
 
   }
   onRemove(event: any) {
     console.log(event);
     this.filePDF.splice(this.filePDF.indexOf(event), 1);
+  }
+  getType(e: any) {
+
   }
 }
