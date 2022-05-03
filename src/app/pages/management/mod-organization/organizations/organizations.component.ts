@@ -43,7 +43,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isList?: boolean = false;
   isAdmin?: boolean = false;
   oldDataSearch: Organization[] = [];
-  isTabRejected?:boolean;
+  isTabRejected?: boolean;
 
   constructor(public utilService: UtilService, private loadingService: LoadingService, private userService: UserService, private organizationService: OrganizationApiService, private authService: AuthService) { }
 
@@ -68,11 +68,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
   }
   getTabGroupState(e: any) {
-    if(e){
-      if(e=='reject'){
-        this.isTabRejected=true;
-      }else {
-        this.isTabRejected=false;
+    if (e) {
+      if (e == 'reject') {
+        this.isTabRejected = true;
+      } else {
+        this.isTabRejected = false;
       }
     }
 
@@ -92,11 +92,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   }
   getOrganizations(e: any) {
     if (e) {
-      this.isEmpty=false;
+      this.isEmpty = false;
       this.oldData = e;
       this.organizations = e;
-    }else{
-      this.isEmpty=true;
+    } else {
+      this.isEmpty = true;
     }
   }
   getData(e: any) {
@@ -278,12 +278,13 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
   }
   getEntity(e: any) {
-    if (e) {
-      this.isEmpty=false;
+    if (e?.length != 0) {
+      this.isEmpty = false;
       this.organizations = e;
       this.oldData = e;
-    }else{
-      this.isEmpty=true;
+    } else {
+      this.isEmpty = true;
+      this.organizations = e;
     }
   }
 }

@@ -74,7 +74,7 @@ var ProjectComponent = /** @class */ (function () {
     ProjectComponent.prototype.ngOnDestroy = function () {
     };
     ProjectComponent.prototype.getEntity = function (e) {
-        if (e != []) {
+        if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
             console.log(e);
             this.isEmpty = false;
             this.projects = e;
@@ -82,6 +82,7 @@ var ProjectComponent = /** @class */ (function () {
         }
         else {
             this.isEmpty = true;
+            this.projects = e;
         }
     };
     ProjectComponent.prototype.getTabGroupState = function (e) {

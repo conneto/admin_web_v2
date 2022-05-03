@@ -13,12 +13,59 @@ export class EntityStatusComponent implements OnInit {
   @Input() type?: string;
   @Input() entityData?: any;
   passData?: any;
+  noDataAll?: boolean;
+  noDataDisbale?: boolean;
+
+  noDataEnable?: boolean;
   constructor() { }
 
   ngOnInit(): void {
+    this.checkData();
   }
   sendData(e: any) {
     this.entity.emit(e);
+  }
+  checkData() {
+    this.checkAll();
+    this.checkEnable();
+    this.checkDisable();
+  }
+  checkDisable() {
+    this.passData = this.entityData.filter((x: any) => {
+      return x.is_active == false && x.result_code == 510 ||
+        x.is_active == false &&
+        x.resultCode == 610 ||
+        x.is_active == false && x.result_code == 710;;
+    })
+    if (this.passData.length == 0) {
+      this.noDataDisbale = true;
+    } else {
+      this.noDataDisbale = false;
+    }
+  }
+  checkAll() {
+    this.passData = this.entityData.filter((x: any) => {
+      return x.result_code == 510 || x.resultCode == 610 || x.result_code == 710;
+    })
+    if (this.passData.length == 0) {
+      this.noDataAll = true;
+    } else {
+      this.noDataAll = false;
+    }
+  }
+  checkEnable() {
+    this.passData = this.entityData.filter((x: any) => {
+      return x.is_active == true && x.result_code == 510 ||
+        x.is_active == true &&
+        x.resultCode == 610 ||
+        x.is_active == true &&
+        x.result_code == 710;
+    })
+    if (this.passData.length == 0) {
+      this.noDataEnable = true;
+    } else {
+      this.noDataEnable = false;
+    }
   }
   getStatus(e: any) {
     if (e) {
@@ -26,31 +73,16 @@ export class EntityStatusComponent implements OnInit {
       switch (e) {
 
         case 'Tất cả':
-          this.passData = this.entityData.filter((x: any) => {
-            return x.result_code == 510 || x.resultCode == 610 || x.result_code == 710;
-          })
-
+          this.checkAll();
           this.sendData(this.passData);
           break;
         case 'Vô hiệu hóa':
-          this.passData = this.entityData.filter((x: any) => {
-            return x.is_active == false && x.result_code == 510 ||
-              x.is_active == false &&
-              x.resultCode == 610 ||
-
-              x.is_active == false && x.result_code == 710;;
-          })
+          this.checkDisable();
           this.sendData(this.passData);
 
           break;
         case 'Cấp quyền':
-          this.passData = this.entityData.filter((x: any) => {
-            return x.is_active == true && x.result_code == 510 ||
-              x.is_active == true &&
-              x.resultCode == 610 ||
-              x.is_active == true &&
-              x.result_code == 710;
-          })
+          this.checkEnable();
           this.sendData(this.passData);
           break;
       }

@@ -299,13 +299,14 @@ var OrganizationsComponent = /** @class */ (function () {
         });
     };
     OrganizationsComponent.prototype.getEntity = function (e) {
-        if (e) {
+        if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
             this.isEmpty = false;
             this.organizations = e;
             this.oldData = e;
         }
         else {
             this.isEmpty = true;
+            this.organizations = e;
         }
     };
     __decorate([

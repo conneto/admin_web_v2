@@ -1,6 +1,14 @@
-
-    <mat-form-field appearance="fill">
-        <mat-select [(value)]="default" (selectionChange)="getStatus($event.value)">
-         <mat-option  [value]="e" *ngFor='let e of status'>{{e}} </mat-option>
-        </mat-select>
-    </mat-form-field>
+<mat-form-field appearance="fill">
+  <mat-select [(value)]="default" (selectionChange)="getStatus($event.value)">
+    <mat-option
+      [disabled]="
+        (noDataDisbale && e == 'Vô hiệu hóa') ||
+        (noDataAll && e == 'Tất cả') ||
+        (noDataEnable && e == 'Cấp quyền')
+      "
+      [value]="e"
+      *ngFor="let e of status"
+      >{{ e }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

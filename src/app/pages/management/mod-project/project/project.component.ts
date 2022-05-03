@@ -56,13 +56,14 @@ export class ProjectComponent implements OnInit {
 
   }
   getEntity(e: any) {
-    if (e!=[]) {
+    if (e?.length!=0) {
       console.log(e);
       this.isEmpty = false;
       this.projects = e;
       this.oldData = e;
     } else {
       this.isEmpty = true;
+      this.projects=e;
     }
   }
   getTabGroupState(e: any) {

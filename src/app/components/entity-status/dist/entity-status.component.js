@@ -15,38 +15,71 @@ var EntityStatusComponent = /** @class */ (function () {
         this.entity = new core_1.EventEmitter();
     }
     EntityStatusComponent.prototype.ngOnInit = function () {
+        this.checkData();
     };
     EntityStatusComponent.prototype.sendData = function (e) {
         this.entity.emit(e);
+    };
+    EntityStatusComponent.prototype.checkData = function () {
+        this.checkAll();
+        this.checkEnable();
+        this.checkDisable();
+    };
+    EntityStatusComponent.prototype.checkDisable = function () {
+        this.passData = this.entityData.filter(function (x) {
+            return x.is_active == false && x.result_code == 510 ||
+                x.is_active == false &&
+                    x.resultCode == 610 ||
+                x.is_active == false && x.result_code == 710;
+            ;
+        });
+        if (this.passData.length == 0) {
+            this.noDataDisbale = true;
+        }
+        else {
+            this.noDataDisbale = false;
+        }
+    };
+    EntityStatusComponent.prototype.checkAll = function () {
+        this.passData = this.entityData.filter(function (x) {
+            return x.result_code == 510 || x.resultCode == 610 || x.result_code == 710;
+        });
+        if (this.passData.length == 0) {
+            this.noDataAll = true;
+        }
+        else {
+            this.noDataAll = false;
+        }
+    };
+    EntityStatusComponent.prototype.checkEnable = function () {
+        this.passData = this.entityData.filter(function (x) {
+            return x.is_active == true && x.result_code == 510 ||
+                x.is_active == true &&
+                    x.resultCode == 610 ||
+                x.is_active == true &&
+                    x.result_code == 710;
+        });
+        if (this.passData.length == 0) {
+            this.noDataEnable = true;
+        }
+        else {
+            this.noDataEnable = false;
+        }
     };
     EntityStatusComponent.prototype.getStatus = function (e) {
         if (e) {
             console.log(this.entityData);
             switch (e) {
                 case 'Tất cả':
-                    this.passData = this.entityData.filter(function (x) {
-                        return x.result_code == 510 || x.resultCode == 610 || x.result_code == 710;
-                    });
+                    this.checkAll();
                     this.sendData(this.passData);
                     break;
                 case 'Vô hiệu hóa':
-                    this.passData = this.entityData.filter(function (x) {
-                        return x.is_active == false && x.result_code == 510 ||
-                            x.is_active == false &&
-                                x.resultCode == 610 ||
-                            x.is_active == false && x.result_code == 710;
-                        ;
-                    });
+                    this.checkDisable();
                     this.sendData(this.passData);
                     break;
                 case 'Cấp quyền':
-                    this.passData = this.entityData.filter(function (x) {
-                        return x.is_active == true && x.result_code == 510 ||
-                            x.is_active == true &&
-                                x.resultCode == 610 ||
-                            x.is_active == true &&
-                                x.result_code == 710;
-                    });
+                    this.checkEnable();
                     this.sendData(this.passData);
                     break;
             }
