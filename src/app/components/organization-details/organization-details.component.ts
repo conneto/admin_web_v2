@@ -55,8 +55,8 @@ export class OrganizationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.organizationInput);
-    this.getValueFromRoute();
+  
+
     this.check();
 
     this.isInformation = true;
@@ -69,14 +69,14 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   async getValueFromRoute() {
 
-    this.organization = await this.orgApi.getById(`${this.organizationInput[0]?.id}`);
 
     if (this.organization?.result_code == 510) {
       this.isApproved = true;
     }
     this.loadingService.getOrganizationId.next(`${this.organizationInput[0]?.id}`);
     this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
-    this.urlCover = this.organization?.cover?.replace(/\\/g, '\/');
+    this.urlCover = this.organization?.cover?.split('|')[0];
+    console.log(this.urlCover);
     switch (this.organization?.type) {
       case 'ngo': this.organization.type = 'Tổ chức phi chính phủ';
         break;

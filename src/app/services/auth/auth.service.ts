@@ -53,6 +53,7 @@ export class AuthService {
 
         localStorage.setItem('USER_TOKEN', userLoginResponse.token);
         this.curUserSubject.next(userLoginResponse);
+     
       }
     } else if (res.status == 6) {
       this.loadingService.isLoading.next(false);

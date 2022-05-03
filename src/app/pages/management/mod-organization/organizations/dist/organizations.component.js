@@ -75,12 +75,17 @@ var OrganizationsComponent = /** @class */ (function () {
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.loadingService.isSkeleton.next(true);
     };
-    OrganizationsComponent.prototype.ngAfterViewInit = function () {
-    };
-    OrganizationsComponent.prototype.ngOnDestroy = function () {
-    };
-    OrganizationsComponent.prototype.getState = function (e) {
-        this.isChangeState = e;
+    OrganizationsComponent.prototype.ngAfterViewInit = function () { };
+    OrganizationsComponent.prototype.ngOnDestroy = function () { };
+    OrganizationsComponent.prototype.getTabGroupState = function (e) {
+        if (e) {
+            if (e == 'reject') {
+                this.isTabRejected = true;
+            }
+            else {
+                this.isTabRejected = false;
+            }
+        }
     };
     OrganizationsComponent.prototype.handleTitle = function (e) {
         this.noResultBySearch = false;
@@ -96,6 +101,14 @@ var OrganizationsComponent = /** @class */ (function () {
         (_a = this.viewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
     };
     OrganizationsComponent.prototype.getOrganizations = function (e) {
+        if (e) {
+            this.isEmpty = false;
+            this.oldData = e;
+            this.organizations = e;
+        }
+        else {
+            this.isEmpty = true;
+        }
     };
     OrganizationsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {
@@ -122,8 +135,9 @@ var OrganizationsComponent = /** @class */ (function () {
                             this.getAllOrganizationByStatus('pending');
                             localStorage.setItem('pending', 'true');
                         }
-                        else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-                            && !localStorage.getItem('pending')) {
+                        else if (!localStorage.getItem('reject') &&
+                            !localStorage.getItem('approve') &&
+                            !localStorage.getItem('pending')) {
                             this.getAllOrganizationByStatus('approve');
                             localStorage.setItem('approve', 'true');
                         }
@@ -143,118 +157,6 @@ var OrganizationsComponent = /** @class */ (function () {
             });
         });
     };
-    OrganizationsComponent.prototype.getAllOrganizationAllRole = function (status, org) {
-        var _a, _b, _c, _d, _e, _f;
-        return __awaiter(this, void 0, void 0, function () {
-            var check, i, i, i;
-            var _this = this;
-            return __generator(this, function (_g) {
-                this.status = status;
-                if (org) {
-                    this.organizations = org;
-                }
-                if (status) {
-                    if (this.authService.currentUserValue.role_id == 'organization_manager') {
-                        check = this.organizations.every(function (a) {
-                            return a.result_code == 503;
-                        });
-                        if (check == true) {
-                            this.isDeleted = true;
-                        }
-                    }
-                    switch (status) {
-                        case 'approve':
-                            this.isRequest = false;
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-                            }
-                            if (this.authService.currentUserValue.role_id == 'organization_manager') {
-                                if (this.organizations.length <= 0 || this.organizations == null) {
-                                    this.organizations = [];
-                                    this.noOrg = true;
-                                }
-                                else {
-                                    this.organizations = this.organizations.filter(function (x) {
-                                        return x.result_code == 510 || x.result_code == 502;
-                                    });
-                                    this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
-                                    this.noOrg = false;
-                                    this.isEmpty = false;
-                                    if (this.organizations.length <= 0 || this.organizations == null) {
-                                        this.isEmpty = true;
-                                    }
-                                }
-                            }
-                            if (this.authService.currentUserValue.role_id == 'admin') {
-                                this.isEmpty = false;
-                                this.noOrg = false;
-                                this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
-                                this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
-                            }
-                            setTimeout(function () {
-                                _this.loadingService.isSkeleton.next(false);
-                                _this.isLoaded = true;
-                            }, 1000);
-                            break;
-                        case 'reject':
-                            this.isRequest = false;
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-                            }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code === 511; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 511; });
-                            this.isEmpty = false;
-                            if (this.organizations == null || this.organizations.length <= 0) {
-                                this.isEmpty = true;
-                            }
-                            setTimeout(function () {
-                                _this.loadingService.isSkeleton.next(false);
-                                _this.isLoaded = true;
-                            }, 1000);
-                            break;
-                        case 'pending':
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
-                                this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                    this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                    this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-                            }
-                            if (this.authService.currentUserValue.role_id == 'admin') {
-                                this.isRequest = true;
-                            }
-                            else {
-                                this.isRequest = false;
-                            }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code === 501; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 501; });
-                            console.log(this.organizations);
-                            this.isEmpty = false;
-                            if (this.organizations == null || this.organizations.length <= 0) {
-                                this.isEmpty = true;
-                            }
-                            setTimeout(function () {
-                                _this.loadingService.isSkeleton.next(false);
-                                _this.isLoaded = true;
-                            }, 1000);
-                            break;
-                    }
-                    this.oldDataSearch = this.oldData;
-                    this.number = this.organizations.length;
-                    this.numberCount = new Array(this.organizations.length);
-                }
-                return [2 /*return*/];
-            });
-        });
-    };
     OrganizationsComponent.prototype.getAllOrganizationByStatus = function (status, org) {
         var _a, _b, _c, _d, _e, _f;
         return __awaiter(this, void 0, void 0, function () {
@@ -264,6 +166,7 @@ var OrganizationsComponent = /** @class */ (function () {
                 this.status = status;
                 if (org) {
                     this.organizations = org;
+                    console.log(this.organizations);
                 }
                 if (status) {
                     if (this.authService.currentUserValue.role_id == 'organization_manager') {
@@ -275,13 +178,13 @@ var OrganizationsComponent = /** @class */ (function () {
                         }
                     }
                     this.isList = false;
-                    this.changeToGrid();
                     switch (status) {
                         case 'approve':
+                            this.changeToGrid();
                             this.isRequest = false;
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
                             }
                             if (this.authService.currentUserValue.role_id == 'organization_manager') {
                                 if (this.organizations.length <= 0 || this.organizations == null) {
@@ -289,13 +192,12 @@ var OrganizationsComponent = /** @class */ (function () {
                                     this.noOrg = true;
                                 }
                                 else {
-                                    this.organizations = this.organizations.filter(function (x) {
-                                        return x.result_code == 510 || x.result_code == 502;
-                                    });
-                                    this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
+                                    this.organizations = this.passData;
+                                    this.oldData = this.passData;
                                     this.noOrg = false;
                                     this.isEmpty = false;
-                                    if (this.organizations.length <= 0 || this.organizations == null) {
+                                    if (this.organizations.length <= 0 ||
+                                        this.organizations == null) {
                                         this.isEmpty = true;
                                     }
                                 }
@@ -303,7 +205,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             else if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
-                                this.organizations = this.organizations.filter((function (x) { return x.result_code === 510; }));
+                                this.organizations = this.passData.filter(function (x) { return x.result_code == 510; });
                                 this.oldData = this.passData.filter(function (x) { return x.result_code == 510; });
                             }
                             setTimeout(function () {
@@ -312,12 +214,15 @@ var OrganizationsComponent = /** @class */ (function () {
                             }, 1000);
                             break;
                         case 'reject':
+                            console.log(org);
+                            console.log(this.organizations);
                             this.isRequest = false;
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
                             }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code === 511; });
+                            this.organizations = this.organizations.filter(function (x) { return x.result_code == 511; });
+                            console.log(this.organizations);
                             this.oldData = this.passData.filter(function (x) { return x.result_code == 511; });
                             this.isEmpty = false;
                             if (this.organizations == null || this.organizations.length <= 0) {
@@ -331,7 +236,7 @@ var OrganizationsComponent = /** @class */ (function () {
                         case 'pending':
                             for (i = 0; i < this.organizations.length; i++) {
                                 this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
                             }
                             if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isRequest = true;
@@ -365,6 +270,7 @@ var OrganizationsComponent = /** @class */ (function () {
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0:
+                        this.isLoaded = true;
                         this.isRequest = false;
                         _c = this;
                         return [4 /*yield*/, this.organizationService.getAll()];
@@ -382,12 +288,12 @@ var OrganizationsComponent = /** @class */ (function () {
                         for (i = 0; i < this.organizations.length; i++) {
                             this.organizationId = this.organizations[i].id;
                             this.loadingService.getOrganizationId.next("" + this.organizationId);
-                            this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                            this.organizations[i].type = this.organizations[i].type == 'ngo' ?
-                                this.organizations[i].type = 'Tổ chức phi chính phủ' :
-                                this.organizations[i].type = 'Tổ chức phi lợi nhuận';
+                            this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                            this.organizations[i].type =
+                                this.organizations[i].type == 'ngo'
+                                    ? (this.organizations[i].type = 'Tổ chức phi chính phủ')
+                                    : (this.organizations[i].type = 'Tổ chức phi lợi nhuận');
                         }
-                        this.isLoaded = true;
                         return [2 /*return*/];
                 }
             });
@@ -395,8 +301,12 @@ var OrganizationsComponent = /** @class */ (function () {
     };
     OrganizationsComponent.prototype.getEntity = function (e) {
         if (e) {
+            this.isEmpty = false;
             this.organizations = e;
             this.oldData = e;
+        }
+        else {
+            this.isEmpty = true;
         }
     };
     __decorate([

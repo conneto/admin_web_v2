@@ -71,7 +71,10 @@ export class ProjectDetailsComponent implements OnInit {
       this.isEmpty=true;
     }else {
       this.isEmpty=false;
-      this.campaigns = this.campaignsCopy;
+      this.campaigns = this.campaignsCopy.filter(x=>{
+        return  x.result_code!=703;
+      });
+    
     }
 
     if (this.campaigns) {

@@ -41,7 +41,7 @@ export class OrganizationInforCardComponent implements OnInit {
     private dialog: MatDialog,
     private authApi: AuthService,
     private org: OrganizationRequestComponent
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.urlApi = this.loadingApi.getApiGetLink.value;
@@ -63,10 +63,10 @@ export class OrganizationInforCardComponent implements OnInit {
           checkType == 'org'
             ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
             : checkType == 'cam'
-            ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
-            : checkType == 'pro'
-            ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
-            : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
+              ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+              : checkType == 'pro'
+                ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
+                : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
       },
     });
 
@@ -79,10 +79,10 @@ export class OrganizationInforCardComponent implements OnInit {
             checkType == 'org'
               ? Constant.ORGANIZATION
               : checkType == 'cam'
-              ? Constant.CAMPAIGN
-              : checkType == 'pro'
-              ? Constant.PROJECT
-              : Constant.ORGANIZATION,
+                ? Constant.CAMPAIGN
+                : checkType == 'pro'
+                  ? Constant.PROJECT
+                  : Constant.ORGANIZATION,
           status: 'approve',
           note: 'Approve this',
         };
@@ -121,10 +121,10 @@ export class OrganizationInforCardComponent implements OnInit {
           checkType == 'org'
             ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
             : checkType == 'cam'
-            ? 'Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?'
-            : checkType == 'pro'
-            ? 'Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?'
-            : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
+              ? 'Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?'
+              : checkType == 'pro'
+                ? 'Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?'
+                : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
       },
     });
     diaglogRef.afterClosed().subscribe(async (data) => {
@@ -136,10 +136,10 @@ export class OrganizationInforCardComponent implements OnInit {
             checkType == 'org'
               ? Constant.ORGANIZATION
               : checkType == 'cam'
-              ? Constant.CAMPAIGN
-              : checkType == 'pro'
-              ? Constant.PROJECT
-              : Constant.ORGANIZATION,
+                ? Constant.CAMPAIGN
+                : checkType == 'pro'
+                  ? Constant.PROJECT
+                  : Constant.ORGANIZATION,
           status: 'reject',
           note: data,
         };

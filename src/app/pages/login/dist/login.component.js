@@ -60,7 +60,6 @@ var LoginComponent = /** @class */ (function () {
     LoginComponent.prototype.ngOnInit = function () {
         this.initLoginForm();
         var enter = document.getElementsByClassName('input');
-        console.log(enter);
         for (var i = 0; i < enter.length; i++) {
             enter[i].addEventListener("keyup", function (e) {
                 if (e.key == 'Enter') {

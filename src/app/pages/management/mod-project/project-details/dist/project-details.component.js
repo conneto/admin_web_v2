@@ -99,7 +99,9 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         }
                         else {
                             this.isEmpty = false;
-                            this.campaigns = this.campaignsCopy;
+                            this.campaigns = this.campaignsCopy.filter(function (x) {
+                                return x.result_code != 703;
+                            });
                         }
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {

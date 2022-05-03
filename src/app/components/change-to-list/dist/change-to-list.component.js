@@ -20,7 +20,6 @@ var ChangeToListComponent = /** @class */ (function () {
         if (isTab) {
             {
                 this.handleTitle.emit(this.whichView = 'grid');
-                this.entitys.emit(this.entityOrganization);
                 this.icon_view = 'view_list';
             }
         }
@@ -32,6 +31,7 @@ var ChangeToListComponent = /** @class */ (function () {
             }
             else {
                 this.handleTitle.emit(this.whichView = 'list');
+                this.entitys.emit(this.entityOrganization);
                 this.icon_view = 'grid_view';
             }
         }

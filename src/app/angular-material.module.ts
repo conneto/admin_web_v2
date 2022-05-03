@@ -88,6 +88,7 @@ const materialModules = [
     NgxSkeletonLoaderModule,
     FileUploadModule,
     NgxDropzoneModule,
+    NgxSkeletonLoaderModule,
 ];
 
 @NgModule({

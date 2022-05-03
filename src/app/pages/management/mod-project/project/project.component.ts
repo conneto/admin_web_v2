@@ -40,6 +40,7 @@ export class ProjectComponent implements OnInit {
   isList?: boolean = false;
   organization: Organization[] = [];
   isAdmin?: boolean;
+  isTabRejected?: boolean;
   constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
@@ -52,6 +53,27 @@ export class ProjectComponent implements OnInit {
     }
   }
   ngOnDestroy(): void {
+
+  }
+  getEntity(e: any) {
+    if (e!=[]) {
+      console.log(e);
+      this.isEmpty = false;
+      this.projects = e;
+      this.oldData = e;
+    } else {
+      this.isEmpty = true;
+    }
+  }
+  getTabGroupState(e: any) {
+    if (e) {
+      if (e == 'reject') {
+        this.isTabRejected = true;
+      } else {
+        this.isTabRejected = false;
+      }
+    }
+
 
   }
   changeView() {

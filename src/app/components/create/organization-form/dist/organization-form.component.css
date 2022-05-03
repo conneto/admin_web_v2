@@ -131,7 +131,6 @@
 }
 
 .login-name :first-child {
-  width: 47%;
   margin: 0 !important;
 }
 .login-name :nth-child(2) {

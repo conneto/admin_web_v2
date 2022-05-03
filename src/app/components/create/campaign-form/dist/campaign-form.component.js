@@ -45,13 +45,22 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+<<<<<<< Updated upstream
 exports.CampaignForm = void 0;
+=======
+exports.CamapaignFormComponent = void 0;
+>>>>>>> Stashed changes
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var constant_1 = require("src/app/constant/constant");
+<<<<<<< Updated upstream
 var CampaignForm = /** @class */ (function () {
     function CampaignForm(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+=======
+var CamapaignFormComponent = /** @class */ (function () {
+    function CamapaignFormComponent(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+>>>>>>> Stashed changes
         this.organizationApi = organizationApi;
         this.projectApi = projectApi;
         this.loadingService = loadingService;
@@ -70,13 +79,21 @@ var CampaignForm = /** @class */ (function () {
         this.categoryString = '';
         this.categoryStringClone = '';
     }
+<<<<<<< Updated upstream
     CampaignForm.prototype.ngOnInit = function () {
+=======
+    CamapaignFormComponent.prototype.ngOnInit = function () {
+>>>>>>> Stashed changes
         this.initForm();
         this.check();
         // let uploadData: any = new FormData();
         // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
     };
+<<<<<<< Updated upstream
     CampaignForm.prototype.initForm = function () {
+=======
+    CamapaignFormComponent.prototype.initForm = function () {
+>>>>>>> Stashed changes
         this.campaignForm = this.formBuilder.group({
             selected: [this.selectedValue, forms_1.Validators.required],
             name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
@@ -96,7 +113,11 @@ var CampaignForm = /** @class */ (function () {
             category: ['']
         });
     };
+<<<<<<< Updated upstream
     CampaignForm.prototype.check = function () {
+=======
+    CamapaignFormComponent.prototype.check = function () {
+>>>>>>> Stashed changes
         return __awaiter(this, void 0, void 0, function () {
             var _a, _b;
             return __generator(this, function (_c) {
@@ -124,10 +145,17 @@ var CampaignForm = /** @class */ (function () {
             });
         });
     };
+<<<<<<< Updated upstream
     CampaignForm.prototype.noClick = function () {
         this.dialogRef.close(false);
     };
     CampaignForm.prototype.yesClick = function () {
+=======
+    CamapaignFormComponent.prototype.noClick = function () {
+        this.dialogRef.close(false);
+    };
+    CamapaignFormComponent.prototype.yesClick = function () {
+>>>>>>> Stashed changes
         var _this = this;
         var _a;
         if (this.campaignForm.controls.category.value.length != 0 && this.campaignForm.controls.category.value) {
@@ -175,7 +203,11 @@ var CampaignForm = /** @class */ (function () {
             this.dialogRef.close(this.uploadData);
         }
     };
+<<<<<<< Updated upstream
     CampaignForm.prototype.onChange = function (e) {
+=======
+    CamapaignFormComponent.prototype.onChange = function (e) {
+>>>>>>> Stashed changes
         if (e.target.files && e.target.files.length > 0) {
             for (var i = 0; i < e.target.files.length; i++) {
                 this.uploadData.append('cover', e.target.files[i], e.target.files[i].name);
@@ -183,14 +215,22 @@ var CampaignForm = /** @class */ (function () {
             // this.coverImage = e.target.files[0];
         }
     };
+<<<<<<< Updated upstream
     Object.defineProperty(CampaignForm.prototype, "campaignControl", {
+=======
+    Object.defineProperty(CamapaignFormComponent.prototype, "campaignControl", {
+>>>>>>> Stashed changes
         get: function () {
             return this.campaignForm.controls;
         },
         enumerable: false,
         configurable: true
     });
+<<<<<<< Updated upstream
     CampaignForm.prototype.getType = function (e) {
+=======
+    CamapaignFormComponent.prototype.getType = function (e) {
+>>>>>>> Stashed changes
         console.log(e);
         if (e == 'Quyên góp') {
             this.campaignForm.removeControl('job_requirement');
@@ -203,7 +243,11 @@ var CampaignForm = /** @class */ (function () {
             this.campaignForm.setControl('job_benefit', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
         }
     };
+<<<<<<< Updated upstream
     CampaignForm.prototype.onRemoveCategory = function (e) {
+=======
+    CamapaignFormComponent.prototype.onRemoveCategory = function (e) {
+>>>>>>> Stashed changes
         this.isRemoved = true;
         var category = this.campaignForm.controls.category.value;
         var index = category.indexOf(e);
@@ -216,14 +260,25 @@ var CampaignForm = /** @class */ (function () {
         }
         this.campaignForm.controls.category.patchValue(category);
     };
+<<<<<<< Updated upstream
     CampaignForm = __decorate([
+=======
+    CamapaignFormComponent = __decorate([
+>>>>>>> Stashed changes
         core_1.Component({
             selector: 'app-campaign-form',
             templateUrl: './campaign-form.component.html',
             styleUrls: ['./campaign-form.component.scss']
         }),
         __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
+<<<<<<< Updated upstream
     ], CampaignForm);
     return CampaignForm;
 }());
 exports.CampaignForm = CampaignForm;
+=======
+    ], CamapaignFormComponent);
+    return CamapaignFormComponent;
+}());
+exports.CamapaignFormComponent = CamapaignFormComponent;
+>>>>>>> Stashed changes

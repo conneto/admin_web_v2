@@ -73,6 +73,27 @@ var ProjectComponent = /** @class */ (function () {
     };
     ProjectComponent.prototype.ngOnDestroy = function () {
     };
+    ProjectComponent.prototype.getEntity = function (e) {
+        if (e != []) {
+            console.log(e);
+            this.isEmpty = false;
+            this.projects = e;
+            this.oldData = e;
+        }
+        else {
+            this.isEmpty = true;
+        }
+    };
+    ProjectComponent.prototype.getTabGroupState = function (e) {
+        if (e) {
+            if (e == 'reject') {
+                this.isTabRejected = true;
+            }
+            else {
+                this.isTabRejected = false;
+            }
+        }
+    };
     ProjectComponent.prototype.changeView = function () {
         var _a;
         (_a = this.changeViewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);

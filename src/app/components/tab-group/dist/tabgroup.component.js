@@ -49,7 +49,7 @@ var TabgroupComponent = /** @class */ (function () {
         }
     };
     TabgroupComponent.prototype.getEntity = function (name, entity) {
-        this.passData(this.isChangeState = true);
+        this.passData(name);
         switch (name) {
             case 'approve':
                 localStorage.setItem('approve', 'true');

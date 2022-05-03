@@ -61,16 +61,19 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.category = constant_1.Constant.CATEGORY;
         this.categoryString = '';
         this.categoryStringClone = '';
+        this.uploadData = new FormData();
+        this.selectedType = 'ngo';
+        this.type = ['ngo', 'npo'];
     }
     OrganizationFormComponent.prototype.ngOnInit = function () {
         this.initFormBuilder();
     };
     OrganizationFormComponent.prototype.create = function () {
-        var _a, _b, _c;
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
-            var i, i, uploadData, res, res;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var i, i, res, res_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0:
                         if (this.organizationForm.controls.category.value.length != 0 &&
                             this.organizationForm.controls.category.value) {
@@ -94,35 +97,24 @@ var OrganizationFormComponent = /** @class */ (function () {
                         }
                         this.isSubmitted = true;
                         this.organizationForm.value.category = this.categoryString;
-                        if (!this.organizationForm.valid) return [3 /*break*/, 4];
-                        uploadData = new FormData();
-                        uploadData.append('organization', JSON.stringify(this.organizationForm.value));
-                        uploadData.append('logo', this.logoFile, (_b = this.logoFile) === null || _b === void 0 ? void 0 : _b.name);
-                        uploadData.append('cover', this.coverFile, (_c = this.coverFile) === null || _c === void 0 ? void 0 : _c.name);
-                        uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
-                        console.log(uploadData.value);
-                        if (!this.organizationId) return [3 /*break*/, 2];
+                        if (!(this.organizationForm.valid && !this.noCover)) return [3 /*break*/, 4];
+                        this.uploadData.append('organization', JSON.stringify(this.organizationForm.value));
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.orgApi.createById(uploadData, "" + this.organizationId)];
+                        return [4 /*yield*/, this.orgApi.create(this.uploadData)];
                     case 1:
-                        res = _d.sent();
-                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
-                            this.loadingService.isLoading.next(false);
-                            this.router.navigate(['/manager/manage-organization']);
-                            this.org.getAllOrganization();
-                        }
-                        else {
-                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
-                            this.loadingService.isLoading.next(false);
-                        }
+                        res = _b.sent();
+                        if (!((res === null || res === void 0 ? void 0 : res.status) == 0)) return [3 /*break*/, 2];
+                        this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
+                        this.loadingService.isLoading.next(false);
+                        this.org.getAllOrganization();
+                        this.router.navigate(['/manager']);
                         return [3 /*break*/, 4];
                     case 2:
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.orgApi.create(uploadData)];
+                        return [4 /*yield*/, this.orgApi.create(this.uploadData)];
                     case 3:
-                        res = _d.sent();
-                        if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                        res_1 = _b.sent();
+                        if ((res_1 === null || res_1 === void 0 ? void 0 : res_1.status) == 0) {
                             this.snackBar.showMessage('Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi', true);
                             this.loadingService.isLoading.next(false);
                             this.org.getAllOrganization();
@@ -130,10 +122,10 @@ var OrganizationFormComponent = /** @class */ (function () {
                         }
                         else {
                             this.router.navigate(['/manager/manage-organization']);
-                            this.snackBar.showMessage("" + (res === null || res === void 0 ? void 0 : res.message), false);
+                            this.snackBar.showMessage("" + (res_1 === null || res_1 === void 0 ? void 0 : res_1.message), false);
                             this.loadingService.isLoading.next(false);
                         }
-                        _d.label = 4;
+                        _b.label = 4;
                     case 4: return [2 /*return*/];
                 }
             });
@@ -181,18 +173,33 @@ var OrganizationFormComponent = /** @class */ (function () {
                 ],
             ],
             category: [''],
-            logo: [''],
-            cover: ['']
+            logo: ['', forms_1.Validators.required],
+            cover: [''],
+            type: [this.selectedType]
         });
     };
     OrganizationFormComponent.prototype.onChangeCover = function (e) {
+        var _a;
         if (e.target.files && e.target.files.length > 0) {
-            this.coverFile = e.target.files[0];
+            if (e.target.files.length > 5) {
+                this.noCover = true;
+            }
+            else {
+                this.noCover = false;
+                for (var i = 0; i < e.target.files.length; i++) {
+                    this.uploadData.append('cover', e.target.files[i], (_a = e.target.files[i]) === null || _a === void 0 ? void 0 : _a.name);
+                }
+            }
         }
     };
     OrganizationFormComponent.prototype.onChangeLogo = function (e) {
+        var _a;
         if (e.target.files && e.target.files.length > 0) {
             this.logoFile = e.target.files[0];
+            this.uploadData.append('logo', this.logoFile, (_a = this.logoFile) === null || _a === void 0 ? void 0 : _a.name);
+        }
+        else {
+            this.noLogo = true;
         }
     };
     Object.defineProperty(OrganizationFormComponent.prototype, "organizationControl", {
@@ -206,7 +213,6 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.isRemoved = true;
         var category = this.organizationForm.controls.category.value;
         var index = category.indexOf(e);
-        console.log(index);
         if (index !== -1) {
             category.splice(index, 1);
         }
@@ -222,13 +228,17 @@ var OrganizationFormComponent = /** @class */ (function () {
             }
             else {
                 this.filePDF = e.addedFiles;
+                this.uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
             }
+        }
+        else {
+            this.noFile = true;
         }
     };
     OrganizationFormComponent.prototype.onRemove = function (event) {
-        console.log(event);
         this.filePDF.splice(this.filePDF.indexOf(event), 1);
     };
+    OrganizationFormComponent.prototype.getType = function (e) { };
     OrganizationFormComponent.CREATE = 'create';
     __decorate([
         core_1.Input()

@@ -1,5 +1,10 @@
 <div *ngIf="isLoaded">
-  <app-tabgroup #tabGroup [entity]="'pro'" [object]="passData"></app-tabgroup>
+  <app-tabgroup
+    #tabGroup
+    (getState)="getTabGroupState($event)"
+    [entity]="'pro'"
+    [object]="passData"
+  ></app-tabgroup>
 
   <div *ngIf="isRequest">
     <div class="search-bar" *ngIf="!isEmpty">
@@ -43,11 +48,7 @@
   <div *ngIf="!isRequest">
     <div *ngIf="projects">
       <div class="row">
-        <div
-          class="search-bar mb-3"
-          *ngIf="!isEmpty"
-        
-        >
+        <div class="search-bar mb-3" *ngIf="!isEmpty">
           <div *ngIf="!noResultBySearch; then name; else result"></div>
           <ng-template #name>
             <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
@@ -72,6 +73,12 @@
               </button>
             </div>
           </div>
+          <app-entity-status
+            *ngIf="!isList && !isTabRejected"
+            [entityData]="passData"
+            [type]="'org'"
+            (entity)="getEntity($event)"
+          ></app-entity-status>
           <app-search-bar
             *ngIf="!isList"
             (getItem)="getData($event)"
@@ -83,7 +90,7 @@
             (handleTitle)="handleTitle($event)"
           ></app-change-to-list>
         </div>
-        
+
         <div *ngIf="!isList" class="row p-3 project-card">
           <div
             class="mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"

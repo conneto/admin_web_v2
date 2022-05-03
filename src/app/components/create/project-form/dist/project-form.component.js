@@ -54,6 +54,7 @@ var ProjectFormComponent = /** @class */ (function () {
                 }
             }
             else {
+                this.categoryStringClone = '';
                 for (var i = 0; i < this.projectForm.controls.category.value.length; i++) {
                     this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
                 }

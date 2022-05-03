@@ -226,7 +226,9 @@ function () {
               this.isEmpty = true;
             } else {
               this.isEmpty = false;
-              this.campaigns = this.campaignsCopy;
+              this.campaigns = this.campaignsCopy.filter(function (x) {
+                return x.result_code != 703;
+              });
             }
 
             if (this.campaigns) {

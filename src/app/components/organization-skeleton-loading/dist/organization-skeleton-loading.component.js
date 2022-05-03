@@ -9,8 +9,8 @@ exports.__esModule = true;
 exports.OrganizationSkeletonLoadingComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationSkeletonLoadingComponent = /** @class */ (function () {
-    function OrganizationSkeletonLoadingComponent(loadingService) {
-        this.loadingService = loadingService;
+    function OrganizationSkeletonLoadingComponent(loading) {
+        this.loading = loading;
     }
     OrganizationSkeletonLoadingComponent.prototype.ngOnInit = function () {
     };

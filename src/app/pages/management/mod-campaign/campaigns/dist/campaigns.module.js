@@ -12,6 +12,7 @@ var common_1 = require("@angular/common");
 var campaigns_routing_module_1 = require("./campaigns-routing.module");
 var campaigns_component_1 = require("./campaigns.component");
 var component_module_1 = require("src/app/components/component/component.module");
+var angular_material_module_1 = require("../../../../angular-material.module");
 var CampaignsModule = /** @class */ (function () {
     function CampaignsModule() {
     }
@@ -24,6 +25,7 @@ var CampaignsModule = /** @class */ (function () {
                 common_1.CommonModule,
                 campaigns_routing_module_1.CampaignsRoutingModule,
                 component_module_1.ComponentModule,
+                angular_material_module_1.AngularMaterialModule
             ]
         })
     ], CampaignsModule);

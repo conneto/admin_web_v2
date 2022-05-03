@@ -100,6 +100,7 @@ var materialModules = [
     ngx_skeleton_loader_1.NgxSkeletonLoaderModule,
     ng2_file_upload_1.FileUploadModule,
     ngx_dropzone_1.NgxDropzoneModule,
+    ngx_skeleton_loader_1.NgxSkeletonLoaderModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {

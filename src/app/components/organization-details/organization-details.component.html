@@ -1,17 +1,26 @@
-<div *ngIf="organization">
-  <div class="container">
+<div *ngIf="organizationInput">
+  <div class="container" *ngFor='let e of organizationInput'>
     <div class="box">
 
       <div class="header">
         <div
-          class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75">
-          <span class="font-size-8" [ngClass]="{
-              'label-approved': organization.result_code == 510,
-              'label-rejected': organization.result_code == 511,
-              'label-pending': organization.result_code == 501
-            }">{{ organization.result_message }}</span>
+          class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75"
+        >
+          <span
+            class="font-size-8"
+            [ngClass]="{
+              'label-approved': e.result_code == 510,
+              'label-rejected': e.result_code == 511,
+              'label-pending': e.result_code == 501
+            }"
+            >{{ e.result_message }}</span
+          >
         </div>
-        <img loading="lazy" src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
+        <img
+          loading="lazy"
+          src="{{ urlApi }}/show/images?p={{ e.urlCover }}"
+          alt=""
+        />
       </div>
       <div class="content__tab">
         <ul>
@@ -32,18 +41,22 @@
         <div class="content-information">
           <div>
             <div class="icon">
-              <img loading="lazy" src="{{ urlApi }}/show/images?p={{ urlLogo }}" alt="" />
+              <img
+                loading="lazy"
+                src="{{ urlApi }}/show/images?p={{ e.logo }}"
+                alt=""
+              />
             </div>
             <div>
-              <p>{{ organization.name ? organization.name : "Anh Phuc" }}</p>
+              <p>{{ e.name ? e.name : "Anh Phuc" }}</p>
             </div>
           </div>
           <div>
             <p class="title">Được tạo bởi</p>
             <p>
               {{
-                organization.created_name
-                  ? organization.created_name
+                e.created_name
+                  ? e.created_name
                   : "Anh Phuc"
               }}
             </p>
@@ -51,37 +64,47 @@
           <div>
             <p class="title">Ngày thành lập</p>
             <p>
-              {{ organization.founding_date | date: "dd/MM/yyyy" }}
+              {{ e.founding_date | date: "dd/MM/yyyy" }}
             </p>
           </div>
           <div>
-            <p>{{ organization.type ? organization.type : "" }}</p>
+            <p>{{ e.type ? e.type : "" }}</p>
           </div>
         </div>
         <div class="content-main">
           <div class="content-introduce">
             <div>Giới thiệu tổ chức:</div>
             <div>
-              {{ organization.description ? organization.description : "" }}
+              {{ e.description ? e.description : "" }}
             </div>
           </div>
           <div class="content-field">
             <div>Tầm nhin của tổ chức:</div>
-            <div>{{ organization.vision ? organization.vision : "" }}</div>
+            <div>{{ e.vision ? e.vision : "" }}</div>
           </div>
           <div class="content-area">
             <div>Nhiệm vụ của tổ chức:</div>
             <div>
-              {{ organization.mission ? organization.mission : "Nothing" }}
+              {{ e.mission ? e.mission : "Nothing" }}
             </div>
           </div>
           <div class="content-area">
             <div>Website:</div>
-            <a target="blank" href="{{
-                organization.website ? organization.website : 'google.com'
-              }}">{{ organization.website ? organization.website : "Null" }}</a>
+            <a
+              href="{{
+                e.website ? e.website : 'google.com'
+              }}"
+              >{{ e.website ? e.website : "Không có" }}</a
+            >
           </div>
-
+          <div class="content-introduce">
+            <div>Tài liệu chứng thực:</div>
+            <div>
+              <a href='{{urlApi}}/show/files/?p={{e.operating_license}}' download>
+                <img style="width: 25px" src="./assets/icons/pdf.svg" />
+              </a>
+            </div>
+          </div>
           <div *ngIf="isApproved" class="content-button">
             <div *ngIf="isApproved">
               <app-delete-entity [type]="'org'" [entity]="organization"></app-delete-entity>

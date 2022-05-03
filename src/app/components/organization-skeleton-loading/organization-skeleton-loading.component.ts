@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrganizationSkeletonLoadingComponent implements OnInit {
 
-  constructor(private loadingService: LoadingService) { }
+  constructor(public loading: LoadingService) { }
 
   ngOnInit(): void {
   }

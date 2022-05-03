@@ -219,7 +219,16 @@ function () {
     (_a = this.viewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
   };
 
+<<<<<<< HEAD
   OrganizationsComponent.prototype.getOrganizations = function (e) {};
+=======
+  OrganizationsComponent.prototype.getOrganizations = function (e) {
+    if (e) {
+      this.passData = e;
+      this.organizations = e;
+    }
+  };
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
 
   OrganizationsComponent.prototype.getData = function (e) {
     if (e == null || e.length <= 0) {
@@ -271,6 +280,7 @@ function () {
     });
   };
 
+<<<<<<< HEAD
   OrganizationsComponent.prototype.getAllOrganizationAllRole = function (status, org) {
     var _a, _b, _c, _d, _e, _f;
 
@@ -419,6 +429,8 @@ function () {
     });
   };
 
+=======
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
   OrganizationsComponent.prototype.getAllOrganizationByStatus = function (status, org) {
     var _a, _b, _c, _d, _e, _f;
 
@@ -432,6 +444,10 @@ function () {
 
         if (org) {
           this.organizations = org;
+<<<<<<< HEAD
+=======
+          console.log(this.organizations);
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
         }
 
         if (status) {
@@ -446,10 +462,17 @@ function () {
           }
 
           this.isList = false;
+<<<<<<< HEAD
           this.changeToGrid();
 
           switch (status) {
             case 'approve':
+=======
+
+          switch (status) {
+            case 'approve':
+              this.changeToGrid();
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
               this.isRequest = false;
 
               for (i = 0; i < this.organizations.length; i++) {
@@ -462,12 +485,17 @@ function () {
                   this.organizations = [];
                   this.noOrg = true;
                 } else {
+<<<<<<< HEAD
                   this.organizations = this.organizations.filter(function (x) {
                     return x.result_code == 510 || x.result_code == 502;
                   });
                   this.oldData = this.passData.filter(function (x) {
                     return x.result_code == 510;
                   });
+=======
+                  this.organizations = this.passData;
+                  this.oldData = this.passData;
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
                   this.noOrg = false;
                   this.isEmpty = false;
 
@@ -478,9 +506,13 @@ function () {
               } else if (this.authService.currentUserValue.role_id == 'admin') {
                 this.isEmpty = false;
                 this.noOrg = false;
+<<<<<<< HEAD
                 this.organizations = this.organizations.filter(function (x) {
                   return x.result_code === 510;
                 });
+=======
+                this.organizations = this.passData;
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
                 this.oldData = this.passData.filter(function (x) {
                   return x.result_code == 510;
                 });
@@ -494,6 +526,11 @@ function () {
               break;
 
             case 'reject':
+<<<<<<< HEAD
+=======
+              console.log(org);
+              console.log(this.organizations);
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
               this.isRequest = false;
 
               for (i = 0; i < this.organizations.length; i++) {
@@ -502,8 +539,14 @@ function () {
               }
 
               this.organizations = this.organizations.filter(function (x) {
+<<<<<<< HEAD
                 return x.result_code === 511;
               });
+=======
+                return x.result_code == 511;
+              });
+              console.log(this.organizations);
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
               this.oldData = this.passData.filter(function (x) {
                 return x.result_code == 511;
               });
@@ -572,6 +615,10 @@ function () {
       return __generator(this, function (_d) {
         switch (_d.label) {
           case 0:
+<<<<<<< HEAD
+=======
+            this.isLoaded = true;
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
             this.isRequest = false;
             _c = this;
             return [4
@@ -597,7 +644,10 @@ function () {
               this.organizations[i].type = this.organizations[i].type == 'ngo' ? this.organizations[i].type = 'Tổ chức phi chính phủ' : this.organizations[i].type = 'Tổ chức phi lợi nhuận';
             }
 
+<<<<<<< HEAD
             this.isLoaded = true;
+=======
+>>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
             return [2
             /*return*/
             ];

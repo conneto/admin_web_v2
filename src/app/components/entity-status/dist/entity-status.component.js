@@ -21,19 +21,31 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.getStatus = function (e) {
         if (e) {
+            console.log(this.entityData);
             switch (e) {
                 case 'Tất cả':
-                    this.sendData(this.entityData);
+                    this.passData = this.entityData.filter(function (x) {
+                        return x.result_code == 510 || x.resultCode == 610 || x.result_code == 710;
+                    });
+                    this.sendData(this.passData);
                     break;
                 case 'Vô hiệu hóa':
                     this.passData = this.entityData.filter(function (x) {
-                        return x.is_active == false;
+                        return x.is_active == false && x.result_code == 510 ||
+                            x.is_active == false &&
+                                x.resultCode == 610 ||
+                            x.is_active == false && x.result_code == 710;
+                        ;
                     });
                     this.sendData(this.passData);
                     break;
                 case 'Cấp quyền':
                     this.passData = this.entityData.filter(function (x) {
-                        return x.is_active == true;
+                        return x.is_active == true && x.result_code == 510 ||
+                            x.is_active == true &&
+                                x.resultCode == 610 ||
+                            x.is_active == true &&
+                                x.result_code == 710;
                     });
                     this.sendData(this.passData);
                     break;

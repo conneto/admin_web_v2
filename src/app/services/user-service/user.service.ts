@@ -24,11 +24,11 @@ export class UserService {
     let res!: BaseResponse;
     if (type == 'recruitment') {
       res = await this.api.get(
-        `${Constant.CAMPAIGN}/top_volunteers?type=participate`
+        `${Constant.CAMPAIGNS}/top_volunteers?type=participate`
       );
     } else {
       res = await this.api.get(
-        `${Constant.CAMPAIGN}/top_volunteers?type=donate`
+        `${Constant.CAMPAIGNS}/top_volunteers?type=donate`
       );
     }
     return res.data || [];

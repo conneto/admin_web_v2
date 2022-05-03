@@ -38,9 +38,10 @@ import { ListViewComponent } from '../list-view/list-view.component';
 import { TableCampaignParticipationsComponent } from '../table-campaign-participations/table-campaign-participations.component';
 import { ShowDocumentComponent } from '../show-document/show-document.component';
 import { OrganizationDetailsComponent } from '../organization-details/organization-details.component';
-import { OrganizationDetailsModule } from 'src/app/pages/management/mod-organization/organization-details/organization-details.module';
+
 import { EntityStatusComponent } from '../entity-status/entity-status.component';
 import { OrganizationUpdateFormComponent } from '../update/organization-form/organization-form.component';
+import { OrganizationSkeletonLoadingComponent } from '../organization-skeleton-loading/organization-skeleton-loading.component';
 
 
 const componentModules = [
@@ -77,7 +78,10 @@ const componentModules = [
   ShowDocumentComponent,
   OrganizationDetailsComponent,
   EntityStatusComponent,
-
+  OrganizationSkeletonLoadingComponent,
+  OrganizationUpdateFormComponent,
+  OrganizationFormComponent,
+  
 ]
 
 @NgModule({

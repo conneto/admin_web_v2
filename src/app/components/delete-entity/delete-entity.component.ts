@@ -12,6 +12,7 @@ import { OrganizationUpdateFormComponent } from '../update/organization-form/org
 
 import { DialogConfirmComponent } from '../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../snack-bar-message/snack-bar-message.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delete-entity',
@@ -32,8 +33,9 @@ export class DeleteEntityComponent implements OnInit {
     private user: AuthService,
     private snackBar: SnackBarMessageComponent,
     private orgApi: OrganizationApiService,
-    private dialog: MatDialog
-  ) {}
+    private dialog: MatDialog,
+    private router: Router,
+  ) { }
   e: any;
   ngOnInit(): void {
     if (this.user.currentUserValue.role_id == 'admin') {
@@ -55,9 +57,15 @@ export class DeleteEntityComponent implements OnInit {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
-        button: 'Đồng ý',
-        close: 'Hủy',
-        message: 'Bạn có chắc chắn muốn vô hiệu hóa đối tượng này?',
+        button: 'Vô hiệu hóa',
+        message: this.type == 'org'
+          ? 'Bạn có chắc chắn muốn vô hiệu hóa tổ chức này không? Nếu bạn vô hiệu hóa này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo'
+          : this.type == 'cam'
+            ? 'Bạn có chắc chắn muốn vô hiệu hóa chiến dịch này không?'
+            : this.type == 'pro'
+              ? 'Bạn có chắc chắn muốn vô hiệu hóa dự án này không? Nếu bạn vô hiệu hóa dự án này thì các chiến dịch liên quan đều sẽ bị tạm dừng theo'
+              : 'Bạn có chắc chắn muốn vô hiệu hóa tổ chức này không? Nếu bạn vô hiệu hóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo',
+        reason: true,
       },
     });
     diaglogRef.afterClosed().subscribe(async (x) => {
@@ -69,12 +77,12 @@ export class DeleteEntityComponent implements OnInit {
             this.type == 'org'
               ? Constant.ORGANIZATION
               : this.type == 'cam'
-              ? Constant.CAMPAIGN
-              : this.type == 'pro'
-              ? Constant.PROJECT
-              : Constant.ORGANIZATION,
+                ? Constant.CAMPAIGN
+                : this.type == 'pro'
+                  ? Constant.PROJECT
+                  : Constant.ORGANIZATION,
           status: 'disable',
-          note: 'Disable this',
+          note: 'hi',
         };
 
         let res: BaseResponse | null = await this.user.activateEntity(data1);
@@ -107,7 +115,13 @@ export class DeleteEntityComponent implements OnInit {
       data: {
         button: 'Đồng ý',
         close: 'Hủy',
-        message: 'Bạn có chắc chắn muốn cấp quyền hoạt động cho đối tượng này?',
+        message: this.type == 'org'
+          ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?'
+          : this.type == 'cam'
+            ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho chiến dịch này không?'
+            : this.type == 'pro'
+              ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho dự án này không?'
+              : 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?',
       },
     });
     diaglogRef.afterClosed().subscribe(async (x) => {
@@ -119,10 +133,10 @@ export class DeleteEntityComponent implements OnInit {
             this.type == 'org'
               ? Constant.ORGANIZATION
               : this.type == 'cam'
-              ? Constant.CAMPAIGN
-              : this.type == 'pro'
-              ? Constant.PROJECT
-              : Constant.ORGANIZATION,
+                ? Constant.CAMPAIGN
+                : this.type == 'pro'
+                  ? Constant.PROJECT
+                  : Constant.ORGANIZATION,
           status: 'enable',
           note: 'Enable this',
         };
@@ -155,7 +169,13 @@ export class DeleteEntityComponent implements OnInit {
       data: {
         button: 'Xóa',
         close: 'Hủy',
-        message: 'Bạn có chắc chắn muốn xóa không?',
+        message: this.type == 'org'
+          ? 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo'
+          : this.type == 'cam'
+            ? 'Bạn có chắc chắn muốn xóa chiến dịch này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ bị tạm dừng theo'
+            : this.type == 'pro'
+              ? 'Bạn có chắc chắn muốn xóa dự án này không?'
+              : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo',
       },
     });
     dialogRef.afterClosed().subscribe(async (data) => {
@@ -167,6 +187,7 @@ export class DeleteEntityComponent implements OnInit {
             res = await this.orgApi.delete(`${this.entity.id}`);
             if (res.status == 0) {
               this.loading.isLoading.next(false);
+              this.router.navigate(['/manager/manage-organization'])
               this.snackBar.showMessage('Xóa thành công', true);
             } else {
               this.loading.isLoading.next(false);
@@ -177,6 +198,7 @@ export class DeleteEntityComponent implements OnInit {
             res = await this.camApi.delete(`${this.entity.id}`);
             if (res.status == 0) {
               this.loading.isLoading.next(false);
+              this.router.navigate(['/manager/manage-campaign'])
               this.snackBar.showMessage('Xóa thành công', true);
             } else {
               this.loading.isLoading.next(false);
@@ -187,6 +209,7 @@ export class DeleteEntityComponent implements OnInit {
             res = await this.proApi.delete(`${this.entity.id}`);
             if (res.status == 0) {
               this.loading.isLoading.next(false);
+              this.router.navigate(['/manager/manage-project'])
               this.snackBar.showMessage('Xóa thành công', true);
             } else {
               this.loading.isLoading.next(false);
@@ -194,6 +217,7 @@ export class DeleteEntityComponent implements OnInit {
             }
             break;
         }
+
       }
     });
   }
