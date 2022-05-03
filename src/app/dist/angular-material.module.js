@@ -51,6 +51,7 @@ var tooltip_1 = require("@angular/material/tooltip");
 var progress_bar_1 = require("@angular/material/progress-bar");
 var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
+var slide_toggle_1 = require("@angular/material/slide-toggle");
 var core_3 = require("@angular/material/core");
 var ngx_skeleton_loader_1 = require("ngx-skeleton-loader");
 var ng2_file_upload_1 = require("ng2-file-upload");
@@ -101,6 +102,7 @@ var materialModules = [
     ng2_file_upload_1.FileUploadModule,
     ngx_dropzone_1.NgxDropzoneModule,
     ngx_skeleton_loader_1.NgxSkeletonLoaderModule,
+    slide_toggle_1.MatSlideToggleModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {

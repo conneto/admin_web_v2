@@ -35,7 +35,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { MatNativeDateModule } from '@angular/material/core';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 import { FileUploadModule } from 'ng2-file-upload';
@@ -89,6 +89,7 @@ const materialModules = [
     FileUploadModule,
     NgxDropzoneModule,
     NgxSkeletonLoaderModule,
+    MatSlideToggleModule,
 ];
 
 @NgModule({

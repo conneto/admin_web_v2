@@ -1,8 +1,11 @@
 import { Location } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DownloadDocumentFormComponent } from 'src/app/components/download-document-form/download-document-form.component';
+import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
+import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
@@ -33,9 +36,10 @@ export class CampaignDetailsComponent implements OnInit {
   isPDF?: boolean;
   isExcel?: boolean;
   isUpload?: boolean;
-  pdfName?:any;
+  pdfName?: any;
+  isChecked?: boolean;
 
-  constructor(private dialog: MatDialog, private userApi: AuthService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
+  constructor(private router:Router,private snackBar:SnackBarMessageComponent,private dialog: MatDialog, private userApi: AuthService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
 
   ngOnInit(): void {
     this.isPDF = true;
@@ -46,6 +50,37 @@ export class CampaignDetailsComponent implements OnInit {
     }
     if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
+    }
+  }
+  async doCheck() {
+    if (this.campaign?.is_transparent == false) {
+      const data = {
+        object_id: this.campaign.id,
+        object_type:'transparent',
+        status:'approve',
+        note:''
+      }
+      let res:BaseResponse= await this.userApi.updateRequestByAdmin(data);
+      if(res?.status==0){
+        window.location.reload();
+        this.snackBar.showMessage("Xác thực thành công !",true);
+        this.router.navigate([`admin/manage-campaign/campaign-details/${this.campaign.id}`])
+      
+      }
+    } else {
+      const data = {
+        object_id: this.campaign?.id,
+        object_type: 'transparent',
+        status: 'reject',
+        note: ''
+      }
+      let res: BaseResponse = await this.userApi.updateRequestByAdmin(data);
+      if (res?.status == 0) {
+        window.location.reload();
+        this.snackBar.showMessage("Bỏ xác nhận thành công !", true);
+        this.router.navigate([`admin/manage-campaign/campaign-details/${this.campaign?.id}`])
+    
+      }
     }
   }
   getDocument() {
@@ -116,11 +151,11 @@ export class CampaignDetailsComponent implements OnInit {
         this.isShow = false;
         break;
       case 'doc':
-      this.isPDF=false;
-      this.isExcel=false;
+        this.isPDF = false;
+        this.isExcel = false;
         this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
         this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
-        if(this.documentPDF){
+        if (this.documentPDF) {
           for (let i = 0; i < this.documentPDF?.length; i++) {
             this.pdfName = this.documentPDF[i].url.split('/');
 

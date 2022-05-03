@@ -9,7 +9,7 @@ exports.__esModule = true;
 exports.CampaignAdapter = exports.Campaign = void 0;
 var core_1 = require("@angular/core");
 var Campaign = /** @class */ (function () {
-    function Campaign(id, name, description, cover, type, startDate, endDate, totalDonated, totalPaticipant, target, jobRequirement, jobDescription, jobBenefit, donation_documentents, is_active, org_name, org_id, org_logo, pro_id, pro_name, pro_logo, result_note, result_name, result_code, createdAt, category) {
+    function Campaign(id, name, description, cover, type, startDate, endDate, totalDonated, totalPaticipant, target, jobRequirement, jobDescription, jobBenefit, donation_documentents, is_active, org_name, org_id, org_logo, pro_id, pro_name, pro_logo, result_note, result_name, result_code, createdAt, category, is_transparent) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -36,6 +36,7 @@ var Campaign = /** @class */ (function () {
         this.result_code = result_code;
         this.createdAt = createdAt;
         this.category = category;
+        this.is_transparent = is_transparent;
     }
     return Campaign;
 }());
@@ -44,7 +45,7 @@ var CampaignAdapter = /** @class */ (function () {
     function CampaignAdapter() {
     }
     CampaignAdapter.prototype.adapt = function (item) {
-        return new Campaign(item.id, item.name, item.description, item.cover, item.type, item.start_date, item.end_date, item.total_donated_money, item.total_participants, item.target_number, item.job_requirement, item.job_description, item.job_benefit, item.donation_documentents, item.is_active, item.organization_name, item.organization_id, item.organization_logo, item.project_id, item.project_name, item.project_logo, item.result_note, item.result_message, item.result_code, item.created_at, item.category);
+        return new Campaign(item.id, item.name, item.description, item.cover, item.type, item.start_date, item.end_date, item.total_donated_money, item.total_participants, item.target_number, item.job_requirement, item.job_description, item.job_benefit, item.donation_documentents, item.is_active, item.organization_name, item.organization_id, item.organization_logo, item.project_id, item.project_name, item.project_logo, item.result_note, item.result_message, item.result_code, item.created_at, item.category, item.is_transparent);
     };
     CampaignAdapter = __decorate([
         core_1.Injectable({

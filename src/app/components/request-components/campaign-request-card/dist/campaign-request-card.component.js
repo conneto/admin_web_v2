@@ -45,7 +45,9 @@ exports.__esModule = true;
 exports.CampaignRequestCardComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignRequestCardComponent = /** @class */ (function () {
-    function CampaignRequestCardComponent(dialogConfirm) {
+    function CampaignRequestCardComponent(authService, router, dialogConfirm) {
+        this.authService = authService;
+        this.router = router;
         this.dialogConfirm = dialogConfirm;
         this.isPro = '';
         this.isOrg = '';
@@ -53,6 +55,17 @@ var CampaignRequestCardComponent = /** @class */ (function () {
     }
     CampaignRequestCardComponent.prototype.ngOnInit = function () {
         this.check();
+        if (this.authService.currentUserValue.role_id == 'admin') {
+            this.isAdmin = true;
+        }
+    };
+    CampaignRequestCardComponent.prototype.goToDetails = function (id) {
+        if (this.isAdmin) {
+            this.router.navigate(["/admin/manage-campaign/campaign-details/" + id]);
+        }
+        else {
+            this.router.navigate(["/manager/manage-campaign/campaign-details/" + id]);
+        }
     };
     CampaignRequestCardComponent.prototype.check = function () {
         if (this.organization) {

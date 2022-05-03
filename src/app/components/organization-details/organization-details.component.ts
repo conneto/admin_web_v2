@@ -58,7 +58,7 @@ export class OrganizationDetailsComponent implements OnInit {
   
 
     this.check();
-
+    
     this.isInformation = true;
   }
   check() {
@@ -66,6 +66,8 @@ export class OrganizationDetailsComponent implements OnInit {
     if (this.user?.role_id == 'organization_manager') {
       this.isAdmin = false;
     }
+
+   
   }
   async getValueFromRoute() {
 
@@ -75,7 +77,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
     this.loadingService.getOrganizationId.next(`${this.organizationInput[0]?.id}`);
     this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
-    this.urlCover = this.organization?.cover?.split('|')[0];
+    // this.urlCover = this.organization?.cover?.split('|')[0];
     console.log(this.urlCover);
     switch (this.organization?.type) {
       case 'ngo': this.organization.type = 'Tổ chức phi chính phủ';

@@ -16,7 +16,8 @@ var CampaignCardInfoComponent = /** @class */ (function () {
     CampaignCardInfoComponent.prototype.ngOnInit = function () {
         var _a;
         this.urlApi = this.loadingService.getApiGetLink.value;
-        this.valueNumber = (Number((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_id) * 100).toFixed(2);
+        this.valueNumber = (Number((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.value) * 100).toFixed(2);
+        console.log(this.valueNumber);
     };
     __decorate([
         core_1.Input()
@@ -24,6 +25,9 @@ var CampaignCardInfoComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], CampaignCardInfoComponent.prototype, "valueNumber");
+    __decorate([
+        core_1.Input()
+    ], CampaignCardInfoComponent.prototype, "receivedValue");
     CampaignCardInfoComponent = __decorate([
         core_1.Component({
             selector: 'app-campaign-card-info',

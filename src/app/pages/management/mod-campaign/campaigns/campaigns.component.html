@@ -25,6 +25,12 @@
             Tạo chiến dịch
           </button>
         </div>
+        <app-entity-status
+        *ngIf="!isList && !isTabRejected && !isTabPending"
+        [entityData]="passData"
+        [type]="'org'"
+        (entity)="getEntity($event)"
+      ></app-entity-status>
         <app-search-bar
           *ngIf="!isList"
           (getItem)="getData($event)"
@@ -45,9 +51,10 @@
       ></app-list-view>
       <div *ngIf="!isList" class="row p-3">
         <app-campaign-card-info
+     
           *ngFor="let cam of campaigns"
           class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
-          [valueNumber]="value"
+    
           [campaign]="cam"
         ></app-campaign-card-info>
       </div>

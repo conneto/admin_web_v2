@@ -128,6 +128,20 @@ export class OrganizationDetailsComponent implements OnInit {
 
       this.passDataCampaigns = this.campaignsCopy;
 
+      for (var i = 0; i < this.campaigns.length; i++) {
+
+        switch (this.campaigns[i].type) {
+          case 'donation':
+          
+            Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString() });
+            break;
+          case 'recruitment':
+            Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString() });
+            break;
+        }
+
+      }
+
     }
   }
   async getProjects() {

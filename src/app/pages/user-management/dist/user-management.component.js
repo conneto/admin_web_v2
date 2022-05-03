@@ -137,7 +137,7 @@ var UserManagementComponent = /** @class */ (function () {
                 _this.users = _this.oldUsers;
                 _this.isEmpty = false;
                 _this.users = _.filter(_this.users, function (x) {
-                    return _this.users = x.first_name.concat(" " + x.last_name).toLowerCase().includes(("" + e.target.value).toLowerCase().trim());
+                    return _this.users = x.last_name.concat(" " + x.first_name).toLowerCase().includes(("" + e.target.value).toLowerCase().trim());
                 });
                 if (_this.users == [] || _this.users.length == 0) {
                     _this.isEmpty = true;

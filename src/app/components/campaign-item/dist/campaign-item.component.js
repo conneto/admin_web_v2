@@ -18,10 +18,11 @@ var CampaignItemComponent = /** @class */ (function () {
     CampaignItemComponent.prototype.ngOnInit = function () {
         var _a;
         this.urlApi = this.loadingService.getApiGetLink.value;
-        this.valueNumber = (Number((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_id) * 100).toFixed(2);
+        this.valueNumber = (Number((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.value) * 100).toFixed(2);
         if (this.userApi.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
+        console.log(this.valueNumber);
     };
     CampaignItemComponent.prototype.goToDetails = function (id) {
         if (this.isAdmin) {

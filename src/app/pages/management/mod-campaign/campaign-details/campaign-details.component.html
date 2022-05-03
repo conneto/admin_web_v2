@@ -44,6 +44,7 @@
             <p>
               {{ campaign.name }}
             </p>
+            <mat-slide-toggle  *ngIf='isAdmin && campaign.result_code==710' [checked]="campaign.is_transparent" (change)="doCheck()">Xác nhận minh bạch chiến dịch:{{campaign.is_transparent==true?"Đã xác thực":"Chưa xác thực"}}</mat-slide-toggle>
           </div>
           <div class="content-description">
             <span>Đồng hành cùng chiến dịch:</span>
@@ -127,16 +128,20 @@
             Hiện tại chiến dịch này chưa có tài liệu nào !
           </div>
           <div *ngIf="!isAdmin" class="ms-2">
-            <button mat-flat-button color="primary" (click)="isUpload = true;isExcel=false;isPDF=false;">
+            <button
+              mat-flat-button
+              color="primary"
+              (click)="isUpload = true; isExcel = false; isPDF = false"
+            >
               <mat-icon>file_upload</mat-icon>Tải lên tài liệu
             </button>
           </div>
           <button
-            *ngIf="documentExcel.length!=0"
+            *ngIf="documentExcel.length != 0"
             mat-flat-button
             color="primary"
             (click)="getDocumentExcel()"
-            class='ms-2'
+            class="ms-2"
           >
             <mat-icon>offline_pin</mat-icon> Tài liệu chi tiết dòng tiền
           </button>
@@ -149,8 +154,6 @@
           >
             <mat-icon>attach_file</mat-icon> Tài liệu của chiến dịch
           </button>
-
-      
         </div>
 
         <div *ngIf="isPDF || isExcel">

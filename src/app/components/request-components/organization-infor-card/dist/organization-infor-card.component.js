@@ -107,7 +107,6 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     status: 'approve',
                                     note: 'Approve this'
                                 };
-                                console.log(this.checkType, checkType);
                                 return [4 /*yield*/, this.authApi.updateRequestByAdmin(data1)];
                             case 1:
                                 res = _b.sent();
