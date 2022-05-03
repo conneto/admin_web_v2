@@ -72,6 +72,34 @@ var CampaignsComponent = /** @class */ (function () {
         }
         this.checkProject();
     };
+    CampaignsComponent.prototype.getEntity = function (e) {
+        if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
+            console.log(e);
+            this.isEmpty = false;
+            this.campaigns = e;
+            this.oldData = e;
+        }
+        else {
+            this.isEmpty = true;
+            this.campaigns = e;
+        }
+    };
+    CampaignsComponent.prototype.getTabGroupState = function (e) {
+        if (e) {
+            if (e == 'pending') {
+                this.isTabPending = true;
+            }
+            else {
+                this.isTabPending = false;
+            }
+            if (e == 'reject') {
+                this.isTabRejected = true;
+            }
+            else {
+                this.isTabRejected = false;
+            }
+        }
+    };
     CampaignsComponent.prototype.checkProject = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
@@ -197,7 +225,7 @@ var CampaignsComponent = /** @class */ (function () {
     CampaignsComponent.prototype.getAllCampaignsByStatus = function (status, pro) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
         return __awaiter(this, void 0, void 0, function () {
-            var i, a, b, c, i, i;
+            var i, i, i;
             return __generator(this, function (_o) {
                 this.user = this.authApi.currentUserValue;
                 if (pro) {
@@ -216,16 +244,13 @@ var CampaignsComponent = /** @class */ (function () {
                             this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
                             switch (this.campaigns[i].type) {
                                 case 'donation':
-                                    this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
+                                    // this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
+                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString() });
                                     break;
                                 case 'recruitment':
-                                    this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
+                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString() });
                                     break;
                             }
-                            a = Date.parse("" + this.campaigns[i].startDate);
-                            b = Date.parse("" + this.campaigns[i].endDate);
-                            c = Date.now();
-                            // console.log((b - c) / (1000 * 60 * 60 * 24));
                         }
                         this.campaigns = this.campaigns.filter(function (x) {
                             return x.result_code == 710;

@@ -39,6 +39,9 @@ export class CampaignsComponent implements OnInit {
   isAdmin?: boolean;
   isApprovedProject?: boolean;
   projects: Project[] = [];
+  isTabRejected?: boolean;
+  isTabPending?: boolean;
+  percentValue?: boolean;
   @ViewChild('changeView') changeView?: ChangeToListComponent;
   constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthService) { }
 
@@ -50,6 +53,33 @@ export class CampaignsComponent implements OnInit {
       this.isAdmin = false;
     }
     this.checkProject();
+  }
+  getEntity(e: any) {
+    if (e?.length != 0) {
+      console.log(e);
+      this.isEmpty = false;
+      this.campaigns = e;
+      this.oldData = e;
+    } else {
+      this.isEmpty = true;
+      this.campaigns = e;
+    }
+  }
+  getTabGroupState(e: any) {
+    if (e) {
+      if (e == 'pending') {
+        this.isTabPending = true;
+      } else {
+        this.isTabPending = false;
+      }
+      if (e == 'reject') {
+        this.isTabRejected = true;
+      } else {
+        this.isTabRejected = false;
+      }
+    }
+
+
   }
   async checkProject() {
 
@@ -163,17 +193,14 @@ export class CampaignsComponent implements OnInit {
 
           switch (this.campaigns[i].type) {
             case 'donation':
-              this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
+              // this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
+              Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString() });
               break;
             case 'recruitment':
-              this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString();
+              Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString() });
               break;
           }
-          var a = Date.parse(`${this.campaigns[i].startDate}`);
-          var b = Date.parse(`${this.campaigns[i].endDate}`);
-          var c = Date.now();
 
-          // console.log((b - c) / (1000 * 60 * 60 * 24));
         }
 
         this.campaigns = this.campaigns.filter(x => {

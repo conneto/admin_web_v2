@@ -12,7 +12,7 @@ import { UtilService } from 'src/app/services/util-service/util.service';
   styleUrls: ['./campaign-item.component.scss']
 })
 export class CampaignItemComponent implements OnInit {
-  @Input() campaign?: Campaign;
+  @Input() campaign?: any;
   @Input() valueNumber?: any;
   urlApi?: string;
   isAdmin?: boolean;
@@ -20,11 +20,11 @@ export class CampaignItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
-    this.valueNumber = (Number(this.campaign?.org_id) * 100).toFixed(2);
+    this.valueNumber = (Number(this.campaign?.value) * 100).toFixed(2);
     if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
-
+    console.log(this.valueNumber);
   }
   goToDetails(id: any) {
 

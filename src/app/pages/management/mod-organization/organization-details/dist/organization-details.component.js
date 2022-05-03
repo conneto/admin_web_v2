@@ -144,7 +144,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     };
     OrganizationDetailsComponent.prototype.getCampaigns = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
+            var _a, i;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -155,6 +155,16 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         this.campaigns = this.campaignsCopy;
                         if (this.campaigns) {
                             this.passDataCampaigns = this.campaignsCopy;
+                            for (i = 0; i < this.campaigns.length; i++) {
+                                switch (this.campaigns[i].type) {
+                                    case 'donation':
+                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString() });
+                                        break;
+                                    case 'recruitment':
+                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString() });
+                                        break;
+                                }
+                            }
                         }
                         return [2 /*return*/];
                 }

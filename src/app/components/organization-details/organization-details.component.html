@@ -98,15 +98,15 @@
             >
           </div>
           <div class="content-introduce">
-            <div>Tài liệu chứng thực:</div>
+            <div>Giấy phép lao động:</div>
             <div>
               <a href='{{urlApi}}/show/files/?p={{e.operating_license}}' download>
                 <img style="width: 25px" src="./assets/icons/pdf.svg" />
               </a>
             </div>
           </div>
-          <div *ngIf="isApproved" class="content-button">
-            <div *ngIf="isApproved">
+          <div *ngIf="e.result_code==510 || e.result_code==503" class="content-button">
+            <div>
               <app-delete-entity [type]="'org'" [entity]="organization"></app-delete-entity>
             </div>
           </div>

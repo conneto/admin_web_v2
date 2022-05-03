@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+
 import { Adapter } from "src/app/interface/adapter";
 
 
@@ -29,6 +30,7 @@ export class Campaign {
         public result_code?:number,
         public createdAt?:number,
         public category?:string,
+        public is_transparent?:boolean,
     ) {
 
     }
@@ -67,6 +69,7 @@ export class CampaignAdapter implements Adapter<Campaign>{
             item.result_code,
             item.created_at,
             item.category,
+            item.is_transparent,
         )
     }
 

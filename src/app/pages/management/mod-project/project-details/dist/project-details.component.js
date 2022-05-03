@@ -86,7 +86,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
     ProjectDetailsComponent.prototype.getCampaigns = function () {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var _e, i;
+            var _e, i, i;
             return __generator(this, function (_f) {
                 switch (_f.label) {
                     case 0:
@@ -102,6 +102,16 @@ var ProjectDetailsComponent = /** @class */ (function () {
                             this.campaigns = this.campaignsCopy.filter(function (x) {
                                 return x.result_code != 703;
                             });
+                            for (i = 0; i < this.campaigns.length; i++) {
+                                switch (this.campaigns[i].type) {
+                                    case 'donation':
+                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString() });
+                                        break;
+                                    case 'recruitment':
+                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString() });
+                                        break;
+                                }
+                            }
                         }
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {

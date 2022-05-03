@@ -1,10 +1,7 @@
 <div *ngIf="campaign">
 
-    <mat-card title="Click to see more details">
-      <a
-      routerLink="campaign-request-detail/{{ campaign.id }}"
-      style="text-decoration: none;color:black"
-    >
+    <mat-card (click)='goToDetails(campaign.id)' title="Click to see more details">
+  
       <div class="image">
         <img src="assets/images/sugar.png" />
         <img mat-card-image src="assets/images/ddtt18_cover.png" />
@@ -29,7 +26,7 @@
           <mat-card-subtitle> Mục tiêu cần đạt </mat-card-subtitle>
         </div>
       </div>
-    </a>
+
       <mat-card-actions>
         <button (click)="approve()" title="Click to approve" mat-button>
          Chấp nhận

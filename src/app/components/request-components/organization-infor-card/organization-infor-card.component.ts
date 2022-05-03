@@ -86,7 +86,7 @@ export class OrganizationInforCardComponent implements OnInit {
           status: 'approve',
           note: 'Approve this',
         };
-        console.log(this.checkType, checkType);
+       
         let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(
           data1
         );

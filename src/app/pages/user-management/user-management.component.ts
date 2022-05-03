@@ -90,7 +90,7 @@ export class UserManagementComponent implements OnInit {
         this.users = this.oldUsers;
         this.isEmpty = false;
         this.users = _.filter(this.users, (x: any) => {
-          return this.users = x.first_name.concat(` ${x.last_name}`).toLowerCase().includes(`${e.target.value}`.toLowerCase().trim());
+          return this.users = x.last_name.concat(` ${x.first_name}`).toLowerCase().includes(`${e.target.value}`.toLowerCase().trim());
         })
         if (this.users == [] || this.users.length == 0) {
           this.isEmpty = true;
