@@ -123,10 +123,12 @@ export class ProjectFormComponent implements OnInit {
         }
       }
     }
-    this.categoryString = this.categoryStringClone.slice(
-      0,
-      this.categoryStringClone.length - 1
-    );
+    if (this.categoryStringClone?.length > 0) {
+      this.categoryString = this.categoryStringClone.slice(
+        0,
+        this.categoryStringClone.length - 1
+      );
+    }
     this.isSubmitted = true;
     this.projectForm.value.category = this.categoryString;
 

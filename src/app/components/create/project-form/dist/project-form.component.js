@@ -91,7 +91,7 @@ var ProjectFormComponent = /** @class */ (function () {
         this.dialogRef.close(false);
     };
     ProjectFormComponent.prototype.yesClick = function () {
-        var _a, _b;
+        var _a, _b, _c;
         if (this.projectForm.controls.category.value.length != 0 &&
             this.projectForm.controls.category.value) {
             if (this.isRemoved == true || this.isSubmitted == true) {
@@ -107,7 +107,9 @@ var ProjectFormComponent = /** @class */ (function () {
                 }
             }
         }
-        this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+        if (((_a = this.categoryStringClone) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+            this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+        }
         this.isSubmitted = true;
         this.projectForm.value.category = this.categoryString;
         if (this.projectForm.valid) {
@@ -117,8 +119,8 @@ var ProjectFormComponent = /** @class */ (function () {
             this.isSendRequest = true;
             this.projectForm.value.locations = this.locations;
             var uploadData = new FormData();
-            uploadData.append('cover', this.coverImage, (_a = this.coverImage) === null || _a === void 0 ? void 0 : _a.name);
-            uploadData.append('logo', this.logo, (_b = this.logo) === null || _b === void 0 ? void 0 : _b.name);
+            uploadData.append('cover', this.coverImage, (_b = this.coverImage) === null || _b === void 0 ? void 0 : _b.name);
+            uploadData.append('logo', this.logo, (_c = this.logo) === null || _c === void 0 ? void 0 : _c.name);
             uploadData.append('project', JSON.stringify(this.projectForm.value));
             this.dialogRef.close(uploadData);
         }
