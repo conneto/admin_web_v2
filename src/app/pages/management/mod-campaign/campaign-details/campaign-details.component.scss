@@ -25,10 +25,12 @@
   border-radius: 50%;
   margin-right: 5px;
 }
+
 .file_template {
   margin: 5px;
   padding: 0px 5px;
 }
+
 .container {
   width: 100%;
 
@@ -79,7 +81,7 @@
       &-information {
         padding: 0px 15px 0;
 
-        > div {
+        >div {
           display: flex;
           align-items: center;
         }
@@ -98,9 +100,11 @@
 
   .content {
     padding: 10px;
+
     &-description {
       margin-top: 10px;
     }
+
     &__tab {
       font-size: 15px;
 
@@ -108,6 +112,7 @@
         display: flex;
         margin-bottom: 0px !important;
         justify-content: center;
+        align-items: center;
 
         li {
           list-style: none;
@@ -232,14 +237,17 @@
   flex-direction: row-reverse;
   align-items: center;
   margin-top: 15px;
+
   &-create {
     margin-left: 8px;
   }
 }
+
 .delete-button {
   display: flex;
   justify-content: center;
 }
+
 .document-information {
   display: flex;
   justify-content: flex-start;
@@ -252,17 +260,11 @@
   justify-content: center;
 }
 
-:host
-  ::ng-deep
-  .mat-slide-toggle.mat-checked:not(.mat-disabled)
-  .mat-slide-toggle-bar {
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
   background-color: #faefd2;
 }
 
-:host
-  ::ng-deep
-  .mat-slide-toggle.mat-checked:not(.mat-disabled)
-  .mat-slide-toggle-thumb {
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: #ffd664;
 }
 

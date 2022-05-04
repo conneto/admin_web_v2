@@ -42,6 +42,7 @@ export class ProjectComponent implements OnInit {
   isAdmin?: boolean;
   isTabRejected?: boolean;
   isTabPending?: boolean;
+  isNoMore?:boolean;
   constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
@@ -56,15 +57,44 @@ export class ProjectComponent implements OnInit {
   ngOnDestroy(): void {
 
   }
+  showMore() {
+    this.loadingService.isLoading.next(true);
+    setTimeout(() => {
+      let newLength = this.projects.length + 6;
+      if (newLength > this.oldData.length) {
+        newLength = this.oldData.length;
+      }
+      this.projects = this.oldData.slice(0, newLength);
+      this.checkShowMore();
+      this.loadingService.isLoading.next(false);
+    }, 300)
+  }
+
+  checkShowMore() {
+    if (this.projects.length > 6) {
+      if (this.projects.length == this.oldData.length) {
+        this.isNoMore = true;
+      }
+    } else {
+      this.isNoMore = true;
+    }
+  }
   getEntity(e: any) {
     if (e?.length != 0) {
-      // console.log(e);
-      this.isEmpty = false;
-      this.projects = e;
-      this.oldData = e;
+      if (e.length > 6) {
+        this.isNoMore = false;
+        this.isEmpty = false;
+        this.projects = e.slice(0, 6);
+        this.oldData = e;
+      } else {
+        this.isNoMore = true;
+        this.isEmpty = false;
+        this.projects = e
+        this.oldData = e;
+      }
     } else {
       this.isEmpty = true;
-      this.projects = e;
+      this.projects = e.slice(0, 6);
     }
   }
   getTabGroupState(e: any) {
@@ -100,11 +130,17 @@ export class ProjectComponent implements OnInit {
   getData(e: any) {
     if (e == null || e.length <= 0) {
       this.noResultBySearch = true;
-      this.projects = e;
+      this.projects = e
+      this.isNoMore = true;
     } else {
-      this.projects = e;
-      this.noResultBySearch = false;
-
+      if (this.projects.length > 6) {
+        this.isNoMore = false;
+        this.projects = e.slice(0, 6);
+      } else {
+        this.projects = e;
+        this.noResultBySearch = false;
+        this.isNoMore = true;
+      }
     }
 
   }
@@ -133,6 +169,7 @@ export class ProjectComponent implements OnInit {
     }
   }
   async getAllProjectsByStatus(status?: string, pro?: any) {
+    this.isNoMore=false;
     this.user = this.authApi.currentUserValue;
     if (pro) {
       this.projects = pro;
@@ -153,10 +190,10 @@ export class ProjectComponent implements OnInit {
         }
 
         this.projects = this.projects.filter(x => {
-          return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621) 
+          return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621)
             ;
         })
-        this.oldData = this.passData.filter(x => (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621) );
+        this.oldData = this.passData.filter(x => (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621));
         this.isEmpty = false;
         if (this.projects == [] || this.projects.length <= 0) {
           this.isEmpty = true;
@@ -204,6 +241,11 @@ export class ProjectComponent implements OnInit {
         break;
 
 
+    }
+    if (this.projects.length > 6) {
+      this.projects = this.projects.slice(0, 6);
+    }else {
+      this.isNoMore=true;
     }
     this.number = this.projects.length;
 

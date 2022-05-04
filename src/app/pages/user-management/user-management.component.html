@@ -1,9 +1,15 @@
 <div class="p-4">
   <div>
     <div class="search-box">
-      <app-change-to-list (handleTitle)="handleTitle($event)"></app-change-to-list>
+      <app-change-to-list
+        (handleTitle)="handleTitle($event)"
+      ></app-change-to-list>
       <div class="search-item">
-        <input type="text" placeholder="Tìm kiếm theo tên" (keyup)="searchName($event)" />
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo tên"
+          (keyup)="searchName($event)"
+        />
         <button>
           <mat-icon>search</mat-icon>
         </button>
@@ -18,17 +24,23 @@
       </div>
     </div>
   </div>
-  <app-list-view *ngIf='isList' [whichEntity]="'user'" [entity]="usersFull"></app-list-view>
-  <div *ngIf='!isList'>
-
+  <app-list-view
+    *ngIf="isList"
+    [whichEntity]="'user'"
+    [entity]="usersFull"
+  ></app-list-view>
+  <div *ngIf="!isList">
     <div *ngIf="isEmpty">Không tìm thấy kết quả phù hợp</div>
     <div class="row my-2">
-      <app-user-card class="user-card mb-2 col-xxl-3 col-lg-4 col-md-6 col-sm-12 col-12" *ngFor="let user of users"
-        [user]="user"> </app-user-card>
+      <app-user-card
+        class="user-card mb-2 col-xxl-3 col-lg-4 col-md-6 col-sm-12 col-12"
+        *ngFor="let user of users"
+        [user]="user"
+      >
+      </app-user-card>
     </div>
     <div class="button-showmore" *ngIf="!isNoMore && isLoaded">
       <button mat-button (click)="showMore()">Xem thêm</button>
     </div>
   </div>
-
 </div>

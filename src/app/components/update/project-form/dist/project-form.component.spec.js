@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var testing_1 = require("@angular/core/testing");
-var project_form_component_1 = require("./project-form.component");
+var project_form_component_1 = require("../../create/project-form/project-form.component");
 describe('ProjectFormComponent', function () {
     var component;
     var fixture;

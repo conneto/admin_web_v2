@@ -44,7 +44,18 @@
                   : "Quản lý tuyển dụng"
               }}
             </li>
+            <mat-slide-toggle
+            style="position: absolute; right: 0;margin-right:5px;"
+            *ngIf="isAdmin && campaign.result_code == 710"
+            [checked]="campaign.is_transparent"
+            (change)="doCheck()"
+            >Minh bạch chiến dịch: {{
+              campaign.is_transparent == true
+                ? "Đã xác thực"
+                : "Chưa xác thực"
+            }}</mat-slide-toggle>
           </ul>
+  
         </div>
       </div>
     </div>
@@ -74,16 +85,7 @@
             <p>
               {{ campaign.name }}
             </p>
-            <mat-slide-toggle
-              style="position: absolute; right: 0"
-              *ngIf="isAdmin && campaign.result_code == 710"
-              [checked]="campaign.is_transparent"
-              (change)="doCheck()"
-              >Xác nhận minh bạch chiến dịch:{{
-                campaign.is_transparent == true
-                  ? "Đã xác thực"
-                  : "Chưa xác thực"
-              }}</mat-slide-toggle
+      
             >
           </div>
           <div class="content-description">

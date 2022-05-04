@@ -10,3 +10,15 @@
     margin-bottom: 0 !important;
   }
 }
+.button-showmore {
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    color: rgb(253, 204, 5);
+    border: 3px solid rgb(245, 211, 74);
+    margin-bottom: 15px;
+  }
+}

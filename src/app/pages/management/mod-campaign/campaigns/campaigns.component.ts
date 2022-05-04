@@ -43,6 +43,7 @@ export class CampaignsComponent implements OnInit {
   isTabRejected?: boolean;
   isTabPending?: boolean;
   percentValue?: boolean;
+  isNoMore?: boolean;
   @ViewChild('changeView') changeView?: ChangeToListComponent;
   constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthService) { }
 
@@ -55,15 +56,44 @@ export class CampaignsComponent implements OnInit {
     }
     this.checkProject();
   }
+  showMore() {
+    this.loadingService.isLoading.next(true);
+    setTimeout(() => {
+      let newLength = this.campaigns.length + 6;
+      if (newLength > this.oldData.length) {
+        newLength = this.oldData.length;
+      }
+      this.campaigns = this.oldData.slice(0, newLength);
+      this.checkShowMore();
+      this.loadingService.isLoading.next(false);
+    }, 300)
+  }
+
+  checkShowMore() {
+    if (this.projects.length > 6) {
+      if (this.projects.length == this.oldData.length) {
+        this.isNoMore = true;
+      }
+    } else {
+      this.isNoMore = true;
+    }
+  }
   getEntity(e: any) {
     if (e?.length != 0) {
-      // console.log(e);
-      this.isEmpty = false;
-      this.campaigns = e;
-      this.oldData = e;
+      if (e.length > 6) {
+        this.isNoMore=false;
+        this.isEmpty = false;
+        this.campaigns = e.slice(0, 6);
+        this.oldData = e;
+      }else{
+        this.isNoMore=true;
+        this.isEmpty = false;
+        this.campaigns = e
+        this.oldData = e;
+      }
     } else {
       this.isEmpty = true;
-      this.campaigns = e;
+      this.campaigns = e.slice(0, 6);
     }
   }
   getTabGroupState(e: any) {
@@ -115,11 +145,17 @@ export class CampaignsComponent implements OnInit {
   getData(e: any) {
     if (e == null || e.length <= 0) {
       this.noResultBySearch = true;
-      this.campaigns = e;
+      this.projects = e
+      this.isNoMore = true;
     } else {
-      this.campaigns = e;
-      this.noResultBySearch = false;
-
+      if (this.projects.length > 6) {
+        this.isNoMore = false;
+        this.projects = e.slice(0, 6);
+      } else {
+        this.projects = e;
+        this.noResultBySearch = false;
+        this.isNoMore = true;
+      }
     }
   }
   openCampaignForm() {
@@ -205,7 +241,7 @@ export class CampaignsComponent implements OnInit {
         }
 
         this.campaigns = this.campaigns.filter(x => {
-          return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721) ;
+          return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721);
         })
         this.oldData = this.passData.filter(x => (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721));
         this.isEmpty = false;
@@ -254,8 +290,11 @@ export class CampaignsComponent implements OnInit {
           this.isEmpty = true;
         }
         break;
-
-
+    }
+    if (this.campaigns.length > 6) {
+      this.campaigns = this.campaigns.slice(0, 6);
+    } else {
+      this.isNoMore = true;
     }
     this.number = this.campaigns.length;
 

@@ -121,3 +121,14 @@ img {
 ::ng-deep .mat-paginator-page-size-label {
   display: none;
 }
+
+.button-showmore {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.button-showmore button {
+  color: #fdcc05;
+  border: 3px solid #f5d34a;
+}

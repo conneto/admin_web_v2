@@ -72,16 +72,47 @@ var CampaignsComponent = /** @class */ (function () {
         }
         this.checkProject();
     };
+    CampaignsComponent.prototype.showMore = function () {
+        var _this = this;
+        this.loadingService.isLoading.next(true);
+        setTimeout(function () {
+            var newLength = _this.campaigns.length + 6;
+            if (newLength > _this.oldData.length) {
+                newLength = _this.oldData.length;
+            }
+            _this.campaigns = _this.oldData.slice(0, newLength);
+            _this.checkShowMore();
+            _this.loadingService.isLoading.next(false);
+        }, 300);
+    };
+    CampaignsComponent.prototype.checkShowMore = function () {
+        if (this.projects.length > 6) {
+            if (this.projects.length == this.oldData.length) {
+                this.isNoMore = true;
+            }
+        }
+        else {
+            this.isNoMore = true;
+        }
+    };
     CampaignsComponent.prototype.getEntity = function (e) {
         if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
-            // console.log(e);
-            this.isEmpty = false;
-            this.campaigns = e;
-            this.oldData = e;
+            if (e.length > 6) {
+                this.isNoMore = false;
+                this.isEmpty = false;
+                this.campaigns = e.slice(0, 6);
+                this.oldData = e;
+            }
+            else {
+                this.isNoMore = true;
+                this.isEmpty = false;
+                this.campaigns = e;
+                this.oldData = e;
+            }
         }
         else {
             this.isEmpty = true;
-            this.campaigns = e;
+            this.campaigns = e.slice(0, 6);
         }
     };
     CampaignsComponent.prototype.getTabGroupState = function (e) {
@@ -146,11 +177,19 @@ var CampaignsComponent = /** @class */ (function () {
     CampaignsComponent.prototype.getData = function (e) {
         if (e == null || e.length <= 0) {
             this.noResultBySearch = true;
-            this.campaigns = e;
+            this.projects = e;
+            this.isNoMore = true;
         }
         else {
-            this.campaigns = e;
-            this.noResultBySearch = false;
+            if (this.projects.length > 6) {
+                this.isNoMore = false;
+                this.projects = e.slice(0, 6);
+            }
+            else {
+                this.projects = e;
+                this.noResultBySearch = false;
+                this.isNoMore = true;
+            }
         }
     };
     CampaignsComponent.prototype.openCampaignForm = function () {
@@ -299,6 +338,12 @@ var CampaignsComponent = /** @class */ (function () {
                             this.isEmpty = true;
                         }
                         break;
+                }
+                if (this.campaigns.length > 6) {
+                    this.campaigns = this.campaigns.slice(0, 6);
+                }
+                else {
+                    this.isNoMore = true;
                 }
                 this.number = this.campaigns.length;
                 return [2 /*return*/];
