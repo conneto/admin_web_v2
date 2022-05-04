@@ -253,6 +253,7 @@ var OrganizationsComponent = /** @class */ (function () {
                             }, 1000);
                             break;
                     }
+                    this.organizations = this.organizations.slice(0, 6);
                     this.number = this.organizations.length;
                     this.numberCount = new Array(this.organizations.length);
                 }

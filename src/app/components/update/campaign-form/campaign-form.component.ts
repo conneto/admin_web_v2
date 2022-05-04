@@ -36,7 +36,7 @@ export class CampaignUpdateFormComponent implements OnInit {
   organizations: Organization[] = [];
   projects: Project[] = [];
   selectedValue?: string;
-  selectedRadio: string = '';
+  selectedRadio?:any;
   cloneProjects: Project[] = [];
   type: string[] = ['Quyên góp', 'Tuyển tình nguyện viên'];
   uploadData: any = new FormData();
@@ -52,14 +52,19 @@ export class CampaignUpdateFormComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
   }
+  ngAfterContentChecked():void{
+    this.selectedRadio =this.data.type == 'Quyên góp' ? 'Quyên góp' : 'Tuyển tình nguyện viên'
+
+    console.log(this.selectedRadio);
+  }
   getValue(element: any) {
     this.defaultNumber = this.currency.transform(this.defaultNumber, 'đ');
     element.target.value = this.defaultNumber;
   }
   initForm() {
-    this.selectedRadio = (this.data.type == 'donation') ? 'Quyên góp' : 'Tuyển tình nguyện viên'
+   
     this.campaignForm = this.formBuilder.group({
-      selected: [this.selectedRadio, Validators.required],
+ 
       name: [
         this.data.name,
         [
@@ -100,6 +105,7 @@ export class CampaignUpdateFormComponent implements OnInit {
   }
 
   async update() {
+ 
     if (
       this.campaignForm.controls.category.value.length != 0 &&
       this.campaignForm.controls.category.value
@@ -159,16 +165,16 @@ export class CampaignUpdateFormComponent implements OnInit {
       this.campaignForm.patchValue({ type: 'recruitment' });
     }
 
-    console.log(this.campaignForm.value)
+  
 
     if (this.campaignForm.valid) {
       this.campaignForm.value.category = this.categoryString;
 
       this.uploadData.append(
         'campaign',
-        JSON.stringify(this.campaignForm.value)
+        JSON.stringify(this.campaignForm.value) 
       );
-
+      console.log(this.campaignForm.value)
       let res: BaseResponse = await this.campaignService.updateById(
         this.uploadData,
         this.data.id

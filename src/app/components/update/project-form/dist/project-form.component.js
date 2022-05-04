@@ -56,6 +56,8 @@ var ProjectUpdateFormComponent = /** @class */ (function () {
         this.snackBar = snackBar;
         this.formBuilder = formBuilder;
         this.category = constant_1.Constant.CATEGORY;
+        this.categoryStringClone = '';
+        this.categoryString = '';
     }
     ProjectUpdateFormComponent.prototype.ngOnInit = function () {
         this.initForm();
@@ -85,7 +87,7 @@ var ProjectUpdateFormComponent = /** @class */ (function () {
                 new Date(this.data.end_date).toISOString().substring(0, 10),
                 forms_1.Validators.required,
             ],
-            organization_id: [this.organizationId.getOrganizationId.value],
+            organization_id: [this.data.organization_id],
             cover: [''],
             logo: [''],
             category: ['']
@@ -116,7 +118,6 @@ var ProjectUpdateFormComponent = /** @class */ (function () {
                         if (((_a = this.categoryStringClone) === null || _a === void 0 ? void 0 : _a.length) > 0) {
                             this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
                         }
-                        this.isSubmitted = true;
                         this.projectForm.value.category = this.categoryString;
                         if (!this.projectForm.valid) return [3 /*break*/, 2];
                         console.log(this.projectForm.value);

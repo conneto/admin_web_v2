@@ -255,7 +255,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           }, 1000);
           break;
       }
-
+      this.organizations=this.organizations.slice(0,6);
       this.number = this.organizations.length;
       this.numberCount = new Array<number>(this.organizations.length);
     }
