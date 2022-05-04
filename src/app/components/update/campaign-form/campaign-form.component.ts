@@ -12,11 +12,9 @@ import {
 import { Constant } from 'src/app/constant/constant';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
-import { OrganizationRequestDetailsComponent } from 'src/app/pages/manage-request/mod-organization/organization-request-details/organization-request-details.component';
+
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-campaign-update-form',

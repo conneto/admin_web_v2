@@ -109,6 +109,7 @@ export class ProjectUpdateFormComponent implements OnInit {
     this.projectForm.value.category = this.categoryString;
 
     if (this.projectForm.valid) {
+      console.log(this.projectForm.value);
       let uploadData: any = new FormData();
       if (this.coverImage != null)
         uploadData.append('cover', this.coverImage, this.coverImage?.name);
@@ -126,7 +127,7 @@ export class ProjectUpdateFormComponent implements OnInit {
         this.snackBar.showMessage(res?.message, false);
       }
       this.loadingService.isLoading.next(false);
- 
+
     }
   }
   onChange(e: any) {

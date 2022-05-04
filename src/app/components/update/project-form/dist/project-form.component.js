@@ -119,6 +119,7 @@ var ProjectUpdateFormComponent = /** @class */ (function () {
                         this.isSubmitted = true;
                         this.projectForm.value.category = this.categoryString;
                         if (!this.projectForm.valid) return [3 /*break*/, 2];
+                        console.log(this.projectForm.value);
                         uploadData = new FormData();
                         if (this.coverImage != null)
                             uploadData.append('cover', this.coverImage, (_b = this.coverImage) === null || _b === void 0 ? void 0 : _b.name);

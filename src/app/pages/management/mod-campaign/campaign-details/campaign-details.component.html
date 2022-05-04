@@ -50,8 +50,21 @@
     </div>
     <div *ngIf="isInformation" class="box box__content">
       <div class="content">
-        <div class="d-flex justify-content-end" *ngIf="campaign.result_code == 710 || campaign.result_code == 720 || campaign.result_code == 721">
-          <button mat-icon-button class="update" (click)="isOpenUpdateForm = !isOpenUpdateForm">
+        <div
+          class="d-flex justify-content-end"
+          *ngIf="
+            (campaign.result_code == 710 ||
+              campaign.result_code == 720 ||
+              campaign.result_code == 721 ||
+              campaign.result_code == 731) &&
+            !isAdmin
+          "
+        >
+          <button
+            mat-icon-button
+            class="update"
+            (click)="isOpenUpdateForm = !isOpenUpdateForm"
+          >
             <mat-icon>edit</mat-icon>
           </button>
         </div>
@@ -61,7 +74,8 @@
             <p>
               {{ campaign.name }}
             </p>
-            <mat-slide-toggle style='position: absolute;right:0'
+            <mat-slide-toggle
+              style="position: absolute; right: 0"
               *ngIf="isAdmin && campaign.result_code == 710"
               [checked]="campaign.is_transparent"
               (change)="doCheck()"
@@ -143,7 +157,10 @@
               [entity]="campaign"
             ></app-delete-entity>
           </div>
-          <app-campaign-update-form *ngIf="isOpenUpdateForm" [data]="campaign"></app-campaign-update-form>
+          <app-campaign-update-form
+            *ngIf="isOpenUpdateForm"
+            [data]="campaign"
+          ></app-campaign-update-form>
         </div>
       </div>
     </div>

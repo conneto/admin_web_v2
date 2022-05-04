@@ -43,10 +43,11 @@
         <div
           class="d-flex justify-content-end"
           *ngIf="
-            (!isAdmin && e.result_code == 510) ||
-            e.result_code == 520 ||
-            e.result_code == 521 ||
-            e.result_code == 531
+            !isAdmin &&
+            (e.result_code == 510 ||
+              e.result_code == 520 ||
+              e.result_code == 521 ||
+              e.result_code == 531)
           "
         >
           <button
@@ -116,14 +117,20 @@
               style="display: flex"
               href="{{ urlApi }}/show/files?p={{ e.operating_license }}"
               download
-              target='_blank'
+              target="_blank"
             >
               <img style="width: 25px" src="./assets/icons/pdf.svg" />
               Xem tài liệu
             </a>
           </div>
           <div
-            *ngIf="e.result_code == 510 || e.result_code == 521  || e.result_code == 520 "
+            *ngIf="
+              !isAdmin &&
+              (e.result_code == 510 ||
+                e.result_code == 520 ||
+                e.result_code == 521 ||
+                e.result_code == 531)
+            "
             class="content-button"
           >
             <div>

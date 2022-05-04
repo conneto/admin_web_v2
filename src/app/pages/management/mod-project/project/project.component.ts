@@ -153,10 +153,10 @@ export class ProjectComponent implements OnInit {
         }
 
         this.projects = this.projects.filter(x => {
-          return x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621
+          return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621) 
             ;
         })
-        this.oldData = this.passData.filter(x => x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621);
+        this.oldData = this.passData.filter(x => (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621) );
         this.isEmpty = false;
         if (this.projects == [] || this.projects.length <= 0) {
           this.isEmpty = true;

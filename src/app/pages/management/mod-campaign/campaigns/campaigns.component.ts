@@ -87,7 +87,7 @@ export class CampaignsComponent implements OnInit {
     if (this.authApi.currentUserValue.role_id == 'organization_manager') {
       this.projects = await this.projectService.getAll();
       this.projects = this.projects.filter(x => {
-        return x.result_code == 610 || x.result_code==631 || x.result_code==620  || x.result_code==621;
+        return x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621;
       })
       if (this.projects.length > 0) {
         this.isApprovedProject = true;
@@ -205,9 +205,9 @@ export class CampaignsComponent implements OnInit {
         }
 
         this.campaigns = this.campaigns.filter(x => {
-          return x.result_code == 710 ||  x.result_code == 731 ||  x.result_code == 720||  x.result_code == 721
+          return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721) ;
         })
-        this.oldData = this.passData.filter(x => x.result_code == 710 ||  x.result_code == 731 ||  x.result_code == 720 ||  x.result_code == 721);
+        this.oldData = this.passData.filter(x => (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721));
         this.isEmpty = false;
         if (this.campaigns == [] || this.campaigns.length <= 0) {
           this.isEmpty = true;
@@ -240,10 +240,10 @@ export class CampaignsComponent implements OnInit {
         }
 
         this.campaigns = this.campaigns.filter(x => {
-          return x.result_code == 701 || x.result_code == 703||  x.result_code == 702
+          return x.result_code == 701 || x.result_code == 703 || x.result_code == 702
         })
         console.log(this.campaigns);
-        this.oldData = this.passData.filter(x => x.result_code == 701  || x.result_code == 703 ||  x.result_code == 702);
+        this.oldData = this.passData.filter(x => x.result_code == 701 || x.result_code == 703 || x.result_code == 702);
         if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {

@@ -253,9 +253,9 @@ var CampaignsComponent = /** @class */ (function () {
                             }
                         }
                         this.campaigns = this.campaigns.filter(function (x) {
-                            return x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721;
+                            return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721);
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721; });
+                        this.oldData = this.passData.filter(function (x) { return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721); });
                         this.isEmpty = false;
                         if (this.campaigns == [] || this.campaigns.length <= 0) {
                             this.isEmpty = true;
