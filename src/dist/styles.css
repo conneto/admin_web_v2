@@ -264,22 +264,29 @@ td {
   .campaign-card {
     height: 404px !important;
   }
+}
+.enable {
+  background-color: #8af495;
+}
 
-  .enable {
-    background-color: #8af495;
-  }
+.disable {
+  background-color: #f48a8a;
+}
 
-  .disable {
-    background-color: #f48a8a;
-  }
+.campaign__type {
+  z-index: 9999;
+  text-transform: uppercase;
+  background-color: #ddd;
+  margin-left: 0.5rem;
+}
+.campaign__type span {
+  font-size: 15px !important;
+}
 
-  .campaign__type {
-    z-index: 9999;
-    text-transform: uppercase;
-    background-color: #ddd;
-    margin-left: 0.5rem;
-  }
-  .campaign__type span {
-    font-size: 15px !important;
-  }
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+  overflow: auto;
+  pointer-events: auto;
 }
