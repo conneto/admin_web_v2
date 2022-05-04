@@ -40,7 +40,6 @@ export class CampaignDetailsComponent implements OnInit {
   pdfName?: any;
   isChecked?: boolean;
   isNoHistory?: any;
-  isTransparent?: boolean;
   isOpenUpdateForm?: boolean = false;
 
   constructor(
@@ -64,7 +63,6 @@ export class CampaignDetailsComponent implements OnInit {
     if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
-    this.isTransparent = this.campaign?.is_transparent;
   }
   ngAfterViewChecked(): void {
     this.checkDate();
@@ -103,11 +101,8 @@ export class CampaignDetailsComponent implements OnInit {
       } else {
         this.snackBar.showMessage('Lỗi hệ thống!', false);
       }
-      window.location.reload();
-      this.router.navigate([
-        `admin/manage-campaign/campaign-details/${this.campaign?.id}`,
-      ]);
     }
+    window.location.reload();
   }
   getDocument() {
     this.type = 'pdf';

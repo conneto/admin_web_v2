@@ -1,38 +1,28 @@
-<div class='d-flex' *ngIf="projects"   >
+<div class='d-flex row' *ngIf="projects">
   <div *ngFor="let project of projects" class="ml-3 mb-3 col-xxl-4 col-md-6 col-sm-12 col-12">
 
-      <mat-card 
-      
-      (click)="goToDetail(project.id)">
-        <div class="image">
-          <img
-            loading="lazy"
-            alt="Cover of this project"
-            mat-card-image
-            src="{{ urlApi }}/show/images?p={{ project.cover }}"
-          />
+    <mat-card (click)="goToDetail(project.id)">
+      <div class="image">
+        <img loading="lazy" alt="Cover of this project" mat-card-image
+          src="{{ urlApi }}/show/images?p={{ project.cover }}" />
+      </div>
+      <mat-card-title>
+        <p>
+          {{ project.name }}
+        </p>
+      </mat-card-title>
+      <div class="card-icon">
+        <div>
+          <img loading="lazy" src="{{ urlApi }}/show/images?p={{ project.organization_logo }}" />
+          <span class="margin-left">{{ project.organization_name }}</span>
         </div>
-        <mat-card-title>
-          <p>
-            {{ project.name }}
-          </p></mat-card-title
-        >
-        <div class="card-icon">
-          <div>
-            <img
-              loading="lazy"
-              src="{{ urlApi }}/show/images?p={{ project.organization_logo }}"
-            />
-            <span class="margin-left">{{ project.organization_name }}</span>
-          </div>
-          <div>
-            <mat-icon title="At">date_range</mat-icon
-            ><span class="margin-left">{{
+        <div>
+          <mat-icon title="At">date_range</mat-icon><span class="margin-left">{{
               project.created_at | date: "dd/MM/yyyy"
             }}</span>
-          </div>
         </div>
-      </mat-card>
-    </div>
+      </div>
+    </mat-card>
+  </div>
 
 </div>

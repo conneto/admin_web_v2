@@ -60,7 +60,6 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.isOpenUpdateForm = false;
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
-        var _a;
         this.isPDF = true;
         this.getByID();
         this.isInformation = true;
@@ -70,18 +69,17 @@ var CampaignDetailsComponent = /** @class */ (function () {
         if (this.userApi.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
-        this.isTransparent = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.is_transparent;
     };
     CampaignDetailsComponent.prototype.ngAfterViewChecked = function () {
         this.checkDate();
     };
     CampaignDetailsComponent.prototype.checkDate = function () { };
     CampaignDetailsComponent.prototype.doCheck = function () {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
             var data, res, data, res;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         if (new Date(((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.end_date) || '') > new Date()) {
                             this.snackBar.showMessage('Chiến dịch chưa kết thúc', false);
@@ -97,7 +95,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         };
                         return [4 /*yield*/, this.userApi.updateRequestByAdmin(data)];
                     case 1:
-                        res = _e.sent();
+                        res = _d.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage('Xác thực thành công!', true);
                         }
@@ -114,19 +112,17 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         };
                         return [4 /*yield*/, this.userApi.updateRequestByAdmin(data)];
                     case 3:
-                        res = _e.sent();
+                        res = _d.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage('Đã hủy xác thực minh bạch', true);
                         }
                         else {
                             this.snackBar.showMessage('Lỗi hệ thống!', false);
                         }
+                        _d.label = 4;
+                    case 4:
                         window.location.reload();
-                        this.router.navigate([
-                            "admin/manage-campaign/campaign-details/" + ((_d = this.campaign) === null || _d === void 0 ? void 0 : _d.id),
-                        ]);
-                        _e.label = 4;
-                    case 4: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         });
