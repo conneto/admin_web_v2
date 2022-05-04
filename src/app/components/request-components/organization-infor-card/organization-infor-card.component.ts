@@ -61,12 +61,12 @@ export class OrganizationInforCardComponent implements OnInit {
         close: 'Hủy',
         message:
           checkType == 'org'
-            ? 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?'
+            ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu tổ chức này không?'
             : checkType == 'cam'
-              ? 'Bạn có chắc chắn muốn chấp nhận chiến dịch này không?'
+              ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu chiến dịch này không?'
               : checkType == 'pro'
-                ? 'Bạn có chắc chắn muốn chấp nhận dự án này không?'
-                : 'Bạn có chắc chắn muốn chấp nhận tổ chức này không?',
+                ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu dự án này không?'
+                : 'Bạn có chắc chắn muốn chấp nhận yêu cầu tổ chức này không?',
       },
     });
 
@@ -101,7 +101,7 @@ export class OrganizationInforCardComponent implements OnInit {
           } else if (checkType == 'cam' || this.checkType == 'cam') {
             this.cam.checkToGetData('pending');
           }
-          this.snackBar.showMessage('Chấp nhận thành công !', true);
+          this.snackBar.showMessage('chấp nhận yêu cầu thành công !', true);
         } else {
           this.loadingApi.isLoading.next(false);
           this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
@@ -119,12 +119,12 @@ export class OrganizationInforCardComponent implements OnInit {
         reason: true,
         message:
           checkType == 'org'
-            ? 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?'
+            ? 'Bạn có chắc chắn muốn từ chối yêu cầu tổ chức này không?'
             : checkType == 'cam'
-              ? 'Bạn có chắc chắn muốn  muốn từ chối xét duyệt chiến dịch này không?'
+              ? 'Bạn có chắc chắn muốn  muốn từ chối yêu cầu chiến dịch này không?'
               : checkType == 'pro'
-                ? 'Bạn có chắc chắn muốn muốn từ chối xét duyệt dự án này không?'
-                : 'Bạn có chắc chắn muốn từ chối xét duyệt tổ chức này không?',
+                ? 'Bạn có chắc chắn muốn muốn từ chối yêu cầu dự án này không?'
+                : 'Bạn có chắc chắn muốn từ chối yêu cầu tổ chức này không?',
       },
     });
     diaglogRef.afterClosed().subscribe(async (data) => {

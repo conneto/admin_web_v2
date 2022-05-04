@@ -242,3 +242,13 @@ td {
 .disable {
   background-color: #f48a8a;
 }
+
+.campaign__type {
+  z-index: 9999;
+  text-transform: uppercase;
+  background-color: #ddd;
+  margin-left: 0.5rem;
+}
+.campaign__type span {
+  font-size: 15px !important;
+}

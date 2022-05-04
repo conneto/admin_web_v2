@@ -5,7 +5,7 @@
     [entity]="'pro'"
     [object]="passData"
   ></app-tabgroup>
-  <div class="row p-3 project-card">
+  <div  class="row p-3 project-card">
     <div *ngIf="isRequest">
       <div class="search-bar" *ngIf="!isEmpty">
         <div *ngIf="!noResultBySearch; then name; else result"></div>
@@ -20,7 +20,7 @@
             <h3>Không tìm thấy kết quả phù hợp</h3>
           </div>
         </ng-template>
-
+  
         <app-search-bar
           *ngIf="!isList"
           (getItem)="getData($event)"
@@ -44,10 +44,10 @@
         ></app-project-request-card>
       </div>
     </div>
-
+  
     <div *ngIf="!isRequest">
       <div *ngIf="projects">
-        <div style="justify-content: space-around" class="row">
+        <div  style='justify-content: space-around;' class="row">
           <div class="search-bar mb-3" *ngIf="!isEmpty">
             <div *ngIf="!noResultBySearch; then name; else result"></div>
             <ng-template #name>
@@ -90,10 +90,10 @@
               (handleTitle)="handleTitle($event)"
             ></app-change-to-list>
           </div>
-
+  
           <div *ngIf="!isList" class="row">
             <div
-              class="mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+              class="  mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
               *ngFor="let project of projects"
             >
               <a
@@ -141,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="isEmpty">
+    <div class='d-flex' *ngIf="isEmpty">
       Hiện tại không có dự án nào được tạo!
       <div *ngIf="!isAdmin && organization.length != 0" class="ms-2">
         <div *ngFor="let o of organization" class="project__button-create">
@@ -156,6 +156,5 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+    </div></div>
 </div>

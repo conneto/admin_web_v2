@@ -53,11 +53,11 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.checkEnable = function () {
         this.passData = this.entityData.filter(function (x) {
-            return x.is_active == true && x.result_code == 510 ||
-                x.is_active == true &&
-                    x.resultCode == 610 ||
-                x.is_active == true &&
-                    x.result_code == 710;
+            return (x.is_active == true && x.result_code == 510 || x.result_code == 531) ||
+                (x.is_active == true &&
+                    x.resultCode == 610 || x.resultCode == 631) ||
+                (x.is_active == true &&
+                    x.result_code == 710 || x.result_code == 731);
         });
         if (this.passData.length == 0) {
             this.noDataEnable = true;

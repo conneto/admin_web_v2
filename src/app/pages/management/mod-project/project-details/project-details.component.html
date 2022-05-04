@@ -6,6 +6,19 @@
       </div>
       <div class="header">
         <div class="header-content">
+          <div
+            class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75"
+          >
+            <span
+          
+              [ngClass]="{
+                'label-approved': project.resultCode == 610,
+                'label-rejected': project.resultCode == 611,
+                'label-pending': project.resultCode == 601
+              }"
+              >{{ project.resultMessage }}</span
+            >
+          </div>
           <div class="header-image">
             <img src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
           </div>
@@ -71,7 +84,7 @@
       </div>
     </div>
     <div *ngIf="isCampaigns && isApproved">
-      <div *ngIf="isEmpty" class='d-flex '>
+      <div *ngIf="isEmpty" class="d-flex">
         Hiện tại không có dự án nào được tạo!
         <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
           <button (click)="openCampaignForm()" mat-raised-button color="accent">
@@ -81,7 +94,6 @@
         </div>
       </div>
       <div class="campaigns__button">
-     
         <div style="width: 100%" *ngIf="campaignsCopy?.length! > 0">
           <div class="search_bar">
             <div *ngIf="!noResultBySearch; then name; else result"></div>
@@ -97,7 +109,7 @@
                 </div>
               </ng-template>
             </div>
-            
+
             <div>
               <app-search-bar
                 (getItem)="getData($event)"
@@ -126,5 +138,4 @@
       </div>
     </div>
   </div>
-
 </div>

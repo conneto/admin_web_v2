@@ -221,10 +221,12 @@ var DeleteEntityComponent = /** @class */ (function () {
         });
     };
     DeleteEntityComponent.prototype["delete"] = function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function () {
             var dialogRef;
             var _this = this;
-            return __generator(this, function (_a) {
+            return __generator(this, function (_b) {
+                console.log((_a = this.entity) === null || _a === void 0 ? void 0 : _a.id);
                 dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
                     width: '360px',
                     data: {

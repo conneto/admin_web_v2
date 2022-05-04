@@ -87,7 +87,7 @@ export class CampaignsComponent implements OnInit {
     if (this.authApi.currentUserValue.role_id == 'organization_manager') {
       this.projects = await this.projectService.getAll();
       this.projects = this.projects.filter(x => {
-        return x.resultCode == 610;
+        return x.resultCode == 610 || x.resultCode==631;
       })
       if (this.projects.length > 0) {
         this.isApprovedProject = true;
@@ -207,7 +207,7 @@ export class CampaignsComponent implements OnInit {
         this.campaigns = this.campaigns.filter(x => {
           return x.result_code == 710;
         })
-        this.oldData = this.passData.filter(x => x.result_code == 710);
+        this.oldData = this.passData.filter(x => x.result_code == 710 ||  x.result_code == 731);
         this.isEmpty = false;
         if (this.campaigns == [] || this.campaigns.length <= 0) {
           this.isEmpty = true;
@@ -240,10 +240,10 @@ export class CampaignsComponent implements OnInit {
         }
 
         this.campaigns = this.campaigns.filter(x => {
-          return x.result_code == 701;
+          return x.result_code == 701 || x.result_code == 703;
         })
         console.log(this.campaigns);
-        this.oldData = this.passData.filter(x => x.result_code == 701);
+        this.oldData = this.passData.filter(x => x.result_code == 701  || x.result_code == 703);
         if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {

@@ -18,7 +18,7 @@
         </div>
         <img
           loading="lazy"
-          src="{{ urlApi }}/show/images?p={{ e.urlCover }}"
+          src="{{ urlApi }}/show/images?p={{ e.cover }}"
           alt=""
         />
       </div>
@@ -99,16 +99,18 @@
           </div>
           <div class="content-introduce">
             <div>Giấy phép lao động:</div>
-            <div>
-              <a href='{{urlApi}}/show/files?p={{e.operating_license}}' download>
-                {{e.operating_license}}
+            
+              <a style='display:flex' href='{{urlApi}}/show/files?p={{e.operating_license}}' download>
+         
                 <img style="width: 25px" src="./assets/icons/pdf.svg" />
+                Xem tài liệu
+          
               </a>
-            </div>
+          
           </div>
           <div *ngIf="e.result_code==510 || e.result_code==503" class="content-button">
             <div>
-              <app-delete-entity [type]="'org'" [entity]="organization"></app-delete-entity>
+              <app-delete-entity [type]="'org'" [entity]="e"></app-delete-entity>
             </div>
           </div>
         </div>

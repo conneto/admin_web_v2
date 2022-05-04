@@ -57,6 +57,7 @@ var ng2_file_upload_1 = require("ng2-file-upload");
 var ngx_dropzone_1 = require("ngx-dropzone");
 var ngx_google_places_autocomplete_1 = require("ngx-google-places-autocomplete");
 var google_maps_1 = require("@angular/google-maps");
+var ngx_currency_1 = require("ngx-currency");
 var materialModules = [
     tree_1.CdkTreeModule,
     autocomplete_1.MatAutocompleteModule,
@@ -103,6 +104,7 @@ var materialModules = [
     ngx_dropzone_1.NgxDropzoneModule,
     ngx_skeleton_loader_1.NgxSkeletonLoaderModule,
     slide_toggle_1.MatSlideToggleModule,
+    ngx_currency_1.NgxCurrencyModule,
     ngx_google_places_autocomplete_1.GooglePlaceModule,
     google_maps_1.GoogleMapsModule,
 ];

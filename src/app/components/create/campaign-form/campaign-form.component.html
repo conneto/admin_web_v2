@@ -5,7 +5,13 @@
   <form [formGroup]="campaignForm">
     <mat-form-field style="width: 100%" appearance="fill">
       <mat-label>Lựa chọn một trong các dự án của tổ chức</mat-label>
-      <mat-select *ngIf="isOnlyProject" name="projects" formControlName="selected" required [(ngModel)]="selectedValue">
+      <mat-select
+        *ngIf="isOnlyProject"
+        name="projects"
+        formControlName="selected"
+        required
+        [(ngModel)]="selectedValue"
+      >
         <mat-option [value]="this.data.project.name">
           {{ this.data.project.name }} ({{
             this.data.project.startDate | date: "dd/MM/yyyy"
@@ -14,8 +20,13 @@
           {{ this.data.project.endDate | date: "dd/MM/yyyy" }}
         </mat-option>
       </mat-select>
-      <mat-select *ngIf="!isOnlyProject" name="projects" formControlName="selected" required
-        [(ngModel)]="selectedValue">
+      <mat-select
+        *ngIf="!isOnlyProject"
+        name="projects"
+        formControlName="selected"
+        required
+        [(ngModel)]="selectedValue"
+      >
         <mat-option *ngFor="let project of projects" [value]="project.name">
           {{ project.name }} ({{ project.startDate | date: "dd/MM/yyyy" }} -
           {{ project.endDate | date: "dd/MM/yyyy" }}
@@ -29,8 +40,17 @@
       <div class="row d-flex">
         <mat-label class="col-3">Loại chiến dịch:</mat-label>
 
-        <mat-radio-group class="col-8 d-flex justify-content-around" [(ngModel)]="selectedRadio" formControlName="type">
-          <mat-radio-button (click)="getType(t)" [checked]="t == 'Quyên góp'" *ngFor="let t of type" [value]="t">{{ t }}
+        <mat-radio-group
+          class="col-8 d-flex justify-content-around"
+          [(ngModel)]="selectedRadio"
+          formControlName="type"
+        >
+          <mat-radio-button
+            (click)="getType(t)"
+            [checked]="t == 'Quyên góp'"
+            *ngFor="let t of type"
+            [value]="t"
+            >{{ t }}
           </mat-radio-button>
         </mat-radio-group>
       </div>
@@ -38,32 +58,54 @@
 
     <div class="login-form">
       <div>
-        <input class="input login" type="text" placeholder="Tên chiến dịch" required="" formControlName="name" />
+        <input
+          class="input login"
+          type="text"
+          placeholder="Tên chiến dịch"
+          required=""
+          formControlName="name"
+        />
       </div>
-      <span *ngIf="  ( campaignControl.name.touched||isSubmitted) &&
+      <span
+        *ngIf="  ( campaignControl.name.touched||isSubmitted) &&
             campaignControl.name.errors?.required
             ||
             campaignControl.name.errors?.['minlength'] ||   campaignControl.name.errors?.['maxlength']
-          " class="text-danger">Tên chiến dịch bắt buộc và có độ dài tối thiểu 8, tối đa 128 kí
-        tự</span>
+          "
+        class="text-danger"
+        >Tên chiến dịch bắt buộc và có độ dài tối thiểu 8, tối đa 128 kí
+        tự</span
+      >
 
       <div>
-        <textarea class="input login" type="text" placeholder="Giới thiệu về chiến dịch" required=""
-          formControlName="description"></textarea>
+        <textarea
+          class="input login"
+          type="text"
+          placeholder="Giới thiệu về chiến dịch"
+          required=""
+          formControlName="description"
+        ></textarea>
       </div>
-      <span *ngIf="  ( campaignControl.description.touched||isSubmitted) &&
+      <span
+        *ngIf="  ( campaignControl.description.touched||isSubmitted) &&
       campaignControl.description.errors?.required
       ||
       campaignControl.description.errors?.['minlength'] ||   campaignControl.description.errors?.['maxlength']
-    " class="text-danger">Giới thiệu về chiến dịch bắt buộc và có độ dài tối thiểu 128</span>
+    "
+        class="text-danger"
+        >Giới thiệu về chiến dịch bắt buộc và có độ dài tối thiểu 128</span
+      >
       <div>
         <mat-form-field>
           <mat-label>Lĩnh vực</mat-label>
           <mat-select formControlName="category" required="false" multiple>
             <mat-select-trigger>
               <mat-chip-list>
-                <mat-chip *ngFor="let e of campaignControl.category.value" [removable]="true"
-                  (removed)="onRemoveCategory(e)">
+                <mat-chip
+                  *ngFor="let e of campaignControl.category.value"
+                  [removable]="true"
+                  (removed)="onRemoveCategory(e)"
+                >
                   {{ e.vietsub }}
                   <mat-icon matChipRemove>cancel</mat-icon>
                 </mat-chip>
@@ -75,59 +117,128 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div>
-        <input (change)='getValue($event)' [(ngModel)]="defaultNumber"  placeholder="Mục tiêu cần đạt" class="input login" type="text" formControlName="target_number" />
+      <div *ngIf='selectedRadio=="Quyên góp"'>
+        <input
+          [options]="{align:'left', suffix: 'đ',prefix:'',precision:3 }"
+          currencyMask
+          placeholder="Mục tiêu cần đạt"
+          class="input login"
+          type="text"
+          formControlName="target_number"
+        />
       </div>
-      <div *ngIf="
+      <div *ngIf='selectedRadio=="Tuyển tình nguyện viên"'>
+        <input
+          [options]="{align:'left', suffix: ' người',prefix:'',precision:0 }"
+          currencyMask
+          placeholder="Mục tiêu cần đạt"
+          class="input login"
+          type="text"
+          formControlName="target_number"
+        />
+      </div>
+      <div
+        *ngIf="
           selectedRadio == 'Tuyển tình nguyện viên' &&
           campaignControl.job_requirement &&
           campaignControl.job_description &&
           campaignControl.job_benefit
-        ">
+        "
+      >
         <div>
-          <input placeholder="Công việc yêu cầu" class="input login" formControlName="job_requirement" />
+          <input
+            placeholder="Công việc yêu cầu"
+            class="input login"
+            formControlName="job_requirement"
+          />
         </div>
-        <span *ngIf="  ( campaignControl.job_requirement.touched||isSubmitted) &&
+        <span
+          *ngIf="  ( campaignControl.job_requirement.touched||isSubmitted) &&
 campaignControl.job_requirement.errors?.required
 ||
 campaignControl.job_requirement.errors?.['minlength'] ||   campaignControl.job_requirement.errors?.['maxlength']
-" class="text-danger">Công việc yêu cầu bắt buộc và có độ dài tối thiểu 8 kí tự</span>
+"
+          class="text-danger"
+          >Công việc yêu cầu bắt buộc và có độ dài tối thiểu 8 kí tự</span
+        >
         <div>
-          <textarea placeholder="Mô tả công việc" class="input login" formControlName="job_description"></textarea>
+          <textarea
+            placeholder="Mô tả công việc"
+            class="input login"
+            formControlName="job_description"
+          ></textarea>
         </div>
-        <span *ngIf="  ( campaignControl.job_description.touched||isSubmitted) &&
+        <span
+          *ngIf="  ( campaignControl.job_description.touched||isSubmitted) &&
 campaignControl.job_description.errors?.required
 ||
 campaignControl.job_description.errors?.['minlength'] ||   campaignControl.job_description.errors?.['maxlength']
-" class="text-danger">Mô tả công việc bắt buộc và có độ dài tối thiểu 8 kí tự</span>
+"
+          class="text-danger"
+          >Mô tả công việc bắt buộc và có độ dài tối thiểu 8 kí tự</span
+        >
         <div>
-          <textarea placeholder="Lợi ích công việc" class="input login" formControlName="job_benefit"></textarea>
+          <textarea
+            placeholder="Lợi ích công việc"
+            class="input login"
+            formControlName="job_benefit"
+          ></textarea>
         </div>
-        <span *ngIf="  ( campaignControl.job_benefit.touched||isSubmitted) &&
+        <span
+          *ngIf="  ( campaignControl.job_benefit.touched||isSubmitted) &&
 campaignControl.job_benefit.errors?.required
 ||
 campaignControl.job_benefit.errors?.['minlength'] ||   campaignControl.job_benefit.errors?.['maxlength']
-" class="text-danger">Lợi ích công việc bắt buộc và có độ dài tối thiểu tối thiểu 8 kí tự</span>
+"
+          class="text-danger"
+          >Lợi ích công việc bắt buộc và có độ dài tối thiểu tối thiểu 8 kí
+          tự</span
+        >
         <div class="recruitment-date">
           <mat-label>Thời gian tuyển dụng :</mat-label>
           Từ
-          <input class="input login" type="date" required="" formControlName="start_working_date" />
+          <input
+            class="input login"
+            type="date"
+            required=""
+            formControlName="start_working_date"
+          />
           đến
-          <input class="input login" type="date" required="" formControlName="end_working_date" />
+          <input
+            class="input login"
+            type="date"
+            required=""
+            formControlName="end_working_date"
+          />
         </div>
       </div>
       <div class="event-date">
         <mat-label>Thời gian diễn ra chiến dịch :</mat-label>
         Từ
-        <input class="input login" type="date" required="" formControlName="start_date" />
+        <input
+          class="input login"
+          type="date"
+          required=""
+          formControlName="start_date"
+        />
         đến
-        <input class="input login" type="date" required="" formControlName="end_date" />
+        <input
+          class="input login"
+          type="date"
+          required=""
+          formControlName="end_date"
+        />
       </div>
       <div>
         <label style="width: 100px"> Ảnh bìa:</label>
 
-        <input multiple type="file" accept="image/jpg,image/jpeg,image/png" formControlName="cover"
-          (change)="onChange($event)" />
+        <input
+          multiple
+          type="file"
+          accept="image/jpg,image/jpeg,image/png"
+          formControlName="cover"
+          (change)="onChange($event)"
+        />
       </div>
     </div>
   </form>
