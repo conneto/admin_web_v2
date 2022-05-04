@@ -13,6 +13,7 @@ import { OrganizationsComponent } from 'src/app/pages/management/mod-organizatio
 import { ProjectComponent } from 'src/app/pages/management/mod-project/project/project.component';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
+import { UtilService } from 'src/app/services/util-service/util.service';
 import { DialogConfirmComponent } from '../../dialog-confirm/dialog-confirm.component';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
 
@@ -30,6 +31,7 @@ export class OrganizationInforCardComponent implements OnInit {
   urlLogo?: string;
   @Input() checkType?: any;
   constructor(
+    public utilService:UtilService,
     private pro: ProjectComponent,
     private cam: CampaignsComponent,
     private orga: OrganizationsComponent,
@@ -101,7 +103,7 @@ export class OrganizationInforCardComponent implements OnInit {
           } else if (checkType == 'cam' || this.checkType == 'cam') {
             this.cam.checkToGetData('pending');
           }
-          this.snackBar.showMessage('chấp nhận yêu cầu thành công !', true);
+          this.snackBar.showMessage('Chấp nhận yêu cầu thành công !', true);
         } else {
           this.loadingApi.isLoading.next(false);
           this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);

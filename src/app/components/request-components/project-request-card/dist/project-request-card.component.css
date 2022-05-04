@@ -40,11 +40,6 @@ button:hover {
   justify-content: space-between;
   margin: 20px 0 10px;
 }
-.card-icon div {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
 
 .margin-left {
   margin-left: 5px;

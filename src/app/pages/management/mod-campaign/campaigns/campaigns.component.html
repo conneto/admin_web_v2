@@ -104,8 +104,8 @@
         [entity]="oldData"
       ></app-list-view>
       <div class="center" *ngIf="!isList">
-        <div *ngFor="let campaign of campaigns">
-          <app-campaign-request-card
+        <div class='row p-3'*ngFor="let campaign of campaigns">
+          <app-campaign-request-card class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
             [campaign]="campaign"
           ></app-campaign-request-card>
         </div>

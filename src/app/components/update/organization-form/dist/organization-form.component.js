@@ -83,15 +83,12 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
                 [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(128),
-                    forms_1.Validators.maxLength(1000),
                 ],
             ],
             vision: [
                 this.data.vision,
                 [
                     forms_1.Validators.required,
-                    forms_1.Validators.minLength(128),
-                    forms_1.Validators.maxLength(1000),
                 ],
             ],
             website: [this.data.website],
@@ -100,8 +97,6 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
                 this.data.mission,
                 [
                     forms_1.Validators.required,
-                    forms_1.Validators.minLength(128),
-                    forms_1.Validators.maxLength(1000),
                 ],
             ],
             category: [''],

@@ -12,9 +12,7 @@
       <span class="toolbar-name" *ngIf="user">
         Xin chào, {{ user.last_name + " " + user.first_name }}
       </span>
-      <a mat-button>
-        <mat-icon matBadge="3">notifications</mat-icon>
-      </a>
+    
       <a mat-button [matMenuTriggerFor]="menu">
         <mat-icon>person</mat-icon>
       </a>

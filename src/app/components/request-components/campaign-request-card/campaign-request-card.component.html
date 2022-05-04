@@ -1,44 +1,114 @@
-<div *ngIf="campaign">
-
-    <mat-card (click)='goToDetails(campaign.id)' title="Click to see more details">
-
-      <div class="image">
-        <img src="assets/images/sugar.png" />
-        <img mat-card-image src="assets/images/ddtt18_cover.png" />
-      </div>
-      <mat-card-title>
-        {{ campaign.name }}
-      </mat-card-title>
-
-      <div class="subtitle">
-        <img mat-card-avatar src='{{campaign.org_logo}}'>
-        <mat-card-subtitle class="organization-name">{{
-          campaign.org_name
-        }}</mat-card-subtitle>
-      </div>
-      <div class="card-icon">
-        <div class="start-date">
-          <p>{{ campaign.start_date | date: "dd/MM/yyyy" }}</p>
-          <mat-card-subtitle> Ngày bắt đầu </mat-card-subtitle>
+<div *ngIf="campaign" class="w-100 h-100 shadow rounded-3">
+  <div class="cover-container position-relative">
+    <div  (click)="goToDetails(campaign.id)" 
+      class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute top-0 end-0 border-radius-8 mt-2 me-2 opacity-75"
+    >
+      <span class="font-size-8">{{
+        utilService.convertType(campaign.type)
+      }}</span>
+    </div>
+    <div class="cover">
+      <img
+        class="rounded-top"
+        onerror="this.src='assets/images/temp_bg.png'"
+        src="{{ urlApi }}/show/images?p={{ campaign.cover }}"
+      />
+    </div>
+  </div>
+  <div class="info-container p-2 d-flex flex-column justify-content-between">
+    <mat-card-title class="fs-5 primary-text-color text-truncate-2">
+      {{ campaign.name }}
+    </mat-card-title>
+    <div>
+      <div class="d-flex align-items-center">
+        <div class="circle-avatar">
+          <img
+            onerror="this.src='assets/icons/user_icon.png'"
+            src="{{ urlApi }}/show/images?p={{ campaign.pro_logo }}"
+          />
         </div>
-        <div class="budget-item">
-          <p>{{ campaign.target_number| currency: "VND" }}</p>
-          <mat-card-subtitle> Mục tiêu cần đạt </mat-card-subtitle>
+        <p class="fw-bold ms-2 text-truncate">{{ campaign.pro_name }}</p>
+      </div>
+      <div class="my-2">
+        <p class="text-truncate">
+          <b>Diễn ra:</b>
+          {{ campaign.start_date | date: "dd/MM/yyyy hh:mm" }} -
+          {{ campaign.end_date | date: "dd/MM/yyyy hh:mm" }}
+        </p>
+      </div>
+      <div>
+        <p class="mb-2">
+          <span class="fs-5 fw-bold primary-text-color"
+            >{{
+              campaign.type == "donation"
+                ? (campaign.total_donated | currency: "VND")
+                : campaign.total_participant
+            }}
+            /
+          </span>
+          <span class="fs-6">{{
+            campaign.type == "donation"
+              ? (campaign.target_number | currency: "VND")
+              : campaign.target_number + " người"
+          }}</span>
+        </p>
+        <div class="campaign__progress-bar">
+          <mat-progress-bar
+            mode="determinate"
+            value="{{ valueNumber }}"
+          ></mat-progress-bar>
         </div>
       </div>
-
-      <mat-card-actions>
-        <button (click)="approve()" title="Click to approve" mat-button>
-         Chấp nhận
-        </button>
-
-        <button (click)="reject()" title="Click to decline" mat-button>
-        Từ chối
-        </button>
-      </mat-card-actions>
-    </mat-card>
-
+      <div class="d-flex justify-content-between">
+        <div>
+          <p>
+            <span
+              >Lượt
+              {{ campaign.type == "donation" ? "quyên góp" : "tham gia" }}:
+            </span>
+            <span class="fw-bold">{{ campaign.total_participant }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-card-actions>
+    <button (click)="approve()" title="Click to approve" mat-button>
+     Chấp nhận
+    </button>
+    
+    <button (click)="reject()" title="Click to decline" mat-button>
+    Từ chối
+    </button>
+    </mat-card-actions>
 </div>
+<!-- 
+<mat-card (click)="goToDetails(campaign.id)" title="Click to see more details">
+  <div class="image">
+    <img src="assets/images/sugar.png" />
+    <img mat-card-image src="assets/images/ddtt18_cover.png" />
+  </div>
+  <mat-card-title>
+    {{ campaign.name }}
+  </mat-card-title>
+
+  <div class="subtitle">
+    <img mat-card-avatar src="{{ campaign.org_logo }}" />
+    <mat-card-subtitle class="organization-name">{{
+      campaign.org_name
+    }}</mat-card-subtitle>
+  </div>
+  <div class="card-icon">
+    <div class="start-date">
+      <p>{{ campaign.startDate | date: "dd/MM/yyyy" }}</p>
+      <mat-card-subtitle> Ngày bắt đầu </mat-card-subtitle>
+    </div>
+    <div class="budget-item">
+      <p>{{ campaign.target | currency: "VND" }}</p>
+      <mat-card-subtitle> Mục tiêu cần đạt </mat-card-subtitle>
+    </div>
+  </div>
+</mat-card> -->
 
 <!--
   <mat-card

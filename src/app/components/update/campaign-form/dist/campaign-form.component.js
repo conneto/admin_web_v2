@@ -74,7 +74,7 @@ var CampaignUpdateFormComponent = /** @class */ (function () {
     CampaignUpdateFormComponent.prototype.initForm = function () {
         this.selectedRadio = (this.data.type == 'donation') ? 'Quyên góp' : 'Tuyển tình nguyện viên';
         this.campaignForm = this.formBuilder.group({
-            selected: [this.selectedValue, forms_1.Validators.required],
+            selected: [this.selectedRadio, forms_1.Validators.required],
             name: [
                 this.data.name,
                 [
@@ -108,7 +108,7 @@ var CampaignUpdateFormComponent = /** @class */ (function () {
             job_requirement: [this.data.job_requirement],
             job_description: [this.data.job_description],
             job_benefit: [this.data.job_benefit],
-            project_id: [this.data.project_id],
+            project_id: [this.data.pro_id],
             cover: [],
             category: ['']
         });
@@ -172,13 +172,13 @@ var CampaignUpdateFormComponent = /** @class */ (function () {
                     case 1:
                         res = _b.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                            window.location.reload();
                             this.snackBar.showMessage('Cập nhật thành công', true);
                         }
                         else {
                             this.snackBar.showMessage(res === null || res === void 0 ? void 0 : res.message, false);
                         }
                         this.loadingService.isLoading.next(false);
-                        window.location.reload();
                         _b.label = 2;
                     case 2: return [2 /*return*/];
                 }

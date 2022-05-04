@@ -1,8 +1,9 @@
-import { Location } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { DownloadDocumentFormComponent } from 'src/app/components/download-document-form/download-document-form.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
@@ -53,8 +54,19 @@ export class CampaignDetailsComponent implements OnInit {
     if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
+   
+  }
+  ngAfterViewChecked():void{
+    this.checkDate();
+  }
+  checkDate(){
+
+   
+   
+    
   }
   async doCheck() {
+ 
     if (this.campaign?.is_transparent == false) {
       const data = {
         object_id: this.campaign.id,
@@ -63,6 +75,7 @@ export class CampaignDetailsComponent implements OnInit {
         note: ''
       }
       let res: BaseResponse = await this.userApi.updateRequestByAdmin(data);
+      console.log(res);
       if (res?.status == 0) {
         window.location.reload();
         this.snackBar.showMessage("Xác thực thành công !", true);

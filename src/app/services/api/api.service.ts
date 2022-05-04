@@ -86,11 +86,11 @@ export class ApiService {
     return new Promise((resolve) => {
       this.http.post(api_uri, body, options).subscribe(
         (data) => {
-          // console.log(data);
+          console.log(data);
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          // console.log(err);
+          console.log(err);
           switch (err.status) {
             case 0:
               break;
@@ -121,11 +121,11 @@ export class ApiService {
     return new Promise((resolve) => {
       this.http.get(api_uri, options).subscribe(
         (data) => {
-          // console.log(data);
+          console.log(data);
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          // console.log(err);
+          console.log(err);
           switch (err.status) {
             case 0:
               break;
@@ -152,13 +152,13 @@ export class ApiService {
       headers: this.corsHeaders,
     };
     return new Promise((resolve) => {
-      // console.log(api_uri, options);
+      console.log(api_uri, options);
       this.http.delete(api_uri, options).subscribe(
         (data) => {
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          // console.log(err);
+          console.log(err);
           switch (err.status) {
             case 0:
               break;
@@ -209,11 +209,11 @@ export class ApiService {
     return new Promise((resolve) => {
       this.http.put(api_uri, body, options).subscribe(
         (data) => {
-          // console.log(data);
+          console.log(data);
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          // console.log(err);
+          console.log(err);
           switch (err.status) {
             case 0:
               break;

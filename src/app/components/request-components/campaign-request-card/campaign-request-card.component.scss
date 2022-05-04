@@ -1,37 +1,70 @@
-mat-card-title {
-  text-align: center;
-  font-size: 18px;
-  margin: 10px 0 0;
-  color: #ffb800;
-  height: 80px;
-  
+.cover-container {
+  width: 100% !important;
+  height: 44% !important;
 }
 
-mat-card {
-  width: 350px;
-  padding-top:0 !important;
-  margin:5px;
- 
+.cover {
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.image {
+.cover img {
+  position: absolute;
+  object-fit: cover;
+  width: 0;
+  height: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
 
-  :first-child {
-    margin-top: 5px;
-    position: absolute;
-    width: 40px;
-    height: 20px;
+.info-container {
+  width: 100% !important;
+  height: 56% !important;
+}
+
+.day-left {
+  font-size: 10px;
+  display: flex;
+}
+
+
+.mat-button {
+  margin: 0 !important;
+}
+
+button {
+  background-color: rgb(175, 245, 175);
+  border: 2px solid #ddd;
+}
+
+.campaign__type {
+  z-index: 9999;
+  text-transform: uppercase;
+  background-color: #FBB800;
+  padding-inline: 8px !important;
+}
+
+.campaign {
+  &__date {
+    display: flex;
+    margin-top: 10px !important;
   }
 
-  :nth-child(2) {
-
-    img {
-      height: 200px;
-      object-fit: fill;
-      border-radius: 10px 10px 0 0;
-      
-    }
+  &__progress-bar {
+    margin-bottom: 10px;
   }
+}
+
+mat-card-subtitle {
+  display: flex;
+  align-items: center;
 }
 
 mat-card-actions {
@@ -40,7 +73,7 @@ mat-card-actions {
 
   button {
     width: 100%;
-    margin:0 5px!important;
+
   }
 
   :first-child {
@@ -50,67 +83,7 @@ mat-card-actions {
 
   :nth-child(2) {
     background-color: rgba(244, 138, 138, 1);
+    ;
   }
 
-}
-
-button:hover {
-
-  opacity: 0.7 !important;
-
-}
-
-.subtitle {
-  display: flex;
-
-  align-items: center;
-  text-align: center;
-
-  mat-card-subtitle {
-    margin-left: 10px;
-    margin-bottom: 0 !important;
-    margin-top: 0 !important;
-  }
-}
-
-.card-icon {
-  display: flex;
-  font-size: 15px !important;
-  justify-content: space-around;
-  margin: 10px 0 10px;
-
-  mat-card-subtitle {
-  
-    margin-bottom: 0 !important;
-  
-  }
-
-  .start-date,
-  .budget-item {
-    p {
-      font-weight: bold;
-    }
-    border-radius:5px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 10px;
-    border: 1px dotted #ccc !important;
-  }
-
-  div {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
-}
-
-
-
-.margin-left {
-  margin-left: 5px;
-}
-
-.mat-card-image{
-  border-radius: 10px 10px 0 0;
 }

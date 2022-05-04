@@ -205,8 +205,8 @@ var OrganizationsComponent = /** @class */ (function () {
                             else if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
-                                this.organizations = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 531; });
-                                this.oldData = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 531; });
+                                this.organizations = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521; });
+                                this.oldData = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521; });
                             }
                             setTimeout(function () {
                                 _this.loadingService.isSkeleton.next(false);

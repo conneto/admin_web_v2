@@ -112,7 +112,7 @@ var CampaignsComponent = /** @class */ (function () {
                     case 1:
                         _a.projects = _b.sent();
                         this.projects = this.projects.filter(function (x) {
-                            return x.result_code == 610 || x.result_code == 631;
+                            return x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621;
                         });
                         if (this.projects.length > 0) {
                             this.isApprovedProject = true;
@@ -253,9 +253,9 @@ var CampaignsComponent = /** @class */ (function () {
                             }
                         }
                         this.campaigns = this.campaigns.filter(function (x) {
-                            return x.result_code == 710;
+                            return x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 710 || x.result_code == 731; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721; });
                         this.isEmpty = false;
                         if (this.campaigns == [] || this.campaigns.length <= 0) {
                             this.isEmpty = true;
@@ -284,10 +284,10 @@ var CampaignsComponent = /** @class */ (function () {
                             this.campaigns[i].org_logo = (_m = (_l = this.campaigns[i]) === null || _l === void 0 ? void 0 : _l.org_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
                         }
                         this.campaigns = this.campaigns.filter(function (x) {
-                            return x.result_code == 701 || x.result_code == 703;
+                            return x.result_code == 701 || x.result_code == 703 || x.result_code == 702;
                         });
                         console.log(this.campaigns);
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 701 || x.result_code == 703; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 701 || x.result_code == 703 || x.result_code == 702; });
                         if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;
                         }

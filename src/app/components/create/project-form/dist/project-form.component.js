@@ -39,6 +39,7 @@ var ProjectFormComponent = /** @class */ (function () {
         this.userAddress = '';
         this.userLatitude = '';
         this.userLongitude = '';
+        this.uploadData = new FormData();
     }
     ProjectFormComponent.prototype.ngOnInit = function () {
         this.initForm();
@@ -63,6 +64,7 @@ var ProjectFormComponent = /** @class */ (function () {
         }
         else {
             this.noAddress = true;
+            this.locationObject = {};
         }
     };
     ProjectFormComponent.prototype.initForm = function () {
@@ -91,7 +93,7 @@ var ProjectFormComponent = /** @class */ (function () {
         this.dialogRef.close(false);
     };
     ProjectFormComponent.prototype.yesClick = function () {
-        var _a, _b, _c;
+        var _a;
         if (this.projectForm.controls.category.value.length != 0 &&
             this.projectForm.controls.category.value) {
             if (this.isRemoved == true || this.isSubmitted == true) {
@@ -112,27 +114,33 @@ var ProjectFormComponent = /** @class */ (function () {
         }
         this.isSubmitted = true;
         this.projectForm.value.category = this.categoryString;
-        if (this.projectForm.valid) {
+        if (this.projectForm.valid && !this.noAddress && !this.noLocationName) {
+            this.projectForm.value.start_date = new Date(this.projectForm.value.start_date);
+            this.projectForm.value.end_date = new Date(this.projectForm.value.end_date);
             if (!this.isSendRequest) {
                 this.locations.push(this.locationObject);
             }
             this.isSendRequest = true;
             this.projectForm.value.locations = this.locations;
-            var uploadData = new FormData();
-            uploadData.append('cover', this.coverImage, (_b = this.coverImage) === null || _b === void 0 ? void 0 : _b.name);
-            uploadData.append('logo', this.logo, (_c = this.logo) === null || _c === void 0 ? void 0 : _c.name);
-            uploadData.append('project', JSON.stringify(this.projectForm.value));
-            this.dialogRef.close(uploadData);
+            this.uploadData.append('project', JSON.stringify(this.projectForm.value));
+            this.dialogRef.close(this.uploadData);
         }
     };
     ProjectFormComponent.prototype.onChange = function (e) {
+        var _a;
         if (e.target.files && e.target.files.length > 0) {
             this.coverImage = e.target.files[0];
+            this.uploadData.append('cover', this.coverImage, (_a = this.coverImage) === null || _a === void 0 ? void 0 : _a.name);
         }
     };
     ProjectFormComponent.prototype.onChangeCover = function (e) {
+        var _a;
         if (e.target.files && e.target.files.length > 0) {
             this.logo = e.target.files[0];
+            this.uploadData.append('logo', this.logo, (_a = this.logo) === null || _a === void 0 ? void 0 : _a.name);
+        }
+        else {
+            this.noFileLogo = true;
         }
     };
     Object.defineProperty(ProjectFormComponent.prototype, "projectControl", {

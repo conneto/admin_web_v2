@@ -45,7 +45,8 @@ exports.__esModule = true;
 exports.CampaignRequestCardComponent = void 0;
 var core_1 = require("@angular/core");
 var CampaignRequestCardComponent = /** @class */ (function () {
-    function CampaignRequestCardComponent(authService, router, dialogConfirm) {
+    function CampaignRequestCardComponent(utilService, authService, router, dialogConfirm) {
+        this.utilService = utilService;
         this.authService = authService;
         this.router = router;
         this.dialogConfirm = dialogConfirm;
@@ -84,7 +85,7 @@ var CampaignRequestCardComponent = /** @class */ (function () {
             return __generator(this, function (_d) {
                 switch (_d.label) {
                     case 0: return [4 /*yield*/, this.dialogConfirm.approve(((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id) || ((_b = this.project) === null || _b === void 0 ? void 0 : _b.id) || ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id), this.isPro || this.isOrg || this.isCam)];
-                    case// console.log
+                    case 1:
                         _d.sent();
                         return [2 /*return*/];
                 }
@@ -99,7 +100,7 @@ var CampaignRequestCardComponent = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.dialogConfirm.reject(((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id) || ((_b = this.project) === null || _b === void 0 ? void 0 : _b.id) || ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id), this.isPro || this.isOrg || this.isCam)];
                     case 1:
                         _d.sent();
-                        // console.log*return*/];
+                        return [2 /*return*/];
                 }
             });
         });

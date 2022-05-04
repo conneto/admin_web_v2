@@ -137,7 +137,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
       data: {
         button: "Đồng ý",
         close: "Suy nghĩ lại",
-        message: "Bạn có chắc chắn muốn từ chối yêu cầu tham gia của tình nguyện viên này không?",
+        message: "Bạn có chắc chắn muốn xác nhận hoàn thành cho tình nguyện viên này không?",
       }
     })
     dialogRef.afterClosed().subscribe(async x => {
@@ -146,16 +146,16 @@ export class TableCampaignParticipationsComponent implements OnInit {
         const data1 = {
           object_id: e,
 
-          object_type: 'volunteer',
-          status: 'reject',
-          note: 'Reject this',
+          object_type: 'complete_volunteer',
+          status: 'approve',
+          note: 'Chúc mừng bạn đã hoàn thành chiến dịch này',
         }
-        // console.log(data1);
+        console.log(data1);
         let res: BaseResponse = await this.api.updateRequestByManager(data1);
         if (res.status == 0) {
           this.volunteer = await this.camApi.getParticipations(`${cam_id}`);
           this.loadingService.isLoading.next(false);
-          this.snackBar.showMessage("Từ chối thành công !", true);
+          this.snackBar.showMessage("Xác nhận thành công !", true);
         } else {
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage(`${res.message}`, false);

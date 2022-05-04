@@ -20,7 +20,7 @@ var AdminComponent = /** @class */ (function () {
                 name: 'Bảng điều khiển',
                 path: 'dashboard',
                 icon: 'assets/icons/dashboard_icon.png',
-                role: 'organization_manager_admin'
+                role: 'admin'
             },
             {
                 id: '2',

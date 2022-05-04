@@ -39,7 +39,7 @@ export class OrganizationUpdateFormComponent implements OnInit {
     // @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
     private snackBar: SnackBarMessageComponent
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initFormBuilder();
@@ -63,25 +63,25 @@ export class OrganizationUpdateFormComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(128),
-          Validators.maxLength(1000),
+
         ],
       ],
       vision: [
         this.data.vision,
         [
           Validators.required,
-          Validators.minLength(128),
-          Validators.maxLength(1000),
+
+
         ],
       ],
       website: [this.data.website],
-      founding_date: [new Date(this.data.founding_date).toISOString().substring(0,10), Validators.required],
+      founding_date: [new Date(this.data.founding_date).toISOString().substring(0, 10), Validators.required],
       mission: [
         this.data.mission,
         [
           Validators.required,
-          Validators.minLength(128),
-          Validators.maxLength(1000),
+
+
         ],
       ],
       category: [''],

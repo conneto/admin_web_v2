@@ -191,9 +191,9 @@ var ProjectComponent = /** @class */ (function () {
                             this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.result_code == 610 || x.result_code == 631;
+                            return x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 610 || x.result_code == 631; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621; });
                         this.isEmpty = false;
                         if (this.projects == [] || this.projects.length <= 0) {
                             this.isEmpty = true;
@@ -224,9 +224,9 @@ var ProjectComponent = /** @class */ (function () {
                             this.projects[i].organization_logo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organization_logo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.result_code == 601 || x.result_code == 603;
+                            return x.result_code == 601 || x.result_code == 603 || x.result_code == 602;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 601 || x.result_code == 603; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 601 || x.result_code == 603 || x.result_code == 602; });
                         if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;
                         }

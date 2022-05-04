@@ -1,8 +1,8 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {User} from 'src/app/models/user/user.model';
-import {UserService} from 'src/app/services/user-service/user.service';
+import { Component, Injectable, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user/user.model';
+import { UserService } from 'src/app/services/user-service/user.service';
 import 'lodash';
-import {LoadingService} from 'src/app/services/loading-service/loading.service';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 
 declare var _: any;
 

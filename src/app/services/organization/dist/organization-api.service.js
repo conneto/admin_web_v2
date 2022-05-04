@@ -79,9 +79,11 @@ var OrganizationApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.ORGANIZATIONS + "/" + id + "/" + constant_1.Constant.PROJECTS)];
                     case 1:
                         res = _a.sent();
-                        res.data = res.data.map(function (item) {
-                            return _this.projectAdapter.adapt(item);
-                        });
+                        if (res.data) {
+                            res.data = res.data.map(function (item) {
+                                return _this.projectAdapter.adapt(item);
+                            });
+                        }
                         return [2 /*return*/, res.data || []];
                 }
             });
@@ -96,9 +98,11 @@ var OrganizationApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.ORGANIZATIONS + "/" + id + "/" + constant_1.Constant.CAMPAIGNS)];
                     case 1:
                         res = _a.sent();
-                        res.data = res.data.map(function (item) {
-                            return _this.campaignAdapter.adapt(item);
-                        });
+                        if (res.data) {
+                            res.data = res.data.map(function (item) {
+                                return _this.campaignAdapter.adapt(item);
+                            });
+                        }
                         return [2 /*return*/, res.data || []];
                 }
             });

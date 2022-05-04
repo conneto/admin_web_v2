@@ -1,27 +1,66 @@
-mat-card-title {
-  text-align: center;
-  font-size: 18px;
-  margin: 10px 0 0;
-  color: #ffb800;
-  height: 80px;
+.cover-container {
+  width: 100% !important;
+  height: 44% !important;
 }
 
-mat-card {
-  width: 350px;
-  padding-top: 0 !important;
-  margin: 5px;
+.cover {
+  width: 100% !important;
+  height: 100% !important;
 }
 
-.image :first-child {
-  margin-top: 5px;
+.cover img {
   position: absolute;
-  width: 40px;
-  height: 20px;
+  object-fit: cover;
+  width: 0;
+  height: 0;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
-.image :nth-child(2) img {
-  height: 200px;
-  object-fit: fill;
-  border-radius: 10px 10px 0 0;
+
+.info-container {
+  width: 100% !important;
+  height: 56% !important;
+}
+
+.day-left {
+  font-size: 10px;
+  display: flex;
+}
+
+.mat-button {
+  margin: 0 !important;
+}
+
+button {
+  background-color: #aff5af;
+  border: 2px solid #ddd;
+}
+
+.campaign__type {
+  z-index: 9999;
+  text-transform: uppercase;
+  background-color: #FBB800;
+  padding-inline: 8px !important;
+}
+
+.campaign__date {
+  display: flex;
+  margin-top: 10px !important;
+}
+.campaign__progress-bar {
+  margin-bottom: 10px;
+}
+
+mat-card-subtitle {
+  display: flex;
+  align-items: center;
 }
 
 mat-card-actions {
@@ -30,62 +69,10 @@ mat-card-actions {
 }
 mat-card-actions button {
   width: 100%;
-  margin: 0 5px !important;
 }
 mat-card-actions :first-child {
   background-color: #8af495;
 }
 mat-card-actions :nth-child(2) {
   background-color: #f48a8a;
-}
-
-button:hover {
-  opacity: 0.7 !important;
-}
-
-.subtitle {
-  display: flex;
-  align-items: center;
-  text-align: center;
-}
-.subtitle mat-card-subtitle {
-  margin-left: 10px;
-  margin-bottom: 0 !important;
-  margin-top: 0 !important;
-}
-
-.card-icon {
-  display: flex;
-  font-size: 15px !important;
-  justify-content: space-around;
-  margin: 10px 0 10px;
-}
-.card-icon mat-card-subtitle {
-  margin-bottom: 0 !important;
-}
-.card-icon .start-date,
-.card-icon .budget-item {
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 10px;
-  border: 1px dotted #ccc !important;
-}
-.card-icon .start-date p,
-.card-icon .budget-item p {
-  font-weight: bold;
-}
-.card-icon div {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.margin-left {
-  margin-left: 5px;
-}
-
-.mat-card-image {
-  border-radius: 10px 10px 0 0;
 }

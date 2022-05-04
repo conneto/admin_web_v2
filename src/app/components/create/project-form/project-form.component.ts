@@ -37,9 +37,11 @@ export class ProjectFormComponent implements OnInit {
 
   public latitude?: number;
   public longitude?: number;
-  userAddress: string = '';
-  userLatitude: string = '';
-  userLongitude: string = '';
+  userAddress: string = ''
+  userLatitude: string = ''
+  userLongitude: string = ''
+  uploadData: any = new FormData();
+  noFileLogo?:boolean;
 
   ngOnInit(): void {
     this.initForm();
@@ -67,6 +69,7 @@ export class ProjectFormComponent implements OnInit {
       };
     } else {
       this.noAddress = true;
+      this.locationObject={};
     }
   }
   initForm() {
@@ -132,28 +135,34 @@ export class ProjectFormComponent implements OnInit {
     this.isSubmitted = true;
     this.projectForm.value.category = this.categoryString;
 
-    if (this.projectForm.valid) {
+    if (this.projectForm.valid && !this.noAddress && !this.noLocationName) {
+      this.projectForm.value.start_date = new Date(this.projectForm.value.start_date);
+      this.projectForm.value.end_date = new Date(this.projectForm.value.end_date);
+
       if (!this.isSendRequest) {
         this.locations.push(this.locationObject);
       }
       this.isSendRequest = true;
 
       this.projectForm.value.locations = this.locations;
-      let uploadData: any = new FormData();
-      uploadData.append('cover', this.coverImage, this.coverImage?.name);
-      uploadData.append('logo', this.logo, this.logo?.name);
-      uploadData.append('project', JSON.stringify(this.projectForm.value));
-      this.dialogRef.close(uploadData);
+
+
+      this.uploadData.append('project', JSON.stringify(this.projectForm.value));
+      this.dialogRef.close(this.uploadData);
     }
   }
   onChange(e: any) {
     if (e.target.files && e.target.files.length > 0) {
       this.coverImage = e.target.files[0];
+      this.uploadData.append('cover', this.coverImage, this.coverImage?.name);
     }
   }
   onChangeCover(e: any) {
     if (e.target.files && e.target.files.length > 0) {
       this.logo = e.target.files[0];
+      this.uploadData.append('logo', this.logo, this.logo?.name);
+    }else {
+      this.noFileLogo=true;
     }
   }
   get projectControl() {

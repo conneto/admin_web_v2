@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { LoadingService } from 'src/app/services/loading-service/loading.service';
 
 @Component({
   selector: 'app-load-more',
@@ -6,12 +7,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./load-more.component.scss']
 })
 export class LoadMoreComponent implements OnInit {
-
-  constructor() { }
+  @Input() oldData?: any;
+  @Input() entity?: any;
+  @Input() type?: any;
+  @Output() passData = new EventEmitter<any>();
+  isNoMore?: any;
+  @Output() noMore = new EventEmitter<any>();
+  constructor(private loading: LoadingService,) { }
 
   ngOnInit(): void {
   }
-showMore(){
-  
-}
+  sendData(e: any) {
+    this.passData.emit(e);
+  }
+  sendNoMore(e: any) {
+    this.noMore.emit(e);
+  }
+  showMore() {
+    this.loading.isLoading.next(true);
+    setTimeout(() => {
+      let newLength = this.entity.length + 8;
+
+      if (newLength > this.oldData.length) {
+        newLength = this.oldData.length;
+      }
+      this.entity = this.oldData.slice(0, newLength);
+      this.checkShowMore();
+      this.loading.isLoading.next(false);
+    }, 300)
+  }
+
+  checkShowMore() {
+    if (this.entity.length > 8) {
+      if (this.entity.length == this.oldData.length) {
+        this.isNoMore = true;
+      }
+    }
+  }
 }

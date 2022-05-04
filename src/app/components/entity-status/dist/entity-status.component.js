@@ -42,9 +42,9 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.checkAll = function () {
         this.passData = this.entityData.filter(function (x) {
-            return x.result_code == 510 || x.result_code == 531 || x.result_code == 521
-                || x.result_code == 610 || x.result_code == 631 || x.result_code == 621 ||
-                x.result_code == 710 || x.result_code == 731 || x.result_code == 721;
+            return x.result_code == 510 || x.result_code == 531 || x.result_code == 521 || x.result_code == 520
+                || x.result_code == 610 || x.result_code == 631 || x.result_code == 621 || x.result_code == 620 ||
+                x.result_code == 710 || x.result_code == 731 || x.result_code == 721 || x.result_code == 720;
         });
         if (this.passData.length == 0) {
             this.noDataAll = true;
@@ -55,11 +55,11 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.checkEnable = function () {
         this.passData = this.entityData.filter(function (x) {
-            return (x.is_active == true && x.result_code == 510 || x.result_code == 531) ||
+            return (x.is_active == true && x.result_code == 510 || x.result_code == 531 || x.result_code == 521 || x.result_code == 520) ||
                 (x.is_active == true &&
-                    x.result_code == 610 || x.result_code == 631) ||
+                    x.result_code == 610 || x.result_code == 631 || x.result_code == 621 || x.result_code == 620) ||
                 (x.is_active == true &&
-                    x.result_code == 710 || x.result_code == 731);
+                    x.result_code == 710 || x.result_code == 731 || x.result_code == 721 || x.result_code == 720);
         });
         if (this.passData.length == 0) {
             this.noDataEnable = true;
