@@ -69,13 +69,7 @@
             <p>
               {{ campaign.name }}
             </p>
-            <mat-slide-toggle style="position: absolute; right: 0"
-              *ngIf="isAdmin && (campaign.result_code == 710 || campaign.result_code == 720 || campaign.result_code == 721 || campaign.result_code == 731)"
-              [checked]="isTransparent" (change)="doCheck()">Xác thực minh bạch chiến dịch: {{
-                isTransparent
-                  ? "Đã xác thực"
-                  : "Chưa xác thực"
-              }}</mat-slide-toggle>
+   
           </div>
           <div class="content-description">
             <span>Đồng hành cùng chiến dịch:</span>

@@ -44,6 +44,7 @@ export class ProjectDetailsComponent implements OnInit {
   organization?: any;
   isEmpty?: boolean;
   isOpenUpdateForm?: boolean = false;
+  
   constructor(
     private organizationService: OrganizationApiService,
     private getEntityService: LoadingDataService,

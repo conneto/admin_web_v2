@@ -103,6 +103,12 @@
               >{{ organization.website ? organization.website : "Không có" }}</a
             >
           </div>
+          <div class="content-area">
+            <div>Nhiệm vụ của tổ chức:</div>
+            <div>
+              {{ organization.mission ? organization.mission : "Nothing" }}
+            </div>
+          </div>
           <div class="content-introduce">
             <div>Giấy phép hoạt động:</div>
 
@@ -122,8 +128,8 @@
             *ngIf="
               isAdmin &&
               (organization.result_code == 510 ||
-              organization.result_code == 520 ||
-              organization.result_code == 521 ||
+                organization.result_code == 520 ||
+                organization.result_code == 521 ||
                 organization.result_code == 531)
             "
             class="content-button"
@@ -200,9 +206,8 @@
           </div>
         </div>
       </div>
-   
-        <app-project-item [projects]="projects"></app-project-item>
-      
+
+      <app-project-item [projects]="projects"></app-project-item>
     </div>
   </div>
 </div>

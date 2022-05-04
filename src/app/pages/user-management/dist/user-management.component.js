@@ -145,19 +145,11 @@ var UserManagementComponent = /** @class */ (function () {
         this.isSearch = true;
         setTimeout(function () {
             if (e.target.value.length <= 0 || e.target.value == '') {
-                if (_this.saveEntity.length > 8) {
-                    _this.users = _this.saveEntity.splice(0, 8);
+                if (_this.saveEntity) {
+                    _this.users = _this.saveEntity;
                     _this.isEmpty = false;
                     _this.isNoMore = false;
                 }
-                else {
-                    _this.users = _this.saveEntity;
-                    _this.isEmpty = false;
-                    _this.isNoMore = true;
-                }
-                _this.users = _this.oldUsers.splice(0, 8);
-                _this.isEmpty = false;
-                _this.isNoMore = false;
             }
             else {
                 if (_this.saveEntity) {

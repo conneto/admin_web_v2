@@ -60,35 +60,29 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.isOpenUpdateForm = false;
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
-        var _a;
         this.isPDF = true;
         this.getByID();
         this.isInformation = true;
-        if (localStorage.getItem('approve')) {
+        if (localStorage.getItem("approve")) {
             this.isApproved = true;
         }
         if (this.userApi.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
-        this.isTransparent = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.is_transparent;
     };
     CampaignDetailsComponent.prototype.ngAfterViewChecked = function () {
         this.checkDate();
     };
-    CampaignDetailsComponent.prototype.checkDate = function () { };
+    CampaignDetailsComponent.prototype.checkDate = function () {
+    };
     CampaignDetailsComponent.prototype.doCheck = function () {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
             var data, res, data, res;
-            return __generator(this, function (_e) {
-                switch (_e.label) {
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
-                        if (new Date(((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.end_date) || '') > new Date()) {
-                            this.snackBar.showMessage('Chiến dịch chưa kết thúc', false);
-                            window.location.reload();
-                            return [2 /*return*/];
-                        }
-                        if (!(((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.is_transparent) == false)) return [3 /*break*/, 2];
+                        if (!(((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.is_transparent) == false)) return [3 /*break*/, 2];
                         data = {
                             object_id: this.campaign.id,
                             object_type: 'transparent',
@@ -97,35 +91,30 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         };
                         return [4 /*yield*/, this.userApi.updateRequestByAdmin(data)];
                     case 1:
-                        res = _e.sent();
+                        res = _d.sent();
+                        console.log(res);
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            this.snackBar.showMessage('Xác thực thành công!', true);
-                        }
-                        else {
-                            this.snackBar.showMessage('Lỗi hệ thống!', false);
+                            window.location.reload();
+                            this.snackBar.showMessage("Xác thực thành công !", true);
+                            this.router.navigate(["admin/manage-campaign/campaign-details/" + this.campaign.id]);
                         }
                         return [3 /*break*/, 4];
                     case 2:
                         data = {
-                            object_id: (_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id,
+                            object_id: (_b = this.campaign) === null || _b === void 0 ? void 0 : _b.id,
                             object_type: 'transparent',
                             status: 'reject',
                             note: ''
                         };
                         return [4 /*yield*/, this.userApi.updateRequestByAdmin(data)];
                     case 3:
-                        res = _e.sent();
+                        res = _d.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            this.snackBar.showMessage('Đã hủy xác thực minh bạch', true);
+                            window.location.reload();
+                            this.snackBar.showMessage("Bỏ xác nhận thành công !", true);
+                            this.router.navigate(["admin/manage-campaign/campaign-details/" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id)]);
                         }
-                        else {
-                            this.snackBar.showMessage('Lỗi hệ thống!', false);
-                        }
-                        window.location.reload();
-                        this.router.navigate([
-                            "admin/manage-campaign/campaign-details/" + ((_d = this.campaign) === null || _d === void 0 ? void 0 : _d.id),
-                        ]);
-                        _e.label = 4;
+                        _d.label = 4;
                     case 4: return [2 /*return*/];
                 }
             });
@@ -167,9 +156,9 @@ var CampaignDetailsComponent = /** @class */ (function () {
                     case 1:
                         // console.log(this.urlApi);
                         _h.campaign = _j.sent();
-                        this.urlLogo = (_b = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
-                        this.urlCover = (_d = (_c = this.campaign) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
-                        this.urlProjectLogo = (_f = (_e = this.campaign) === null || _e === void 0 ? void 0 : _e.pro_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
+                        this.urlLogo = (_b = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                        this.urlCover = (_d = (_c = this.campaign) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                        this.urlProjectLogo = (_f = (_e = this.campaign) === null || _e === void 0 ? void 0 : _e.pro_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                         switch ((_g = this.campaign) === null || _g === void 0 ? void 0 : _g.type) {
                             case 'donation':
                                 this.campaign.type = 'Quyên góp';
@@ -329,7 +318,8 @@ var CampaignDetailsComponent = /** @class */ (function () {
             });
         });
     };
-    CampaignDetailsComponent.prototype.uploadAll = function () { };
+    CampaignDetailsComponent.prototype.uploadAll = function () {
+    };
     CampaignDetailsComponent = __decorate([
         core_1.Component({
             selector: 'app-campaign-details',

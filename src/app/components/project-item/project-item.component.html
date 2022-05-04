@@ -1,8 +1,8 @@
-<div class='d-flex' *ngIf="projects"   >
+<div class='container' *ngIf="projects"   >
   <div *ngFor="let project of projects" class="ml-3 mb-3 col-xxl-4 col-md-6 col-sm-12 col-12">
 
       <mat-card 
-      
+      class='ms-3'
       (click)="goToDetail(project.id)">
         <div class="image">
           <img

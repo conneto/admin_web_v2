@@ -100,21 +100,13 @@ export class UserManagementComponent implements OnInit {
 
 
       if (e.target.value.length <= 0 || e.target.value == '') {
-        if (this.saveEntity.length > 8) {
-
-          this.users = this.saveEntity.splice(0, 8);
+        if(this.saveEntity){
+          this.users=this.saveEntity;
           this.isEmpty = false;
           this.isNoMore = false;
-
-        } else {
-          this.users = this.saveEntity
-          this.isEmpty = false;
-          this.isNoMore = true;
-
         }
-        this.users = this.oldUsers.splice(0,8);
-        this.isEmpty = false;
-        this.isNoMore = false;
+    
+   
       } else {
         if (this.saveEntity) {
           this.isEmpty = false;
