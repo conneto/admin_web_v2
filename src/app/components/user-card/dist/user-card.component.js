@@ -77,19 +77,19 @@ var UserCardComponent = /** @class */ (function () {
                             case 0:
                                 if (!data) return [3 /*break*/, 2];
                                 obj = {
-                                    "object_id": (_a = this.user) === null || _a === void 0 ? void 0 : _a.id,
-                                    "object_type": "activate_user",
-                                    "status": "disable",
-                                    "note": "Người dùng vi phạm"
+                                    object_id: (_a = this.user) === null || _a === void 0 ? void 0 : _a.id,
+                                    object_type: 'activate_user',
+                                    status: 'disable',
+                                    note: 'Người dùng vi phạm'
                                 };
                                 return [4 /*yield*/, this.userService.activateUser(obj)];
                             case 1:
                                 res = _b.sent();
                                 if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                                    this.snackBar.showMessage('Cập nhật thành công', true);
+                                    this.snackBar.showMessage('Khóa tài khoản thành công', true);
                                 }
                                 else {
-                                    this.snackBar.showMessage(res === null || res === void 0 ? void 0 : res.message, false);
+                                    this.snackBar.showMessage('Khóa tài khoản thất bại', false);
                                 }
                                 this.loadingService.isLoading.next(false);
                                 window.location.reload();
@@ -123,19 +123,19 @@ var UserCardComponent = /** @class */ (function () {
                             case 0:
                                 if (!data) return [3 /*break*/, 2];
                                 obj = {
-                                    "object_id": (_a = this.user) === null || _a === void 0 ? void 0 : _a.id,
-                                    "object_type": "activate_user",
-                                    "status": "enable",
-                                    "note": ""
+                                    object_id: (_a = this.user) === null || _a === void 0 ? void 0 : _a.id,
+                                    object_type: 'activate_user',
+                                    status: 'enable',
+                                    note: ''
                                 };
                                 return [4 /*yield*/, this.userService.activateUser(obj)];
                             case 1:
                                 res = _b.sent();
                                 if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                                    this.snackBar.showMessage('Cập nhật thành công', true);
+                                    this.snackBar.showMessage('Kích hoạt thành công', true);
                                 }
                                 else {
-                                    this.snackBar.showMessage(res === null || res === void 0 ? void 0 : res.message, false);
+                                    this.snackBar.showMessage('Kích hoạt thất bại', false);
                                 }
                                 this.loadingService.isLoading.next(false);
                                 window.location.reload();

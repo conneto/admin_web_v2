@@ -14,13 +14,12 @@ var SnackBarMessageComponent = /** @class */ (function () {
         this.horizontalPosition = 'center';
         this.verticalPosition = 'bottom';
     }
-    SnackBarMessageComponent.prototype.ngOnInit = function () {
-    };
+    SnackBarMessageComponent.prototype.ngOnInit = function () { };
     SnackBarMessageComponent.prototype.showMessage = function (message, isSuccess) {
         this.snackBar.open(message, 'OK', {
             horizontalPosition: this.horizontalPosition,
             verticalPosition: this.verticalPosition,
-            duration: 6000,
+            duration: 3000,
             panelClass: isSuccess ? ['success'] : ['fail']
         });
     };

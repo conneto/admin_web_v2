@@ -1,76 +1,42 @@
-<div
-  *ngIf="user"
-  class="user-card w-100 h-100 border-radius-16 p-2 box-shadow-1 position-relative cursor-pointer"
->
-  <a
-    class=""
-    routerLink="user-details/{{ user.id }}"
-    style="text-decoration: none; color: #000000"
-    class="w-100 h-100 d-flex flex-column align-items-center"
-  >
-    <div>
-      <img
-        class="circle-avatar-big"
-        onerror="this.src='assets/icons/user_icon.png'"
-        src="{{ urlApi }}/show/images?p={{ user.avatar }}"
-      />
-      <div
-        class="user-status content-center position-absolute top-0 left-0 p-2"
-      >
-        <span
-          *ngIf="user.is_active && !user.is_block"
-          title="Đang hoạt động"
-          class="dot__green"
-        ></span>
-        <span
-          *ngIf="!user.is_active"
-          title="Ngưng hoạt động"
-          class="dot__yellow"
-        ></span>
-        <span
-          *ngIf="user.is_block"
-          title="Bị khóa"
-          class="dot__red"
-        ></span>
-      </div>
-      <div
-        class="user__role d-flex justify-content-center align-items-center fw-bold p-1 position-absolute top-0 end-0 border-radius-8 mt-2 me-2 opacity-75"
-      >
-        <span class="font-size-8">{{
+<div *ngIf="user" class="user-card w-100 h-100 border-radius-16 p-2 box-shadow-1 position-relative cursor-pointer">
+  <div class="h-100 d-flex flex-column justify-content-between align-items-center">
+
+    <a class="" routerLink="user-details/{{ user.id }}" style="text-decoration: none; color: #000000"
+      class="w-100 h-100 d-flex flex-column align-items-center">
+      <div>
+        <img class="circle-avatar-big" onerror="this.src='assets/icons/user_icon.png'"
+          src="{{ urlApi }}/show/images?p={{ user.avatar }}" />
+        <div class="user-status content-center position-absolute top-0 left-0 p-2">
+          <span *ngIf="user.is_active && !user.is_block" title="Đang hoạt động" class="dot__green"></span>
+          <span *ngIf="!user.is_active" title="Ngưng hoạt động" class="dot__yellow"></span>
+          <span *ngIf="user.is_block" title="Bị khóa" class="dot__red"></span>
+        </div>
+        <div
+          class="user__role d-flex justify-content-center align-items-center fw-bold p-1 position-absolute top-0 end-0 border-radius-8 mt-2 me-2 opacity-75">
+          <span class="font-size-8">{{
           utilService.convertType(user.role_id)
         }}</span>
+        </div>
       </div>
-    </div>
-    <div
-      class="w-100 h-100 d-flex flex-column justify-content-around align-items-center mt-3"
-    >
-      <h6 class="fw-bold text-truncate">
-        {{ user.last_name }} {{ user.first_name }}
-      </h6>
-      <p class="small">@{{ user.username }}</p>
-      <p class="text-truncate">
-        Tham gia vào
-        <span class="fw-bold">{{ user.created_at | date: "dd/MM/yyyy" }}</span>
-      </p>
+      <div class="w-100 h-100 d-flex flex-column justify-content-around align-items-center mt-3">
+        <h6 class="fw-bold text-truncate">
+          {{ user.last_name }} {{ user.first_name }}
+        </h6>
+        <p class="small">@{{ user.username }}</p>
+        <p class="text-truncate">
+          Tham gia vào
+          <span class="fw-bold">{{ user.created_at | date: "dd/MM/yyyy" }}</span>
+        </p>
+      </div>
+    </a>
 
-      <div class="action-user">
-        <button
-          *ngIf="user.is_active && user.is_block"
-          (click)="enableUser()"
-          class="action-user__green"
-          mat-flat-button
-        >
-          Mở khóa
-        </button>
-        <button
-          *ngIf="user.is_active && !user.is_block"
-          (click)="disableUser()"
-          class="action-user__red"
-          mat-flat-button
-        >
-          Khóa tài khoản
-        </button>
-      </div>
+    <div class="action-user">
+      <button *ngIf="user.is_active && user.is_block" (click)="enableUser()" class="action-user__green" mat-flat-button>
+        Mở khóa
+      </button>
+      <button *ngIf="user.is_active && !user.is_block" (click)="disableUser()" class="action-user__red" mat-flat-button>
+        Khóa tài khoản
+      </button>
     </div>
-  </a>
+  </div>
 </div>

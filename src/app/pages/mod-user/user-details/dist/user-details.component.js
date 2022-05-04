@@ -43,13 +43,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 exports.UserDetailsComponent = void 0;
+var dialog_confirm_component_1 = require("./../../../components/dialog-confirm/dialog-confirm.component");
 var core_1 = require("@angular/core");
 var UserDetailsComponent = /** @class */ (function () {
-    function UserDetailsComponent(utilService, activatedRoute, userService, loadingService) {
+    function UserDetailsComponent(utilService, activatedRoute, userService, loadingService, dialog, snackBar) {
         this.utilService = utilService;
         this.activatedRoute = activatedRoute;
         this.userService = userService;
         this.loadingService = loadingService;
+        this.dialog = dialog;
+        this.snackBar = snackBar;
         this.urlApi = "";
         this.campaign_participations = [];
         this.userId = this.activatedRoute.snapshot.paramMap.get('id') || '';
@@ -69,7 +72,6 @@ var UserDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.userService.getById(id)];
                     case 1:
                         _a.user = _b.sent();
-                        console.log(this.user);
                         return [2 /*return*/];
                 }
             });
@@ -93,9 +95,97 @@ var UserDetailsComponent = /** @class */ (function () {
     UserDetailsComponent.prototype.getFirstCover = function (fullCover) {
         return fullCover.split('|')[0];
     };
-    UserDetailsComponent.prototype.enableUser = function () {
-    };
     UserDetailsComponent.prototype.disableUser = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var dialogRef;
+            var _this = this;
+            return __generator(this, function (_a) {
+                dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
+                    width: '360px',
+                    data: {
+                        button: 'Đồng ý',
+                        close: 'Hủy',
+                        message: 'Bạn có chắc chắn muốn khóa người dùng này?'
+                    }
+                });
+                dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
+                    var obj, res;
+                    var _a;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                if (!data) return [3 /*break*/, 2];
+                                obj = {
+                                    "object_id": (_a = this.user) === null || _a === void 0 ? void 0 : _a.id,
+                                    "object_type": "activate_user",
+                                    "status": "disable",
+                                    "note": "Người dùng vi phạm"
+                                };
+                                return [4 /*yield*/, this.userService.activateUser(obj)];
+                            case 1:
+                                res = _b.sent();
+                                if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                                    this.snackBar.showMessage('Khóa tài khoản thành công', true);
+                                }
+                                else {
+                                    this.snackBar.showMessage('Khóa tài khoản thất bại', false);
+                                }
+                                this.loadingService.isLoading.next(false);
+                                window.location.reload();
+                                _b.label = 2;
+                            case 2: return [2 /*return*/];
+                        }
+                    });
+                }); });
+                return [2 /*return*/];
+            });
+        });
+    };
+    UserDetailsComponent.prototype.enableUser = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var dialogRef;
+            var _this = this;
+            return __generator(this, function (_a) {
+                dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
+                    width: '360px',
+                    data: {
+                        button: 'Đồng ý',
+                        close: 'Hủy',
+                        message: 'Bạn có chắc chắn muốn kích hoạt người dùng này?'
+                    }
+                });
+                dialogRef.afterClosed().subscribe(function (data) { return __awaiter(_this, void 0, void 0, function () {
+                    var obj, res;
+                    var _a;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                if (!data) return [3 /*break*/, 2];
+                                obj = {
+                                    "object_id": (_a = this.user) === null || _a === void 0 ? void 0 : _a.id,
+                                    "object_type": "activate_user",
+                                    "status": "enable",
+                                    "note": ""
+                                };
+                                return [4 /*yield*/, this.userService.activateUser(obj)];
+                            case 1:
+                                res = _b.sent();
+                                if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                                    this.snackBar.showMessage('Kích hoạt thành công', true);
+                                }
+                                else {
+                                    this.snackBar.showMessage('Kích hoạt thất bại', false);
+                                }
+                                this.loadingService.isLoading.next(false);
+                                window.location.reload();
+                                _b.label = 2;
+                            case 2: return [2 /*return*/];
+                        }
+                    });
+                }); });
+                return [2 /*return*/];
+            });
+        });
     };
     UserDetailsComponent = __decorate([
         core_1.Component({

@@ -1,10 +1,14 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-snack-bar-message',
   templateUrl: './snack-bar-message.component.html',
-  styleUrls: ['./snack-bar-message.component.scss']
+  styleUrls: ['./snack-bar-message.component.scss'],
 })
 @Injectable({
   providedIn: 'root',
@@ -12,16 +16,15 @@ import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition
 export class SnackBarMessageComponent implements OnInit {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
-  constructor(private snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   showMessage(message: string, isSuccess?: boolean) {
-    this.snackBar.open(message,'OK', {
+    this.snackBar.open(message, 'OK', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
-      duration:6000,
+      duration: 3000,
       panelClass: isSuccess ? ['success'] : ['fail'],
-    })
+    });
   }
 }

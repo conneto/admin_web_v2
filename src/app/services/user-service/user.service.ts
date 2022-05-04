@@ -66,6 +66,6 @@ export class UserService {
       data
     );
 
-    return res.data || null;
+    return res;
   }
 }

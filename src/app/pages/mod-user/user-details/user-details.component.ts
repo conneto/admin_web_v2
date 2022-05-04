@@ -1,3 +1,7 @@
+import { SnackBarMessageComponent } from './../../../components/snack-bar-message/snack-bar-message.component';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmComponent } from './../../../components/dialog-confirm/dialog-confirm.component';
+import { BaseResponse } from './../../../models/base-response/base-response';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { ActivatedRoute } from '@angular/router';
@@ -20,7 +24,9 @@ export class UserDetailsComponent implements OnInit {
     public utilService: UtilService,
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private dialog: MatDialog,
+    private snackBar: SnackBarMessageComponent
   ) {
     this.userId = this.activatedRoute.snapshot.paramMap.get('id') || '';
     this.urlApi = this.loadingService.getApiGetLink.value;
@@ -33,7 +39,6 @@ export class UserDetailsComponent implements OnInit {
 
   async getUserDetails(id: string) {
     this.user = await this.userService.getById(id);
-    console.log(this.user)
   }
 
   async getCampaignParticipations(id: string) {
@@ -44,12 +49,64 @@ export class UserDetailsComponent implements OnInit {
     return fullCover.split('|')[0];
   }
 
-  enableUser() {
+  async disableUser() {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+      width: '360px',
+      data: {
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn khóa người dùng này?',
+      },
+    });
+    dialogRef.afterClosed().subscribe(async (data) => {
+      if (data) {
+        let obj: any = {
+          "object_id": this.user?.id,
+          "object_type": "activate_user",
+          "status": "disable",
+          "note": "Người dùng vi phạm"
+        }
+        let res: BaseResponse = await this.userService.activateUser(obj);
 
+        if (res?.status == 0) {
+          this.snackBar.showMessage('Khóa tài khoản thành công', true);
+        } else {
+          this.snackBar.showMessage('Khóa tài khoản thất bại', false);
+        }
+        this.loadingService.isLoading.next(false);
+        window.location.reload();
+      }
+    });
   }
 
-  disableUser() {
+  async enableUser() {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+      width: '360px',
+      data: {
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn kích hoạt người dùng này?',
+      },
+    });
+    dialogRef.afterClosed().subscribe(async (data) => {
+      if (data) {
+        let obj: any = {
+          "object_id": this.user?.id,
+          "object_type": "activate_user",
+          "status": "enable",
+          "note": ""
+        }
+        let res: BaseResponse = await this.userService.activateUser(obj);
 
+        if (res?.status == 0) {
+          this.snackBar.showMessage('Kích hoạt thành công', true);
+        } else {
+          this.snackBar.showMessage('Kích hoạt thất bại', false);
+        }
+        this.loadingService.isLoading.next(false);
+        window.location.reload();
+      }
+    });
   }
 
 }

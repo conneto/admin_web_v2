@@ -182,13 +182,19 @@ function () {
   TableCampaignParticipationsComponent.prototype.ngOnInit = function () {
     var _a;
 
+    if (this.api.currentUserValue.role_id == 'admin') {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
+
     switch (this.type) {
-      case "donation":
-        this.displayColumns = ['no', "name", "phone", 'total', 'payment_method_name', 'participate_date', "participate_message", "status"];
+      case 'donation':
+        this.displayColumns = ['no', 'name', 'phone', 'total', 'payment_method_name', 'participate_date', 'participate_message', 'status'];
         break;
 
-      case "recruitment":
-        this.displayColumns = ['no', "name", "phone", 'participate_date', "participate_message", "status", 'action'];
+      case 'recruitment':
+        this.displayColumns = ['no', 'name', 'phone', 'participate_date', 'participate_message', 'participate_info', 'status', 'action'];
         break;
     }
 
@@ -200,6 +206,7 @@ function () {
 
     this.dataSource = new table_1.MatTableDataSource(this.volunteer);
     this.urlApi = this.loadingService.getApiGetLink.value;
+    console.log(this.entity);
   };
 
   TableCampaignParticipationsComponent.prototype.ngAfterViewInit = function () {
@@ -212,8 +219,10 @@ function () {
     var dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
       width: '360px',
       data: {
-        button: "Chấp nhận",
-        message: "chấp nhận"
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn chấp nhận yêu cầu tham gia của tình nguyện viên này không?',
+        volunteer: true
       }
     });
     dialogRef.afterClosed().subscribe(function (x) {
@@ -231,9 +240,8 @@ function () {
                 object_id: e,
                 object_type: 'volunteer',
                 status: 'approve',
-                note: 'Approve this'
-              }; // console.log(data1);
-
+                note: x
+              };
               return [4
               /*yield*/
               , this.api.updateRequestByManager(data1)];
@@ -250,8 +258,9 @@ function () {
 
             case 2:
               _a.volunteer = _b.sent();
+              window.location.reload();
               this.loadingService.isLoading.next(false);
-              this.snackBar.showMessage("Chấp nhận thành công !", true);
+              this.snackBar.showMessage('Chấp nhận thành công !', true);
               return [3
               /*break*/
               , 4];
@@ -277,9 +286,10 @@ function () {
     var dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
       width: '360px',
       data: {
-        button: "Đồng ý",
-        close: "Suy nghĩ lại",
-        message: "Bạn có chắc chắn muốn từ chối yêu cầu tham gia của tình nguyện viên này không?"
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn từ chối yêu cầu tham gia của tình nguyện viên này không?',
+        reason: true
       }
     });
     dialogRef.afterClosed().subscribe(function (x) {
@@ -297,9 +307,74 @@ function () {
                 object_id: e,
                 object_type: 'volunteer',
                 status: 'reject',
-                note: 'Reject this'
-              }; // console.log(data1);
+                note: x
+              };
+              return [4
+              /*yield*/
+              , this.api.updateRequestByManager(data1)];
 
+            case 1:
+              res = _b.sent();
+              if (!(res.status == 0)) return [3
+              /*break*/
+              , 3];
+              window.location.reload();
+              _a = this;
+              return [4
+              /*yield*/
+              , this.camApi.getParticipations("" + cam_id)];
+
+            case 2:
+              _a.volunteer = _b.sent();
+              this.loadingService.isLoading.next(false);
+              this.snackBar.showMessage('Từ chối thành công !', true);
+              return [3
+              /*break*/
+              , 4];
+
+            case 3:
+              this.loadingService.isLoading.next(false);
+              this.snackBar.showMessage("" + res.message, false);
+              _b.label = 4;
+
+            case 4:
+              return [2
+              /*return*/
+              ];
+          }
+        });
+      });
+    });
+  };
+
+  TableCampaignParticipationsComponent.prototype.check = function (e, cam_id) {
+    var _this = this;
+
+    var dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
+      width: '360px',
+      data: {
+        button: 'Đồng ý',
+        close: 'Hủy',
+        message: 'Bạn có chắc chắn muốn xác nhận hoàn thành cho tình nguyện viên này không?'
+      }
+    });
+    dialogRef.afterClosed().subscribe(function (x) {
+      return __awaiter(_this, void 0, void 0, function () {
+        var data1, res, _a;
+
+        return __generator(this, function (_b) {
+          switch (_b.label) {
+            case 0:
+              if (!x) return [3
+              /*break*/
+              , 4];
+              this.loadingService.isLoading.next(true);
+              data1 = {
+                object_id: e,
+                object_type: 'complete_volunteer',
+                status: 'approve',
+                note: 'Chúc mừng bạn đã hoàn thành chiến dịch này'
+              };
               return [4
               /*yield*/
               , this.api.updateRequestByManager(data1)];
@@ -317,7 +392,7 @@ function () {
             case 2:
               _a.volunteer = _b.sent();
               this.loadingService.isLoading.next(false);
-              this.snackBar.showMessage("Từ chối thành công !", true);
+              this.snackBar.showMessage('Xác nhận thành công !', true);
               return [3
               /*break*/
               , 4];

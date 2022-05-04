@@ -65,7 +65,7 @@
             <h6>{{user?.email}}</h6>
           </div>
         </div>
-        <div  *ngIf="user?.birthday"class="col-xl-6 my-2">
+        <div *ngIf="user?.birthday" class="col-xl-6 my-2">
           <div class="bg-white border-radius-8 p-2 box-shadow-1">
             <p class="small">Sinh nhật</p>
             <h6>{{user?.birthday | date: 'dd/MM/yyyy'}}</h6>
@@ -113,9 +113,9 @@
     </div>
     <div
       class="bg-white col-12 col-sm-5 border-radius-16 box-shadow-2 p-2 justify-content-center align-items-center d-flex">
-      <button *ngIf="user?.is_active && user?.is_block" (click)='enableUser()' mat-flat-button color="success">Mở
+      <button *ngIf="user?.is_active && user?.is_block" (click)='enableUser()' mat-flat-button class="button__green">Mở
         khóa</button>
-      <button *ngIf="user?.is_active && !user?.is_block" (click)='disableUser()' mat-flat-button color="warn">Khóa tài
+      <button *ngIf="user?.is_active && !user?.is_block" (click)='disableUser()' mat-flat-button class="button__red">Khóa tài
         khoản</button>
     </div>
   </div>

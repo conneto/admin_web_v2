@@ -136,7 +136,7 @@ var UserService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.api.put("admins/activate", data)];
                     case 1:
                         res = _a.sent();
-                        return [2 /*return*/, res.data || null];
+                        return [2 /*return*/, res];
                 }
             });
         });

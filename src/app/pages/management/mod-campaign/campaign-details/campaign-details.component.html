@@ -2,21 +2,19 @@
   <div class="container">
     <div class="box">
       <div class="closeButton">
-        <button (click)="goBack()"><mat-icon>close</mat-icon></button>
+        <button (click)="goBack()">
+          <mat-icon>close</mat-icon>
+        </button>
       </div>
       <div class="header">
         <div class="header-content">
           <div
-            class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75"
-          >
-            <span
-              [ngClass]="{
+            class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75">
+            <span [ngClass]="{
                 'label-approved': campaign.result_code == 710,
                 'label-rejected': campaign.result_code == 711,
                 'label-pending': campaign.result_code == 701
-              }"
-              >{{ campaign.result_message }}</span
-            >
+              }">{{ campaign.result_message }}</span>
           </div>
           <div class="header-image">
             <img src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
@@ -24,17 +22,10 @@
         </div>
         <div class="content__tab">
           <ul>
-            <li
-              [class.content__tab-active]="isInformation"
-              (click)="getTab('infor')"
-            >
+            <li [class.content__tab-active]="isInformation" (click)="getTab('infor')">
               Thông tin
             </li>
-            <li
-              [class.content__tab-active]="isDocument"
-              (click)="getTab('doc')"
-              *ngIf="campaign.type == 'Quyên góp'"
-            >
+            <li [class.content__tab-active]="isDocument" (click)="getTab('doc')" *ngIf="campaign.type == 'Quyên góp'">
               Tài liệu
             </li>
             <li [class.content__tab-active]="isAnother" (click)="getTab('ano')">
@@ -50,21 +41,14 @@
     </div>
     <div *ngIf="isInformation" class="box box__content">
       <div class="content">
-        <div
-          class="d-flex justify-content-end"
-          *ngIf="
+        <div class="d-flex justify-content-end" *ngIf="
             (campaign.result_code == 710 ||
               campaign.result_code == 720 ||
               campaign.result_code == 721 ||
               campaign.result_code == 731) &&
             !isAdmin
-          "
-        >
-          <button
-            mat-icon-button
-            class="update"
-            (click)="isOpenUpdateForm = !isOpenUpdateForm"
-          >
+          ">
+          <button mat-icon-button class="update" (click)="isOpenUpdateForm = !isOpenUpdateForm">
             <mat-icon>edit</mat-icon>
           </button>
         </div>
@@ -74,34 +58,24 @@
             <p>
               {{ campaign.name }}
             </p>
-            <mat-slide-toggle
-              style="position: absolute; right: 0"
-              *ngIf="isAdmin && campaign.result_code == 710"
-              [checked]="campaign.is_transparent"
-              (change)="doCheck()"
-              >Xác nhận minh bạch chiến dịch:{{
-                campaign.is_transparent == true
+            <mat-slide-toggle style="position: absolute; right: 0"
+              *ngIf="isAdmin && (campaign.result_code == 710 || campaign.result_code == 720 || campaign.result_code == 721 || campaign.result_code == 731)"
+              [checked]="isTransparent" (change)="doCheck()">Xác thực minh bạch chiến dịch: {{
+                isTransparent
                   ? "Đã xác thực"
                   : "Chưa xác thực"
-              }}</mat-slide-toggle
-            >
+              }}</mat-slide-toggle>
           </div>
           <div class="content-description">
             <span>Đồng hành cùng chiến dịch:</span>
-            <img
-              class="organization__avatar"
-              src="{{ urlApi }}/show/images?p={{ urlLogo }}"
-            />
+            <img class="organization__avatar" src="{{ urlApi }}/show/images?p={{ urlLogo }}" />
             <p>
               {{ campaign.org_name }}
             </p>
           </div>
           <div class="content-description">
             <span>Thuộc dự án:</span>
-            <img
-              class="organization__avatar"
-              src="{{ urlApi }}/show/images?p={{ urlProjectLogo }}"
-            />
+            <img class="organization__avatar" src="{{ urlApi }}/show/images?p={{ urlProjectLogo }}" />
             <p>
               {{ campaign.pro_name }}
             </p>
@@ -152,15 +126,9 @@
             </p>
           </div>
           <div *ngIf="isApproved" class="delete-button">
-            <app-delete-entity
-              [type]="'cam'"
-              [entity]="campaign"
-            ></app-delete-entity>
+            <app-delete-entity [type]="'cam'" [entity]="campaign"></app-delete-entity>
           </div>
-          <app-campaign-update-form
-            *ngIf="isOpenUpdateForm"
-            [data]="campaign"
-          ></app-campaign-update-form>
+          <app-campaign-update-form *ngIf="isOpenUpdateForm" [data]="campaign"></app-campaign-update-form>
         </div>
       </div>
     </div>
@@ -172,62 +140,37 @@
             Hiện tại chiến dịch này chưa có tài liệu nào !
           </div>
           <div *ngIf="!isAdmin" class="ms-2">
-            <button
-              mat-flat-button
-              color="primary"
-              (click)="isUpload = true; isExcel = false; isPDF = false"
-            >
+            <button mat-flat-button color="primary" (click)="isUpload = true; isExcel = false; isPDF = false">
               <mat-icon>file_upload</mat-icon>Tải lên tài liệu
             </button>
           </div>
-          <button
-            *ngIf="documentExcel.length != 0"
-            mat-flat-button
-            color="primary"
-            (click)="getDocumentExcel()"
-            class="ms-2"
-          >
+          <button *ngIf="documentExcel.length != 0" mat-flat-button color="accent" (click)="getDocumentExcel()"
+            class="ms-2">
             <mat-icon>offline_pin</mat-icon> Tài liệu chi tiết dòng tiền
           </button>
-          <button
-            *ngIf="documentPDF.length > 0"
-            mat-flat-button
-            color="primary"
-            (click)="getDocument()"
-            class="ms-2"
-          >
+          <button *ngIf="documentPDF.length > 0" mat-flat-button style="background-color: yellow" (click)="getDocument()" class="ms-2 box-shadow-2">
             <mat-icon>attach_file</mat-icon> Tài liệu của chiến dịch
           </button>
         </div>
 
         <div *ngIf="isPDF || isExcel">
-          <app-show-document
-            [type]="type"
-            [entityExcel]="documentExcel"
-            [entityPDF]="documentPDF"
-          ></app-show-document>
+          <app-show-document [type]="type" [entityExcel]="documentExcel" [entityPDF]="documentPDF"></app-show-document>
         </div>
         <div *ngIf="!isAdmin && isUpload">
           <h6 style="display: flex; align-items: center">
             Vui lòng bạn
             <button class="file_template" mat-button color="primary">
               <a href="assets/doc/cashflow_detail_template.xlsx" download>
-                Tải về biểu mẫu</a
-              ></button
-            >, điền đầy đủ thông tin yêu cầu theo mẫu và tải lên lại.
+                Tải về biểu mẫu</a></button>, điền đầy đủ thông tin yêu cầu theo mẫu và tải lên lại.
           </h6>
-          <app-download-document-form
-            (isUploaded)="getValue($event)"
-            [campaign]="campaign"
-          ></app-download-document-form>
+          <app-download-document-form (isUploaded)="getValue($event)" [campaign]="campaign">
+          </app-download-document-form>
         </div>
       </div>
     </div>
     <div *ngIf="isAnother && isEmpty == false">
-      <app-table-campaign-participations
-        [type]="type"
-        [volunteer]="volunteer"
-      ></app-table-campaign-participations>
+      <app-table-campaign-participations [type]="type" [volunteer]="volunteer" [entity]="campaign">
+      </app-table-campaign-participations>
     </div>
   </div>
 </div>

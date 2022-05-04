@@ -40,16 +40,16 @@ export class UserCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         let obj: any = {
-          "object_id": this.user?.id,
-          "object_type": "activate_user",
-          "status": "disable",
-          "note": "Người dùng vi phạm"
-        }
+          object_id: this.user?.id,
+          object_type: 'activate_user',
+          status: 'disable',
+          note: 'Người dùng vi phạm',
+        };
         let res: BaseResponse = await this.userService.activateUser(obj);
         if (res?.status == 0) {
-          this.snackBar.showMessage('Cập nhật thành công', true);
+          this.snackBar.showMessage('Khóa tài khoản thành công', true);
         } else {
-          this.snackBar.showMessage(res?.message, false);
+          this.snackBar.showMessage('Khóa tài khoản thất bại', false);
         }
         this.loadingService.isLoading.next(false);
         window.location.reload();
@@ -69,16 +69,16 @@ export class UserCardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         let obj: any = {
-          "object_id": this.user?.id,
-          "object_type": "activate_user",
-          "status": "enable",
-          "note": ""
-        }
+          object_id: this.user?.id,
+          object_type: 'activate_user',
+          status: 'enable',
+          note: '',
+        };
         let res: BaseResponse = await this.userService.activateUser(obj);
         if (res?.status == 0) {
-          this.snackBar.showMessage('Cập nhật thành công', true);
+          this.snackBar.showMessage('Kích hoạt thành công', true);
         } else {
-          this.snackBar.showMessage(res?.message, false);
+          this.snackBar.showMessage('Kích hoạt thất bại', false);
         }
         this.loadingService.isLoading.next(false);
         window.location.reload();
