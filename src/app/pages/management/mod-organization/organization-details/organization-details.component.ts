@@ -89,7 +89,7 @@ export class OrganizationDetailsComponent implements OnInit {
   async getValueFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
     this.organization = await this.orgApi.getById(`${id}`);
-    if (this.organization?.result_code == 510) {
+    if (this.organization?.result_code == 510 || this.organization?.result_code == 531) {
       this.isApproved = true;
     }
     this.loadingService.getOrganizationId.next(`${id}`);

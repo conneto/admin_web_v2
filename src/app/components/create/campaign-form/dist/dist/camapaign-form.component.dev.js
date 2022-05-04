@@ -256,7 +256,7 @@ function () {
           case 3:
             _b.cloneProjects = _c.sent();
             this.projects = this.cloneProjects.filter(function (x) {
-              return x.resultCode == 610;
+              return x.result_code == 610;
             });
             _c.label = 4;
 

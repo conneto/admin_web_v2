@@ -1,6 +1,11 @@
 <div *ngIf="isLoaded">
-  <app-tabgroup #tabGroup (getState)="getTabGroupState($event)" [entity]="'pro'" [object]="passData"></app-tabgroup>
-  <div class="row p-3 project-card">
+  <app-tabgroup
+    #tabGroup
+    (getState)="getTabGroupState($event)"
+    [entity]="'pro'"
+    [object]="passData"
+  ></app-tabgroup>
+  <div  class="row p-3 project-card">
     <div *ngIf="isRequest">
       <div class="search-bar" *ngIf="!isEmpty">
         <div *ngIf="!noResultBySearch; then name; else result"></div>
@@ -16,9 +21,16 @@
           </div>
         </ng-template>
 
-        <app-search-bar *ngIf="!isList" (getItem)="getData($event)" [entity]="passData" [entityCopy]="oldData">
-        </app-search-bar>
-        <app-change-to-list #changeView (handleTitle)="handleTitle($event)"></app-change-to-list>
+        <app-search-bar
+          *ngIf="!isList"
+          (getItem)="getData($event)"
+          [entity]="passData"
+          [entityCopy]="oldData"
+        ></app-search-bar>
+        <app-change-to-list
+          #changeView
+          (handleTitle)="handleTitle($event)"
+        ></app-change-to-list>
       </div>
       <app-list-view [whichEntity]="'pro'" *ngIf="isList" [entity]="oldData"></app-list-view>
       <div *ngIf="!isList" class="request-component">
@@ -28,7 +40,7 @@
 
     <div *ngIf="!isRequest">
       <div *ngIf="projects">
-        <div style="justify-content: space-around" class="row">
+        <div  style='justify-content: space-around;' class="row">
           <div class="search-bar mb-3" *ngIf="!isEmpty">
             <div *ngIf="!noResultBySearch; then name; else result"></div>
             <ng-template #name>
@@ -58,8 +70,14 @@
           </div>
 
           <div *ngIf="!isList" class="row">
-            <div class="mb-3 col-xxl-4 col-md-6 col-sm-12 col-12" *ngFor="let project of projects">
-              <a routerLink="project-request-detail/{{ project.id }}" style="text-decoration: none">
+            <div
+              class="  mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+              *ngFor="let project of projects"
+            >
+              <a
+                routerLink="project-request-detail/{{ project.id }}"
+                style="text-decoration: none"
+              >
                 <mat-card class="w-100 h-100 shadow rounded-3">
                   <div class="image">
                     <img loading="lazy" alt="Cover of this project" mat-card-image
@@ -89,7 +107,7 @@
         </div>
       </div>
     </div>
-    <div *ngIf="isEmpty">
+    <div class='d-flex' *ngIf="isEmpty">
       Hiện tại không có dự án nào được tạo!
       <div *ngIf="!isAdmin && organization.length != 0" class="ms-2">
         <div *ngFor="let o of organization" class="project__button-create">
@@ -100,6 +118,5 @@
           </button>
         </div>
       </div>
-    </div>
-  </div>
+    </div></div>
 </div>

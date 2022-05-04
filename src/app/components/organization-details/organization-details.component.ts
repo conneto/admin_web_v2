@@ -90,12 +90,11 @@ export class OrganizationDetailsComponent implements OnInit {
     if (this.organization?.result_code == 510) {
       this.isApproved = true;
     }
-    this.loadingService.getOrganizationId.next(
-      `${this.organizationInput[0]?.id}`
-    );
-    this.urlLogo = this.organization?.logo?.replace(/\\/g, '/');
-    this.urlCover = this.organization?.cover?.split('|')[0];
-
+    this.loadingService.getOrganizationId.next(`${this.organizationInput[0]?.id}`);
+    this.urlLogo = this.organization?.logo?.replace(/\\/g, '\/');
+    console.log(this.organization?.cover);
+    // this.urlCover = this.organization?.cover?.split('|')[0];
+    console.log(this.urlCover);
     switch (this.organization?.type) {
       case 'ngo':
         this.organization.type = 'Tổ chức phi chính phủ';

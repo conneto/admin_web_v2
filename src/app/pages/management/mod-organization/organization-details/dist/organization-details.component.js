@@ -84,22 +84,22 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-        var _a, _b;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _c;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            var id, _d;
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
                         id = this.route.snapshot.paramMap.get('id');
-                        _c = this;
+                        _d = this;
                         return [4 /*yield*/, this.orgApi.getById("" + id)];
                     case 1:
-                        _c.organization = _d.sent();
-                        if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
+                        _d.organization = _e.sent();
+                        if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510 || ((_b = this.organization) === null || _b === void 0 ? void 0 : _b.result_code) == 531) {
                             this.isApproved = true;
                         }
                         this.loadingService.getOrganizationId.next("" + id);
-                        switch ((_b = this.organization) === null || _b === void 0 ? void 0 : _b.type) {
+                        switch ((_c = this.organization) === null || _c === void 0 ? void 0 : _c.type) {
                             case 'ngo':
                                 this.organization.type = 'Tổ chức phi chính phủ';
                                 break;

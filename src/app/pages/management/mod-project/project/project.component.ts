@@ -188,9 +188,9 @@ export class ProjectComponent implements OnInit {
         }
 
         this.projects = this.projects.filter(x => {
-          return x.result_code == 601;
+          return x.result_code == 601 || x.result_code==603;
         })
-        this.oldData = this.passData.filter(x => x.result_code == 601);
+        this.oldData = this.passData.filter(x => x.result_code == 601 || x.result_code==603);
         if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {

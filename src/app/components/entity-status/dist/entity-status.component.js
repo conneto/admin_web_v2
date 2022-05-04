@@ -29,7 +29,7 @@ var EntityStatusComponent = /** @class */ (function () {
         this.passData = this.entityData.filter(function (x) {
             return x.is_active == false && x.result_code == 510 ||
                 x.is_active == false &&
-                    x.resultCode == 610 ||
+                    x.result_code == 610 ||
                 x.is_active == false && x.result_code == 710;
             ;
         });
@@ -42,7 +42,7 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.checkAll = function () {
         this.passData = this.entityData.filter(function (x) {
-            return x.result_code == 510 || x.resultCode == 610 || x.result_code == 710;
+            return x.result_code == 510 || x.result_code == 610 || x.result_code == 710;
         });
         if (this.passData.length == 0) {
             this.noDataAll = true;
@@ -53,11 +53,11 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.checkEnable = function () {
         this.passData = this.entityData.filter(function (x) {
-            return x.is_active == true && x.result_code == 510 ||
-                x.is_active == true &&
-                    x.resultCode == 610 ||
-                x.is_active == true &&
-                    x.result_code == 710;
+            return (x.is_active == true && x.result_code == 510 || x.result_code == 531) ||
+                (x.is_active == true &&
+                    x.result_code == 610 || x.result_code == 631) ||
+                (x.is_active == true &&
+                    x.result_code == 710 || x.result_code == 731);
         });
         if (this.passData.length == 0) {
             this.noDataEnable = true;
@@ -68,7 +68,7 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.getStatus = function (e) {
         if (e) {
-            // console.log{
+            switch (e) {
                 case 'Tất cả':
                     this.checkAll();
                     this.sendData(this.passData);

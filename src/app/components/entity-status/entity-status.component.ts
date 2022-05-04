@@ -34,7 +34,7 @@ export class EntityStatusComponent implements OnInit {
     this.passData = this.entityData.filter((x: any) => {
       return x.is_active == false && x.result_code == 510 ||
         x.is_active == false &&
-        x.resultCode == 610 ||
+        x.result_code == 610 ||
         x.is_active == false && x.result_code == 710;;
     })
     if (this.passData.length == 0) {
@@ -45,7 +45,7 @@ export class EntityStatusComponent implements OnInit {
   }
   checkAll() {
     this.passData = this.entityData.filter((x: any) => {
-      return x.result_code == 510 || x.resultCode == 610 || x.result_code == 710;
+      return x.result_code == 510 || x.result_code == 610 || x.result_code == 710;
     })
     if (this.passData.length == 0) {
       this.noDataAll = true;
@@ -55,11 +55,11 @@ export class EntityStatusComponent implements OnInit {
   }
   checkEnable() {
     this.passData = this.entityData.filter((x: any) => {
-      return x.is_active == true && x.result_code == 510 ||
-        x.is_active == true &&
-        x.resultCode == 610 ||
-        x.is_active == true &&
-        x.result_code == 710;
+      return (x.is_active == true && x.result_code == 510 || x.result_code == 531) ||
+        (x.is_active == true &&
+          x.result_code == 610 || x.result_code == 631) ||
+        (x.is_active == true &&
+          x.result_code == 710 || x.result_code == 731)
     })
     if (this.passData.length == 0) {
       this.noDataEnable = true;

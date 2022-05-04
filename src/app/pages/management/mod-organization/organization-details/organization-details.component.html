@@ -105,12 +105,13 @@
           </div>
           <div class="content-introduce">
             <div>Giấy phép hoạt động:</div>
-            <div>
-              <a href='{{urlApi}}/show/files?p={{organization.operating_license}}' download>
-                Tài liệu
+
+              <a style='display:flex' href='{{urlApi}}/show/files?p={{organization.operating_license}}' download>
                 <img style="width: 25px" src="./assets/icons/pdf.svg" />
+                Xem tài liệu
+
               </a>
-            </div>
+
           </div>
           <div *ngIf="isApproved" class="content-button">
             <div *ngIf="isApproved">

@@ -26,7 +26,7 @@ export class Campaign {
         public pro_name?: string,
         public pro_logo?: string,
         public result_note?: string,
-        public result_name?: string,
+        public result_message?: string,
         public result_code?:number,
         public createdAt?:number,
         public category?:string,

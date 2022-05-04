@@ -48,13 +48,13 @@ export class AdminComponent implements OnInit {
       icon: 'assets/icons/campaign_icon.png',
       role: 'organization_manager_admin',
     },
-    {
-      id: '6',
-      name: 'Quản lý tình nguyện viên',
-      path: 'manage-volunteer',
-      icon: 'assets/icons/volunteer_icon.png',
-      role: 'organization_manager',
-    },
+    // {
+    //   id: '6',
+    //   name: 'Quản lý tình nguyện viên',
+    //   path: 'manage-volunteer',
+    //   icon: 'assets/icons/volunteer_icon.png',
+    //   role: 'organization_manager',
+    // },
   ];
   user?: UserLoginResponse;
 

@@ -272,5 +272,18 @@ td {
 
 .disable {
   background-color: #f48a8a;
+<<<<<<< HEAD
 >>>>>>> 12053f2f93049c540c1f3de65fdef664576554db
+=======
+}
+
+.campaign__type {
+  z-index: 9999;
+  text-transform: uppercase;
+  background-color: #ddd;
+  margin-left: 0.5rem;
+}
+.campaign__type span {
+  font-size: 15px !important;
+>>>>>>> 5db114e18265cf58e2d7e0a276d9f353320bc77e
 }

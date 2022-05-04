@@ -9,7 +9,7 @@ exports.__esModule = true;
 exports.CampaignAdapter = exports.Campaign = void 0;
 var core_1 = require("@angular/core");
 var Campaign = /** @class */ (function () {
-    function Campaign(id, name, description, cover, type, startDate, endDate, totalDonated, totalPaticipant, target, jobRequirement, jobDescription, jobBenefit, donation_documentents, is_active, org_name, org_id, org_logo, pro_id, pro_name, pro_logo, result_note, result_name, result_code, createdAt, category, is_transparent) {
+    function Campaign(id, name, description, cover, type, startDate, endDate, totalDonated, totalPaticipant, target, jobRequirement, jobDescription, jobBenefit, donation_documentents, is_active, org_name, org_id, org_logo, pro_id, pro_name, pro_logo, result_note, result_message, result_code, createdAt, category, is_transparent) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,7 +32,7 @@ var Campaign = /** @class */ (function () {
         this.pro_name = pro_name;
         this.pro_logo = pro_logo;
         this.result_note = result_note;
-        this.result_name = result_name;
+        this.result_message = result_message;
         this.result_code = result_code;
         this.createdAt = createdAt;
         this.category = category;

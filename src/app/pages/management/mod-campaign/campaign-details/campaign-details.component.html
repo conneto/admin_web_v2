@@ -6,6 +6,18 @@
       </div>
       <div class="header">
         <div class="header-content">
+          <div
+            class="campaign__type d-flex justify-content-center align-items-center fw-bold p-1 position-absolute border-radius-8 mt-2 me-2 opacity-75"
+          >
+            <span
+              [ngClass]="{
+                'label-approved': campaign.result_code == 710,
+                'label-rejected': campaign.result_code == 711,
+                'label-pending': campaign.result_code == 701
+              }"
+              >{{ campaign.result_message }}</span
+            >
+          </div>
           <div class="header-image">
             <img src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
           </div>
@@ -44,7 +56,16 @@
             <p>
               {{ campaign.name }}
             </p>
-            <mat-slide-toggle  *ngIf='isAdmin && campaign.result_code==710' [checked]="campaign.is_transparent" (change)="doCheck()">Xác nhận minh bạch chiến dịch:{{campaign.is_transparent==true?"Đã xác thực":"Chưa xác thực"}}</mat-slide-toggle>
+            <mat-slide-toggle style='position: absolute;right:0'
+              *ngIf="isAdmin && campaign.result_code == 710"
+              [checked]="campaign.is_transparent"
+              (change)="doCheck()"
+              >Xác nhận minh bạch chiến dịch:{{
+                campaign.is_transparent == true
+                  ? "Đã xác thực"
+                  : "Chưa xác thực"
+              }}</mat-slide-toggle
+            >
           </div>
           <div class="content-description">
             <span>Đồng hành cùng chiến dịch:</span>

@@ -224,9 +224,9 @@ var ProjectComponent = /** @class */ (function () {
                             this.projects[i].organization_logo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organization_logo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.result_code == 601;
+                            return x.result_code == 601 || x.result_code == 603;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 601; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 601 || x.result_code == 603; });
                         if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;
                         }

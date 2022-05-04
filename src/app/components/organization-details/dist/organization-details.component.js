@@ -89,16 +89,18 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         console.log(this.organizationInput.operating_license);
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_h) {
+            return __generator(this, function (_g) {
                 if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
                     this.isApproved = true;
                 }
                 this.loadingService.getOrganizationId.next("" + ((_b = this.organizationInput[0]) === null || _b === void 0 ? void 0 : _b.id));
-                this.urlLogo = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
-                this.urlCover = (_f = (_e = this.organization) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.split('|')[0];
-                switch ((_g = this.organization) === null || _g === void 0 ? void 0 : _g.type) {
+                this.urlLogo = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                console.log((_e = this.organization) === null || _e === void 0 ? void 0 : _e.cover);
+                // this.urlCover = this.organization?.cover?.split('|')[0];
+                console.log(this.urlCover);
+                switch ((_f = this.organization) === null || _f === void 0 ? void 0 : _f.type) {
                     case 'ngo':
                         this.organization.type = 'Tổ chức phi chính phủ';
                         break;

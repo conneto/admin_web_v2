@@ -58,7 +58,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private organizationService: OrganizationApiService,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.authService.currentUserValue.role_id == 'admin') {
@@ -74,8 +74,8 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     this.loadingService.isSkeleton.next(true);
   }
 
-  ngAfterViewInit(): void {}
-  ngOnDestroy(): void {}
+  ngAfterViewInit(): void { }
+  ngOnDestroy(): void { }
   getTabGroupState(e: any) {
     if (e) {
       if (e == 'reject') {
@@ -194,9 +194,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.isEmpty = false;
             this.noOrg = false;
             this.organizations = this.passData.filter(
-              (x) => x.result_code == 510 || x.result_code == 520
+              (x) => x.result_code == 510 || x.result_code == 531
             );
-            this.oldData = this.passData.filter((x) => x.result_code == 510 || x.result_code == 520);
+            this.oldData = this.passData.filter((x) => x.result_code == 510 || x.result_code == 531);
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
@@ -215,7 +215,6 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           this.organizations = this.organizations.filter(
             (x) => x.result_code == 511
           );
-          // console.log(this.organizations);
           this.oldData = this.passData.filter((x) => x.result_code == 511);
 
           this.isEmpty = false;
@@ -241,9 +240,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.isRequest = false;
           }
           this.organizations = this.organizations.filter(
-            (x) => x.result_code == 501 || x.result_code == 502 || x.result_code == 503
+            (x) => x.result_code == 501 || x.result_code == 503
           );
-          this.oldData = this.passData.filter((x) => x.result_code == 501 || x.result_code == 502 || x.result_code == 503);
+          this.oldData = this.passData.filter((x) => x.result_code == 501  || x.result_code == 503);
 
           this.isEmpty = false;
 

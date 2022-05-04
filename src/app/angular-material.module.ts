@@ -1,3 +1,4 @@
+import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -43,7 +44,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
-import { GoogleMapsModule } from '@angular/google-maps';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 
 
@@ -95,10 +96,10 @@ const materialModules = [
     NgxDropzoneModule,
     NgxSkeletonLoaderModule,
     MatSlideToggleModule,
-   
+    NgxCurrencyModule,
     GooglePlaceModule,
     GoogleMapsModule,
-   
+
 ];
 
 @NgModule({

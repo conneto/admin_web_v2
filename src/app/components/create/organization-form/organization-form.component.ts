@@ -46,7 +46,6 @@ export class OrganizationFormComponent implements OnInit {
 
   public latitude?: number;
   public longitude?: number;
-  public selectedAddress?: PlaceResult;
 
   constructor(
     private org: OrganizationsComponent,

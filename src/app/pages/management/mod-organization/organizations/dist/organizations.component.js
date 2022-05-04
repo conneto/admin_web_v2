@@ -205,8 +205,8 @@ var OrganizationsComponent = /** @class */ (function () {
                             else if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
-                                this.organizations = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 520; });
-                                this.oldData = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 520; });
+                                this.organizations = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 531; });
+                                this.oldData = this.passData.filter(function (x) { return x.result_code == 510 || x.result_code == 531; });
                             }
                             setTimeout(function () {
                                 _this.loadingService.isSkeleton.next(false);
@@ -220,7 +220,6 @@ var OrganizationsComponent = /** @class */ (function () {
                                 this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
                             }
                             this.organizations = this.organizations.filter(function (x) { return x.result_code == 511; });
-                            // console.log(this.organizations);
                             this.oldData = this.passData.filter(function (x) { return x.result_code == 511; });
                             this.isEmpty = false;
                             if (this.organizations == null || this.organizations.length <= 0) {
@@ -242,8 +241,8 @@ var OrganizationsComponent = /** @class */ (function () {
                             else {
                                 this.isRequest = false;
                             }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code == 501 || x.result_code == 502 || x.result_code == 503; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 501 || x.result_code == 502 || x.result_code == 503; });
+                            this.organizations = this.organizations.filter(function (x) { return x.result_code == 501 || x.result_code == 503; });
+                            this.oldData = this.passData.filter(function (x) { return x.result_code == 501 || x.result_code == 503; });
                             this.isEmpty = false;
                             if (this.organizations == null || this.organizations.length <= 0) {
                                 this.isEmpty = true;

@@ -240,7 +240,7 @@ function () {
           case 1:
             _a.projects = _b.sent();
             this.projects = this.projects.filter(function (x) {
-              return x.resultCode == 610;
+              return x.result_code == 610;
             });
 
             if (this.projects.length > 0) {

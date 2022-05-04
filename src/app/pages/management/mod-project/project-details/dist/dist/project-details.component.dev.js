@@ -288,7 +288,7 @@ function () {
             _e.project = _f.sent();
             this.loadingService.projectId.next("" + id);
 
-            if (this.project.resultCode == 610) {
+            if (this.project.result_code == 610) {
               this.isApproved = true;
             }
 

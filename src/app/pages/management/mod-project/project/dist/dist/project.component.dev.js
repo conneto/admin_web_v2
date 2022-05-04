@@ -330,10 +330,10 @@ function () {
             }
 
             this.projects = this.projects.filter(function (x) {
-              return x.resultCode == 610;
+              return x.result_code == 610;
             });
             this.oldData = this.passData.filter(function (x) {
-              return x.resultCode == 610;
+              return x.result_code == 610;
             });
             this.isEmpty = false;
 
@@ -354,10 +354,10 @@ function () {
             }
 
             this.projects = this.projects.filter(function (x) {
-              return x.resultCode == 611;
+              return x.result_code == 611;
             });
             this.oldData = this.passData.filter(function (x) {
-              return x.resultCode == 611;
+              return x.result_code == 611;
             });
             this.isEmpty = false;
 
@@ -377,10 +377,10 @@ function () {
             }
 
             this.projects = this.projects.filter(function (x) {
-              return x.resultCode == 601;
+              return x.result_code == 601;
             });
             this.oldData = this.passData.filter(function (x) {
-              return x.resultCode == 601;
+              return x.result_code == 601;
             });
 
             if (this.authApi.currentUserValue.role_id == 'admin') {

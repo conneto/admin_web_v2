@@ -160,6 +160,7 @@ export class DeleteEntityComponent implements OnInit {
     });
   }
   async delete() {
+    console.log(this.entity?.id);
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
@@ -171,11 +172,13 @@ export class DeleteEntityComponent implements OnInit {
             : this.type == 'cam'
             ? 'Bạn có chắc chắn muốn xóa chiến dịch này không?'
             : this.type == 'pro'
-            ? 'Bạn có chắc chắn muốn xóa dự án này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ xóa theo'
-            : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị xóa theo',
+              ? 'Bạn có chắc chắn muốn xóa dự án này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ xóa theo'
+              : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị xóa theo',
+
       },
     });
     dialogRef.afterClosed().subscribe(async (data) => {
+
       if (data) {
         let res: BaseResponse;
         this.loading.isLoading.next(true);

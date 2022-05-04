@@ -10,7 +10,11 @@
               'label-pending': e.result_code == 501
             }">{{ e.result_message }}</span>
         </div>
-        <img loading="lazy" src="{{ urlApi }}/show/images?p={{ convertCover(e.cover) }}" alt="" />
+        <img
+          loading="lazy"
+          src="{{ urlApi }}/show/images?p={{ e.cover }}"
+          alt=""
+        />
       </div>
       <div class="content__tab">
         <ul>
@@ -85,18 +89,28 @@
                 e.website ? e.website : 'google.com'
               }}">{{ e.website ? e.website : "Không có" }}</a>
           </div>
+<<<<<<< HEAD
           <div class="content-introduce" *ngIf="e.operating_license">
             <div>Giấy phép hoạt động:</div>
             <div>
               <a href='{{urlApi}}/show/files?p={{e.operating_license}}' download>
                 {{e.operating_license}}
+=======
+          <div class="content-introduce">
+            <div>Giấy phép lao động:</div>
+
+              <a style='display:flex' href='{{urlApi}}/show/files?p={{e.operating_license}}' download>
+
+>>>>>>> 5db114e18265cf58e2d7e0a276d9f353320bc77e
                 <img style="width: 25px" src="./assets/icons/pdf.svg" />
+                Xem tài liệu
+
               </a>
-            </div>
+
           </div>
           <div *ngIf="e.result_code==510 || e.result_code==503" class="content-button">
             <div>
-              <app-delete-entity [type]="'org'" [entity]="organization"></app-delete-entity>
+              <app-delete-entity [type]="'org'" [entity]="e"></app-delete-entity>
             </div>
           </div>
           <app-organization-update-form *ngIf="isOpenUpdateForm" [data]="e"></app-organization-update-form>
