@@ -4,6 +4,7 @@ import { Campaign } from 'src/app/models/campaign/campaign.model';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { UtilService } from 'src/app/services/util-service/util.service';
 import { OrganizationInforCardComponent } from '../organization-infor-card/organization-infor-card.component';
 
 @Component({
@@ -20,14 +21,16 @@ export class CampaignRequestCardComponent implements OnInit {
   isPro: string = '';
   isOrg: string = '';
   isCam: string = '';
-  urlLogo?:string;
-  urlApi?:string;
-  urlCover?:string;
-  isAdmin?:boolean;
-  constructor(private authService:AuthService,private router:Router,private dialogConfirm:OrganizationInforCardComponent) { }
+  urlLogo?: string;
+  urlApi?: string;
+  urlCover?: string;
+  isAdmin?: boolean;
+  valueNumber?: any;
+  constructor(public utilService: UtilService, private authService: AuthService, private router: Router, private dialogConfirm: OrganizationInforCardComponent) { }
 
   ngOnInit(): void {
     this.check();
+    
     if (this.authService.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
@@ -50,10 +53,10 @@ export class CampaignRequestCardComponent implements OnInit {
       this.isPro = 'pro';
     }
   }
-   async approve() {
+  async approve() {
     await this.dialogConfirm.approve(this.organization?.id || this.project?.id || this.campaign?.id, this.isPro || this.isOrg || this.isCam);
   }
-   async reject() {
+  async reject() {
     await this.dialogConfirm.reject(this.organization?.id || this.project?.id || this.campaign?.id, this.isPro || this.isOrg || this.isCam);
   }
 }

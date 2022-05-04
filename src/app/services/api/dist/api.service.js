@@ -60,10 +60,10 @@ var ApiService = /** @class */ (function () {
         };
         return new Promise(function (resolve) {
             _this.http.post(api_uri, body, options).subscribe(function (data) {
-                // console.log(data);
+                console.log(data);
                 resolve(_this.baseResponseAdapter.adapt(data));
             }, function (err) {
-                // console.log(err);
+                console.log(err);
                 switch (err.status) {
                     case 0:
                         break;
@@ -88,10 +88,10 @@ var ApiService = /** @class */ (function () {
         };
         return new Promise(function (resolve) {
             _this.http.get(api_uri, options).subscribe(function (data) {
-                // console.log(data);
+                console.log(data);
                 resolve(_this.baseResponseAdapter.adapt(data));
             }, function (err) {
-                // console.log(err);
+                console.log(err);
                 switch (err.status) {
                     case 0:
                         break;
@@ -115,11 +115,11 @@ var ApiService = /** @class */ (function () {
             headers: this.corsHeaders
         };
         return new Promise(function (resolve) {
-            // console.log(api_uri, options);
+            console.log(api_uri, options);
             _this.http["delete"](api_uri, options).subscribe(function (data) {
                 resolve(_this.baseResponseAdapter.adapt(data));
             }, function (err) {
-                // console.log(err);
+                console.log(err);
                 switch (err.status) {
                     case 0:
                         break;
@@ -153,10 +153,10 @@ var ApiService = /** @class */ (function () {
         };
         return new Promise(function (resolve) {
             _this.http.put(api_uri, body, options).subscribe(function (data) {
-                // console.log(data);
+                console.log(data);
                 resolve(_this.baseResponseAdapter.adapt(data));
             }, function (err) {
-                // console.log(err);
+                console.log(err);
                 switch (err.status) {
                     case 0:
                         break;

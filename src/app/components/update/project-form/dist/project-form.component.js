@@ -75,7 +75,6 @@ var ProjectUpdateFormComponent = /** @class */ (function () {
                 [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(128),
-                    forms_1.Validators.maxLength(256),
                 ],
             ],
             start_date: [
@@ -93,11 +92,11 @@ var ProjectUpdateFormComponent = /** @class */ (function () {
         });
     };
     ProjectUpdateFormComponent.prototype.update = function () {
-        var _a, _b;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
             var i, i, uploadData, res;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         if (this.projectForm.controls.category.value.length != 0 &&
                             this.projectForm.controls.category.value) {
@@ -114,28 +113,31 @@ var ProjectUpdateFormComponent = /** @class */ (function () {
                                 }
                             }
                         }
-                        this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+                        if (((_a = this.categoryStringClone) === null || _a === void 0 ? void 0 : _a.length) > 0) {
+                            this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+                        }
                         this.isSubmitted = true;
                         this.projectForm.value.category = this.categoryString;
                         if (!this.projectForm.valid) return [3 /*break*/, 2];
+                        console.log(this.projectForm.value);
                         uploadData = new FormData();
                         if (this.coverImage != null)
-                            uploadData.append('cover', this.coverImage, (_a = this.coverImage) === null || _a === void 0 ? void 0 : _a.name);
+                            uploadData.append('cover', this.coverImage, (_b = this.coverImage) === null || _b === void 0 ? void 0 : _b.name);
                         if (this.logo != null)
-                            uploadData.append('logo', this.logo, (_b = this.logo) === null || _b === void 0 ? void 0 : _b.name);
+                            uploadData.append('logo', this.logo, (_c = this.logo) === null || _c === void 0 ? void 0 : _c.name);
                         uploadData.append('project', JSON.stringify(this.projectForm.value));
                         return [4 /*yield*/, this.projectService.updateById(uploadData, this.data.id)];
                     case 1:
-                        res = _c.sent();
+                        res = _d.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                            window.location.reload();
                             this.snackBar.showMessage('Cập nhật thành công', true);
                         }
                         else {
                             this.snackBar.showMessage(res === null || res === void 0 ? void 0 : res.message, false);
                         }
                         this.loadingService.isLoading.next(false);
-                        window.location.reload();
-                        _c.label = 2;
+                        _d.label = 2;
                     case 2: return [2 /*return*/];
                 }
             });

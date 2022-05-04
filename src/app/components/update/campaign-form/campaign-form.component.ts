@@ -12,11 +12,9 @@ import {
 import { Constant } from 'src/app/constant/constant';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
-import { OrganizationRequestDetailsComponent } from 'src/app/pages/manage-request/mod-organization/organization-request-details/organization-request-details.component';
+
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-campaign-update-form',
@@ -61,7 +59,7 @@ export class CampaignUpdateFormComponent implements OnInit {
   initForm() {
     this.selectedRadio = (this.data.type == 'donation') ? 'Quyên góp' : 'Tuyển tình nguyện viên'
     this.campaignForm = this.formBuilder.group({
-      selected: [this.selectedValue, Validators.required],
+      selected: [this.selectedRadio, Validators.required],
       name: [
         this.data.name,
         [
@@ -95,7 +93,7 @@ export class CampaignUpdateFormComponent implements OnInit {
       job_requirement: [this.data.job_requirement],
       job_description: [this.data.job_description],
       job_benefit: [this.data.job_benefit],
-      project_id: [this.data.project_id],
+      project_id: [this.data.pro_id],
       cover: [],
       category: [''],
     });
@@ -176,12 +174,13 @@ export class CampaignUpdateFormComponent implements OnInit {
         this.data.id
       );
       if (res?.status == 0) {
+        window.location.reload();
         this.snackBar.showMessage('Cập nhật thành công', true);
       } else {
         this.snackBar.showMessage(res?.message, false);
       }
       this.loadingService.isLoading.next(false);
-      window.location.reload();
+ 
     }
   }
   onChange(e: any) {

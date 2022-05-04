@@ -13,12 +13,7 @@ mat-card-title {
   white-space: nowrap;
 }
 
-mat-card {
-  max-width: 100%;
-  width: 380px;
-  margin: 20px 0 0 0;
-  cursor: pointer;
-}
+
 
 mat-card:hover {
   transform: scale(1.12);

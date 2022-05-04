@@ -22,7 +22,7 @@ export class ProjectUpdateFormComponent implements OnInit {
     private loadingService: LoadingService,
     private snackBar: SnackBarMessageComponent,
     private formBuilder: FormBuilder
-  ) {}
+  ) { }
   projectForm!: FormGroup;
   coverImage?: File;
   logo?: File;
@@ -52,7 +52,7 @@ export class ProjectUpdateFormComponent implements OnInit {
         [
           Validators.required,
           Validators.minLength(128),
-          Validators.maxLength(256),
+
         ],
       ],
       start_date: [
@@ -99,14 +99,17 @@ export class ProjectUpdateFormComponent implements OnInit {
         }
       }
     }
-    this.categoryString = this.categoryStringClone.slice(
-      0,
-      this.categoryStringClone.length - 1
-    );
+    if (this.categoryStringClone?.length > 0) {
+      this.categoryString = this.categoryStringClone.slice(
+        0,
+        this.categoryStringClone.length - 1
+      );
+    }
     this.isSubmitted = true;
     this.projectForm.value.category = this.categoryString;
 
     if (this.projectForm.valid) {
+      console.log(this.projectForm.value);
       let uploadData: any = new FormData();
       if (this.coverImage != null)
         uploadData.append('cover', this.coverImage, this.coverImage?.name);
@@ -118,12 +121,13 @@ export class ProjectUpdateFormComponent implements OnInit {
         this.data.id
       );
       if (res?.status == 0) {
+        window.location.reload();
         this.snackBar.showMessage('Cập nhật thành công', true);
       } else {
         this.snackBar.showMessage(res?.message, false);
       }
       this.loadingService.isLoading.next(false);
-      window.location.reload();
+
     }
   }
   onChange(e: any) {

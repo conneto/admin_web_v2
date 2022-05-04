@@ -46,8 +46,8 @@ export class CampaignForm implements OnInit {
 
   }
   getValue(element: any) {
-  this.defaultNumber= this.currency.transform( this.defaultNumber, 'đ');
-  element.target.value= this.defaultNumber;
+    this.defaultNumber = this.currency.transform(this.defaultNumber, 'đ');
+    element.target.value = this.defaultNumber;
   }
   initForm() {
 
@@ -149,6 +149,10 @@ export class CampaignForm implements OnInit {
 
     if (this.campaignForm.valid) {
       this.campaignForm.value.category = this.categoryString;
+      this.campaignForm.value.start_date = new Date(this.campaignForm.value.start_date);
+      this.campaignForm.value.start_working_date = new Date(this.campaignForm.value.start_working_date);
+      this.campaignForm.value.end_working_date = new Date(this.campaignForm.value.end_working_date);
+      this.campaignForm.value.end_date = new Date(this.campaignForm.value.end_date);
 
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
 

@@ -84,7 +84,7 @@
             </div>
           </div>
           <div class="content-field">
-            <div>Tầm nhin của tổ chức:</div>
+            <div>Tầm nhìn của tổ chức:</div>
             <div>{{ organization.vision ? organization.vision : "" }}</div>
           </div>
           <div class="content-area">
@@ -106,15 +106,29 @@
           <div class="content-introduce">
             <div>Giấy phép hoạt động:</div>
 
-              <a style='display:flex' href='{{urlApi}}/show/files?p={{organization.operating_license}}' download>
-                <img style="width: 25px" src="./assets/icons/pdf.svg" />
-                Xem tài liệu
-
-              </a>
-
+            <a
+              style="display: flex"
+              href="{{ urlApi }}/show/files?p={{
+                organization.operating_license
+              }}"
+              download
+              target="_blank"
+            >
+              <img style="width: 25px" src="./assets/icons/pdf.svg" />
+              Xem tài liệu
+            </a>
           </div>
-          <div *ngIf="isApproved" class="content-button">
-            <div *ngIf="isApproved">
+          <div
+            *ngIf="
+              isAdmin &&
+              (organization.result_code == 510 ||
+              organization.result_code == 520 ||
+              organization.result_code == 521 ||
+                organization.result_code == 531)
+            "
+            class="content-button"
+          >
+            <div>
               <app-delete-entity
                 [type]="'org'"
                 [entity]="organization"
@@ -158,34 +172,37 @@
       </div>
     </div>
     <div class="project__list-item" *ngIf="isProjects">
-      <div class="project__button">
-        <div class="search_bar" *ngIf="projectsCopy?.length! > 0">
-          <div class="search_bar">
-            <div *ngIf="!noResultBySearch; then name; else result"></div>
-            <div>
-              <ng-template #name>
-                <div class="name">
-                  <h3>Dự án</h3>
-                  <p>{{ status ? status : "" }}</p>
-                </div>
-              </ng-template>
-              <ng-template #result>
-                <div class="name">
-                  <h3>Không tìm thấy kết quả phù hợp</h3>
-                </div>
-              </ng-template>
-            </div>
-            <div>
-              <app-search-bar
-                (getItem)="getData($event)"
-                [entityCopy]="passDataProjects"
-              ></app-search-bar>
+      <div>
+        <div class="project__button">
+          <div class="search_bar" *ngIf="projectsCopy?.length! > 0">
+            <div class="search_bar">
+              <div *ngIf="!noResultBySearch; then name; else result"></div>
+              <div>
+                <ng-template #name>
+                  <div class="name">
+                    <h3>Dự án</h3>
+                    <p>{{ status ? status : "" }}</p>
+                  </div>
+                </ng-template>
+                <ng-template #result>
+                  <div class="name">
+                    <h3>Không tìm thấy kết quả phù hợp</h3>
+                  </div>
+                </ng-template>
+              </div>
+              <div>
+                <app-search-bar
+                  (getItem)="getData($event)"
+                  [entityCopy]="passDataProjects"
+                ></app-search-bar>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <app-project-item [projects]="projects"></app-project-item>
+      <div class="row">
+        <app-project-item [projects]="projects"></app-project-item>
+      </div>
     </div>
   </div>
 </div>

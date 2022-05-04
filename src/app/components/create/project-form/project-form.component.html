@@ -44,7 +44,7 @@
       <div>
         <input
           class="input login"
-          placeholder="Tên địa điểm diễn nha dự án"
+          placeholder="Tên địa điểm diễn ra dự án"
           (change)="getLocationName($event)"
         />
         <span *ngIf="noLocationName" class="text-danger"
@@ -62,7 +62,6 @@
         <!-- <google-map height="300px" width="300px">
           <map-marker (positionChanged)="getPosition($event)"></map-marker>
         </google-map> -->
-     
       </div>
       <div>
         <mat-label style="width: 130px">Ngày bắt đầu</mat-label>
@@ -123,6 +122,9 @@
           formControlName="logo"
           (change)="onChangeCover($event)"
         />
+        <span *ngIf="noFileLogo" class="text-danger"
+          >Vui lòng tải lên logo</span
+        >
       </div>
     </div>
   </form>

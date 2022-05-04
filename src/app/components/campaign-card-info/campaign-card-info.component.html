@@ -33,10 +33,10 @@
         <div>
           <p class="mb-2">
             <span
-              class="fs-5 fw-bold primary-text-color">{{ campaign.type == 'donation' ? (campaign.totalDonated | currency: "VND") : campaign.totalPaticipant}}
+              class="fs-5 fw-bold primary-text-color">{{ campaign.type == 'donation' ? (campaign.total_donated | currency: "VND") : campaign.total_participant}}
               / </span>
             <span
-              class="fs-6">{{ campaign.type == 'donation' ? (campaign.target | currency: "VND") : campaign.target + ' người' }}</span>
+              class="fs-6">{{ campaign.type == 'donation' ? (campaign.target_number | currency: "VND") : campaign.target_number + ' người' }}</span>
           </p>
           <div class="campaign__progress-bar">
             <mat-progress-bar
@@ -49,7 +49,7 @@
           <div>
             <p>
               <span>Lượt {{ campaign.type == 'donation' ? 'quyên góp' : 'tham gia'}}: </span>
-              <span class="fw-bold">{{ campaign.totalPaticipant }}</span>
+              <span class="fw-bold">{{ campaign.total_participant }}</span>
             </p>
           </div>
           <div>

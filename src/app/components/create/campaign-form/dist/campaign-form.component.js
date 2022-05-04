@@ -188,6 +188,10 @@ var CampaignForm = /** @class */ (function () {
         }
         if (this.campaignForm.valid) {
             this.campaignForm.value.category = this.categoryString;
+            this.campaignForm.value.start_date = new Date(this.campaignForm.value.start_date);
+            this.campaignForm.value.start_working_date = new Date(this.campaignForm.value.start_working_date);
+            this.campaignForm.value.end_working_date = new Date(this.campaignForm.value.end_working_date);
+            this.campaignForm.value.end_date = new Date(this.campaignForm.value.end_date);
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
             this.dialogRef.close(this.uploadData);
         }

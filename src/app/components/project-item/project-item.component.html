@@ -1,7 +1,9 @@
 <div *ngIf="projects"   >
-  <div *ngFor="let project of projects">
+  <div *ngFor="let project of projects" class=" mb-3 col-xxl-4 col-md-6 col-sm-12 col-12">
 
-      <mat-card (click)="goToDetail(project.id)">
+      <mat-card 
+      
+      (click)="goToDetail(project.id)">
         <div class="image">
           <img
             loading="lazy"

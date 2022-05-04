@@ -194,9 +194,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.isEmpty = false;
             this.noOrg = false;
             this.organizations = this.passData.filter(
-              (x) => x.result_code == 510 || x.result_code == 531
+              (x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521)
             );
-            this.oldData = this.passData.filter((x) => x.result_code == 510 || x.result_code == 531);
+            this.oldData = this.passData.filter((x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521) );
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
@@ -240,9 +240,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.isRequest = false;
           }
           this.organizations = this.organizations.filter(
-            (x) => x.result_code == 501 || x.result_code == 503  || x.result_code == 502
+            (x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502
           );
-          this.oldData = this.passData.filter((x) => x.result_code == 501  || x.result_code == 503  || x.result_code == 502);
+          this.oldData = this.passData.filter((x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502);
 
           this.isEmpty = false;
 

@@ -47,7 +47,8 @@ var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
 var dialog_confirm_component_1 = require("../../dialog-confirm/dialog-confirm.component");
 var OrganizationInforCardComponent = /** @class */ (function () {
-    function OrganizationInforCardComponent(pro, cam, orga, loadingApi, camApi, location, snackBar, router, dialog, authApi, org) {
+    function OrganizationInforCardComponent(utilService, pro, cam, orga, loadingApi, camApi, location, snackBar, router, dialog, authApi, org) {
+        this.utilService = utilService;
         this.pro = pro;
         this.cam = cam;
         this.orga = orga;
@@ -121,7 +122,7 @@ var OrganizationInforCardComponent = /** @class */ (function () {
                                     else if (checkType == 'cam' || this.checkType == 'cam') {
                                         this.cam.checkToGetData('pending');
                                     }
-                                    this.snackBar.showMessage('chấp nhận yêu cầu thành công !', true);
+                                    this.snackBar.showMessage('Chấp nhận yêu cầu thành công !', true);
                                 }
                                 else {
                                     this.loadingApi.isLoading.next(false);

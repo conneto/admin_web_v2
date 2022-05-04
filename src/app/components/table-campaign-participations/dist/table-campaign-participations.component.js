@@ -180,7 +180,7 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
             data: {
                 button: "Đồng ý",
                 close: "Suy nghĩ lại",
-                message: "Bạn có chắc chắn muốn từ chối yêu cầu tham gia của tình nguyện viên này không?"
+                message: "Bạn có chắc chắn muốn xác nhận hoàn thành cho tình nguyện viên này không?"
             }
         });
         dialogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
@@ -192,10 +192,11 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
                         this.loadingService.isLoading.next(true);
                         data1 = {
                             object_id: e,
-                            object_type: 'volunteer',
-                            status: 'reject',
-                            note: 'Reject this'
+                            object_type: 'complete_volunteer',
+                            status: 'approve',
+                            note: 'Chúc mừng bạn đã hoàn thành chiến dịch này'
                         };
+                        console.log(data1);
                         return [4 /*yield*/, this.api.updateRequestByManager(data1)];
                     case 1:
                         res = _b.sent();
@@ -205,7 +206,7 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
                     case 2:
                         _a.volunteer = _b.sent();
                         this.loadingService.isLoading.next(false);
-                        this.snackBar.showMessage("Từ chối thành công !", true);
+                        this.snackBar.showMessage("Xác nhận thành công !", true);
                         return [3 /*break*/, 4];
                     case 3:
                         this.loadingService.isLoading.next(false);

@@ -41,7 +41,7 @@ export class ProjectComponent implements OnInit {
   organization: Organization[] = [];
   isAdmin?: boolean;
   isTabRejected?: boolean;
-  isTabPending?:boolean;
+  isTabPending?: boolean;
   constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
@@ -57,22 +57,22 @@ export class ProjectComponent implements OnInit {
 
   }
   getEntity(e: any) {
-    if (e?.length!=0) {
+    if (e?.length != 0) {
       // console.log(e);
       this.isEmpty = false;
       this.projects = e;
       this.oldData = e;
     } else {
       this.isEmpty = true;
-      this.projects=e;
+      this.projects = e;
     }
   }
   getTabGroupState(e: any) {
     if (e) {
-      if(e=='pending'){
-        this.isTabPending=true;
-      }else {
-        this.isTabPending=false;
+      if (e == 'pending') {
+        this.isTabPending = true;
+      } else {
+        this.isTabPending = false;
       }
       if (e == 'reject') {
         this.isTabRejected = true;
@@ -153,9 +153,10 @@ export class ProjectComponent implements OnInit {
         }
 
         this.projects = this.projects.filter(x => {
-          return x.result_code == 610 || x.result_code==631;
+          return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621) 
+            ;
         })
-        this.oldData = this.passData.filter(x => x.result_code == 610 || x.result_code==631);
+        this.oldData = this.passData.filter(x => (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621) );
         this.isEmpty = false;
         if (this.projects == [] || this.projects.length <= 0) {
           this.isEmpty = true;
@@ -188,9 +189,9 @@ export class ProjectComponent implements OnInit {
         }
 
         this.projects = this.projects.filter(x => {
-          return x.result_code == 601 || x.result_code==603;
+          return x.result_code == 601 || x.result_code == 603 || x.result_code == 602;
         })
-        this.oldData = this.passData.filter(x => x.result_code == 601 || x.result_code==603);
+        this.oldData = this.passData.filter(x => x.result_code == 601 || x.result_code == 603 || x.result_code == 602);
         if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {

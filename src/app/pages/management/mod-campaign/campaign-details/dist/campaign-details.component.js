@@ -70,6 +70,11 @@ var CampaignDetailsComponent = /** @class */ (function () {
             this.isAdmin = true;
         }
     };
+    CampaignDetailsComponent.prototype.ngAfterViewChecked = function () {
+        this.checkDate();
+    };
+    CampaignDetailsComponent.prototype.checkDate = function () {
+    };
     CampaignDetailsComponent.prototype.doCheck = function () {
         var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
@@ -87,6 +92,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.userApi.updateRequestByAdmin(data)];
                     case 1:
                         res = _d.sent();
+                        console.log(res);
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             window.location.reload();
                             this.snackBar.showMessage("Xác thực thành công !", true);

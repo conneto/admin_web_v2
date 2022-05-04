@@ -6,24 +6,29 @@
   >
     <a
       routerLink="project-request-detail/{{ projects.id }}"
-      style="text-decoration: none;color:black"
+      style="text-decoration: none; color: black"
     >
       <div class="image">
         <img
           alt="Cover of this project"
           mat-card-image
-          src="{{urlApi}}/show/images?p={{urlCover}}"
+          src="{{ urlApi }}/show/images?p={{ urlCover }}"
         />
       </div>
       <mat-card-title> {{ projects.name }}</mat-card-title>
       <div class="card-icon">
         <div>
-          <mat-icon title="Request by"><img mat-card-avatar src='{{urlApi}}/show/images?p={{urlLogo}}'></mat-icon
-          ><span class="margin-left">{{projects.organization_name}}</span>
+          <mat-icon title="Request by"
+            ><img
+              mat-card-avatar
+              src="{{ urlApi }}/show/images?p={{ urlLogo }}" /></mat-icon
+          ><span  style="margin-left:20px" >{{ projects.organization_name }}</span>
         </div>
-        <div>
+        <div style="display: flex; align-items: flex-end">
           <mat-icon title="At">date_range</mat-icon
-          ><span class="margin-left">{{projects.created_at|date:'dd/MM/yyyy'}}</span>
+          ><span class="margin-left">{{
+            projects.created_at | date: "dd/MM/yyyy"
+          }}</span>
         </div>
       </div>
     </a>
@@ -38,33 +43,3 @@
     </mat-card-actions>
   </mat-card>
 </div>
-
-<!-- <a routerLink="project-request-detail/A" style="text-decoration: none;">
-  <mat-card
-    title="Click to see more details"
-    (click)="viewDetails()"
-    class="moveFadein"
-  >
-    <div class="images">
-      <img alt='Cover of this project' mat-card-images src="A" />
-    </div>
-    <mat-card-title> A</mat-card-title>
-    <div class="card-icon">
-      <div>
-        <mat-icon title="Request by">people</mat-icon
-        ><span class="margin-left">Khang Tran</span>
-      </div>
-      <div>
-        <mat-icon title="At">date_range</mat-icon
-        ><span class="margin-left">25/02/2012</span>
-      </div>
-    </div>
-    <mat-card-actions>
-      <button title="Click to approve" mat-button>Approve</button>
-
-      <button title="Click to decline" mat-button>Decline</button>
-    </mat-card-actions>
-  </mat-card>
-  </a>
-
- -->
