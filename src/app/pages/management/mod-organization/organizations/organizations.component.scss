@@ -152,3 +152,14 @@ img {
     display: none;
   }
 }
+.button-showmore {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    color: rgb(253, 204, 5);
+    border: 3px solid rgb(245, 211, 74);
+  }
+}

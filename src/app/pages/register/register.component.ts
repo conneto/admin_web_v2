@@ -17,7 +17,7 @@ import { UserManagementComponent } from '../user-management/user-management.comp
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  hide: boolean = false;
+  hide: boolean = true;
   registerForm!: FormGroup;
   isSubmited: boolean = false;
 

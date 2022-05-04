@@ -73,16 +73,47 @@ var ProjectComponent = /** @class */ (function () {
     };
     ProjectComponent.prototype.ngOnDestroy = function () {
     };
+    ProjectComponent.prototype.showMore = function () {
+        var _this = this;
+        this.loadingService.isLoading.next(true);
+        setTimeout(function () {
+            var newLength = _this.projects.length + 6;
+            if (newLength > _this.oldData.length) {
+                newLength = _this.oldData.length;
+            }
+            _this.projects = _this.oldData.slice(0, newLength);
+            _this.checkShowMore();
+            _this.loadingService.isLoading.next(false);
+        }, 300);
+    };
+    ProjectComponent.prototype.checkShowMore = function () {
+        if (this.projects.length > 6) {
+            if (this.projects.length == this.oldData.length) {
+                this.isNoMore = true;
+            }
+        }
+        else {
+            this.isNoMore = true;
+        }
+    };
     ProjectComponent.prototype.getEntity = function (e) {
         if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
-            // console.log(e);
-            this.isEmpty = false;
-            this.projects = e;
-            this.oldData = e;
+            if (e.length > 6) {
+                this.isNoMore = false;
+                this.isEmpty = false;
+                this.projects = e.slice(0, 6);
+                this.oldData = e;
+            }
+            else {
+                this.isNoMore = true;
+                this.isEmpty = false;
+                this.projects = e;
+                this.oldData = e;
+            }
         }
         else {
             this.isEmpty = true;
-            this.projects = e;
+            this.projects = e.slice(0, 6);
         }
     };
     ProjectComponent.prototype.getTabGroupState = function (e) {
@@ -122,10 +153,18 @@ var ProjectComponent = /** @class */ (function () {
         if (e == null || e.length <= 0) {
             this.noResultBySearch = true;
             this.projects = e;
+            this.isNoMore = true;
         }
         else {
-            this.projects = e;
-            this.noResultBySearch = false;
+            if (this.projects.length > 6) {
+                this.isNoMore = false;
+                this.projects = e.slice(0, 6);
+            }
+            else {
+                this.projects = e;
+                this.noResultBySearch = false;
+                this.isNoMore = true;
+            }
         }
     };
     ProjectComponent.prototype.checkToGetData = function (status) {
@@ -173,6 +212,7 @@ var ProjectComponent = /** @class */ (function () {
         return __awaiter(this, void 0, void 0, function () {
             var i, i, i;
             return __generator(this, function (_u) {
+                this.isNoMore = false;
                 this.user = this.authApi.currentUserValue;
                 if (pro) {
                     this.projects = pro;
@@ -238,6 +278,12 @@ var ProjectComponent = /** @class */ (function () {
                             this.isEmpty = true;
                         }
                         break;
+                }
+                if (this.projects.length > 6) {
+                    this.projects = this.projects.slice(0, 6);
+                }
+                else {
+                    this.isNoMore = true;
                 }
                 this.number = this.projects.length;
                 return [2 /*return*/];

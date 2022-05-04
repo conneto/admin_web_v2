@@ -54,7 +54,7 @@ var RegisterComponent = /** @class */ (function () {
         this.router = router;
         this.authService = authService;
         this.formBuilder = formBuilder;
-        this.hide = false;
+        this.hide = true;
         this.isSubmited = false;
     }
     RegisterComponent_1 = RegisterComponent;

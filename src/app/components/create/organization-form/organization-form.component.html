@@ -29,7 +29,7 @@
       </div>
       <div class="w-100">
         <div class="row d-flex">
-          <mat-label class="col-3">Loại chiến dịch:</mat-label>
+          <mat-label class="col-3">Loại tổ chức:</mat-label>
 
           <mat-radio-group
             class="col-8 d-flex justify-content-around"
@@ -131,6 +131,7 @@
       >
       <div>
         <input
+          
           class="input login"
           placeholder="Nhập tên địa điểm"
           (change)="getLocationName($event)"
@@ -138,6 +139,8 @@
         <span *ngIf="noLocationName" class="text-danger"
           >Vui lòng nhập tên địa điểm
         </span>
+      </div>
+      <div >
         <input
           class="input login"
           placeholder="Nhập vào địa chỉ"
@@ -147,12 +150,6 @@
         <span *ngIf="noAddress" class="text-danger"
           >Vui lòng nhập vào địa chỉ
         </span>
-        <!-- <google-map height="300px" width="300px">
-          <map-marker (positionChanged)="getPosition($event)"></map-marker>
-        </google-map> -->
-      </div>
-      <div class="input login">
-        <p>Địa chỉ: {{ userAddress }}</p>
       </div>
       <div>
         <mat-form-field>

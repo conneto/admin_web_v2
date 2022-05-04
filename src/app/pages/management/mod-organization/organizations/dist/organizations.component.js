@@ -74,9 +74,33 @@ var OrganizationsComponent = /** @class */ (function () {
         }
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.loadingService.isSkeleton.next(true);
+        this.checkShowMore();
     };
     OrganizationsComponent.prototype.ngAfterViewInit = function () { };
     OrganizationsComponent.prototype.ngOnDestroy = function () { };
+    OrganizationsComponent.prototype.showMore = function () {
+        var _this = this;
+        this.loadingService.isLoading.next(true);
+        setTimeout(function () {
+            var newLength = _this.organizations.length + 6;
+            if (newLength > _this.oldData.length) {
+                newLength = _this.oldData.length;
+            }
+            _this.organizations = _this.oldData.slice(0, newLength);
+            _this.checkShowMore();
+            _this.loadingService.isLoading.next(false);
+        }, 300);
+    };
+    OrganizationsComponent.prototype.checkShowMore = function () {
+        if (this.organizations.length > 6) {
+            if (this.organizations.length == this.oldData.length) {
+                this.isNoMore = true;
+            }
+        }
+        else {
+            this.isNoMore = true;
+        }
+    };
     OrganizationsComponent.prototype.getTabGroupState = function (e) {
         if (e) {
             if (e == 'reject') {
@@ -104,20 +128,28 @@ var OrganizationsComponent = /** @class */ (function () {
         if (e) {
             this.isEmpty = false;
             this.oldData = e;
-            this.organizations = e;
+            this.organizations = e.splice(0, 6);
         }
         else {
             this.isEmpty = true;
         }
     };
-    OrganizationsComponent.prototype.getData = function (e) {
+    OrganizationsComponent.prototype.getDataSearch = function (e) {
         if (e == null || e.length <= 0) {
             this.noResultBySearch = true;
             this.organizations = e;
+            this.isNoMore = true;
         }
         else {
-            this.organizations = e;
-            this.noResultBySearch = false;
+            if (this.organizations.length > 6) {
+                this.isNoMore = false;
+                this.organizations = e.slice(0, 6);
+            }
+            else {
+                this.organizations = e;
+                this.noResultBySearch = false;
+                this.isNoMore = true;
+            }
         }
     };
     OrganizationsComponent.prototype.checkToGetData = function (getStatus) {
@@ -169,6 +201,7 @@ var OrganizationsComponent = /** @class */ (function () {
                     // console.log(this.organizations);
                 }
                 if (status) {
+                    this.isNoMore = false;
                     if (this.authService.currentUserValue.role_id == 'organization_manager') {
                         check = this.organizations.every(function (a) {
                             return a.result_code == 503;
@@ -253,7 +286,12 @@ var OrganizationsComponent = /** @class */ (function () {
                             }, 1000);
                             break;
                     }
-                    this.organizations = this.organizations.slice(0, 6);
+                    if (this.organizations.length > 6) {
+                        this.organizations = this.organizations.slice(0, 6);
+                    }
+                    else {
+                        this.isNoMore = true;
+                    }
                     this.number = this.organizations.length;
                     this.numberCount = new Array(this.organizations.length);
                 }
@@ -299,13 +337,22 @@ var OrganizationsComponent = /** @class */ (function () {
     };
     OrganizationsComponent.prototype.getEntity = function (e) {
         if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
-            this.isEmpty = false;
-            this.organizations = e;
-            this.oldData = e;
+            if (e.length > 6) {
+                this.isNoMore = false;
+                this.isEmpty = false;
+                this.organizations = e.slice(0, 6);
+                this.oldData = e;
+            }
+            else {
+                this.isNoMore = true;
+                this.isEmpty = false;
+                this.organizations = e;
+                this.oldData = e;
+            }
         }
         else {
             this.isEmpty = true;
-            this.organizations = e;
+            this.organizations = e.slice(0, 6);
         }
     };
     __decorate([

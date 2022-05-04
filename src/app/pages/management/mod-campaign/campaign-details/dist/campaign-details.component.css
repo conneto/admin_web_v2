@@ -94,6 +94,7 @@
   display: flex;
   margin-bottom: 0px !important;
   justify-content: center;
+  align-items: center;
 }
 .container .content__tab ul li {
   list-style: none;

@@ -26,11 +26,13 @@ var LoadMoreComponent = /** @class */ (function () {
         var _this = this;
         this.loading.isLoading.next(true);
         setTimeout(function () {
-            var newLength = _this.entity.length + 8;
+            var newLength = _this.entity.length + 6;
             if (newLength > _this.oldData.length) {
                 newLength = _this.oldData.length;
             }
             _this.entity = _this.oldData.slice(0, newLength);
+            console.log(_this.entity);
+            _this.sendData(_this.entity);
             _this.checkShowMore();
             _this.loading.isLoading.next(false);
         }, 300);
@@ -39,6 +41,7 @@ var LoadMoreComponent = /** @class */ (function () {
         if (this.entity.length > 8) {
             if (this.entity.length == this.oldData.length) {
                 this.isNoMore = true;
+                this.sendNoMore(this.isNoMore);
             }
         }
     };

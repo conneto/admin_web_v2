@@ -51,7 +51,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   isAdmin?: boolean = false;
   oldDataSearch: Organization[] = [];
   isTabRejected?: boolean;
-
+  isNoMore?: boolean;
   constructor(
     public utilService: UtilService,
     private loadingService: LoadingService,
@@ -72,10 +72,33 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     }
     this.urlApi = this.loadingService.getApiGetLink.value;
     this.loadingService.isSkeleton.next(true);
+    this.checkShowMore();
   }
 
   ngAfterViewInit(): void { }
   ngOnDestroy(): void { }
+  showMore() {
+    this.loadingService.isLoading.next(true);
+    setTimeout(() => {
+      let newLength = this.organizations.length + 6;
+      if (newLength > this.oldData.length) {
+        newLength = this.oldData.length;
+      }
+      this.organizations = this.oldData.slice(0, newLength);
+      this.checkShowMore();
+      this.loadingService.isLoading.next(false);
+    }, 300)
+  }
+
+  checkShowMore() {
+    if (this.organizations.length > 6) {
+      if (this.organizations.length == this.oldData.length) {
+        this.isNoMore = true;
+      }
+    } else {
+      this.isNoMore = true;
+    }
+  }
   getTabGroupState(e: any) {
     if (e) {
       if (e == 'reject') {
@@ -101,18 +124,26 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     if (e) {
       this.isEmpty = false;
       this.oldData = e;
-      this.organizations = e;
+      this.organizations = e.splice(0, 6);
     } else {
       this.isEmpty = true;
     }
   }
-  getData(e: any) {
+  getDataSearch(e: any) {
+
     if (e == null || e.length <= 0) {
       this.noResultBySearch = true;
-      this.organizations = e;
+      this.organizations = e
+      this.isNoMore = true;
     } else {
-      this.organizations = e;
-      this.noResultBySearch = false;
+      if (this.organizations.length > 6) {
+        this.isNoMore = false;
+        this.organizations = e.slice(0, 6);
+      } else {
+        this.organizations = e;
+        this.noResultBySearch = false;
+        this.isNoMore = true;
+      }
     }
   }
 
@@ -149,6 +180,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       // console.log(this.organizations);
     }
     if (status) {
+      this.isNoMore = false;
       if (this.authService.currentUserValue.role_id == 'organization_manager') {
         const check = this.organizations.every((a) => {
           return a.result_code == 503;
@@ -196,7 +228,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.organizations = this.passData.filter(
               (x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521)
             );
-            this.oldData = this.passData.filter((x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521) );
+            this.oldData = this.passData.filter((x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521));
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
@@ -255,7 +287,11 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           }, 1000);
           break;
       }
-      this.organizations=this.organizations.slice(0,6);
+      if (this.organizations.length > 6) {
+        this.organizations = this.organizations.slice(0, 6);
+      } else {
+        this.isNoMore = true;
+      }
       this.number = this.organizations.length;
       this.numberCount = new Array<number>(this.organizations.length);
     }
@@ -288,12 +324,20 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   }
   getEntity(e: any) {
     if (e?.length != 0) {
-      this.isEmpty = false;
-      this.organizations = e;
-      this.oldData = e;
+      if (e.length > 6) {
+        this.isNoMore = false;
+        this.isEmpty = false;
+        this.organizations = e.slice(0, 6);
+        this.oldData = e;
+      } else {
+        this.isNoMore = true;
+        this.isEmpty = false;
+        this.organizations = e
+        this.oldData = e;
+      }
     } else {
       this.isEmpty = true;
-      this.organizations = e;
+      this.organizations = e.slice(0, 6);
     }
   }
 }
