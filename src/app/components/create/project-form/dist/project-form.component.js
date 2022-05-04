@@ -67,7 +67,14 @@ var ProjectFormComponent = /** @class */ (function () {
     };
     ProjectFormComponent.prototype.initForm = function () {
         this.projectForm = this.formBuilder.group({
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            name: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(8),
+                    forms_1.Validators.maxLength(128),
+                ],
+            ],
             description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
@@ -85,17 +92,18 @@ var ProjectFormComponent = /** @class */ (function () {
     };
     ProjectFormComponent.prototype.yesClick = function () {
         var _a, _b;
-        if (this.projectForm.controls.category.value.length != 0 && this.projectForm.controls.category.value) {
+        if (this.projectForm.controls.category.value.length != 0 &&
+            this.projectForm.controls.category.value) {
             if (this.isRemoved == true || this.isSubmitted == true) {
                 this.categoryStringClone = '';
                 for (var i = 0; i < this.projectForm.controls.category.value.length; i++) {
-                    this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                    this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                 }
             }
             else {
                 this.categoryStringClone = '';
                 for (var i = 0; i < this.projectForm.controls.category.value.length; i++) {
-                    this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                    this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                 }
             }
         }
@@ -136,7 +144,7 @@ var ProjectFormComponent = /** @class */ (function () {
         this.isRemoved = true;
         var category = this.projectForm.controls.category.value;
         var index = category.indexOf(e);
-        // console.log== -1) {
+        if (index !== -1) {
             category.splice(index, 1);
         }
         if (index == 0) {

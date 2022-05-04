@@ -60,9 +60,7 @@ var CampaignService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGNS)];
                     case 1:
                         res = _b.sent();
-                        res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) {
-                            return _this.campaignAdap.adapt(item);
-                        });
+                        res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) { return _this.campaignAdap.adapt(item); });
                         return [2 /*return*/, res.data || []];
                 }
             });
@@ -178,6 +176,19 @@ var CampaignService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, this.apiService["delete"](constant_1.Constant.CAMPAIGNS + "/" + id)];
+                    case 1:
+                        res = _a.sent();
+                        return [2 /*return*/, res];
+                }
+            });
+        });
+    };
+    CampaignService.prototype.updateById = function (data, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.put(constant_1.Constant.CAMPAIGNS + "/" + id, data)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res];

@@ -1,5 +1,4 @@
 .button {
-
   display: flex;
   position: absolute;
   right: 0%;
@@ -13,7 +12,6 @@
 
   :first-child {
     background-color: rgba(138, 244, 149, 1);
-
   }
 
   :nth-child(2) {
@@ -27,11 +25,9 @@
   border-radius: 50%;
   margin-right: 5px;
 }
-.file_template{
-  
+.file_template {
   margin: 5px;
   padding: 0px 5px;
-
 }
 .container {
   width: 100%;
@@ -54,7 +50,6 @@
     position: relative;
 
     .closeButton {
-
       button {
         position: absolute;
         z-index: 1;
@@ -65,23 +60,18 @@
         border: none;
         outline: none;
         background: unset;
-
       }
 
       button:hover {
         background-color: #ccc;
         opacity: 0.6;
         border-radius: 100%;
-
       }
     }
-
-
 
     .header {
       &-content {
         display: flex;
-
       }
 
       position: relative;
@@ -89,12 +79,10 @@
       &-information {
         padding: 0px 15px 0;
 
-        >div {
+        > div {
           display: flex;
           align-items: center;
         }
-
-
       }
 
       &-image {
@@ -103,22 +91,15 @@
         img {
           width: 100%;
           height: 300px;
-       
-
         }
       }
-
-
     }
-
-
-
   }
 
   .content {
     padding: 10px;
-    &-description{
-      margin-top:10px;
+    &-description {
+      margin-top: 10px;
     }
     &__tab {
       font-size: 15px;
@@ -128,28 +109,24 @@
         margin-bottom: 0px !important;
         justify-content: center;
 
-
         li {
           list-style: none;
           padding: 10px;
-          color: #A1A5B7;
+          color: #a1a5b7;
           font-weight: 600;
           cursor: pointer;
           margin: 0 10px;
-
         }
-
       }
     }
 
     &__tab li:hover {
-      border-bottom: 1px solid #009EF7;
+      border-bottom: 1px solid #009ef7;
     }
 
     &__tab-active {
-      color: #009EF7 !important;
-      border-bottom: 1px solid #009EF7;
-
+      color: #009ef7 !important;
+      border-bottom: 1px solid #009ef7;
     }
 
     &-description {
@@ -164,26 +141,18 @@
 
       :nth-child(2) {
         margin-left: 10px;
-        width:900px;
+        width: 900px;
       }
     }
 
-
-
     &-information {
       margin-top: 5px;
-
-
-
 
       &-button {
         align-items: center;
         display: flex;
         justify-content: space-around;
       }
-
-
-
     }
 
     &-button {
@@ -199,9 +168,7 @@
     margin: 10px 0 10px;
 
     mat-card-subtitle {
-
       margin-bottom: 0 !important;
-
     }
 
     .start-date,
@@ -210,8 +177,8 @@
         font-weight: bold;
       }
 
-      margin:0 10px 0 0;
-      border-radius:5px;
+      margin: 0 10px 0 0;
+      border-radius: 5px;
       display: flex;
       justify-content: center;
       flex-direction: column;
@@ -247,7 +214,6 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
- 
 }
 
 .name {
@@ -265,32 +231,41 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  margin-top:15px;
-  &-create{
-    margin-left:8px;
+  margin-top: 15px;
+  &-create {
+    margin-left: 8px;
   }
 }
-.delete-button{
+.delete-button {
   display: flex;
   justify-content: center;
 }
-.document-information
-{
+.document-information {
   display: flex;
   justify-content: flex-start;
   align-items: center;
 }
 
-.content-tab{
+.content-tab {
   display: flex;
   text-align: center;
   justify-content: center;
 }
 
-:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
-  background-color: #faefd2 ;
+:host
+  ::ng-deep
+  .mat-slide-toggle.mat-checked:not(.mat-disabled)
+  .mat-slide-toggle-bar {
+  background-color: #faefd2;
 }
 
-:host ::ng-deep  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
-  background-color: #ffd664 ;
+:host
+  ::ng-deep
+  .mat-slide-toggle.mat-checked:not(.mat-disabled)
+  .mat-slide-toggle-thumb {
+  background-color: #ffd664;
+}
+
+.update {
+  background-color: rgb(167, 167, 255);
 }

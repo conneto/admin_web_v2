@@ -155,13 +155,13 @@ export class OrganizationDetailsComponent implements OnInit {
             case 'donation':
               this.campaigns[i].type = 'Quyên Góp';
               this.campaigns[i].org_id = (
-                this.campaigns[i].totalDonated! / this.campaigns[i].target!
+                this.campaigns[i].total_donated! / this.campaigns[i].target_number!
               ).toString();
               break;
             case 'recruitment':
               this.campaigns[i].type = 'Thiện Nguyện';
               this.campaigns[i].org_id = (
-                this.campaigns[i].totalPaticipant! / this.campaigns[i].target!
+                this.campaigns[i].total_participant! / this.campaigns[i].target_number!
               ).toString();
               break;
           }

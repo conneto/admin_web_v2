@@ -1,7 +1,7 @@
 <div *ngIf="campaign">
 
     <mat-card (click)='goToDetails(campaign.id)' title="Click to see more details">
-  
+
       <div class="image">
         <img src="assets/images/sugar.png" />
         <img mat-card-image src="assets/images/ddtt18_cover.png" />
@@ -18,11 +18,11 @@
       </div>
       <div class="card-icon">
         <div class="start-date">
-          <p>{{ campaign.startDate | date: "dd/MM/yyyy" }}</p>
+          <p>{{ campaign.start_date | date: "dd/MM/yyyy" }}</p>
           <mat-card-subtitle> Ngày bắt đầu </mat-card-subtitle>
         </div>
         <div class="budget-item">
-          <p>{{ campaign.target | currency: "VND" }}</p>
+          <p>{{ campaign.target_number| currency: "VND" }}</p>
           <mat-card-subtitle> Mục tiêu cần đạt </mat-card-subtitle>
         </div>
       </div>

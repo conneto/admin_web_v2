@@ -57,6 +57,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
         this.campaignApi = campaignApi;
         this.volunteer = [];
         this.isEmpty = false;
+        this.isOpenUpdateForm = false;
     }
     CampaignDetailsComponent.prototype.ngOnInit = function () {
         this.isPDF = true;
@@ -155,11 +156,11 @@ var CampaignDetailsComponent = /** @class */ (function () {
                         switch ((_g = this.campaign) === null || _g === void 0 ? void 0 : _g.type) {
                             case 'donation':
                                 this.campaign.type = 'Quyên góp';
-                                this.campaign.org_id = (this.campaign.totalDonated / this.campaign.target).toString();
+                                this.campaign.org_id = (this.campaign.total_donated / this.campaign.target_number).toString();
                                 break;
                             case 'recruitment':
                                 this.campaign.type = 'Tuyển người';
-                                this.campaign.org_id = (this.campaign.totalPaticipant / this.campaign.target).toString();
+                                this.campaign.org_id = (this.campaign.total_participant / this.campaign.target_number).toString();
                                 break;
                         }
                         return [2 /*return*/];

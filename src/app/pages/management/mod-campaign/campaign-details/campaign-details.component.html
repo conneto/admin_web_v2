@@ -50,6 +50,11 @@
     </div>
     <div *ngIf="isInformation" class="box box__content">
       <div class="content">
+        <div class="d-flex justify-content-end" *ngIf="campaign.result_code == 710 || campaign.result_code == 720 || campaign.result_code == 721">
+          <button mat-icon-button class="update" (click)="isOpenUpdateForm = !isOpenUpdateForm">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
         <div class="content-information">
           <div class="content-description">
             <span>Tên chiến dịch:</span>
@@ -104,8 +109,8 @@
             <p>
               {{
                 campaign.type == "Quyên góp"
-                  ? (campaign.target | number) + "đ"
-                  : campaign.target + " người"
+                  ? (campaign.target_number | number) + "đ"
+                  : campaign.target_number + " người"
               }}
             </p>
           </div>
@@ -114,8 +119,8 @@
             <p>
               {{
                 campaign.type == "Quyên góp"
-                  ? (campaign.totalDonated | number) + "đ"
-                  : campaign.totalPaticipant + " người "
+                  ? (campaign.total_donated | number) + "đ"
+                  : campaign.total_participant + " người "
               }}
             </p>
           </div>
@@ -128,8 +133,8 @@
           <div class="content-description">
             <span>Thời gian diễn ra:</span>
             <p>
-              {{ campaign.startDate | date: "dd/MM/yyyy" }} -
-              {{ campaign.endDate | date: "dd/MM/yyyy" }}
+              {{ campaign.start_date | date: "dd/MM/yyyy" }} -
+              {{ campaign.end_date | date: "dd/MM/yyyy" }}
             </p>
           </div>
           <div *ngIf="isApproved" class="delete-button">
@@ -138,6 +143,7 @@
               [entity]="campaign"
             ></app-delete-entity>
           </div>
+          <app-campaign-update-form *ngIf="isOpenUpdateForm" [data]="campaign"></app-campaign-update-form>
         </div>
       </div>
     </div>

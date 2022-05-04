@@ -162,11 +162,11 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                                     switch (this.campaigns[i].type) {
                                         case 'donation':
                                             this.campaigns[i].type = 'Quyên Góp';
-                                            this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
+                                            this.campaigns[i].org_id = (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString();
                                             break;
                                         case 'recruitment':
                                             this.campaigns[i].type = 'Thiện Nguyện';
-                                            this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
+                                            this.campaigns[i].org_id = (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString();
                                             break;
                                     }
                                 }

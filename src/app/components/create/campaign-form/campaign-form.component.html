@@ -14,10 +14,10 @@
       >
         <mat-option [value]="this.data.project.name">
           {{ this.data.project.name }} ({{
-            this.data.project.startDate | date: "dd/MM/yyyy"
+            this.data.project.start_date | date: "dd/MM/yyyy"
           }}
           -
-          {{ this.data.project.endDate | date: "dd/MM/yyyy" }}
+          {{ this.data.project.end_date | date: "dd/MM/yyyy" }}
         </mat-option>
       </mat-select>
       <mat-select

@@ -107,12 +107,12 @@ var ProjectDetailsComponent = /** @class */ (function () {
                                 switch (this.campaigns[i].type) {
                                     case 'donation':
                                         Object.assign(this.campaigns[i], {
-                                            value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString()
+                                            value: (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString()
                                         });
                                         break;
                                     case 'recruitment':
                                         Object.assign(this.campaigns[i], {
-                                            value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString()
+                                            value: (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString()
                                         });
                                         break;
                                 }
@@ -125,10 +125,10 @@ var ProjectDetailsComponent = /** @class */ (function () {
                                     this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
                                     switch (this.campaigns[i].type) {
                                         case 'donation':
-                                            this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
+                                            this.campaigns[i].org_id = (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString();
                                             break;
                                         case 'recruitment':
-                                            this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
+                                            this.campaigns[i].org_id = (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString();
                                             break;
                                     }
                                 }

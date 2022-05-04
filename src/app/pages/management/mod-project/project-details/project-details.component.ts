@@ -93,14 +93,14 @@ export class ProjectDetailsComponent implements OnInit {
           case 'donation':
             Object.assign(this.campaigns[i], {
               value: (
-                this.campaigns[i].totalDonated! / this.campaigns[i].target!
+                this.campaigns[i].total_donated! / this.campaigns[i].target_number!
               ).toString(),
             });
             break;
           case 'recruitment':
             Object.assign(this.campaigns[i], {
               value: (
-                this.campaigns[i].totalPaticipant! / this.campaigns[i].target!
+                this.campaigns[i].total_participant! / this.campaigns[i].target_number!
               ).toString(),
             });
             break;
@@ -123,12 +123,12 @@ export class ProjectDetailsComponent implements OnInit {
           switch (this.campaigns[i].type) {
             case 'donation':
               this.campaigns[i].org_id = (
-                this.campaigns[i].totalDonated! / this.campaigns[i].target!
+                this.campaigns[i].total_donated! / this.campaigns[i].target_number!
               ).toString();
               break;
             case 'recruitment':
               this.campaigns[i].org_id = (
-                this.campaigns[i].totalPaticipant! / this.campaigns[i].target!
+                this.campaigns[i].total_participant! / this.campaigns[i].target_number!
               ).toString();
               break;
           }

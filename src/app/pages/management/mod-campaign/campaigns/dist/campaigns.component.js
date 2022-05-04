@@ -245,10 +245,10 @@ var CampaignsComponent = /** @class */ (function () {
                             switch (this.campaigns[i].type) {
                                 case 'donation':
                                     // this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
-                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString() });
+                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString() });
                                     break;
                                 case 'recruitment':
-                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString() });
+                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString() });
                                     break;
                             }
                         }

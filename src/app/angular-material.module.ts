@@ -1,4 +1,3 @@
-import { GoogleMapsModule } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -98,7 +97,6 @@ const materialModules = [
     MatSlideToggleModule,
     NgxCurrencyModule,
     GooglePlaceModule,
-    GoogleMapsModule,
 
 ];
 

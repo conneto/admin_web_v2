@@ -98,17 +98,17 @@
 .container .content__tab ul li {
   list-style: none;
   padding: 10px;
-  color: #A1A5B7;
+  color: #a1a5b7;
   font-weight: 600;
   cursor: pointer;
   margin: 0 10px;
 }
 .container .content__tab li:hover {
-  border-bottom: 1px solid #009EF7;
+  border-bottom: 1px solid #009ef7;
 }
 .container .content__tab-active {
-  color: #009EF7 !important;
-  border-bottom: 1px solid #009EF7;
+  color: #009ef7 !important;
+  border-bottom: 1px solid #009ef7;
 }
 .container .content-description {
   display: flex;
@@ -228,4 +228,8 @@
 
 :host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
   background-color: #ffd664;
+}
+
+.update {
+  background-color: #a7a7ff;
 }

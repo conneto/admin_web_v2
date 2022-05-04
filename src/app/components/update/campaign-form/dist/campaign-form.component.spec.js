@@ -45,7 +45,7 @@ describe('CampaignFormComponent', function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, testing_1.TestBed.configureTestingModule({
-                        declarations: [campaign_form_component_1.CampaignFormComponent]
+                        declarations: [campaign_form_component_1.CampaignUpdateFormComponent]
                     })
                         .compileComponents()];
                 case 1:
@@ -55,7 +55,7 @@ describe('CampaignFormComponent', function () {
         });
     }); });
     beforeEach(function () {
-        fixture = testing_1.TestBed.createComponent(campaign_form_component_1.CampaignFormComponent);
+        fixture = testing_1.TestBed.createComponent(campaign_form_component_1.CampaignUpdateFormComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

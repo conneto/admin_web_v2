@@ -39,6 +39,7 @@ export class CampaignDetailsComponent implements OnInit {
   pdfName?: any;
   isChecked?: boolean;
   isNoHistory?:any;
+  isOpenUpdateForm?: boolean = false;
 
   constructor(private router: Router, private snackBar: SnackBarMessageComponent, private dialog: MatDialog, private userApi: AuthService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
 
@@ -117,10 +118,10 @@ export class CampaignDetailsComponent implements OnInit {
     this.urlProjectLogo = this.campaign?.pro_logo?.replace(/\\/g, '\/');
     switch (this.campaign?.type) {
       case 'donation': this.campaign.type = 'Quyên góp';
-        this.campaign.org_id = (this.campaign.totalDonated! / this.campaign.target!).toString();
+        this.campaign.org_id = (this.campaign.total_donated! / this.campaign.target_number!).toString();
         break;
       case 'recruitment': this.campaign.type = 'Tuyển người';
-        this.campaign.org_id = (this.campaign.totalPaticipant! / this.campaign.target!).toString();
+        this.campaign.org_id = (this.campaign.total_participant! / this.campaign.target_number!).toString();
         break;
     }
 

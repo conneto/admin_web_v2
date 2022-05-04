@@ -159,12 +159,12 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                                 switch (this.campaigns[i].type) {
                                     case 'donation':
                                         Object.assign(this.campaigns[i], {
-                                            value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString()
+                                            value: (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString()
                                         });
                                         break;
                                     case 'recruitment':
                                         Object.assign(this.campaigns[i], {
-                                            value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString()
+                                            value: (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString()
                                         });
                                         break;
                                 }

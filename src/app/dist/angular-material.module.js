@@ -14,7 +14,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 exports.__esModule = true;
 exports.AngularMaterialModule = void 0;
-var google_maps_1 = require("@angular/google-maps");
 var common_1 = require("@angular/common");
 var core_1 = require("@angular/core");
 var overlay_1 = require("@angular/cdk/overlay");
@@ -106,7 +105,6 @@ var materialModules = [
     slide_toggle_1.MatSlideToggleModule,
     ngx_currency_1.NgxCurrencyModule,
     ngx_google_places_autocomplete_1.GooglePlaceModule,
-    google_maps_1.GoogleMapsModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {

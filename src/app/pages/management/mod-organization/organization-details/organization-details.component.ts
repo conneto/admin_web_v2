@@ -146,14 +146,14 @@ export class OrganizationDetailsComponent implements OnInit {
           case 'donation':
             Object.assign(this.campaigns[i], {
               value: (
-                this.campaigns[i].totalDonated! / this.campaigns[i].target!
+                this.campaigns[i].total_donated! / this.campaigns[i].target_number!
               ).toString(),
             });
             break;
           case 'recruitment':
             Object.assign(this.campaigns[i], {
               value: (
-                this.campaigns[i].totalPaticipant! / this.campaigns[i].target!
+                this.campaigns[i].total_participant! / this.campaigns[i].target_number!
               ).toString(),
             });
             break;

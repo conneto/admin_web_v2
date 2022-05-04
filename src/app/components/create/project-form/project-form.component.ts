@@ -1,22 +1,26 @@
-
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Constant } from 'src/app/constant/constant';
 
-
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-
 
 @Component({
   selector: 'app-project-form',
   templateUrl: './project-form.component.html',
-  styleUrls: ['./project-form.component.scss']
+  styleUrls: ['./project-form.component.scss'],
 })
 export class ProjectFormComponent implements OnInit {
-  constructor(private router: Router, public organizationId: LoadingService, private authApi: AuthService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
+  constructor(
+    private router: Router,
+    public organizationId: LoadingService,
+    private authApi: AuthService,
+    public dialogRef: MatDialogRef<ProjectFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder
+  ) {}
   projectForm!: FormGroup;
   coverImage?: File;
   logo?: File;
@@ -33,40 +37,48 @@ export class ProjectFormComponent implements OnInit {
 
   public latitude?: number;
   public longitude?: number;
-  userAddress: string = ''
-  userLatitude: string = ''
-  userLongitude: string = ''
+  userAddress: string = '';
+  userLatitude: string = '';
+  userLongitude: string = '';
 
   ngOnInit(): void {
     this.initForm();
-
   }
   getLocationName(e: any) {
     if (e) {
       this.locationObject = {
-        name: e.target.value
-      }
+        name: e.target.value,
+      };
     } else {
       this.noLocationName = true;
     }
     console.log(this.locationObject);
   }
   handleAddressChange(address: any) {
-    this.userAddress = address.formatted_address
-    this.userLatitude = address.geometry.location.lat()
-    this.userLongitude = address.geometry.location.lng()
+    this.userAddress = address.formatted_address;
+    this.userLatitude = address.geometry.location.lat();
+    this.userLongitude = address.geometry.location.lng();
     if (address) {
       this.locationObject = {
-        ...this.locationObject, address: this.userAddress, latitude: this.userLatitude, longitude: this.userLongitude
-      }
+        ...this.locationObject,
+        address: this.userAddress,
+        latitude: this.userLatitude,
+        longitude: this.userLongitude,
+      };
     } else {
       this.noAddress = true;
     }
-
   }
   initForm() {
     this.projectForm = this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(128),
+        ],
+      ],
       description: ['', [Validators.required, Validators.minLength(128)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
@@ -76,31 +88,45 @@ export class ProjectFormComponent implements OnInit {
       cover: [''],
       logo: [''],
       category: [''],
-      locations:[''],
-    })
+      locations: [''],
+    });
   }
   noClick() {
-
     this.dialogRef.close(false);
-
   }
   yesClick() {
-
-    if (this.projectForm.controls.category.value.length != 0 && this.projectForm.controls.category.value) {
+    if (
+      this.projectForm.controls.category.value.length != 0 &&
+      this.projectForm.controls.category.value
+    ) {
       if (this.isRemoved == true || this.isSubmitted == true) {
         this.categoryStringClone = '';
-        for (let i = 0; i < this.projectForm.controls.category.value.length; i++) {
-          this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+        for (
+          let i = 0;
+          i < this.projectForm.controls.category.value.length;
+          i++
+        ) {
+          this.categoryStringClone = this.projectForm.controls.category.value[
+            i
+          ].name.concat('|', this.categoryStringClone);
         }
       } else {
         this.categoryStringClone = '';
-        for (let i = 0; i < this.projectForm.controls.category.value.length; i++) {
-          this.categoryStringClone = this.projectForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
-
+        for (
+          let i = 0;
+          i < this.projectForm.controls.category.value.length;
+          i++
+        ) {
+          this.categoryStringClone = this.projectForm.controls.category.value[
+            i
+          ].name.concat('|', this.categoryStringClone);
         }
       }
     }
-    this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+    this.categoryString = this.categoryStringClone.slice(
+      0,
+      this.categoryStringClone.length - 1
+    );
     this.isSubmitted = true;
     this.projectForm.value.category = this.categoryString;
 
@@ -127,7 +153,6 @@ export class ProjectFormComponent implements OnInit {
     if (e.target.files && e.target.files.length > 0) {
       this.logo = e.target.files[0];
     }
-
   }
   get projectControl() {
     return this.projectForm.controls;
@@ -140,7 +165,7 @@ export class ProjectFormComponent implements OnInit {
       category.splice(index, 1);
     }
     if (index == 0) {
-      this.categoryStringClone = ''
+      this.categoryStringClone = '';
     }
     this.projectForm.controls.category.patchValue(category);
   }
