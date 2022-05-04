@@ -19,18 +19,21 @@
           </ng-template>
         </div>
 
-        <div *ngIf="!isAdmin && isApprovedProject" class="ms-2 campaigns__button-create flex-grow">
+        <div
+          *ngIf="!isAdmin && isApprovedProject"
+          class="ms-2 campaigns__button-create flex-grow"
+        >
           <button (click)="openCampaignForm()" mat-raised-button color="accent">
             <mat-icon>add</mat-icon>
             Tạo chiến dịch
           </button>
         </div>
         <app-entity-status
-        *ngIf="!isList && !isTabRejected && !isTabPending"
-        [entityData]="passData"
-        [type]="'org'"
-        (entity)="getEntity($event)"
-      ></app-entity-status>
+          *ngIf="!isList && !isTabRejected && !isTabPending"
+          [entityData]="passData"
+          [type]="'org'"
+          (entity)="getEntity($event)"
+        ></app-entity-status>
         <app-search-bar
           *ngIf="!isList"
           (getItem)="getData($event)"
@@ -51,24 +54,28 @@
       ></app-list-view>
       <div *ngIf="!isList" class="row p-3">
         <app-campaign-card-info
-     
           *ngFor="let cam of campaigns"
           class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
-    
           [campaign]="cam"
         ></app-campaign-card-info>
       </div>
     </div>
   </ng-template>
-  <div class="p-3  mb-3 d-flex align-items-center" *ngIf="isEmpty">
+  <div class="p-3 mb-3 d-flex align-items-center" *ngIf="isEmpty">
     <div>Hiện tại không có chiến dịch nào được tạo!</div>
     <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
-      <button (click)="openCampaignForm()" mat-raised-button color="accent" *ngIf='!isAdmin && isApprovedProject'>
+      <button
+        (click)="openCampaignForm()"
+        mat-raised-button
+        color="accent"
+        *ngIf="!isAdmin && isApprovedProject"
+      >
         <mat-icon>add</mat-icon>
         Tạo chiến dịch
       </button>
     </div>
   </div>
+
   <div *ngIf="isRequest; then request; else noRequest"></div>
   <ng-template #request>
     <div *ngIf="!isEmpty">
@@ -104,12 +111,14 @@
         [entity]="oldData"
       ></app-list-view>
       <div class="center" *ngIf="!isList">
-        <div class='row p-3'*ngFor="let campaign of campaigns">
-          <app-campaign-request-card class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
+        <div class="row p-3" *ngFor="let campaign of campaigns">
+          <app-campaign-request-card
+            class="campaign-card mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
             [campaign]="campaign"
           ></app-campaign-request-card>
         </div>
       </div>
     </div>
   </ng-template>
+  <app-load-more></app-load-more>
 </div>

@@ -2,7 +2,7 @@
   <div
     *ngIf="!noOrg && !isPending; then tabgroup; else createOrganization"
   ></div>
-  <div class="row p-3" >
+  <div class="row p-3">
     <div class="skeleton">
       <div *ngFor="let i of numberCount">
         <app-skeletion-loading></app-skeletion-loading>
@@ -75,7 +75,7 @@
         <div *ngIf="!isList" class="request-component">
           <app-organization-infor-card
             *ngFor="let org of organizations"
-            class="organization-card  col-xxl-4 col-md-6 col-sm-12 col-12"
+            class="organization-card col-xxl-4 col-md-6 col-sm-12 col-12"
             [organizations]="org"
             [checkType]="'org'"
           >
@@ -182,5 +182,6 @@
         ></app-organization-details>
       </div>
     </div>
+    <app-load-more *ngIf='isAdmin'></app-load-more>
   </div>
 </div>

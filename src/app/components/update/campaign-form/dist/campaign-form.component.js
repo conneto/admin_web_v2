@@ -56,7 +56,6 @@ var CampaignUpdateFormComponent = /** @class */ (function () {
         this.snackBar = snackBar;
         this.organizations = [];
         this.projects = [];
-        this.selectedRadio = '';
         this.cloneProjects = [];
         this.type = ['Quyên góp', 'Tuyển tình nguyện viên'];
         this.uploadData = new FormData();
@@ -67,14 +66,16 @@ var CampaignUpdateFormComponent = /** @class */ (function () {
     CampaignUpdateFormComponent.prototype.ngOnInit = function () {
         this.initForm();
     };
+    CampaignUpdateFormComponent.prototype.ngAfterContentChecked = function () {
+        this.selectedRadio = this.data.type == 'Quyên góp' ? 'Quyên góp' : 'Tuyển tình nguyện viên';
+        console.log(this.selectedRadio);
+    };
     CampaignUpdateFormComponent.prototype.getValue = function (element) {
         this.defaultNumber = this.currency.transform(this.defaultNumber, 'đ');
         element.target.value = this.defaultNumber;
     };
     CampaignUpdateFormComponent.prototype.initForm = function () {
-        this.selectedRadio = (this.data.type == 'donation') ? 'Quyên góp' : 'Tuyển tình nguyện viên';
         this.campaignForm = this.formBuilder.group({
-            selected: [this.selectedRadio, forms_1.Validators.required],
             name: [
                 this.data.name,
                 [
@@ -164,10 +165,10 @@ var CampaignUpdateFormComponent = /** @class */ (function () {
                         else if (this.selectedRadio == 'Tuyển tình nguyện viên') {
                             this.campaignForm.patchValue({ type: 'recruitment' });
                         }
-                        console.log(this.campaignForm.value);
                         if (!this.campaignForm.valid) return [3 /*break*/, 2];
                         this.campaignForm.value.category = this.categoryString;
                         this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
+                        console.log(this.campaignForm.value);
                         return [4 /*yield*/, this.campaignService.updateById(this.uploadData, this.data.id)];
                     case 1:
                         res = _b.sent();

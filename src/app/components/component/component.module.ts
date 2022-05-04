@@ -44,6 +44,7 @@ import { OrganizationDetailsComponent } from '../organization-details/organizati
 import { EntityStatusComponent } from '../entity-status/entity-status.component';
 import { OrganizationUpdateFormComponent } from '../update/organization-form/organization-form.component';
 import { OrganizationSkeletonLoadingComponent } from '../organization-skeleton-loading/organization-skeleton-loading.component';
+import { LoadMoreComponent } from '../load-more/load-more.component';
 
 
 const componentModules = [
@@ -85,7 +86,7 @@ const componentModules = [
   OrganizationSkeletonLoadingComponent,
   OrganizationUpdateFormComponent,
   OrganizationFormComponent,
-
+  LoadMoreComponent,
 ]
 
 @NgModule({

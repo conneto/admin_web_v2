@@ -48,10 +48,11 @@
             class="d-flex justify-content-end"
             *ngIf="
               !isAdmin &&
-              project.result_code == 610 ||
-              project.result_code == 620 ||
-              project.result_code == 621 ||
-              project.result_code == 631
+              (project.result_code == 610 ||
+                project.result_code == 620 ||
+                project.result_code == 621 ||
+                project.result_code == 631) &&
+              project.is_active == true
             "
           >
             <button

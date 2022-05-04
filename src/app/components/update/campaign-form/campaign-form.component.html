@@ -9,9 +9,10 @@
           [(ngModel)]="selectedRadio"
           formControlName="type"
         >
+        
           <mat-radio-button
             (click)="getType(t)"
-            [checked]="t == selectedRadio"
+            [checked]="t == this.data.type"
             *ngFor="let t of type"
             [value]="t"
             >{{ t }}
@@ -83,7 +84,7 @@
       </div>
       <div *ngIf='selectedRadio=="Quyên góp"'>
         <input
-          [options]="{align:'left', suffix: 'đ',prefix:'',precision:3 }"
+          [options]="{align:'left', suffix: 'đ',prefix:'',precision:0 }"
           currencyMask
           placeholder="Mục tiêu cần đạt"
           class="input login"

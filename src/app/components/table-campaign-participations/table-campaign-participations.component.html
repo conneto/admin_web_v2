@@ -1,4 +1,4 @@
-<div *ngIf="volunteer">
+<div *ngIf="volunteer.length!=0">
   <div class="view-list">
     <table mat-table [dataSource]="dataSource">
       <div *ngIf="type == 'recruitment'">
@@ -27,7 +27,7 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="participate_message">
-          <th mat-header-cell *matHeaderCellDef>Lời nhắn </th>
+          <th mat-header-cell *matHeaderCellDef>Lời nhắn</th>
           <td mat-cell *matCellDef="let e">
             {{ e.participate_message ? e.participate_message : "Chưa có" }}
           </td>
@@ -50,7 +50,7 @@
 
           <td mat-cell *matCellDef="let e">
             <div *ngIf="!isAdmin">
-              <div   class='action-button' *ngIf="e.result_code != 0">
+              <div class="action-button" *ngIf="e.result_code != 0">
                 <button
                   (click)="approve(e.id, e.campaign_id)"
                   class="approve-button enable"
@@ -64,7 +64,7 @@
                   Từ chối
                 </button>
               </div>
-              <div class='action-button' *ngIf="e.result_code == 0">
+              <div class="action-button" *ngIf="e.result_code == 0">
                 <button
                   (click)="check(e.id, e.campaign_id)"
                   class="approve-button enable"
@@ -127,32 +127,7 @@
           </td>
         </ng-container>
       </div>
-      <!-- <ng-container matColumnDef="created_name">
-          <th mat-header-cell *matHeaderCellDef>Người tạo</th>
-          <td mat-cell *matCellDef="let e">{{ e.created_name }}</td>
-        </ng-container>
-        <ng-container matColumnDef="created_at">
-          <th mat-header-cell *matHeaderCellDef>Ngày tạo</th>
-          <td mat-cell *matCellDef="let e">
-            {{ e.created_at | date: "dd/MM/yyyy" }}
-          </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef>Loại tổ chức</th>
-          <td mat-cell *matCellDef="let e">{{ e.type }}</td>
-        </ng-container> -->
-
-      <!--
-                    <ng-container matColumnDef="donated_turn">
-                      <th mat-header-cell *matHeaderCellDef>Số lần quyên góp</th>
-                      <td mat-cell *matCellDef="let e">{{ e.donated_turn }}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="donated_campaign">
-                      <th mat-header-cell *matHeaderCellDef>Số chiến dịch đã quyên góp</th>
-                      <td mat-cell *matCellDef="let e">{{ e.donated_campaign }}</td>
-                    </ng-container>
-                  -->
+     
       <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
     </table>

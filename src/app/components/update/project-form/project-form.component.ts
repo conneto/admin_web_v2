@@ -29,8 +29,8 @@ export class ProjectUpdateFormComponent implements OnInit {
   isSubmitted?: boolean;
   isRemoved?: boolean;
   category: any[] = Constant.CATEGORY;
-  categoryStringClone?: any;
-  categoryString?: any;
+  categoryStringClone: string = ''
+  categoryString: string = ''
   @Input() data: any;
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class ProjectUpdateFormComponent implements OnInit {
         new Date(this.data.end_date).toISOString().substring(0, 10),
         Validators.required,
       ],
-      organization_id: [this.organizationId.getOrganizationId.value],
+      organization_id: [this.data.organization_id],
       cover: [''],
       logo: [''],
       category: [''],
@@ -105,7 +105,7 @@ export class ProjectUpdateFormComponent implements OnInit {
         this.categoryStringClone.length - 1
       );
     }
-    this.isSubmitted = true;
+
     this.projectForm.value.category = this.categoryString;
 
     if (this.projectForm.valid) {
