@@ -10,8 +10,8 @@
       <div class="user-status content-center position-absolute top-0 left-0 p-2">
         <span *ngIf="user?.is_active && !user?.is_block" title="Đang hoạt động" class="dot__green opacity-75">Đang hoạt
           động</span>
-        <span *ngIf="!user?.is_active" title="Ngưng hoạt động" class="dot__red opacity-75"></span>
-        <span *ngIf="user?.is_active && user?.is_block" title="Bị khóa" class="dot__yellow opacity-75"></span>
+        <span *ngIf="!user?.is_active" title="Ngưng hoạt động" class="dot__yellow opacity-75">Ngưng hoạt động</span>
+        <span *ngIf="user?.is_active && user?.is_block" title="Bị khóa" class="dot__red opacity-75">Bị khóa</span>
       </div>
       <div class="row d-flex align-items-center justify-content-around">
         <div class="col-sm-6 my-2 d-flex flex-column align-items-center justify-content-center">
