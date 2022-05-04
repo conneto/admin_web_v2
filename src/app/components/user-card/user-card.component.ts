@@ -1,3 +1,6 @@
+import { SnackBarMessageComponent } from './../snack-bar-message/snack-bar-message.component';
+import { BaseResponse } from './../../models/base-response/base-response';
+import { UserService } from 'src/app/services/user-service/user.service';
 import { UtilService } from 'src/app/services/util-service/util.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,15 +19,17 @@ export class UserCardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private loadingService: LoadingService,
-    public utilService: UtilService
+    public utilService: UtilService,
+    private userService: UserService,
+    private snackBar: SnackBarMessageComponent
   ) {}
 
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
   }
 
-  disableUser() {
-    const diaglogRef = this.dialog.open(DialogConfirmComponent, {
+  async disableUser() {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
         button: 'Đồng ý',
@@ -32,16 +37,52 @@ export class UserCardComponent implements OnInit {
         message: 'Bạn có chắc chắn muốn khóa người dùng này?',
       },
     });
+    dialogRef.afterClosed().subscribe(async (data) => {
+      if (data) {
+        let obj: any = {
+          "object_id": this.user?.id,
+          "object_type": "activate_user",
+          "status": "disable",
+          "note": "Người dùng vi phạm"
+        }
+        let res: BaseResponse = await this.userService.activateUser(obj);
+        if (res?.status == 0) {
+          this.snackBar.showMessage('Cập nhật thành công', true);
+        } else {
+          this.snackBar.showMessage(res?.message, false);
+        }
+        this.loadingService.isLoading.next(false);
+        window.location.reload();
+      }
+    });
   }
 
-  enableUser() {
-    const diaglogRef = this.dialog.open(DialogConfirmComponent, {
+  async enableUser() {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
         button: 'Đồng ý',
         close: 'Hủy',
         message: 'Bạn có chắc chắn muốn kích hoạt người dùng này?',
       },
+    });
+    dialogRef.afterClosed().subscribe(async (data) => {
+      if (data) {
+        let obj: any = {
+          "object_id": this.user?.id,
+          "object_type": "activate_user",
+          "status": "enable",
+          "note": ""
+        }
+        let res: BaseResponse = await this.userService.activateUser(obj);
+        if (res?.status == 0) {
+          this.snackBar.showMessage('Cập nhật thành công', true);
+        } else {
+          this.snackBar.showMessage(res?.message, false);
+        }
+        this.loadingService.isLoading.next(false);
+        window.location.reload();
+      }
     });
   }
 }

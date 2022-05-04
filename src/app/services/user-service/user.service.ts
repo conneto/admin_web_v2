@@ -59,4 +59,13 @@ export class UserService {
 
     return res.data || null;
   }
+
+  async activateUser(data: any) {
+    let res: BaseResponse = await this.api.put(
+      "admins/activate",
+      data
+    );
+
+    return res.data || null;
+  }
 }

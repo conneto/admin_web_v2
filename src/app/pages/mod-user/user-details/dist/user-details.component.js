@@ -69,6 +69,7 @@ var UserDetailsComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.userService.getById(id)];
                     case 1:
                         _a.user = _b.sent();
+                        console.log(this.user);
                         return [2 /*return*/];
                 }
             });

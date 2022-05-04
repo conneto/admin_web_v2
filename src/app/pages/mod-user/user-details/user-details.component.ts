@@ -33,6 +33,7 @@ export class UserDetailsComponent implements OnInit {
 
   async getUserDetails(id: string) {
     this.user = await this.userService.getById(id);
+    console.log(this.user)
   }
 
   async getCampaignParticipations(id: string) {
@@ -48,7 +49,7 @@ export class UserDetailsComponent implements OnInit {
   }
 
   disableUser() {
-    
+
   }
 
 }

@@ -25,12 +25,12 @@
         <span
           *ngIf="!user.is_active"
           title="Ngưng hoạt động"
-          class="dot__red"
+          class="dot__yellow"
         ></span>
         <span
-          *ngIf="user.is_active && user.is_block"
+          *ngIf="user.is_block"
           title="Bị khóa"
-          class="dot__yellow"
+          class="dot__red"
         ></span>
       </div>
       <div
