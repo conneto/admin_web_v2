@@ -55,7 +55,6 @@ export class CampaignDetailsComponent implements OnInit {
     if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
-
   }
   ngAfterViewChecked(): void {
     this.checkDate();
@@ -98,6 +97,7 @@ export class CampaignDetailsComponent implements OnInit {
 
       }
     }
+    window.location.reload();
   }
   getDocument() {
     this.type = 'pdf';

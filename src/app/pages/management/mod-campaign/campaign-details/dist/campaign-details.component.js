@@ -115,7 +115,9 @@ var CampaignDetailsComponent = /** @class */ (function () {
                             this.router.navigate(["admin/manage-campaign/campaign-details/" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id)]);
                         }
                         _d.label = 4;
-                    case 4: return [2 /*return*/];
+                    case 4:
+                        window.location.reload();
+                        return [2 /*return*/];
                 }
             });
         });

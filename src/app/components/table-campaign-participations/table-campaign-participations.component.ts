@@ -159,7 +159,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
   }
 
   check(e: any, cam_id?: any) {
-    if (new Date(this.entity.end_date) > new Date()) {
+    if (new Date(this.entity.end_working_date) > new Date()) {
       this.snackBar.showMessage("Chiến dịch này chưa kết thúc, bạn không thể đánh dấu hoàn thành cho tình nguyện viên", false);
       return;
     }
