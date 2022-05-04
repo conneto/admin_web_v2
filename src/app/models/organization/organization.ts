@@ -29,6 +29,7 @@ export class Organization {
     public created_name?: number,
     public is_enable?:boolean,
     public is_modify?:boolean,
+    public location?:Location,
 
   ) { }
 }
@@ -63,6 +64,7 @@ export class OrganizationAdapter implements Adapter<Organization> {
       item.created_by_name,
       item.is_enable,
       item.is_modify,
+      item.location,
 
     );
   }

@@ -3,7 +3,7 @@
 
     <mat-card (click)="goToDetail(project.id)">
       <div class="image">
-        <img loading="lazy" alt="Cover of this project" mat-card-image
+        <img onerror="this.src='assets/images/temp_bg.png'" loading="lazy" alt="Cover of this project" mat-card-image
           src="{{ urlApi }}/show/images?p={{ project.cover }}" />
       </div>
       <mat-card-title>

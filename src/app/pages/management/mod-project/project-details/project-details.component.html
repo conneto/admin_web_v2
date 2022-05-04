@@ -108,9 +108,9 @@
         </div>
       </div>
     </div>
-    <div *ngIf="isCampaigns && isApproved">
+    <div *ngIf="isCampaigns">
       <div *ngIf="isEmpty" class="d-flex">
-        Hiện tại không có dự án nào được tạo!
+        Hiện tại không có chiến dịch nào được tạo!
         <div *ngIf="!isAdmin" class="ms-2 campaigns__button-create">
           <button (click)="openCampaignForm()" mat-raised-button color="accent">
             <mat-icon>add</mat-icon>
