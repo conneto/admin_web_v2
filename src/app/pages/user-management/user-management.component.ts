@@ -117,7 +117,7 @@ export class UserManagementComponent implements OnInit {
             this.isEmpty = true;
           }
         } else {
-          this.isNoMore = true;
+          this.isNoMore = false;
           this.users=this.oldUsers
           this.isEmpty = false;
           this.users = _.filter(this.users, (x: any) => {

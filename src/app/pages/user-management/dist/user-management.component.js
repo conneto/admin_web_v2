@@ -162,7 +162,7 @@ var UserManagementComponent = /** @class */ (function () {
                     }
                 }
                 else {
-                    _this.isNoMore = true;
+                    _this.isNoMore = false;
                     _this.users = _this.oldUsers;
                     _this.isEmpty = false;
                     _this.users = _.filter(_this.users, function (x) {
