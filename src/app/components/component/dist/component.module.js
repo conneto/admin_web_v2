@@ -56,6 +56,7 @@ var entity_status_component_1 = require("../entity-status/entity-status.componen
 var organization_form_component_2 = require("../update/organization-form/organization-form.component");
 var organization_skeleton_loading_component_1 = require("../organization-skeleton-loading/organization-skeleton-loading.component");
 var load_more_component_1 = require("../load-more/load-more.component");
+var user_status_filter_component_1 = require("../user-status-filter/user-status-filter.component");
 var componentModules = [
     menu_icon_component_1.MenuIconComponent,
     dashboard_card_component_1.DashboardCardComponent,
@@ -96,6 +97,7 @@ var componentModules = [
     organization_form_component_2.OrganizationUpdateFormComponent,
     organization_form_component_1.OrganizationFormComponent,
     load_more_component_1.LoadMoreComponent,
+    user_status_filter_component_1.UserStatusFilterComponent,
 ];
 var ComponentModule = /** @class */ (function () {
     function ComponentModule() {

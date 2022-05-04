@@ -89,7 +89,7 @@ export class ProjectFormComponent implements OnInit {
       organization_id: [this.organizationId.getOrganizationId.value],
       request_type: ['create'],
       cover: [''],
-      logo: [''],
+      logo: ['',Validators.required],
       category: [''],
       locations: [''],
     });
