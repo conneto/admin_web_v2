@@ -17,7 +17,9 @@
               }">{{ campaign.result_message }}</span>
           </div>
           <div class="header-image">
-            <img src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
+            <img
+            onerror="this.src='assets/images/temp_bg.png'"
+            src="{{ urlApi }}/show/images?p={{ urlCover }}" alt="" />
           </div>
         </div>
         <div class="content__tab">
@@ -35,12 +37,9 @@
                   : "Quản lý tuyển dụng"
               }}
             </li>
-            <mat-slide-toggle
-            style="position: absolute; right: 0;margin-right:5px;"
-            *ngIf="isAdmin && (campaign.result_code == 710 || campaign.result_code == 720 || campaign.result_code == 721 || campaign.result_code == 731)"
-            [checked]="campaign?.is_transparent"
-            (change)="doCheck()"
-            >Minh bạch chiến dịch: {{
+            <mat-slide-toggle style="position: absolute; right: 0;margin-right:5px;"
+              *ngIf="isAdmin && (campaign.result_code == 710 || campaign.result_code == 720 || campaign.result_code == 721 || campaign.result_code == 731)"
+              [checked]="campaign?.is_transparent" (change)="doCheck()">Minh bạch chiến dịch: {{
               campaign.is_transparent == true
                 ? "Đã xác thực"
                 : "Chưa xác thực"
@@ -153,7 +152,8 @@
             class="ms-2">
             <mat-icon>offline_pin</mat-icon> Tài liệu chi tiết dòng tiền
           </button>
-          <button *ngIf="documentPDF.length > 0" mat-flat-button style="background-color: yellow" (click)="getDocument()" class="ms-2 box-shadow-2">
+          <button *ngIf="documentPDF.length > 0" mat-flat-button style="background-color: yellow"
+            (click)="getDocument()" class="ms-2 box-shadow-2">
             <mat-icon>attach_file</mat-icon> Tài liệu của chiến dịch
           </button>
         </div>
