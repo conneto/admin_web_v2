@@ -42,7 +42,6 @@ var sort_1 = require("@angular/material/sort");
 var table_1 = require("@angular/material/table");
 var tabs_1 = require("@angular/material/tabs");
 var toolbar_1 = require("@angular/material/toolbar");
-var tree_2 = require("@angular/material/tree");
 var badge_1 = require("@angular/material/badge");
 var grid_list_1 = require("@angular/material/grid-list");
 var radio_1 = require("@angular/material/radio");
@@ -56,6 +55,8 @@ var core_3 = require("@angular/material/core");
 var ngx_skeleton_loader_1 = require("ngx-skeleton-loader");
 var ng2_file_upload_1 = require("ng2-file-upload");
 var ngx_dropzone_1 = require("ngx-dropzone");
+var ngx_google_places_autocomplete_1 = require("ngx-google-places-autocomplete");
+var google_maps_1 = require("@angular/google-maps");
 var materialModules = [
     tree_1.CdkTreeModule,
     autocomplete_1.MatAutocompleteModule,
@@ -81,7 +82,6 @@ var materialModules = [
     toolbar_1.MatToolbarModule,
     form_field_1.MatFormFieldModule,
     button_toggle_1.MatButtonToggleModule,
-    tree_2.MatTreeModule,
     overlay_1.OverlayModule,
     portal_1.PortalModule,
     badge_1.MatBadgeModule,
@@ -103,6 +103,8 @@ var materialModules = [
     ngx_dropzone_1.NgxDropzoneModule,
     ngx_skeleton_loader_1.NgxSkeletonLoaderModule,
     slide_toggle_1.MatSlideToggleModule,
+    ngx_google_places_autocomplete_1.GooglePlaceModule,
+    google_maps_1.GoogleMapsModule,
 ];
 var AngularMaterialModule = /** @class */ (function () {
     function AngularMaterialModule() {

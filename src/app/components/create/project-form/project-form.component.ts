@@ -1,14 +1,13 @@
+
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Constant } from 'src/app/constant/constant';
 
 
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
-import { ProjectService } from 'src/app/services/project-service/project.service';
 
 
 @Component({
@@ -17,32 +16,67 @@ import { ProjectService } from 'src/app/services/project-service/project.service
   styleUrls: ['./project-form.component.scss']
 })
 export class ProjectFormComponent implements OnInit {
-  constructor(private router:Router,public organizationId: LoadingService, private authApi: AuthService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, public organizationId: LoadingService, private authApi: AuthService, public dialogRef: MatDialogRef<ProjectFormComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) { }
   projectForm!: FormGroup;
   coverImage?: File;
-  logo?:File;
-  isSubmitted?:boolean;
-  isRemoved?:boolean;
-  category:any[]=Constant.CATEGORY;
-  categoryStringClone?:any;
-  categoryString?:any;
+  logo?: File;
+  isSubmitted?: boolean;
+  isRemoved?: boolean;
+  category: any[] = Constant.CATEGORY;
+  categoryStringClone?: any;
+  categoryString?: any;
+  locations: any[] = [];
+  locationObject = {};
+  noLocationName?: boolean;
+  noAddress?: boolean;
+  isSendRequest?: boolean;
+
+  public latitude?: number;
+  public longitude?: number;
+  userAddress: string = ''
+  userLatitude: string = ''
+  userLongitude: string = ''
+
   ngOnInit(): void {
     this.initForm();
 
   }
+  getLocationName(e: any) {
+    if (e) {
+      this.locationObject = {
+        name: e.target.value
+      }
+    } else {
+      this.noLocationName = true;
+    }
+    console.log(this.locationObject);
+  }
+  handleAddressChange(address: any) {
+    this.userAddress = address.formatted_address
+    this.userLatitude = address.geometry.location.lat()
+    this.userLongitude = address.geometry.location.lng()
+    if (address) {
+      this.locationObject = {
+        ...this.locationObject, address: this.userAddress, latitude: this.userLatitude, longitude: this.userLongitude
+      }
+    } else {
+      this.noAddress = true;
+    }
 
+  }
   initForm() {
     this.projectForm = this.formBuilder.group({
-      name: ['', [ Validators.required,Validators.minLength(8),Validators.maxLength(128)]],
-      description: ['', [ Validators.required,Validators.minLength(128),Validators.maxLength(256)]],
+      name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
+      description: ['', [Validators.required, Validators.minLength(128)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
       created_by: [this.authApi.currentUserValue.id],
       organization_id: [this.organizationId.getOrganizationId.value],
       request_type: ['create'],
       cover: [''],
-      logo:[''],
-      category:[''],
+      logo: [''],
+      category: [''],
+      locations:[''],
     })
   }
   noClick() {
@@ -71,9 +105,15 @@ export class ProjectFormComponent implements OnInit {
     this.projectForm.value.category = this.categoryString;
 
     if (this.projectForm.valid) {
+      if (!this.isSendRequest) {
+        this.locations.push(this.locationObject);
+      }
+      this.isSendRequest = true;
+
+      this.projectForm.value.locations = this.locations;
       let uploadData: any = new FormData();
       uploadData.append('cover', this.coverImage, this.coverImage?.name);
-      uploadData.append('logo',this.logo,this.logo?.name);
+      uploadData.append('logo', this.logo, this.logo?.name);
       uploadData.append('project', JSON.stringify(this.projectForm.value));
       this.dialogRef.close(uploadData);
     }
@@ -89,7 +129,7 @@ export class ProjectFormComponent implements OnInit {
     }
 
   }
-  get projectControl(){
+  get projectControl() {
     return this.projectForm.controls;
   }
   onRemoveCategory(e: string) {

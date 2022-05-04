@@ -19,6 +19,7 @@ var http_1 = require("@angular/common/http");
 var hot_toast_1 = require("@ngneat/hot-toast");
 var forms_1 = require("@angular/forms");
 var ng2_file_upload_1 = require("ng2-file-upload");
+var common_1 = require("@angular/common");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -39,7 +40,9 @@ var AppModule = /** @class */ (function () {
                 forms_1.FormsModule,
                 ng2_file_upload_1.FileUploadModule,
             ],
-            providers: [],
+            providers: [
+                common_1.CurrencyPipe
+            ],
             bootstrap: [app_component_1.AppComponent],
             schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA]
         })

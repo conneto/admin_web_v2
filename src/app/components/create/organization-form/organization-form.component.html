@@ -65,10 +65,9 @@
       organizationControl.description.errors?.['minlength'] ||   organizationControl.description.errors?.['maxlength']
     "
         class="text-danger"
-        >Giới thiệu bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span
-      >
+        >Giới thiệu tổ chức là bắt buộc, độ dài tối thiểu 128 kí tự !
+      </span>
       <div>
-        <mat-label style="width: 24%">Tầm nhìn</mat-label>
         <textarea
           class="input login"
           type="text"
@@ -84,7 +83,7 @@
       organizationControl.vision.errors?.['minlength'] ||   organizationControl.vision.errors?.['maxlength']
     "
         class="text-danger"
-        >Tầm nhìn bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span
+        >Tầm nhìn bắt buộc</span
       >
       <div>
         <input
@@ -102,8 +101,8 @@
       organizationControl.mission.errors?.['minlength'] ||   organizationControl.mission.errors?.['maxlength']
     "
         class="text-danger"
-        >Sứ mệnh bắt buộc và có độ dài tối thiểu 128, tối đa 1000 kí tự</span
-      >
+        >Sứ mệnh bắt buộc
+      </span>
       <div>
         <input
           class="input login"
@@ -130,6 +129,31 @@
         class="text-danger"
         >Ngày thành lập phải được chọn</span
       >
+      <div>
+        <input
+          class="input login"
+          placeholder="Nhập tên địa điểm"
+          (change)="getLocationName($event)"
+        />
+        <span *ngIf="noLocationName" class="text-danger"
+          >Vui lòng nhập tên địa điểm
+        </span>
+        <input
+          class="input login"
+          placeholder="Nhập vào địa chỉ"
+          ngx-google-places-autocomplete
+          (onAddressChange)="handleAddressChange($event)"
+        />
+        <span *ngIf="noAddress" class="text-danger"
+          >Vui lòng nhập vào địa chỉ 
+        </span>
+        <!-- <google-map height="300px" width="300px">
+          <map-marker (positionChanged)="getPosition($event)"></map-marker>
+        </google-map> -->
+        <p>Địa chỉ: {{ userAddress }}</p>
+
+        <div></div>
+      </div>
       <div>
         <mat-form-field>
           <mat-label>Lĩnh vực</mat-label>
@@ -180,10 +204,9 @@
         class="text-danger"
         >Vui lòng tải lên logo !</span
       >
-      <p> Giấy phép hoạt động:</p>
+      <p>Giấy phép hoạt động:</p>
       <div>
         <ngx-dropzone
-
           class="text-center"
           style="width: 100%"
           [multiple]="false"

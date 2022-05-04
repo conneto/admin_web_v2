@@ -1,3 +1,6 @@
+
+
+import { CurrencyPipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -18,7 +21,7 @@ import { ProjectService } from 'src/app/services/project-service/project.service
 })
 export class CampaignForm implements OnInit {
   coverImage?: File;
-  constructor(private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthService, public dialogRef: MatDialogRef<CampaignForm>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  constructor(private currency: CurrencyPipe, private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthService, public dialogRef: MatDialogRef<CampaignForm>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
   campaignForm!: FormGroup;
   isSubmitted?: boolean;
   organizations: Organization[] = [];
@@ -34,6 +37,7 @@ export class CampaignForm implements OnInit {
   categoryString: string = '';
   categoryStringClone: string = '';
   projectName?: string;
+  defaultNumber?: any;
   ngOnInit(): void {
     this.initForm();
     this.check();
@@ -41,7 +45,10 @@ export class CampaignForm implements OnInit {
     // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
 
   }
-
+  getValue(element: any) {
+  this.defaultNumber= this.currency.transform( this.defaultNumber, 'đ');
+  element.target.value= this.defaultNumber;
+  }
   initForm() {
 
     this.campaignForm = this.formBuilder.group({

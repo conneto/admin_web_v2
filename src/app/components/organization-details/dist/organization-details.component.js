@@ -85,6 +85,8 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         if (((_a = this.user) === null || _a === void 0 ? void 0 : _a.role_id) == 'organization_manager') {
             this.isAdmin = false;
         }
+        this.organizationInput.operating_license;
+        console.log(this.organizationInput.operating_license);
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
         var _a, _b, _c, _d, _e, _f, _g;

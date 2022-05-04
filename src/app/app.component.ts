@@ -8,11 +8,8 @@ import { NavigationEnd, Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'Conneto Web System';
-  constructor(
- 
-
+  constructor( 
   ){
-
   }
 
 }

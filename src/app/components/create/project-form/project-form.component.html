@@ -1,10 +1,8 @@
-
 <div class="container">
   <div>
     <h3 mat-dialog-title>{{ data.title }}</h3>
   </div>
   <form [formGroup]="projectForm" action="">
- 
     <div class="login-form">
       <div>
         <input
@@ -41,10 +39,31 @@
       projectControl.description.errors?.['minlength'] ||   projectControl.description.errors?.['maxlength']
     "
         class="text-danger"
-        >Giới thiệu về dự án bắt buộc và có độ dài tối thiểu 128, tối đa 256 kí
-        tứ</span
+        >Giới thiệu về dự án bắt buộc và có độ dài tối thiểu 128</span
       >
-
+      <div>
+        <input
+          class="input login"
+          placeholder="Tên địa điểm diễn nha dự án"
+          (change)="getLocationName($event)"
+        />
+        <span *ngIf="noLocationName" class="text-danger"
+          >Vui lòng nhập tên địa điểm
+        </span>
+        <input
+          class="input login"
+          placeholder="Đia chỉ nơi diễn ra dự án "
+          ngx-google-places-autocomplete
+          (onAddressChange)="handleAddressChange($event)"
+        />
+        <span *ngIf="noAddress" class="text-danger"
+          >Vui lòng nhập vào địa chỉ
+        </span>
+        <!-- <google-map height="300px" width="300px">
+          <map-marker (positionChanged)="getPosition($event)"></map-marker>
+        </google-map> -->
+     
+      </div>
       <div>
         <mat-label style="width: 130px">Ngày bắt đầu</mat-label>
 
@@ -96,8 +115,8 @@
           (change)="onChange($event)"
         />
       </div>
-      <div style='margin-top:10px'>
-        <label style="width: 100px;"> Logo:</label>
+      <div style="margin-top: 10px">
+        <label style="width: 100px"> Logo:</label>
         <input
           type="file"
           accept="image/png,image/jpg,image/jpeg"
@@ -108,18 +127,8 @@
     </div>
   </form>
 
-
   <div class="login-button">
-
-    <button
-    mat-button
-
-
-    color="primary"
-    (click)="yesClick()"
-  >
-    Tạo
-  </button>
+    <button mat-button color="primary" (click)="yesClick()">Tạo</button>
   </div>
-  <button class='cancel'mat-button (click)="noClick()">Hủy</button>
+  <button class="cancel" mat-button (click)="noClick()">Hủy</button>
 </div>

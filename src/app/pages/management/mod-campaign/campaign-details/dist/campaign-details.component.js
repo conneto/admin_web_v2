@@ -170,28 +170,43 @@ var CampaignDetailsComponent = /** @class */ (function () {
     CampaignDetailsComponent.prototype.getValue = function (e) {
         var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function () {
-            var _d, _e, _f;
-            return __generator(this, function (_g) {
-                switch (_g.label) {
+            var _d, _e, i;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
-                        if (!(e == 'pdf')) return [3 /*break*/, 2];
+                        if (!e) return [3 /*break*/, 3];
                         _d = this;
                         return [4 /*yield*/, this.campaignApi.getPdf("" + ((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.id))];
                     case 1:
-                        _d.documentPDF = _g.sent();
-                        return [3 /*break*/, 5];
-                    case 2:
-                        if (!(e == 'excel')) return [3 /*break*/, 5];
+                        _d.documentPDF = _f.sent();
                         _e = this;
                         return [4 /*yield*/, this.campaignApi.getCashFlow("" + ((_b = this.campaign) === null || _b === void 0 ? void 0 : _b.id))];
-                    case 3:
-                        _e.documentExcel = _g.sent();
-                        _f = this;
-                        return [4 /*yield*/, this.campaignApi.getPdf("" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id))];
-                    case 4:
-                        _f.documentPDF = _g.sent();
-                        _g.label = 5;
-                    case 5: return [2 /*return*/];
+                    case 2:
+                        _e.documentExcel = _f.sent();
+                        if (this.documentPDF) {
+                            for (i = 0; i < ((_c = this.documentPDF) === null || _c === void 0 ? void 0 : _c.length); i++) {
+                                this.pdfName = this.documentPDF[i].url.split('/');
+                                Object.assign(this.documentPDF[i], {
+                                    name: this.pdfName[3]
+                                });
+                            }
+                        }
+                        if (this.isAdmin) {
+                            if (this.documentPDF.length <= 0) {
+                                this.isEmpty = true;
+                            }
+                            else if (this.documentExcel) {
+                                this.getDocumentExcel();
+                            }
+                            else {
+                                this.getDocument();
+                            }
+                        }
+                        else {
+                            this.isUpload = true;
+                        }
+                        _f.label = 3;
+                    case 3: return [2 /*return*/];
                 }
             });
         });

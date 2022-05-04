@@ -1,1 +1,3 @@
-<p>load-more works!</p>
+<div class="button-showmore" *ngIf="!isNoMore && isLoaded">
+    <button mat-button (click)="showMore()">Xem thêm</button>
+  </div>

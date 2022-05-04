@@ -82,6 +82,9 @@ export class OrganizationDetailsComponent implements OnInit {
     if (this.user?.role_id == 'organization_manager') {
       this.isAdmin = false;
     }
+    this.organizationInput.operating_license
+    console.log(  this.organizationInput.operating_license);
+
   }
   async getValueFromRoute() {
     if (this.organization?.result_code == 510) {

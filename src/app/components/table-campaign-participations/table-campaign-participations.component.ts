@@ -27,17 +27,23 @@ export class TableCampaignParticipationsComponent implements OnInit {
   dataSource = new MatTableDataSource;
 
   urlApi?: string;
+  isAdmin?:boolean;
 
   constructor(private camApi:CampaignService,private snackBar: SnackBarMessageComponent, private api: AuthService, private dialog: MatDialog, private loadingService: LoadingService, public utilService: UtilService) {
   }
 
   ngOnInit(): void {
+    if (this.api.currentUserValue.role_id == 'admin') {
+      this.isAdmin = true;
+    } else {
+      this.isAdmin = false;
+    }
     switch (this.type) {
       case "donation":
         this.displayColumns = ['no', "name", "phone", 'total', 'payment_method_name', 'participate_date', "participate_message", "status"];
         break;
       case "recruitment":
-        this.displayColumns = ['no', "name", "phone", 'participate_date', "participate_message", "status", 'action'];
+        this.displayColumns = ['no', "name", "phone", 'participate_date', "participate_message","participate_info", "status", 'action'];
         break;
     }
     for (let i = 0; i < this.volunteer?.length; i++) {
@@ -60,8 +66,11 @@ export class TableCampaignParticipationsComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
-        button: "Chấp nhận",
-        message: "chấp nhận",
+        button: "Đồng ý",
+        close: "Suy nghĩ lại",
+        message: "Bạn có chắc chắn muốn chấp nhận yêu cầu tham gia của tình nguyện viên này không?",
+     
+        volunteer:true,
       }
     })
     dialogRef.afterClosed().subscribe(async x => {
@@ -69,15 +78,15 @@ export class TableCampaignParticipationsComponent implements OnInit {
         this.loadingService.isLoading.next(true);
         const data1 = {
           object_id: e,
-
           object_type: 'volunteer',
           status: 'approve',
-          note: 'Approve this',
+          note: x,
         }
         // console.log(data1);
         let res: BaseResponse = await this.api.updateRequestByManager(data1);
         if (res.status == 0) {
           this.volunteer = await this.camApi.getParticipations(`${cam_id}`);
+          window.location.reload();
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage("Chấp nhận thành công !", true);
         } else {
@@ -88,6 +97,41 @@ export class TableCampaignParticipationsComponent implements OnInit {
     })
   }
   reject(e: any,cam_id?:any) {
+    const dialogRef = this.dialog.open(DialogConfirmComponent, {
+      width: '360px',
+      data: {
+        button: "Đồng ý",
+        close: "Suy nghĩ lại",
+        message: "Bạn có chắc chắn muốn từ chối yêu cầu tham gia của tình nguyện viên này không?",
+        reason:true,
+      }
+    })
+    dialogRef.afterClosed().subscribe(async x => {
+      if (x) {
+        this.loadingService.isLoading.next(true);
+        const data1 = {
+          object_id: e,
+
+          object_type: 'volunteer',
+          status: 'reject',
+          note: x
+        }
+        console.log(data1);
+        let res: BaseResponse = await this.api.updateRequestByManager(data1);
+        if (res.status == 0) {
+          window.location.reload();
+          this.volunteer = await this.camApi.getParticipations(`${cam_id}`);
+          this.loadingService.isLoading.next(false);
+          this.snackBar.showMessage("Từ chối thành công !", true);
+        } else {
+          this.loadingService.isLoading.next(false);
+          this.snackBar.showMessage(`${res.message}`, false);
+        }
+      }
+    })
+  }
+
+  check(e: any,cam_id?:any){
     const dialogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {

@@ -98,9 +98,9 @@
               required=""
               formControlName="password"
             />
-            <button class="hide-button" title="Hide" (click)="hide = !hide">
-              <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-            </button>
+           
+              <mat-icon class="hide-button" title="Hide" (click)="hide = !hide">{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+            
           </div>
           <span
             *ngIf="

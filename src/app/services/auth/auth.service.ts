@@ -100,7 +100,7 @@ export class AuthService {
     return res;
   }
   async updateRequestByManager(data: any) {
-    let res: BaseResponse = await this.apiService.put(Constant.ORGANIZATION_MANAGER + '/' + Constant.APPROVEMENTS, data);
+    let res: BaseResponse = await this.apiService.put(Constant.ORGANIZATION_MANAGER + '/' + Constant.APPROVEADMIN, data);
     if (res.status != 0) {
       return res;
     }

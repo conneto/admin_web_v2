@@ -12,7 +12,7 @@ import { LoadingService } from 'src/app/services/loading-service/loading.service
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -20,28 +20,32 @@ export class LoginComponent implements OnInit {
   isChecked: boolean = false;
   isError: boolean = false;
   hide = true;
-  constructor(public loadService: LoadingService, private snackBar: SnackBarMessageComponent, private router: Router,
+  constructor(
+    public loadService: LoadingService,
+    private snackBar: SnackBarMessageComponent,
+    private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthService) { }
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.initLoginForm();
     var enter = document.getElementsByClassName('input');
 
     for (var i = 0; i < enter.length; i++) {
-      (<HTMLElement>enter[i]).addEventListener("keyup", function (e) {
+      (<HTMLElement>enter[i]).addEventListener('keyup', function (e) {
         if (e.key == 'Enter') {
           e.preventDefault();
-          (<HTMLElement>document.getElementsByClassName('button-login')[0]).click();
+          (<HTMLElement>(
+            document.getElementsByClassName('button-login')[0]
+          )).click();
           // console.log((<HTMLElement>document.getElementsByClassName('login')[0]));
         }
-      })
+      });
     }
-
   }
 
   async login() {
-
     this.isSubmitData = true;
     if (this.loginForm.valid) {
       let baseResponse: BaseResponse | null = await this.authService.login(
@@ -51,8 +55,9 @@ export class LoginComponent implements OnInit {
       );
 
       if (baseResponse?.status == 0) {
-
-        if (this.authService.currentUserValue.role_id === 'organization_manager') {
+        if (
+          this.authService.currentUserValue.role_id === 'organization_manager'
+        ) {
           await this.router.navigate(['manager']);
         } else if (this.authService.currentUserValue.role_id === 'admin') {
           await this.router.navigate(['admin/dashboard']);
@@ -71,5 +76,4 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
   }
-
 }

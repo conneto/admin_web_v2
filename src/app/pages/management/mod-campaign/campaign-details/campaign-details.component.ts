@@ -126,13 +126,38 @@ export class CampaignDetailsComponent implements OnInit {
   }
   async getValue(e: any) {
 
-    if (e == 'pdf') {
+    if(e){
+      
       this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
-    } else if (e == 'excel') {
       this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
-      this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
+      if (this.documentPDF) {
+        for (let i = 0; i < this.documentPDF?.length; i++) {
+          this.pdfName = this.documentPDF[i].url.split('/');
+
+          Object.assign(this.documentPDF[i], {
+            name: this.pdfName[3],
+          })
+
+        }
+      }
+
+      if (this.isAdmin) {
+        if (this.documentPDF.length <= 0) {
+          this.isEmpty = true;
+        } else if (this.documentExcel) {
+          this.getDocumentExcel();
+        } else {
+          this.getDocument();
+        }
+
+      } else {
+        this.isUpload = true;
+      }
+   
     }
-  }
+    }
+  
+  
   goBack() {
     this.location.back();
   }

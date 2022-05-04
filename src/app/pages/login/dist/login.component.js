@@ -61,10 +61,10 @@ var LoginComponent = /** @class */ (function () {
         this.initLoginForm();
         var enter = document.getElementsByClassName('input');
         for (var i = 0; i < enter.length; i++) {
-            enter[i].addEventListener("keyup", function (e) {
+            enter[i].addEventListener('keyup', function (e) {
                 if (e.key == 'Enter') {
                     e.preventDefault();
-                    document.getElementsByClassName('button-login')[0].click();
+                    (document.getElementsByClassName('button-login')[0]).click();
                     // console.log((<HTMLElement>document.getElementsByClassName('login')[0]));
                 }
             });

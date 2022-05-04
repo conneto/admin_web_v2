@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -47,11 +58,10 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var constant_1 = require("src/app/constant/constant");
 var OrganizationFormComponent = /** @class */ (function () {
-    function OrganizationFormComponent(org, getEntityService, loadingService, location, router, snackBar, formBuilder, orgApi, user) {
+    function OrganizationFormComponent(org, getEntityService, loadingService, router, snackBar, formBuilder, orgApi, user) {
         this.org = org;
         this.getEntityService = getEntityService;
         this.loadingService = loadingService;
-        this.location = location;
         this.router = router;
         this.snackBar = snackBar;
         this.formBuilder = formBuilder;
@@ -64,9 +74,41 @@ var OrganizationFormComponent = /** @class */ (function () {
         this.uploadData = new FormData();
         this.selectedType = 'ngo';
         this.type = ['ngo', 'npo'];
+        this.locations = [];
+        this.locationObject = {};
+        this.userAddress = '';
+        this.userLatitude = '';
+        this.userLongitude = '';
     }
     OrganizationFormComponent.prototype.ngOnInit = function () {
         this.initFormBuilder();
+    };
+    OrganizationFormComponent.prototype.getPosition = function (e) {
+        if (e) {
+            console.log(e);
+        }
+    };
+    OrganizationFormComponent.prototype.getLocationName = function (e) {
+        if (e) {
+            this.locationObject = {
+                name: e.target.value
+            };
+        }
+        else {
+            this.noLocationName = true;
+        }
+        console.log(this.locationObject);
+    };
+    OrganizationFormComponent.prototype.handleAddressChange = function (address) {
+        this.userAddress = address.formatted_address;
+        this.userLatitude = address.geometry.location.lat();
+        this.userLongitude = address.geometry.location.lng();
+        if (address) {
+            this.locationObject = __assign(__assign({}, this.locationObject), { address: this.userAddress, latitude: this.userLatitude, longitude: this.userLongitude });
+        }
+        else {
+            this.noAddress = true;
+        }
     };
     OrganizationFormComponent.prototype.create = function () {
         var _a;
@@ -97,7 +139,13 @@ var OrganizationFormComponent = /** @class */ (function () {
                         }
                         this.isSubmitted = true;
                         this.organizationForm.value.category = this.categoryString;
-                        if (!(this.organizationForm.valid && !this.noCover)) return [3 /*break*/, 4];
+                        if (!(this.organizationForm.valid && !this.noCover && !this.noFile && !this.noLocationName && !this.noAddress)) return [3 /*break*/, 4];
+                        if (!this.isSendRequest) {
+                            this.locations.push(this.locationObject);
+                        }
+                        this.isSendRequest = true;
+                        this.organizationForm.value.locations = this.locations;
+                        console.log(this.organizationForm.value);
                         this.uploadData.append('organization', JSON.stringify(this.organizationForm.value));
                         this.loadingService.isLoading.next(true);
                         return [4 /*yield*/, this.orgApi.create(this.uploadData)];
@@ -148,15 +196,12 @@ var OrganizationFormComponent = /** @class */ (function () {
                 [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(128),
-                    forms_1.Validators.maxLength(1000),
                 ],
             ],
             vision: [
                 '',
                 [
                     forms_1.Validators.required,
-                    forms_1.Validators.minLength(128),
-                    forms_1.Validators.maxLength(1000),
                 ],
             ],
             website: [''],
@@ -168,14 +213,13 @@ var OrganizationFormComponent = /** @class */ (function () {
                 '',
                 [
                     forms_1.Validators.required,
-                    forms_1.Validators.minLength(128),
-                    forms_1.Validators.maxLength(1000),
                 ],
             ],
             category: [''],
             logo: ['', forms_1.Validators.required],
             cover: [''],
-            type: [this.selectedType]
+            type: [this.selectedType],
+            locations: ['']
         });
     };
     OrganizationFormComponent.prototype.onChangeCover = function (e) {
@@ -228,11 +272,13 @@ var OrganizationFormComponent = /** @class */ (function () {
             }
             else {
                 this.filePDF = e.addedFiles;
-                this.uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
+                if (this.filePDF.length > 0) {
+                    this.uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
+                }
+                else {
+                    this.noFile = true;
+                }
             }
-        }
-        else {
-            this.noFile = true;
         }
     };
     OrganizationFormComponent.prototype.onRemove = function (event) {

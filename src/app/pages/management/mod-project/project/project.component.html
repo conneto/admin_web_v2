@@ -1,159 +1,104 @@
 <div *ngIf="isLoaded">
-  <app-tabgroup
-    #tabGroup
-    (getState)="getTabGroupState($event)"
-    [entity]="'pro'"
-    [object]="passData"
-  ></app-tabgroup>
-
-  <div *ngIf="isRequest">
-    <div class="search-bar" *ngIf="!isEmpty">
-      <div *ngIf="!noResultBySearch; then name; else result"></div>
-      <ng-template #name>
-        <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
-          <h3>Dự án</h3>
-          <p>({{ number ? number : "" }})</p>
-        </div>
-      </ng-template>
-      <ng-template #result>
-        <div class="name flex-grow">
-          <h3>Không tìm thấy kết quả phù hợp</h3>
-        </div>
-      </ng-template>
-
-      <app-search-bar
-        *ngIf="!isList"
-        (getItem)="getData($event)"
-        [entity]="passData"
-        [entityCopy]="oldData"
-      ></app-search-bar>
-      <app-change-to-list
-        #changeView
-        (handleTitle)="handleTitle($event)"
-      ></app-change-to-list>
-    </div>
-    <app-list-view
-      [whichEntity]="'pro'"
-      *ngIf="isList"
-      [entity]="oldData"
-    ></app-list-view>
-    <div *ngIf="!isList" class="request-component">
-      <app-project-request-card
-        *ngFor="let project of projects"
-        [projects]="project"
-      ></app-project-request-card>
-    </div>
-  </div>
-
-  <div *ngIf="!isRequest">
-    <div *ngIf="projects">
-      <div class="row">
-        <div class="search-bar mb-3" *ngIf="!isEmpty">
-          <div *ngIf="!noResultBySearch; then name; else result"></div>
-          <ng-template #name>
-            <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
-              <h3>Dự án</h3>
-              <p>({{ number ? number : "" }})</p>
-            </div>
-          </ng-template>
-          <ng-template #result>
-            <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
-              <h3>Không tìm thấy kết quả phù hợp</h3>
-            </div>
-          </ng-template>
-          <div *ngIf="!isAdmin" class="ms-2" style="flex-grow: 1">
-            <div class="project__button-create">
-              <button
-                (click)="openProjectForm()"
-                mat-raised-button
-                color="primary"
-              >
-                <mat-icon>add</mat-icon>
-                Tạo dự án
-              </button>
-            </div>
+  <app-tabgroup #tabGroup (getState)="getTabGroupState($event)" [entity]="'pro'" [object]="passData"></app-tabgroup>
+  <div class="row p-3 project-card">
+    <div *ngIf="isRequest">
+      <div class="search-bar" *ngIf="!isEmpty">
+        <div *ngIf="!noResultBySearch; then name; else result"></div>
+        <ng-template #name>
+          <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
+            <h3>Dự án</h3>
+            <p>({{ number ? number : "" }})</p>
           </div>
-          <app-entity-status
-            *ngIf="!isList && !isTabRejected && !isTabPending"
-            [entityData]="passData"
-            [type]="'org'"
-            (entity)="getEntity($event)"
-          ></app-entity-status>
-          <app-search-bar
-            *ngIf="!isList"
-            (getItem)="getData($event)"
-            [entity]="passData"
-            [entityCopy]="oldData"
-          ></app-search-bar>
-          <app-change-to-list
-            #changeView
-            (handleTitle)="handleTitle($event)"
-          ></app-change-to-list>
-        </div>
-
-        <div *ngIf="!isList" class="row p-3 project-card">
-          <div
-            class="mb-3 col-xxl-4 col-md-6 col-sm-12 col-12"
-            *ngFor="let project of projects"
-          >
-            <a
-              routerLink="project-request-detail/{{ project.id }}"
-              style="text-decoration: none"
-            >
-              <mat-card class="w-100 h-100 shadow rounded-3">
-                <div class="image">
-                  <img
-                    loading="lazy"
-                    alt="Cover of this project"
-                    mat-card-image
-                    src="{{ urlApi }}/show/images?p={{ project.cover }}"
-                  />
-                </div>
-                <mat-card-title> {{ project.name }}</mat-card-title>
-                <div class="card-icon">
-                  <div>
-                    <img
-                      loading="lazy"
-                      src="{{ urlApi }}/show/images?p={{
-                        project.organization_logo
-                      }}"
-                    />
-                    <span class="margin-left">{{
-                      project.organization_name
-                    }}</span>
-                  </div>
-                  <div>
-                    <mat-icon title="At">date_range</mat-icon
-                    ><span class="margin-left">{{
-                      project.created_at | date: "dd/MM/yyyy"
-                    }}</span>
-                  </div>
-                </div>
-              </mat-card>
-            </a>
+        </ng-template>
+        <ng-template #result>
+          <div class="name flex-grow">
+            <h3>Không tìm thấy kết quả phù hợp</h3>
           </div>
-        </div>
-        <app-list-view
-          [whichEntity]="'pro'"
-          *ngIf="isList"
-          [entity]="oldData"
-        ></app-list-view>
+        </ng-template>
+
+        <app-search-bar *ngIf="!isList" (getItem)="getData($event)" [entity]="passData" [entityCopy]="oldData">
+        </app-search-bar>
+        <app-change-to-list #changeView (handleTitle)="handleTitle($event)"></app-change-to-list>
+      </div>
+      <app-list-view [whichEntity]="'pro'" *ngIf="isList" [entity]="oldData"></app-list-view>
+      <div *ngIf="!isList" class="request-component">
+        <app-project-request-card *ngFor="let project of projects" [projects]="project"></app-project-request-card>
       </div>
     </div>
-  </div>
-  <div class="search-bar" *ngIf="isEmpty">
-    Hiện tại không có dự án nào được tạo!
-    <div *ngIf="!isAdmin && organization.length != 0" class="ms-2">
-      <div *ngFor="let o of organization" class="project__button-create">
-        <button
-          *ngIf="o.result_code == 510 && o.is_active == true"
-          (click)="openProjectForm()"
-          mat-raised-button
-          color="primary"
-        >
-          <mat-icon>add</mat-icon>
-          Tạo dự án
-        </button>
+
+    <div *ngIf="!isRequest">
+      <div *ngIf="projects">
+        <div style="justify-content: space-around" class="row">
+          <div class="search-bar mb-3" *ngIf="!isEmpty">
+            <div *ngIf="!noResultBySearch; then name; else result"></div>
+            <ng-template #name>
+              <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
+                <h3>Dự án</h3>
+                <p>({{ number ? number : "" }})</p>
+              </div>
+            </ng-template>
+            <ng-template #result>
+              <div class="name" [ngClass]="{ 'flex-grow': isAdmin }">
+                <h3>Không tìm thấy kết quả phù hợp</h3>
+              </div>
+            </ng-template>
+            <div *ngIf="!isAdmin" class="ms-2" style="flex-grow: 1">
+              <div class="project__button-create">
+                <button (click)="openProjectForm()" mat-raised-button color="primary">
+                  <mat-icon>add</mat-icon>
+                  Tạo dự án
+                </button>
+              </div>
+            </div>
+            <app-entity-status *ngIf="!isList && !isTabRejected && !isTabPending" [entityData]="passData" [type]="'org'"
+              (entity)="getEntity($event)"></app-entity-status>
+            <app-search-bar *ngIf="!isList" (getItem)="getData($event)" [entity]="passData" [entityCopy]="oldData">
+            </app-search-bar>
+            <app-change-to-list #changeView (handleTitle)="handleTitle($event)"></app-change-to-list>
+          </div>
+
+          <div *ngIf="!isList" class="row">
+            <div class="mb-3 col-xxl-4 col-md-6 col-sm-12 col-12" *ngFor="let project of projects">
+              <a routerLink="project-request-detail/{{ project.id }}" style="text-decoration: none">
+                <mat-card class="w-100 h-100 shadow rounded-3">
+                  <div class="image">
+                    <img loading="lazy" alt="Cover of this project" mat-card-image
+                      src="{{ urlApi }}/show/images?p={{ project.cover }}" />
+                  </div>
+                  <mat-card-title> {{ project.name }}</mat-card-title>
+                  <div class="card-icon">
+                    <div>
+                      <img loading="lazy" src="{{ urlApi }}/show/images?p={{
+                          project.organizationLogo
+                        }}" />
+                      <span class="margin-left">{{
+                        project.organizationName
+                      }}</span>
+                    </div>
+                    <div>
+                      <mat-icon title="At">date_range</mat-icon><span class="margin-left">{{
+                        project.created_at | date: "dd/MM/yyyy"
+                      }}</span>
+                    </div>
+                  </div>
+                </mat-card>
+              </a>
+            </div>
+          </div>
+          <app-list-view [whichEntity]="'pro'" *ngIf="isList" [entity]="oldData"></app-list-view>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isEmpty">
+      Hiện tại không có dự án nào được tạo!
+      <div *ngIf="!isAdmin && organization.length != 0" class="ms-2">
+        <div *ngFor="let o of organization" class="project__button-create">
+          <button *ngIf="o.result_code == 510 && o.is_active == true" (click)="openProjectForm()" mat-raised-button
+            color="primary">
+            <mat-icon>add</mat-icon>
+            Tạo dự án
+          </button>
+        </div>
       </div>
     </div>
   </div>

@@ -11,6 +11,9 @@ import { HotToastModule } from '@ngneat/hot-toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FileUploadModule } from 'ng2-file-upload';
+import { CurrencyPipe } from '@angular/common';
+
+
 
 @NgModule({
   declarations: [
@@ -27,11 +30,9 @@ import { FileUploadModule } from 'ng2-file-upload';
     ReactiveFormsModule,
     FormsModule,
     FileUploadModule,
-
-
-
   ],
   providers: [
+    CurrencyPipe
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

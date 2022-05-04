@@ -51,7 +51,8 @@ var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var constant_1 = require("src/app/constant/constant");
 var CampaignForm = /** @class */ (function () {
-    function CampaignForm(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+    function CampaignForm(currency, organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+        this.currency = currency;
         this.organizationApi = organizationApi;
         this.projectApi = projectApi;
         this.loadingService = loadingService;
@@ -75,6 +76,10 @@ var CampaignForm = /** @class */ (function () {
         this.check();
         // let uploadData: any = new FormData();
         // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
+    };
+    CampaignForm.prototype.getValue = function (element) {
+        this.defaultNumber = this.currency.transform(this.defaultNumber, 'đ');
+        element.target.value = this.defaultNumber;
     };
     CampaignForm.prototype.initForm = function () {
         this.campaignForm = this.formBuilder.group({
@@ -234,7 +239,7 @@ var CampaignForm = /** @class */ (function () {
             templateUrl: './campaign-form.component.html',
             styleUrls: ['./campaign-form.component.scss']
         }),
-        __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
+        __param(6, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
     ], CampaignForm);
     return CampaignForm;
 }());
