@@ -96,7 +96,6 @@ export class ProjectFormComponent implements OnInit {
     this.isRemoved = true;
     const category = this.projectForm.controls.category.value as string[];
     const index = category.indexOf(e);
-    console.log(index);
     if (index !== -1) {
       category.splice(index, 1);
     }

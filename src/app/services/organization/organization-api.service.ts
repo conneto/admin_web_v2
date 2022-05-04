@@ -74,7 +74,7 @@ export class OrganizationApiService {
     return res;
   }
   async createById(data: any, id: string) {
-    console.log(id);
+    // console.log(id);
     let res: BaseResponse = await this.apiService.post(
       `${Constant.ORGANIZATIONS}/${id}`,
       data

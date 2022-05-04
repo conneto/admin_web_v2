@@ -69,7 +69,6 @@ export class EntityStatusComponent implements OnInit {
   }
   getStatus(e: any) {
     if (e) {
-      console.log(this.entityData);
       switch (e) {
 
         case 'Tất cả':

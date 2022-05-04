@@ -25,7 +25,7 @@ import { OrganizationsComponent } from '../organizations/organizations.component
 @Component({
   selector: 'app-organization-details',
   templateUrl: './organization-details.component.html',
-  styleUrls: ['./organization-details.component.scss']
+  styleUrls: ['./organization-details.component.scss'],
 })
 @Injectable({
   providedIn: 'root',
@@ -39,7 +39,7 @@ export class OrganizationDetailsComponent implements OnInit {
   urlCover?: string;
   urlLogo?: string;
   idGeneral?: any;
-  isApproved?: boolean
+  isApproved?: boolean;
   isInformation?: boolean;
   isCampaigns?: boolean;
   isProjects?: boolean;
@@ -55,17 +55,31 @@ export class OrganizationDetailsComponent implements OnInit {
   isGetCam?: boolean = false;
   passDataCampaigns: any;
   passDataProjects: any;
-  constructor(private pro: ProjectComponent, private org: OrganizationsComponent, private usersCom: UserManagementComponent, private getEntityService: LoadingDataService, private router: Router, private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private auth: AuthService, private dialog: MatDialog, private route: ActivatedRoute, private proApi: ProjectService, private location: Location, private orgApi: OrganizationApiService, private orgComponent: OrganizationInforCardComponent) {
-
-  }
+  constructor(
+    private pro: ProjectComponent,
+    private org: OrganizationsComponent,
+    private usersCom: UserManagementComponent,
+    private getEntityService: LoadingDataService,
+    private router: Router,
+    private loadingService: LoadingService,
+    private snackBar: SnackBarMessageComponent,
+    private auth: AuthService,
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private proApi: ProjectService,
+    private location: Location,
+    private orgApi: OrganizationApiService,
+    private orgComponent: OrganizationInforCardComponent
+  ) {}
 
   ngOnInit(): void {
-
     this.getValueFromRoute();
     this.check();
 
     this.isInformation = true;
   }
+
+
   check() {
     this.user = this.auth.currentUserValue;
     if (this.user?.role_id == 'organization_manager') {
@@ -81,17 +95,16 @@ export class OrganizationDetailsComponent implements OnInit {
     this.loadingService.getOrganizationId.next(`${id}`);
 
     switch (this.organization?.type) {
-      case 'ngo': this.organization.type = 'Tổ chức phi chính phủ';
+      case 'ngo':
+        this.organization.type = 'Tổ chức phi chính phủ';
         break;
-      case 'npo': this.organization.type = 'Tổ chức phi lợi nhuận';
+      case 'npo':
+        this.organization.type = 'Tổ chức phi lợi nhuận';
         break;
     }
-
   }
   goBack() {
-
     this.location.back();
-
   }
   getTab(id?: string) {
     switch (id) {
@@ -121,82 +134,89 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   async getCampaigns() {
-    this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(
+      `${this.route.snapshot.paramMap.get('id')}`
+    );
     this.campaigns = this.campaignsCopy;
     if (this.campaigns) {
-
-
       this.passDataCampaigns = this.campaignsCopy;
 
       for (var i = 0; i < this.campaigns.length; i++) {
-
         switch (this.campaigns[i].type) {
           case 'donation':
-          
-            Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString() });
+            Object.assign(this.campaigns[i], {
+              value: (
+                this.campaigns[i].totalDonated! / this.campaigns[i].target!
+              ).toString(),
+            });
             break;
           case 'recruitment':
-            Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString() });
+            Object.assign(this.campaigns[i], {
+              value: (
+                this.campaigns[i].totalPaticipant! / this.campaigns[i].target!
+              ).toString(),
+            });
             break;
         }
-
       }
-
     }
   }
   async getProjects() {
-    this.projectsCopy = await this.orgApi.getProjectsByOrgId(`${this.route.snapshot.paramMap.get('id')}`);
+    this.projectsCopy = await this.orgApi.getProjectsByOrgId(
+      `${this.route.snapshot.paramMap.get('id')}`
+    );
     this.projects = this.projectsCopy;
     if (this.projects) {
       for (var i = 0; i < this.projects.length; i++) {
         {
-          this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
-          this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
-          this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
+          this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '/');
+          this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '/');
+          this.projects[i].organization_logo = this.projects[
+            i
+          ]?.organization_logo?.replace(/\\/g, '/');
         }
       }
-
 
       this.passDataProjects = this.projectsCopy;
     }
   }
   public get getId() {
     this.getValueFromRoute();
-    const id = console.log(this.route.snapshot.paramMap.get('id'));
-    return this.route.snapshot.paramMap.get('id')
-
+    return this.route.snapshot.paramMap.get('id');
   }
   openProjectForm() {
     const dialogRef = this.dialog.open(ProjectFormComponent, {
       width: '768px',
       data: {
         title: 'Tạo dự án',
-      }
-    })
+      },
+    });
 
-    dialogRef.afterClosed().subscribe(async data => {
+    dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse = await this.proApi.createProject(data);
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
-          this.snackBar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true)
+          this.snackBar.showMessage(
+            'Tạo dự án thành công.Chờ phê duyệt từ ban quản trị',
+            true
+          );
 
           this.router.navigate(['/manager/manage-project']);
           this.pro.checkToGetData('pending');
-
         } else {
           this.dialog.open(ProjectFormComponent, {
             width: '768px',
             data: {
               title: 'Tạo dự án',
-            }
-          })
+            },
+          });
           this.loadingService.isLoading.next(false);
-          this.snackBar.showMessage(res.message, false)
+          this.snackBar.showMessage(res.message, false);
         }
       }
-    })
+    });
   }
   getData(e: any) {
     if (e == null || e.length <= 0) {

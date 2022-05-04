@@ -14,6 +14,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 exports.__esModule = true;
 exports.ComponentModule = void 0;
+var campaign_form_component_1 = require("./../update/campaign-form/campaign-form.component");
+var project_form_component_1 = require("./../update/project-form/project-form.component");
 var core_1 = require("@angular/core");
 var common_1 = require("@angular/common");
 var router_1 = require("@angular/router");
@@ -29,8 +31,8 @@ var approve_decline_button_component_1 = require("src/app/components/approve-dec
 var status_component_1 = require("../status/status.component");
 var organization_form_component_1 = require("../create/organization-form/organization-form.component");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
-var project_form_component_1 = require("../create/project-form/project-form.component");
-var campaign_form_component_1 = require("../create/campaign-form/campaign-form.component");
+var project_form_component_2 = require("../create/project-form/project-form.component");
+var campaign_form_component_2 = require("../create/campaign-form/campaign-form.component");
 var snack_bar_message_component_1 = require("../snack-bar-message/snack-bar-message.component");
 var loading_spinner_component_1 = require("../loading-spinner/loading-spinner.component");
 var tabgroup_component_1 = require("../tab-group/tabgroup.component");
@@ -66,8 +68,10 @@ var componentModules = [
     organization_form_component_1.OrganizationFormComponent,
     organization_form_component_2.OrganizationUpdateFormComponent,
     dialog_confirm_component_1.DialogConfirmComponent,
-    project_form_component_1.ProjectFormComponent,
-    campaign_form_component_1.CampaignForm,
+    project_form_component_2.ProjectFormComponent,
+    project_form_component_1.ProjectUpdateFormComponent,
+    campaign_form_component_2.CampaignForm,
+    campaign_form_component_1.CampaignUpdateFormComponent,
     snack_bar_message_component_1.SnackBarMessageComponent,
     loading_spinner_component_1.LoadingSpinnerComponent,
     tabgroup_component_1.TabgroupComponent,

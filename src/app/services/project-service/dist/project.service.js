@@ -46,9 +46,9 @@ exports.ProjectService = void 0;
 var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
 var ProjectService = /** @class */ (function () {
-    function ProjectService(campaignAdapter, api, projectAdap) {
+    function ProjectService(campaignAdapter, apiService, projectAdap) {
         this.campaignAdapter = campaignAdapter;
-        this.api = api;
+        this.apiService = apiService;
         this.projectAdap = projectAdap;
     }
     ProjectService.prototype.getAll = function () {
@@ -58,7 +58,7 @@ var ProjectService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_b) {
                 switch (_b.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.PROJECTS)];
+                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.PROJECTS)];
                     case 1:
                         res = _b.sent();
                         res.data = (_a = res.data) === null || _a === void 0 ? void 0 : _a.map(function (item) { return _this.projectAdap.adapt(item); });
@@ -72,7 +72,7 @@ var ProjectService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.PROJECTS + '/' + ("" + id))];
+                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.PROJECTS + '/' + ("" + id))];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, (res.data = this.projectAdap.adapt(res.data) || [])];
@@ -86,7 +86,7 @@ var ProjectService = /** @class */ (function () {
             var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.PROJECTS + "/" + id + "/" + constant_1.Constant.CAMPAIGNS)];
+                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.PROJECTS + "/" + id + "/" + constant_1.Constant.CAMPAIGNS)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 8) {
@@ -104,10 +104,23 @@ var ProjectService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api.post(constant_1.Constant.PROJECTS, data)];
+                    case 0: return [4 /*yield*/, this.apiService.post(constant_1.Constant.PROJECTS, data)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res || []];
+                }
+            });
+        });
+    };
+    ProjectService.prototype.updateById = function (data, id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var res;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.apiService.put(constant_1.Constant.PROJECTS + "/" + id, data)];
+                    case 1:
+                        res = _a.sent();
+                        return [2 /*return*/, res];
                 }
             });
         });
@@ -117,7 +130,7 @@ var ProjectService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.api["delete"](constant_1.Constant.PROJECTS + "/" + id)];
+                    case 0: return [4 /*yield*/, this.apiService["delete"](constant_1.Constant.PROJECTS + "/" + id)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res];

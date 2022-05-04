@@ -170,7 +170,7 @@ var CampaignForm = /** @class */ (function () {
         }
         if (this.campaignForm.valid) {
             this.campaignForm.value.category = this.categoryString;
-            console.log(this.campaignForm.value);
+            // console.log(this.campaignForm.value);
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
             this.dialogRef.close(this.uploadData);
         }
@@ -191,7 +191,7 @@ var CampaignForm = /** @class */ (function () {
         configurable: true
     });
     CampaignForm.prototype.getType = function (e) {
-        console.log(e);
+        // console.log(e);
         if (e == 'Quyên góp') {
             this.campaignForm.removeControl('job_requirement');
             this.campaignForm.removeControl('job_description');
@@ -207,7 +207,7 @@ var CampaignForm = /** @class */ (function () {
         this.isRemoved = true;
         var category = this.campaignForm.controls.category.value;
         var index = category.indexOf(e);
-        console.log(index);
+        // console.log(index);
         if (index !== -1) {
             category.splice(index, 1);
         }

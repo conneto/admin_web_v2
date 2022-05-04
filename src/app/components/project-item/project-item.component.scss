@@ -11,10 +11,7 @@ mat-card-title {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
 }
-
-
 
 mat-card {
   max-width: 100%;
@@ -24,7 +21,6 @@ mat-card {
 }
 
 mat-card:hover {
-
   transform: scale(1.12);
   z-index: 1;
 
@@ -35,7 +31,6 @@ mat-card:hover {
 }
 
 .image {
-
   img {
     height: 200px;
     object-fit: fill;
@@ -43,22 +38,15 @@ mat-card:hover {
   }
 }
 
-
-
 button:hover {
-
   opacity: 0.7 !important;
-
 }
-
-
 
 .card-icon {
   display: flex;
   font-size: 15px !important;
   justify-content: space-between;
   margin: 20px 0 10px;
-
 
   div {
     display: flex;
@@ -74,8 +62,6 @@ button:hover {
   }
 }
 
-
-
 .margin-left {
   margin-left: 5px;
   width: 180px;
@@ -84,7 +70,6 @@ button:hover {
 .request-component {
   display: flex;
   flex-wrap: wrap;
-
 }
 
 .search-bar {
@@ -98,8 +83,7 @@ button:hover {
   align-items: center;
   margin-top: 20px;
 
-  >p {
-
+  > p {
     font-size: 15px;
     margin-left: 5px;
     margin-bottom: 0 !important;
@@ -107,12 +91,7 @@ button:hover {
 }
 
 .box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
   &__item {
-     margin:0 10px;
+    margin: 0 10px;
   }
-
 }

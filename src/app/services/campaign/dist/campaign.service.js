@@ -87,9 +87,7 @@ var CampaignService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log(id);
-                        return [4 /*yield*/, this.apiService.post(constant_1.Constant.CAMPAIGNS + "/" + id, data)];
+                    case 0: return [4 /*yield*/, this.apiService.post(constant_1.Constant.CAMPAIGNS + "/" + id, data)];
                     case 1:
                         res = _a.sent();
                         if (res.status != 0) {
@@ -166,9 +164,7 @@ var CampaignService = /** @class */ (function () {
             var res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0:
-                        console.log(id);
-                        return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGNS + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
+                    case 0: return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGNS + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
                     case 1:
                         res = _a.sent();
                         return [2 /*return*/, res.data || []];

@@ -75,7 +75,7 @@ var ProjectComponent = /** @class */ (function () {
     };
     ProjectComponent.prototype.getEntity = function (e) {
         if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
-            console.log(e);
+            // console.log(e);
             this.isEmpty = false;
             this.projects = e;
             this.oldData = e;
@@ -188,12 +188,12 @@ var ProjectComponent = /** @class */ (function () {
                         for (i = 0; i < this.projects.length; i++) {
                             this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                             this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                            this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                            this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.resultCode == 610;
+                            return x.result_code == 610;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.resultCode == 610; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 610; });
                         this.isEmpty = false;
                         if (this.projects == [] || this.projects.length <= 0) {
                             this.isEmpty = true;
@@ -205,12 +205,12 @@ var ProjectComponent = /** @class */ (function () {
                         for (i = 0; i < this.projects.length; i++) {
                             this.projects[i].cover = (_h = (_g = this.projects[i]) === null || _g === void 0 ? void 0 : _g.cover) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
                             this.projects[i].logo = (_k = (_j = this.projects[i]) === null || _j === void 0 ? void 0 : _j.logo) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
-                            this.projects[i].organizationLogo = (_m = (_l = this.projects[i]) === null || _l === void 0 ? void 0 : _l.organizationLogo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
+                            this.projects[i].organization_logo = (_m = (_l = this.projects[i]) === null || _l === void 0 ? void 0 : _l.organization_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.resultCode == 611;
+                            return x.result_code == 611;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.resultCode == 611; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 611; });
                         this.isEmpty = false;
                         if (this.projects == null || this.projects.length <= 0) {
                             this.isEmpty = true;
@@ -221,12 +221,12 @@ var ProjectComponent = /** @class */ (function () {
                         for (i = 0; i < this.projects.length; i++) {
                             this.projects[i].cover = (_p = (_o = this.projects[i]) === null || _o === void 0 ? void 0 : _o.cover) === null || _p === void 0 ? void 0 : _p.replace(/\\/g, '\/');
                             this.projects[i].logo = (_r = (_q = this.projects[i]) === null || _q === void 0 ? void 0 : _q.logo) === null || _r === void 0 ? void 0 : _r.replace(/\\/g, '\/');
-                            this.projects[i].organizationLogo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organizationLogo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
+                            this.projects[i].organization_logo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organization_logo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.resultCode == 601;
+                            return x.result_code == 601;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.resultCode == 601; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 601; });
                         if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;
                         }

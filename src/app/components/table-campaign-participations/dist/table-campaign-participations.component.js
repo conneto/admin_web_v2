@@ -98,7 +98,6 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
                             status: 'approve',
                             note: 'Approve this'
                         };
-                        console.log(data1);
                         return [4 /*yield*/, this.api.updateRequestByManager(data1)];
                     case 1:
                         res = _b.sent();
@@ -142,7 +141,6 @@ var TableCampaignParticipationsComponent = /** @class */ (function () {
                             status: 'reject',
                             note: 'Reject this'
                         };
-                        console.log(data1);
                         return [4 /*yield*/, this.api.updateRequestByManager(data1)];
                     case 1:
                         res = _b.sent();

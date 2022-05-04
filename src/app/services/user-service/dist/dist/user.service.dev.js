@@ -162,8 +162,6 @@ var core_1 = require("@angular/core");
 
 var constant_1 = require("src/app/constant/constant");
 
-var campaign_api_service_1 = require("../campaign/campaign-api.service");
-
 var UserService =
 /** @class */
 function () {
@@ -173,8 +171,6 @@ function () {
     this.userAdapter = userAdapter;
   }
 
-  UserService_1 = UserService;
-
   UserService.prototype.getStatistics = function () {
     return __awaiter(this, void 0, void 0, function () {
       var res;
@@ -183,7 +179,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.api.get(UserService_1.STATISTICS)];
+            , this.api.get(constant_1.Constant.STATISTICS)];
 
           case 1:
             res = _a.sent();
@@ -206,7 +202,7 @@ function () {
             , 2];
             return [4
             /*yield*/
-            , this.api.get(constant_1.Constant.CAMPAIGN + "/top_volunteers?type=participate")];
+            , this.api.get(constant_1.Constant.CAMPAIGNS + "/top_volunteers?type=participate")];
 
           case 1:
             res = _a.sent();
@@ -217,7 +213,7 @@ function () {
           case 2:
             return [4
             /*yield*/
-            , this.api.get(campaign_api_service_1.Constant.CAMPAIGN + "/top_volunteers?type=donate")];
+            , this.api.get(constant_1.Constant.CAMPAIGNS + "/top_volunteers?type=donate")];
 
           case 3:
             res = _a.sent();
@@ -243,7 +239,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.api.get(UserService_1.ACCOUNTS)];
+            , this.api.get(constant_1.Constant.ACCOUNTS)];
 
           case 1:
             res = _a.sent();
@@ -266,12 +262,12 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.api.get(UserService_1.ACCOUNTS + "/" + id)];
+            , this.api.get(constant_1.Constant.ACCOUNTS + "/" + id)];
 
           case 1:
             res = _a.sent();
-            res.data = this.userAdapter.adapt(res.data);
-            console.log(res.data);
+            res.data = this.userAdapter.adapt(res.data); // console.log(res.data);
+
             return [2
             /*return*/
             , res.data || null];
@@ -288,12 +284,11 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.api.get(UserService_1.ACCOUNTS + "/" + id)];
+            , this.api.get(constant_1.Constant.ACCOUNTS + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
 
           case 1:
-            res = _a.sent();
-            res.data = this.userAdapter.adapt(res.data);
-            console.log(res.data);
+            res = _a.sent(); // console.log(res.data);
+
             return [2
             /*return*/
             , res.data || null];
@@ -302,10 +297,7 @@ function () {
     });
   };
 
-  var UserService_1;
-  UserService.STATISTICS = 'statistics';
-  UserService.ACCOUNTS = 'accounts';
-  UserService = UserService_1 = __decorate([core_1.Injectable({
+  UserService = __decorate([core_1.Injectable({
     providedIn: 'root'
   })], UserService);
   return UserService;

@@ -235,3 +235,34 @@ td {
 .bg-primary-color {
   background-color: #fbb800 !important;
 }
+
+@media only screen and (min-width: 576px) {
+  .campaign-card {
+    height: 448px !important;
+  }
+}
+@media only screen and (min-width: 576px) {
+  .campaign-card {
+    height: 448px !important;
+  }
+}
+@media only screen and (min-width: 768px) {
+  .campaign-card {
+    height: 512px !important;
+  }
+}
+@media only screen and (min-width: 992px) {
+  .campaign-card {
+    height: 456px !important;
+  }
+}
+@media only screen and (min-width: 1200px) {
+  .campaign-card {
+    height: 420px !important;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  .campaign-card {
+    height: 404px !important;
+  }
+}

@@ -19,7 +19,7 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private baseResponseAdapter: BaseResponseAdapter,
-    
+
   ) {
     this.corsHeaders = new HttpHeaders();
     this.corsHeaders = this.corsHeaders.set('Access-Control-Allow-Origin', '*');
@@ -71,7 +71,7 @@ export class ApiService {
     } else {
       api_uri = this.getPostUri(api_name);
     }
-    console.log(localStorage.getItem('USER_TOKEN'));
+    // console.log(localStorage.getItem('USER_TOKEN'));
     if (localStorage.getItem('USER_TOKEN')) {
       this.corsHeaders = this.corsHeaders.set(
         'Authorization',
@@ -86,11 +86,11 @@ export class ApiService {
     return new Promise((resolve) => {
       this.http.post(api_uri, body, options).subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           switch (err.status) {
             case 0:
               break;
@@ -106,7 +106,7 @@ export class ApiService {
     });
   }
   get(api_name: string, params?: any): any {
-  
+
     let api_uri = this.getFetchUri(api_name, params);
     if (localStorage.getItem('USER_TOKEN')) {
       this.corsHeaders = this.corsHeaders.set(
@@ -121,11 +121,11 @@ export class ApiService {
     return new Promise((resolve) => {
       this.http.get(api_uri, options).subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           switch (err.status) {
             case 0:
               break;
@@ -152,13 +152,13 @@ export class ApiService {
       headers: this.corsHeaders,
     };
     return new Promise((resolve) => {
-      console.log(api_uri, options);
+      // console.log(api_uri, options);
       this.http.delete(api_uri, options).subscribe(
         (data) => {
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           switch (err.status) {
             case 0:
               break;
@@ -209,11 +209,11 @@ export class ApiService {
     return new Promise((resolve) => {
       this.http.put(api_uri, body, options).subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           resolve(this.baseResponseAdapter.adapt(data));
         },
         (err) => {
-          console.log(err);
+          // console.log(err);
           switch (err.status) {
             case 0:
               break;

@@ -64,7 +64,6 @@ var ProjectRequestDetailComponent = /** @class */ (function () {
                         return [4 /*yield*/, this.projectApi.getByID("" + id)];
                     case 1:
                         _a.project = _b.sent();
-                        console.log(this.project);
                         return [2 /*return*/];
                 }
             });

@@ -29,7 +29,7 @@ export class CampaignService {
     return res.data || [];
   }
   async createById(data: any, id: string) {
-    console.log(id);
+    // console.log(id);
     let res: BaseResponse = await this.apiService.post(`${Constant.CAMPAIGNS}/${id}`, data);
     if (res.status != 0) {
       return null;
@@ -63,7 +63,7 @@ export class CampaignService {
     return res.data || [];
   }
   async getParticipations(id: string) {
-    console.log(id);
+    // console.log(id);
     let res: BaseResponse = await this.apiService.get(`${Constant.CAMPAIGNS}/${id}/${Constant.CAMPAIGN_PARTICIPATIONS}`);
     return res.data||[];
   }

@@ -18,8 +18,7 @@ var MenuIconComponent = /** @class */ (function () {
     };
     MenuIconComponent.prototype.check = function () {
         var a = document.querySelector('.sub-menu');
-        console.log(a);
-    };
+    };// console.log
     __decorate([
         core_1.Input()
     ], MenuIconComponent.prototype, "menu");

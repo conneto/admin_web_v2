@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       this.registerForm.value.password = md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end();
 
       uploadData.append('account', JSON.stringify(this.registerForm.value));
-      console.log(uploadData.get('account'));
+      // console.log(uploadData.get('account'));
       let res: BaseResponse = await this.authService.register(
         uploadData
       )

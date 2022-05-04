@@ -1,5 +1,4 @@
 .button {
-
   display: flex;
   position: absolute;
   right: 0%;
@@ -13,7 +12,6 @@
 
   :first-child {
     background-color: rgba(138, 244, 149, 1);
-
   }
 
   :nth-child(2) {
@@ -49,7 +47,6 @@
     position: relative;
 
     .closeButton {
-
       button {
         position: absolute;
         z-index: 1;
@@ -60,23 +57,18 @@
         border: none;
         outline: none;
         background: unset;
-
       }
 
       button:hover {
         background-color: #ccc;
         opacity: 0.6;
         border-radius: 100%;
-
       }
     }
-
-
 
     .header {
       &-content {
         display: flex;
-
       }
 
       position: relative;
@@ -84,12 +76,10 @@
       &-information {
         padding: 0px 15px 0;
 
-        >div {
+        > div {
           display: flex;
           align-items: center;
         }
-
-
       }
 
       &-image {
@@ -99,15 +89,9 @@
           width: 100%;
           height: 300px;
           object-fit: cover;
-
         }
       }
-
-
     }
-
-
-
   }
 
   .content {
@@ -121,28 +105,24 @@
         margin-bottom: 0px !important;
         justify-content: center;
 
-
         li {
           list-style: none;
           padding: 10px;
-          color: #A1A5B7;
+          color: #a1a5b7;
           font-weight: 600;
           cursor: pointer;
           margin: 0 10px;
-
         }
-
       }
     }
 
     &__tab li:hover {
-      border-bottom: 1px solid #009EF7;
+      border-bottom: 1px solid #009ef7;
     }
 
     &__tab-active {
-      color: #009EF7 !important;
-      border-bottom: 1px solid #009EF7;
-
+      color: #009ef7 !important;
+      border-bottom: 1px solid #009ef7;
     }
 
     &-description {
@@ -161,22 +141,14 @@
       }
     }
 
-
-
     &-information {
       margin-top: 5px;
-
-
-
 
       &-button {
         align-items: center;
         display: flex;
         justify-content: space-around;
       }
-
-
-
     }
 
     &-button {
@@ -192,9 +164,7 @@
     margin: 10px 0 10px;
 
     mat-card-subtitle {
-
       margin-bottom: 0 !important;
-
     }
 
     .start-date,
@@ -203,8 +173,8 @@
         font-weight: bold;
       }
 
-      margin:0 10px 0 0;
-      border-radius:5px;
+      margin: 0 10px 0 0;
+      border-radius: 5px;
       display: flex;
       justify-content: center;
       flex-direction: column;
@@ -240,7 +210,6 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
- 
 }
 
 .name {
@@ -258,13 +227,13 @@
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  margin-top:15px;
-  z-index:9999;
-  &-create{
-    margin-left:8px;
+  margin-top: 15px;
+  z-index: 9999;
+  &-create {
+    margin-left: 8px;
   }
 }
-.delete-button{
+.delete-button {
   display: flex;
   justify-content: center;
 }
@@ -286,7 +255,6 @@
   }
 }
 
-
 @media only screen and (min-width: 992px) {
   .campaign-card {
     height: 456px !important;
@@ -295,12 +263,16 @@
 
 @media only screen and (min-width: 1200px) {
   .campaign-card {
-    height: 68vh !important;
+    height: 436px !important;
   }
 }
 
 @media only screen and (min-width: 1400px) {
   .campaign-card {
-    height: 64vh !important;
+    height: 420px !important;
   }
+}
+
+.update {
+  background-color: rgb(167, 167, 255);
 }

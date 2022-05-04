@@ -20,8 +20,6 @@ export class CampaignCardInfoComponent implements OnInit {
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
     this.valueNumber = (Number(this.campaign?.value) * 100).toFixed(2);
-    console.log(this.valueNumber);
-    
   }
 
 }

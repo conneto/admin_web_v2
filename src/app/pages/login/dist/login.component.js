@@ -65,7 +65,7 @@ var LoginComponent = /** @class */ (function () {
                 if (e.key == 'Enter') {
                     e.preventDefault();
                     document.getElementsByClassName('button-login')[0].click();
-                    console.log(document.getElementsByClassName('login')[0]);
+                    // console.log((<HTMLElement>document.getElementsByClassName('login')[0]));
                 }
             });
         }

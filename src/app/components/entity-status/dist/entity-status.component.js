@@ -68,8 +68,7 @@ var EntityStatusComponent = /** @class */ (function () {
     };
     EntityStatusComponent.prototype.getStatus = function (e) {
         if (e) {
-            console.log(this.entityData);
-            switch (e) {
+            // console.log{
                 case 'Tất cả':
                     this.checkAll();
                     this.sendData(this.passData);

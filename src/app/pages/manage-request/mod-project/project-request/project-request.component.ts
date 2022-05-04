@@ -24,7 +24,7 @@ export class ProjectRequestComponent implements OnInit {
   async getRequest() {
     await this.getAll();
     this.projects = this.projects.filter(x => {
-      return x.resultCode === 601;
+      return x.result_code === 601;
     })
   }
 }

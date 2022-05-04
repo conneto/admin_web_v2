@@ -87,8 +87,6 @@ export class DownloadDocumentFormComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     const file: File = XLSX.writeFile(wb, this.fileName);
-    console.log(file);
-    console.log(XLSX.writeFile(wb, this.fileName));
   }
   openModal() {
 
@@ -97,7 +95,6 @@ export class DownloadDocumentFormComponent implements OnInit {
     let af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
     if (e.target.files.length > 0) {
       this.docFile = e.target.files[0];
-      console.log(this.docFile);
 
       if (!_.includes(af, this.docFile.type)) {
         alert('Only EXCEL Docs Allowed!');
@@ -110,9 +107,7 @@ export class DownloadDocumentFormComponent implements OnInit {
     formData.append('cashflow_detail', this.docFile, this.docFile?.name);
     let res: BaseResponse | null = await this.camApi.uploadCashFlow(formData, `${this.campaign?.id}`);
     if (res?.status == 0) {
-      console.log("upload thành công");
     } else {
-      console.log("fail");
     }
 
   }
@@ -121,7 +116,6 @@ export class DownloadDocumentFormComponent implements OnInit {
   }
 
   onSelect(event: any) {
-    console.log(event);
     if (event) {
       this.files.push(...event.addedFiles);
     }
@@ -129,11 +123,9 @@ export class DownloadDocumentFormComponent implements OnInit {
     for (let i = 0; i < this.files.length; i++) {
       this.formData?.append("files", this.files[i], this.files[i].name);
     }
-    console.log(this.formData);
   }
 
   onSelectExcel(event: any) {
-    console.log(event);
     if (event) {
       this.filesExcel=event.addedFiles;
     }
@@ -143,11 +135,9 @@ export class DownloadDocumentFormComponent implements OnInit {
     ;
   }
   onRemove(event: any) {
-    console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
   onRemoveExcel(event: any) {
-    console.log(event);
     this.filesExcel.splice(this.filesExcel.indexOf(event), 1);
   }
 }

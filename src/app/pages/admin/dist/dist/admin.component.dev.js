@@ -66,23 +66,19 @@ function () {
   }
 
   AdminComponent.prototype.ngOnInit = function () {
-    var _a;
-
     this.user = this.authService.currentUserValue;
-    console.log((_a = this.user) === null || _a === void 0 ? void 0 : _a.role);
 
     if (this.user) {
       if (this.authService.currentUserValue.role_id == 'organization_manager') {
         this.menus = this.menus.filter(function (x) {
           return x.role == 'organization_manager' || x.role == 'organization_manager_admin';
         });
-      } else if (this.user.role == 'admin') {
+      } else if (this.user.role_id == 'admin') {
         this.menus = this.menus.filter(function (x) {
           return x.role == 'organization_manager_admin' || x.role == 'admin';
         });
-      }
+      } // console.log(this.menus);
 
-      console.log(this.menus);
     }
   };
 

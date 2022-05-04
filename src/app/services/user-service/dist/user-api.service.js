@@ -60,7 +60,7 @@ var UserApiService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.api.get(UserApiService_1.STATISTICS)];
                     case 1:
                         res = _a.sent();
-                        console.log(res.data);
+                        // console.log(res.data);
                         res.data = this.dashboardAdapter.adapt(res.data);
                         return [2 /*return*/, res.data || []];
                 }

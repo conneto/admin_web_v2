@@ -184,8 +184,8 @@ function () {
             , this.api.get(UserApiService_1.STATISTICS)];
 
           case 1:
-            res = _a.sent();
-            console.log(res.data);
+            res = _a.sent(); // console.log(res.data);
+
             res.data = this.dashboardAdapter.adapt(res.data);
             return [2
             /*return*/

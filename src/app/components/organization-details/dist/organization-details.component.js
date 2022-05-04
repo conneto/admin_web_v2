@@ -70,10 +70,14 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.campaigns = [];
         this.isGetPro = false;
         this.isGetCam = false;
+        this.isOpenUpdateForm = false;
     }
     OrganizationDetailsComponent.prototype.ngOnInit = function () {
         this.check();
         this.isInformation = true;
+    };
+    OrganizationDetailsComponent.prototype.convertCover = function (value) {
+        return value.split('|')[0];
     };
     OrganizationDetailsComponent.prototype.check = function () {
         var _a;
@@ -83,17 +87,16 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d, _e, _f, _g;
         return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_f) {
+            return __generator(this, function (_h) {
                 if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
                     this.isApproved = true;
                 }
                 this.loadingService.getOrganizationId.next("" + ((_b = this.organizationInput[0]) === null || _b === void 0 ? void 0 : _b.id));
-                this.urlLogo = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                // this.urlCover = this.organization?.cover?.split('|')[0];
-                console.log(this.urlCover);
-                switch ((_e = this.organization) === null || _e === void 0 ? void 0 : _e.type) {
+                this.urlLogo = (_d = (_c = this.organization) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
+                this.urlCover = (_f = (_e = this.organization) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.split('|')[0];
+                switch ((_g = this.organization) === null || _g === void 0 ? void 0 : _g.type) {
                     case 'ngo':
                         this.organization.type = 'Tổ chức phi chính phủ';
                         break;
@@ -136,22 +139,22 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         }
     };
     OrganizationDetailsComponent.prototype.getCampaigns = function () {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var _f, i;
-            return __generator(this, function (_g) {
-                switch (_g.label) {
+            var _e, i;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
                     case 0:
-                        _f = this;
-                        return [4 /*yield*/, this.orgApi.getCampaignsByOrgId("" + ((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id))];
+                        _e = this;
+                        return [4 /*yield*/, this.orgApi.getCampaignsByOrgId("" + this.organizationInput[0].id)];
                     case 1:
-                        _f.campaignsCopy = _g.sent();
+                        _e.campaignsCopy = _f.sent();
                         this.campaigns = this.campaignsCopy;
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 {
-                                    this.campaigns[i].cover = (_c = (_b = this.campaigns[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
-                                    this.campaigns[i].org_logo = (_e = (_d = this.campaigns[i]) === null || _d === void 0 ? void 0 : _d.org_logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
+                                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
                                     switch (this.campaigns[i].type) {
                                         case 'donation':
                                             this.campaigns[i].type = 'Quyên Góp';
@@ -172,23 +175,23 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         });
     };
     OrganizationDetailsComponent.prototype.getProjects = function () {
-        var _a, _b, _c, _d, _e, _f, _g;
+        var _a, _b, _c, _d, _e, _f;
         return __awaiter(this, void 0, void 0, function () {
-            var _h, i;
-            return __generator(this, function (_j) {
-                switch (_j.label) {
+            var _g, i;
+            return __generator(this, function (_h) {
+                switch (_h.label) {
                     case 0:
-                        _h = this;
-                        return [4 /*yield*/, this.orgApi.getProjectsByOrgId("" + ((_a = this.organization) === null || _a === void 0 ? void 0 : _a.id))];
+                        _g = this;
+                        return [4 /*yield*/, this.orgApi.getProjectsByOrgId("" + this.organizationInput[0].id)];
                     case 1:
-                        _h.projectsCopy = _j.sent();
+                        _g.projectsCopy = _h.sent();
                         this.projects = this.projectsCopy;
                         if (this.projects) {
                             for (i = 0; i < this.projects.length; i++) {
                                 {
-                                    this.projects[i].cover = (_c = (_b = this.projects[i]) === null || _b === void 0 ? void 0 : _b.cover) === null || _c === void 0 ? void 0 : _c.replace(/\\/g, '\/');
-                                    this.projects[i].logo = (_e = (_d = this.projects[i]) === null || _d === void 0 ? void 0 : _d.logo) === null || _e === void 0 ? void 0 : _e.replace(/\\/g, '\/');
-                                    this.projects[i].organizationLogo = (_g = (_f = this.projects[i]) === null || _f === void 0 ? void 0 : _f.organizationLogo) === null || _g === void 0 ? void 0 : _g.replace(/\\/g, '\/');
+                                    this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                                    this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
+                                    this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
                                 }
                             }
                             this.passDataProjects = this.projectsCopy;

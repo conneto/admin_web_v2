@@ -67,6 +67,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
         this.urlCover = '';
         this.campaigns = [];
         this.campaignsCopy = [];
+        this.isOpenUpdateForm = false;
     }
     ProjectDetailsComponent.prototype.ngOnInit = function () {
         this.getByID();
@@ -105,10 +106,14 @@ var ProjectDetailsComponent = /** @class */ (function () {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 switch (this.campaigns[i].type) {
                                     case 'donation':
-                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString() });
+                                        Object.assign(this.campaigns[i], {
+                                            value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString()
+                                        });
                                         break;
                                     case 'recruitment':
-                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString() });
+                                        Object.assign(this.campaigns[i], {
+                                            value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString()
+                                        });
                                         break;
                                 }
                             }
@@ -116,8 +121,8 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         if (this.campaigns) {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 {
-                                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
                                     switch (this.campaigns[i].type) {
                                         case 'donation':
                                             this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
@@ -158,11 +163,11 @@ var ProjectDetailsComponent = /** @class */ (function () {
                     case 1:
                         _e.project = _f.sent();
                         this.loadingService.projectId.next("" + id);
-                        if (this.project.resultCode == 610) {
+                        if (this.project.result_code == 610) {
                             this.isApproved = true;
                         }
-                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.organizationLogo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                        this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.organization_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                        this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
                         return [2 /*return*/];
                 }
             });
@@ -205,7 +210,7 @@ var ProjectDetailsComponent = /** @class */ (function () {
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.loadingService.isLoading.next(false);
                             this.router.navigate(['/manager/manage-campaign']);
-                            this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true);
+                            this.snackBar.showMessage('Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !', true);
                         }
                         else {
                             this.loadingService.isLoading.next(false);

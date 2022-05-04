@@ -22,8 +22,6 @@ const routes: Routes = [
 
   { path: 'user-details', loadChildren: () => import('./pages/mod-user/user-details/user-details.module').then(m => m.UserDetailsModule) },
 
-  { path: 'volunteer-management', loadChildren: () => import('./pages/management/mod-volunteer/volunteer-management/volunteer-management.module').then(m => m.VolunteerManagementModule) },
-
   { path: '**', redirectTo: '' },
 
 
@@ -33,4 +31,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { } 
+export class AppRoutingModule { }

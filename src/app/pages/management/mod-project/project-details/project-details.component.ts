@@ -23,14 +23,13 @@ import { OrganizationsComponent } from '../../mod-organization/organizations/org
 @Component({
   selector: 'app-project-details',
   templateUrl: './project-details.component.html',
-  styleUrls: ['./project-details.component.scss']
+  styleUrls: ['./project-details.component.scss'],
 })
 @Injectable({ providedIn: 'root' })
 export class ProjectDetailsComponent implements OnInit {
-
   project?: Project;
   user?: User;
-  isAdmin?:boolean;
+  isAdmin?: boolean;
   urlApi: string = '';
   urlLogo?: string = '';
   urlCover?: string = '';
@@ -43,8 +42,24 @@ export class ProjectDetailsComponent implements OnInit {
   passData?: any;
   whichType?: any;
   organization?: any;
-  isEmpty?:boolean;
-  constructor(private organizationService: OrganizationApiService, private getEntityService: LoadingDataService, private snackBar: SnackBarMessageComponent, private auth: AuthService, private location: Location, private proApi: ProjectService, private campaignService: CampaignService, private actived: ActivatedRoute, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
+  isEmpty?: boolean;
+  isOpenUpdateForm?: boolean = false;
+  constructor(
+    private organizationService: OrganizationApiService,
+    private getEntityService: LoadingDataService,
+    private snackBar: SnackBarMessageComponent,
+    private auth: AuthService,
+    private location: Location,
+    private proApi: ProjectService,
+    private campaignService: CampaignService,
+    private actived: ActivatedRoute,
+    private router: Router,
+    private dialog: MatDialog,
+    private snackbar: SnackBarMessageComponent,
+    private loadingService: LoadingService,
+    private api: ProjectService,
+    private authApi: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.getByID();
@@ -52,11 +67,8 @@ export class ProjectDetailsComponent implements OnInit {
     this.urlApi = this.loadingService.getApiGetLink.value;
     this.isInformation = true;
     this.getCampaigns();
-
   }
   check() {
-
-
     if (this.auth.currentUserValue.role_id == 'organization_manager') {
       this.isAdmin = false;
     } else {
@@ -64,45 +76,60 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
   async getCampaigns() {
-    this.campaignsCopy = await this.proApi.getCampaignsByProjectId(`${this.actived.snapshot.paramMap.get('id')}`);
+    this.campaignsCopy = await this.proApi.getCampaignsByProjectId(
+      `${this.actived.snapshot.paramMap.get('id')}`
+    );
 
-    if(this.campaignsCopy.length==0)
-    {
-      this.isEmpty=true;
-    }else {
-      this.isEmpty=false;
-      this.campaigns = this.campaignsCopy.filter(x=>{
-        return  x.result_code!=703;
+    if (this.campaignsCopy.length == 0) {
+      this.isEmpty = true;
+    } else {
+      this.isEmpty = false;
+      this.campaigns = this.campaignsCopy.filter((x) => {
+        return x.result_code != 703;
       });
-      
-      for (var i = 0; i < this.campaigns.length; i++) {
 
+      for (var i = 0; i < this.campaigns.length; i++) {
         switch (this.campaigns[i].type) {
           case 'donation':
-          
-            Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString() });
+            Object.assign(this.campaigns[i], {
+              value: (
+                this.campaigns[i].totalDonated! / this.campaigns[i].target!
+              ).toString(),
+            });
             break;
           case 'recruitment':
-            Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString() });
+            Object.assign(this.campaigns[i], {
+              value: (
+                this.campaigns[i].totalPaticipant! / this.campaigns[i].target!
+              ).toString(),
+            });
             break;
         }
-
       }
-    
     }
 
     if (this.campaigns) {
       for (var i = 0; i < this.campaigns.length; i++) {
         {
-          this.campaigns[i].cover = this.campaigns[i]?.cover?.replace(/\\/g, '\/');
+          this.campaigns[i].cover = this.campaigns[i]?.cover?.replace(
+            /\\/g,
+            '/'
+          );
 
-          this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(/\\/g, '\/');
+          this.campaigns[i].org_logo = this.campaigns[i]?.org_logo?.replace(
+            /\\/g,
+            '/'
+          );
           switch (this.campaigns[i].type) {
             case 'donation':
-              this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
+              this.campaigns[i].org_id = (
+                this.campaigns[i].totalDonated! / this.campaigns[i].target!
+              ).toString();
               break;
             case 'recruitment':
-              this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant! / this.campaigns[i].target!).toString();
+              this.campaigns[i].org_id = (
+                this.campaigns[i].totalPaticipant! / this.campaigns[i].target!
+              ).toString();
               break;
           }
         }
@@ -120,20 +147,16 @@ export class ProjectDetailsComponent implements OnInit {
     }
   }
 
-
   async getByID() {
-
     const id = this.actived.snapshot.paramMap.get('id');
     this.project = await this.proApi.getByID(`${id}`);
 
     this.loadingService.projectId.next(`${id}`);
-    if (this.project.resultCode == 610) {
+    if (this.project.result_code == 610) {
       this.isApproved = true;
     }
-    this.urlLogo = this.project?.organizationLogo?.replace(/\\/g, '\/');
-    this.urlCover = this.project?.cover?.replace(/\\/g, '\/');
-
-
+    this.urlLogo = this.project?.organization_logo?.replace(/\\/g, '/');
+    this.urlCover = this.project?.cover?.replace(/\\/g, '/');
   }
   goBack() {
     this.location.back();
@@ -159,25 +182,27 @@ export class ProjectDetailsComponent implements OnInit {
       data: {
         title: 'Tạo chiến dịch',
         project: this.project,
-      }
-    })
+      },
+    });
 
-    dialogRef.afterClosed().subscribe(async data => {
+    dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
-
         this.loadingService.isLoading.next(true);
         let res: BaseResponse | null = await this.campaignService.create(data);
         if (res?.status == 0) {
           this.loadingService.isLoading.next(false);
 
           this.router.navigate(['/manager/manage-campaign']);
-          this.snackBar.showMessage("Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !", true)
+          this.snackBar.showMessage(
+            'Tạo chiến dịch thành công.Đợi phê duyệt từ ban quản trị !',
+            true
+          );
         } else {
           this.loadingService.isLoading.next(false);
-          this.snackBar.showMessage(`${res?.message}`, false)
+          this.snackBar.showMessage(`${res?.message}`, false);
         }
       }
-    })
+    });
   }
   async openProjectForm() {
     this.organization = await this.organizationService.getAll();
@@ -186,31 +211,32 @@ export class ProjectDetailsComponent implements OnInit {
       width: '768px',
       data: {
         title: 'Tạo dự án',
-      }
-    })
+      },
+    });
 
-    dialogRef.afterClosed().subscribe(async data => {
+    dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         this.loadingService.isLoading.next(true);
         let res: BaseResponse = await this.api.createProject(data);
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
-          this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);
+          this.snackbar.showMessage(
+            'Tạo dự án thành công.Chờ phê duyệt từ ban quản trị',
+            true
+          );
 
           this.router.navigate(['/manager/manage-project']);
-
         } else {
           this.dialog.open(ProjectFormComponent, {
             width: '768px',
             data: {
               title: 'Tạo dự án',
-            }
-          })
+            },
+          });
           this.loadingService.isLoading.next(false);
-          this.snackbar.showMessage(res.message, false)
+          this.snackbar.showMessage(res.message, false);
         }
       }
-    })
+    });
   }
-
 }

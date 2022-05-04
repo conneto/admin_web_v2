@@ -1,3 +1,5 @@
+import { CampaignUpdateFormComponent } from './../update/campaign-form/campaign-form.component';
+import { ProjectUpdateFormComponent } from './../update/project-form/project-form.component';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -58,7 +60,9 @@ const componentModules = [
   OrganizationUpdateFormComponent,
   DialogConfirmComponent,
   ProjectFormComponent,
+  ProjectUpdateFormComponent,
   CampaignForm,
+  CampaignUpdateFormComponent,
   SnackBarMessageComponent,
   LoadingSpinnerComponent,
   TabgroupComponent,
@@ -81,7 +85,7 @@ const componentModules = [
   OrganizationSkeletonLoadingComponent,
   OrganizationUpdateFormComponent,
   OrganizationFormComponent,
-  
+
 ]
 
 @NgModule({

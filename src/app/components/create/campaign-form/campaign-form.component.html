@@ -17,8 +17,8 @@
       <mat-select *ngIf="!isOnlyProject" name="projects" formControlName="selected" required
         [(ngModel)]="selectedValue">
         <mat-option *ngFor="let project of projects" [value]="project.name">
-          {{ project.name }} ({{ project.startDate | date: "dd/MM/yyyy" }} -
-          {{ project.endDate | date: "dd/MM/yyyy" }}
+          {{ project.name }} ({{ project.start_date | date: "dd/MM/yyyy" }} -
+          {{ project.end_date | date: "dd/MM/yyyy" }}
         </mat-option>
       </mat-select>
       <mat-error *ngIf="campaignControl.selected.errors?.required">

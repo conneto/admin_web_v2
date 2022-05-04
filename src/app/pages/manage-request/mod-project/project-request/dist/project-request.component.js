@@ -75,7 +75,7 @@ var ProjectRequestComponent = /** @class */ (function () {
                     case 1:
                         _a.sent();
                         this.projects = this.projects.filter(function (x) {
-                            return x.resultCode === 601;
+                            return x.result_code === 601;
                         });
                         return [2 /*return*/];
                 }

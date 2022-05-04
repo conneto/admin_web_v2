@@ -74,7 +74,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
           status: 'approve',
           note: 'Approve this',
         }
-        console.log(data1);
+        // console.log(data1);
         let res: BaseResponse = await this.api.updateRequestByManager(data1);
         if (res.status == 0) {
           this.volunteer = await this.camApi.getParticipations(`${cam_id}`);
@@ -106,7 +106,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
           status: 'reject',
           note: 'Reject this',
         }
-        console.log(data1);
+        // console.log(data1);
         let res: BaseResponse = await this.api.updateRequestByManager(data1);
         if (res.status == 0) {
           this.volunteer = await this.camApi.getParticipations(`${cam_id}`);

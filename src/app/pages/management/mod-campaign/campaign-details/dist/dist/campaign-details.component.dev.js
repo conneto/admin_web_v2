@@ -165,7 +165,9 @@ var download_document_form_component_1 = require("src/app/components/download-do
 var CampaignDetailsComponent =
 /** @class */
 function () {
-  function CampaignDetailsComponent(dialog, userApi, loadingService, location, activated, campaignApi) {
+  function CampaignDetailsComponent(router, snackBar, dialog, userApi, loadingService, location, activated, campaignApi) {
+    this.router = router;
+    this.snackBar = snackBar;
     this.dialog = dialog;
     this.userApi = userApi;
     this.loadingService = loadingService;
@@ -188,6 +190,71 @@ function () {
     if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
+  };
+
+  CampaignDetailsComponent.prototype.doCheck = function () {
+    var _a, _b, _c;
+
+    return __awaiter(this, void 0, void 0, function () {
+      var data, res, data, res;
+      return __generator(this, function (_d) {
+        switch (_d.label) {
+          case 0:
+            if (!(((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.is_transparent) == false)) return [3
+            /*break*/
+            , 2];
+            data = {
+              object_id: this.campaign.id,
+              object_type: 'transparent',
+              status: 'approve',
+              note: ''
+            };
+            return [4
+            /*yield*/
+            , this.userApi.updateRequestByAdmin(data)];
+
+          case 1:
+            res = _d.sent();
+
+            if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+              window.location.reload();
+              this.snackBar.showMessage("Xác thực thành công !", true);
+              this.router.navigate(["admin/manage-campaign/campaign-details/" + this.campaign.id]);
+            }
+
+            return [3
+            /*break*/
+            , 4];
+
+          case 2:
+            data = {
+              object_id: (_b = this.campaign) === null || _b === void 0 ? void 0 : _b.id,
+              object_type: 'transparent',
+              status: 'reject',
+              note: ''
+            };
+            return [4
+            /*yield*/
+            , this.userApi.updateRequestByAdmin(data)];
+
+          case 3:
+            res = _d.sent();
+
+            if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+              window.location.reload();
+              this.snackBar.showMessage("Bỏ xác nhận thành công !", true);
+              this.router.navigate(["admin/manage-campaign/campaign-details/" + ((_c = this.campaign) === null || _c === void 0 ? void 0 : _c.id)]);
+            }
+
+            _d.label = 4;
+
+          case 4:
+            return [2
+            /*return*/
+            ];
+        }
+      });
+    });
   };
 
   CampaignDetailsComponent.prototype.getDocument = function () {
@@ -225,8 +292,8 @@ function () {
         switch (_j.label) {
           case 0:
             id = this.activated.snapshot.paramMap.get('id');
-            this.urlApi = this.loadingService.getApiGetLink.value;
-            console.log(this.urlApi);
+            this.urlApi = this.loadingService.getApiGetLink.value; // console.log(this.urlApi);
+
             _h = this;
             return [4
             /*yield*/

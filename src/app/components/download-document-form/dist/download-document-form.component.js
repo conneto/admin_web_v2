@@ -132,19 +132,16 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
         var file = XLSX.writeFile(wb, this.fileName);
-        console.log(file);
-        console.log(XLSX.writeFile(wb, this.fileName));
-    };
-    DownloadDocumentFormComponent.prototype.openModal = function () {
+    };// console.log
+    Down// console.logtFormComponent.prototype.openModal = function () {
     };
     DownloadDocumentFormComponent.prototype.uploadFile = function (e) {
         var af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
         if (e.target.files.length > 0) {
             this.docFile = e.target.files[0];
-            console.log(this.docFile);
             if (!_.includes(af, this.docFile.type)) {
                 alert('Only EXCEL Docs Allowed!');
-            }
+            // console.log
         }
     };
     DownloadDocumentFormComponent.prototype.onFormSubmit = function () {
@@ -160,15 +157,13 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
                     case 1:
                         res = _c.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
-                            console.log("upload thành công");
                         }
                         else {
-                            console.log("fail");
                         }
-                        return [2 /*return*/];
+                        retu// console.logurn*/];
                 }
             });
-        });
+        });// console.log
     };
     Object.defineProperty(DownloadDocumentFormComponent.prototype, "campaignControl", {
         get: function () {
@@ -180,42 +175,37 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
     DownloadDocumentFormComponent.prototype.onSelect = function (event) {
         var _a;
         var _b;
-        console.log(event);
         if (event) {
             (_a = this.files).push.apply(_a, event.addedFiles);
         }
         for (var i = 0; i < this.files.length; i++) {
             (_b = this.formData) === null || _b === void 0 ? void 0 : _b.append("files", this.files[i], this.files[i].name);
-        }
-        console.log(this.formData);
+        // console.log
     };
     DownloadDocumentFormComponent.prototype.onSelectExcel = function (event) {
         var _a;
-        console.log(event);
         if (event) {
             this.filesExcel = event.addedFiles;
         }
-        for (var i = 0; i < this.filesExcel.length; i++) {
+        // console.log= 0; i < this.filesExcel.length; i++) {
             (_a = this.formDataExcel) === null || _a === void 0 ? void 0 : _a.append("cashflow_detail", this.filesExcel[i], this.filesExcel[i].name);
         }
         ;
-    };
+    };// console.log
     DownloadDocumentFormComponent.prototype.onRemove = function (event) {
-        console.log(event);
         this.files.splice(this.files.indexOf(event), 1);
     };
     DownloadDocumentFormComponent.prototype.onRemoveExcel = function (event) {
-        console.log(event);
         this.filesExcel.splice(this.filesExcel.indexOf(event), 1);
     };
     __decorate([
         core_1.Input()
     ], DownloadDocumentFormComponent.prototype, "campaign");
-    __decorate([
+    __de// console.log
         core_1.Output()
     ], DownloadDocumentFormComponent.prototype, "isUploaded");
     DownloadDocumentFormComponent = __decorate([
-        core_1.Component({
+        // console.logonent({
             selector: 'app-download-document-form',
             templateUrl: './download-document-form.component.html',
             styleUrls: ['./download-document-form.component.scss']

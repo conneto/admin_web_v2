@@ -268,8 +268,7 @@ function () {
     localStorage.removeItem('approve');
     localStorage.removeItem('reject');
     localStorage.removeItem('pending');
-    this.curUserSubject.next(null);
-    console.log(localStorage.getItem('USER_TOKEN'));
+    this.curUserSubject.next(null); // console.log(localStorage.getItem('USER_TOKEN'));
   };
 
   Constant.prototype.updateRequestByAdmin = function (data) {

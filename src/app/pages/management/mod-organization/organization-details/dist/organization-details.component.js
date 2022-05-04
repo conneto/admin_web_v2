@@ -158,10 +158,14 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                             for (i = 0; i < this.campaigns.length; i++) {
                                 switch (this.campaigns[i].type) {
                                     case 'donation':
-                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString() });
+                                        Object.assign(this.campaigns[i], {
+                                            value: (this.campaigns[i].totalDonated / this.campaigns[i].target).toString()
+                                        });
                                         break;
                                     case 'recruitment':
-                                        Object.assign(this.campaigns[i], { value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString() });
+                                        Object.assign(this.campaigns[i], {
+                                            value: (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString()
+                                        });
                                         break;
                                 }
                             }
@@ -186,9 +190,9 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                         if (this.projects) {
                             for (i = 0; i < this.projects.length; i++) {
                                 {
-                                    this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                                    this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                                    this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                                    this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                                    this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
+                                    this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
                                 }
                             }
                             this.passDataProjects = this.projectsCopy;
@@ -201,7 +205,6 @@ var OrganizationDetailsComponent = /** @class */ (function () {
     Object.defineProperty(OrganizationDetailsComponent.prototype, "getId", {
         get: function () {
             this.getValueFromRoute();
-            var id = console.log(this.route.snapshot.paramMap.get('id'));
             return this.route.snapshot.paramMap.get('id');
         },
         enumerable: false,

@@ -25,6 +25,7 @@ var routes = [
         path: 'manager', canActivate: [guard2_guard_1.Guard2Guard],
         loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/admin/admin.module'); }).then(function (m) { return m.AdminModule; }); }
     },
+    { path: 'user-details', loadChildren: function () { return Promise.resolve().then(function () { return require('./pages/mod-user/user-details/user-details.module'); }).then(function (m) { return m.UserDetailsModule; }); } },
     { path: '**', redirectTo: '' },
 ];
 var AppRoutingModule = /** @class */ (function () {

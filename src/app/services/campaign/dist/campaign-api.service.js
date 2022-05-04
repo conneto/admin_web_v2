@@ -88,7 +88,7 @@ var CampaignService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(id);
+                        // console.log(id);
                         return [4 /*yield*/, this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id, data)];
                     case 1:
                         res = _a.sent();
@@ -167,7 +167,7 @@ var CampaignService = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log(id);
+                        // console.log(id);
                         return [4 /*yield*/, this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
                     case 1:
                         res = _a.sent();

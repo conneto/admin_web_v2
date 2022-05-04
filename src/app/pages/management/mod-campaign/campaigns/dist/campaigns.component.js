@@ -74,7 +74,7 @@ var CampaignsComponent = /** @class */ (function () {
     };
     CampaignsComponent.prototype.getEntity = function (e) {
         if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
-            console.log(e);
+            // console.log(e);
             this.isEmpty = false;
             this.campaigns = e;
             this.oldData = e;
@@ -112,7 +112,7 @@ var CampaignsComponent = /** @class */ (function () {
                     case 1:
                         _a.projects = _b.sent();
                         this.projects = this.projects.filter(function (x) {
-                            return x.resultCode == 610;
+                            return x.result_code == 610;
                         });
                         if (this.projects.length > 0) {
                             this.isApprovedProject = true;
@@ -286,7 +286,7 @@ var CampaignsComponent = /** @class */ (function () {
                         this.campaigns = this.campaigns.filter(function (x) {
                             return x.result_code == 701;
                         });
-                        console.log(this.campaigns);
+                        // console.log(this.campaigns);
                         this.oldData = this.passData.filter(function (x) { return x.result_code == 701; });
                         if (this.authApi.currentUserValue.role_id == 'admin') {
                             this.isRequest = true;

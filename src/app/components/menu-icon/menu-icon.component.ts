@@ -25,7 +25,6 @@ export class MenuIconComponent implements OnInit {
 
   check() {
     var a = document.querySelector('.sub-menu');
-    console.log(a);
   }
 
 }

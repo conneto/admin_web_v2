@@ -1,5 +1,5 @@
 <div *ngIf="organization">
-  <div class="container">
+  <div class="container p-3">
     <div class="box">
       <button class="close-button" (click)="goBack()">
         <mat-icon>close</mat-icon>
@@ -104,11 +104,11 @@
             >
           </div>
           <div class="content-introduce">
-            <div>Giấy phép lao động:</div>
+            <div>Giấy phép hoạt động:</div>
             <div>
               <a href='{{urlApi}}/show/files/?p={{organization.operating_license}}' download>
                 <img style="width: 25px" src="./assets/icons/pdf.svg" />
-              </a>  
+              </a>
             </div>
           </div>
           <div *ngIf="isApproved" class="content-button">

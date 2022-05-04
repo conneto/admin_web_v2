@@ -65,7 +65,7 @@ export class CampaignDetailsComponent implements OnInit {
         window.location.reload();
         this.snackBar.showMessage("Xác thực thành công !",true);
         this.router.navigate([`admin/manage-campaign/campaign-details/${this.campaign.id}`])
-      
+
       }
     } else {
       const data = {
@@ -79,7 +79,7 @@ export class CampaignDetailsComponent implements OnInit {
         window.location.reload();
         this.snackBar.showMessage("Bỏ xác nhận thành công !", true);
         this.router.navigate([`admin/manage-campaign/campaign-details/${this.campaign?.id}`])
-    
+
       }
     }
   }
@@ -108,7 +108,7 @@ export class CampaignDetailsComponent implements OnInit {
   async getByID() {
     const id = this.activated.snapshot.paramMap.get('id');
     this.urlApi = this.loadingService.getApiGetLink.value;
-    console.log(this.urlApi);
+    // console.log(this.urlApi);
     this.campaign = await this.campaignApi.getById(`${id}`);
 
     this.urlLogo = this.campaign?.org_logo?.replace(/\\/g, '\/');

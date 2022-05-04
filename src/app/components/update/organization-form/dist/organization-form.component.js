@@ -5,9 +5,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -48,16 +45,16 @@ exports.__esModule = true;
 exports.OrganizationUpdateFormComponent = void 0;
 var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
-var dialog_1 = require("@angular/material/dialog");
 var constant_1 = require("src/app/constant/constant");
 var OrganizationUpdateFormComponent = /** @class */ (function () {
-    function OrganizationUpdateFormComponent(formBuilder, loadingService, organizationService, dialogRef, dialog, data, router, snackBar) {
+    function OrganizationUpdateFormComponent(formBuilder, loadingService, organizationService, 
+    // public dialogRef: MatDialogRef<OrganizationUpdateFormComponent>,
+    // public dialog: MatDialog,
+    // @Inject(MAT_DIALOG_DATA) public data: any,
+    router, snackBar) {
         this.formBuilder = formBuilder;
         this.loadingService = loadingService;
         this.organizationService = organizationService;
-        this.dialogRef = dialogRef;
-        this.dialog = dialog;
-        this.data = data;
         this.router = router;
         this.snackBar = snackBar;
         this.category = constant_1.Constant.CATEGORY;
@@ -69,9 +66,10 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
         this.initFormBuilder();
     };
     OrganizationUpdateFormComponent.prototype.initFormBuilder = function () {
+        // this.category = this.data.category.split('|')
         this.organizationForm = this.formBuilder.group({
             name: [
-                this.data.object.name,
+                this.data.name,
                 [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(8),
@@ -79,9 +77,9 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
                     forms_1.Validators.pattern('^(?!\\s*$).+'),
                 ],
             ],
-            eng_name: [this.data.object.eng_name],
+            eng_name: [this.data.eng_name],
             description: [
-                this.data.object.description,
+                this.data.description,
                 [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(128),
@@ -89,17 +87,17 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
                 ],
             ],
             vision: [
-                this.data.object.vision,
+                this.data.vision,
                 [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(128),
                     forms_1.Validators.maxLength(1000),
                 ],
             ],
-            website: [this.data.object.website],
-            founding_date: [this.data.object.founding_date, forms_1.Validators.required],
+            website: [this.data.website],
+            founding_date: [new Date(this.data.founding_date).toISOString().substring(0, 10), forms_1.Validators.required],
             mission: [
-                this.data.object.mission,
+                this.data.mission,
                 [
                     forms_1.Validators.required,
                     forms_1.Validators.minLength(128),
@@ -151,14 +149,15 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
                         if (this.filePDF.length != 0)
                             uploadData.append('operating_license', this.filePDF[0], this.filePDF[0].name);
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.organizationService.updateById(uploadData, this.data.object.id)];
+                        return [4 /*yield*/, this.organizationService.updateById(uploadData, this.data.id)];
                     case 1:
                         res = _d.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
                             this.snackBar.showMessage('Cập nhật thành công', true);
+                            window.location.reload();
                         }
                         else {
-                            this.snackBar.showMessage('Cập nhật thất bại', true);
+                            this.snackBar.showMessage(res === null || res === void 0 ? void 0 : res.message, false);
                         }
                         this.router.navigate(['/manager/manage-organization']);
                         this.loadingService.isLoading.next(false);
@@ -189,7 +188,7 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
         this.isRemoved = true;
         var category = this.organizationForm.controls.category.value;
         var index = category.indexOf(e);
-        console.log(index);
+        // console.log(index);
         if (index !== -1) {
             category.splice(index, 1);
         }
@@ -211,13 +210,15 @@ var OrganizationUpdateFormComponent = /** @class */ (function () {
     OrganizationUpdateFormComponent.prototype.onRemove = function (event) {
         this.filePDF.splice(this.filePDF.indexOf(event), 1);
     };
+    __decorate([
+        core_1.Input()
+    ], OrganizationUpdateFormComponent.prototype, "data");
     OrganizationUpdateFormComponent = __decorate([
         core_1.Component({
             selector: 'app-organization-update-form',
             templateUrl: './organization-form.component.html',
             styleUrls: ['./organization-form.component.scss']
-        }),
-        __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))
+        })
     ], OrganizationUpdateFormComponent);
     return OrganizationUpdateFormComponent;
 }());

@@ -68,7 +68,7 @@ var Constant = /** @class */ (function () {
             vietsub: 'Xã hội'
         },
         {
-            name: 'oldster',
+            name: 'older',
             vietsub: 'Người già'
         },
     ];

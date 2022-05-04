@@ -20,7 +20,5 @@ export class DocumentButtonComponent implements OnInit {
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
     const file:File=XLSX.writeFile(wb,this.fileName);
-    console.log(file);
-    console.log(XLSX.writeFile(wb, this.fileName));
   }
 }

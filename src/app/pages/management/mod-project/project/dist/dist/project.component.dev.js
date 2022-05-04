@@ -194,6 +194,34 @@ function () {
 
   ProjectComponent.prototype.ngOnDestroy = function () {};
 
+  ProjectComponent.prototype.getEntity = function (e) {
+    if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
+      // console.log(e);
+      this.isEmpty = false;
+      this.projects = e;
+      this.oldData = e;
+    } else {
+      this.isEmpty = true;
+      this.projects = e;
+    }
+  };
+
+  ProjectComponent.prototype.getTabGroupState = function (e) {
+    if (e) {
+      if (e == 'pending') {
+        this.isTabPending = true;
+      } else {
+        this.isTabPending = false;
+      }
+
+      if (e == 'reject') {
+        this.isTabRejected = true;
+      } else {
+        this.isTabRejected = false;
+      }
+    }
+  };
+
   ProjectComponent.prototype.changeView = function () {
     var _a;
 
@@ -409,11 +437,7 @@ function () {
       return __generator(this, function (_a) {
         this.loadingService.getOrganizationId.next("" + this.organization[0].id);
         dialogRef = this.dialog.open(project_form_component_1.ProjectFormComponent, {
-<<<<<<< HEAD
           width: '768px',
-=======
-          width: '700px',
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
           data: {
             title: 'Tạo dự án'
           }
@@ -443,11 +467,7 @@ function () {
                     this.router.navigate(['/manager/manage-project']);
                   } else {
                     this.dialog.open(project_form_component_1.ProjectFormComponent, {
-<<<<<<< HEAD
                       width: '768px',
-=======
-                      width: '700px',
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
                       data: {
                         title: 'Tạo dự án'
                       }

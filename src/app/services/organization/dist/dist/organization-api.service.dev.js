@@ -160,9 +160,7 @@ exports.OrganizationApiService = void 0;
 
 var core_1 = require("@angular/core");
 
-var campaign_api_service_1 = require("../campaign/campaign-api.service");
-
-var project_service_1 = require("../project-service/project.service");
+var constant_1 = require("src/app/constant/constant");
 
 var OrganizationApiService =
 /** @class */
@@ -175,8 +173,6 @@ function () {
     this.authApi = authApi;
     this.user = authApi.currentUserValue;
   }
-
-  OrganizationApiService_1 = OrganizationApiService;
 
   OrganizationApiService.prototype.getAll = function () {
     var _a;
@@ -191,7 +187,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(OrganizationApiService_1.ORGANIZATIONS)];
+            , this.apiService.get(constant_1.Constant.ORGANIZATIONS)];
 
           case 1:
             res = _b.sent();
@@ -217,7 +213,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + project_service_1.ProjectService.PROJECT)];
+            , this.apiService.get(constant_1.Constant.ORGANIZATIONS + "/" + id + "/" + constant_1.Constant.PROJECTS)];
 
           case 1:
             res = _a.sent();
@@ -243,7 +239,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id + "/" + campaign_api_service_1.Constant.CAMPAIGN)];
+            , this.apiService.get(constant_1.Constant.ORGANIZATIONS + "/" + id + "/" + constant_1.Constant.CAMPAIGNS)];
 
           case 1:
             res = _a.sent();
@@ -266,7 +262,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(OrganizationApiService_1.ORGANIZATIONS + "/" + id)];
+            , this.apiService.get(constant_1.Constant.ORGANIZATIONS + "/" + id)];
 
           case 1:
             res = _a.sent();
@@ -287,7 +283,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.post("" + OrganizationApiService_1.ORGANIZATIONS, data)];
+            , this.apiService.post("" + constant_1.Constant.ORGANIZATIONS, data)];
 
           case 1:
             res = _a.sent();
@@ -314,7 +310,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService["delete"](OrganizationApiService_1.ORGANIZATIONS + "/" + id)];
+            , this.apiService["delete"](constant_1.Constant.ORGANIZATIONS + "/" + id)];
 
           case 1:
             res = _a.sent();
@@ -332,10 +328,10 @@ function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            console.log(id);
+            // console.log(id);
             return [4
             /*yield*/
-            , this.apiService.post(OrganizationApiService_1.ORGANIZATIONS + "/" + id, data)];
+            , this.apiService.post(constant_1.Constant.ORGANIZATIONS + "/" + id, data)];
 
           case 1:
             res = _a.sent();
@@ -362,7 +358,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.put(OrganizationApiService_1.ORGANIZATIONS + "/" + id, data)];
+            , this.apiService.put(constant_1.Constant.ORGANIZATIONS + "/" + id, data)];
 
           case 1:
             res = _a.sent();
@@ -374,11 +370,8 @@ function () {
     });
   };
 
-  var OrganizationApiService_1;
-  OrganizationApiService.ORGANIZATIONS = 'organizations';
-  OrganizationApiService.ORGANIZATION = 'organization';
   OrganizationApiService.CREATE = 'create';
-  OrganizationApiService = OrganizationApiService_1 = __decorate([core_1.Injectable({
+  OrganizationApiService = __decorate([core_1.Injectable({
     providedIn: 'root'
   })], OrganizationApiService);
   return OrganizationApiService;

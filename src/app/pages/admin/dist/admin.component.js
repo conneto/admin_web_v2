@@ -74,7 +74,7 @@ var AdminComponent = /** @class */ (function () {
                     return x.role == 'organization_manager_admin' || x.role == 'admin';
                 });
             }
-            console.log(this.menus);
+            // console.log(this.menus);
         }
     };
     AdminComponent.prototype.ngAfterContentChecked = function () {

@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         if (e.key == 'Enter') {
           e.preventDefault();
           (<HTMLElement>document.getElementsByClassName('button-login')[0]).click();
-          console.log((<HTMLElement>document.getElementsByClassName('login')[0]));
+          // console.log((<HTMLElement>document.getElementsByClassName('login')[0]));
         }
       })
     }

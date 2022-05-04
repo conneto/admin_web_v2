@@ -129,7 +129,7 @@ var AuthService = /** @class */ (function () {
         localStorage.removeItem('reject');
         localStorage.removeItem('pending');
         this.curUserSubject.next(null);
-        console.log(localStorage.getItem('USER_TOKEN'));
+        // console.log(localStorage.getItem('USER_TOKEN'));
     };
     Constant.prototype.updateRequestByAdmin = function (data) {
         return __awaiter(this, void 0, void 0, function () {

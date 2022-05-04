@@ -119,17 +119,17 @@
 .content__tab ul li {
   list-style: none;
   padding: 10px;
-  color: #A1A5B7;
+  color: #a1a5b7;
   font-weight: 600;
   cursor: pointer;
   margin: 0 10px;
 }
 .content__tab li:hover {
-  border-bottom: 1px solid #009EF7;
+  border-bottom: 1px solid #009ef7;
 }
 .content__tab-active {
-  color: #009EF7 !important;
-  border-bottom: 1px solid #009EF7;
+  color: #009ef7 !important;
+  border-bottom: 1px solid #009ef7;
 }
 
 .project__list-item {
@@ -160,36 +160,6 @@
   flex-grow: 1;
 }
 
-@media only screen and (max-width: 576px) {
-  .campaign-card {
-    height: 60vh !important;
-  }
-}
-@media only screen and (max-width: 768px) {
-  .campaign-card {
-    height: 56vh !important;
-  }
-}
-@media only screen and (min-width: 768px) {
-  .campaign-card {
-    height: 56vh !important;
-  }
-}
-@media only screen and (min-width: 992px) {
-  .campaign-card {
-    height: 52vh !important;
-  }
-}
-@media only screen and (min-width: 1200px) {
-  .campaign-card {
-    height: 48vh !important;
-  }
-}
-@media only screen and (min-width: 1400px) {
-  .campaign-card {
-    height: 44vh !important;
-  }
-}
 .campaign__type {
   z-index: 9999;
   text-transform: uppercase;

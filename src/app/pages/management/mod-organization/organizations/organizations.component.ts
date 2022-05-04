@@ -46,7 +46,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   number?: any;
   noResultBySearch?: boolean;
   numberCount?: any;
-  isDeleted?: boolean = false;
+  isPending?: boolean = false;
   isList?: boolean = false;
   isAdmin?: boolean = false;
   oldDataSearch: Organization[] = [];
@@ -146,7 +146,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
 
     if (org) {
       this.organizations = org;
-      console.log(this.organizations);
+      // console.log(this.organizations);
     }
     if (status) {
       if (this.authService.currentUserValue.role_id == 'organization_manager') {
@@ -155,7 +155,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
         });
 
         if (check == true) {
-          this.isDeleted = true;
+          this.isPending = true;
         }
       }
       this.isList = false;
@@ -194,9 +194,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.isEmpty = false;
             this.noOrg = false;
             this.organizations = this.passData.filter(
-              (x) => x.result_code == 510
+              (x) => x.result_code == 510 || x.result_code == 520
             );
-            this.oldData = this.passData.filter((x) => x.result_code == 510);
+            this.oldData = this.passData.filter((x) => x.result_code == 510 || x.result_code == 520);
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
@@ -204,8 +204,6 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           }, 1000);
           break;
         case 'reject':
-          console.log(org);
-          console.log(this.organizations);
           this.isRequest = false;
           for (var i = 0; i < this.organizations.length; i++) {
             this.organizationId = this.organizations[i].id;
@@ -217,7 +215,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
           this.organizations = this.organizations.filter(
             (x) => x.result_code == 511
           );
-          console.log(this.organizations);
+          // console.log(this.organizations);
           this.oldData = this.passData.filter((x) => x.result_code == 511);
 
           this.isEmpty = false;
@@ -243,9 +241,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.isRequest = false;
           }
           this.organizations = this.organizations.filter(
-            (x) => x.result_code === 501
+            (x) => x.result_code == 501 || x.result_code == 502 || x.result_code == 503
           );
-          this.oldData = this.passData.filter((x) => x.result_code == 501);
+          this.oldData = this.passData.filter((x) => x.result_code == 501 || x.result_code == 502 || x.result_code == 503);
 
           this.isEmpty = false;
 

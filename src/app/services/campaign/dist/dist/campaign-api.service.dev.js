@@ -160,6 +160,8 @@ exports.CampaignService = void 0;
 
 var core_1 = require("@angular/core");
 
+var constant_1 = require("src/app/constant/constant");
+
 var CampaignService =
 /** @class */
 function () {
@@ -167,8 +169,6 @@ function () {
     this.apiService = apiService;
     this.campaignAdap = campaignAdap;
   }
-
-  CampaignService_1 = CampaignService;
 
   CampaignService.prototype.getAll = function () {
     var _a;
@@ -183,7 +183,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(CampaignService_1.CAMPAIGNS)];
+            , this.apiService.get(constant_1.Constant.CAMPAIGN)];
 
           case 1:
             res = _b.sent();
@@ -206,7 +206,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(CampaignService_1.CAMPAIGNS + "/" + id)];
+            , this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id)];
 
           case 1:
             res = _a.sent();
@@ -225,10 +225,10 @@ function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            console.log(id);
+            // console.log(id);
             return [4
             /*yield*/
-            , this.apiService.post(CampaignService_1.CAMPAIGNS + "/" + id, data)];
+            , this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id, data)];
 
           case 1:
             res = _a.sent();
@@ -255,7 +255,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.post("" + CampaignService_1.CAMPAIGNS, data)];
+            , this.apiService.post("" + constant_1.Constant.CAMPAIGN, data)];
 
           case 1:
             res = _a.sent();
@@ -282,7 +282,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.post(CampaignService_1.CAMPAIGNS + "/" + id + "/" + CampaignService_1.DONATION_DOCUMENTS + "/" + CampaignService_1.CASHFLOW_DETAILS, data)];
+            , this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS + "/" + constant_1.Constant.CASHFLOW_DETAILS, data)];
 
           case 1:
             res = _a.sent();
@@ -309,7 +309,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.post(CampaignService_1.CAMPAIGNS + "/" + id + "/" + CampaignService_1.DONATION_DOCUMENTS, data)];
+            , this.apiService.post(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS, data)];
 
           case 1:
             res = _a.sent();
@@ -336,7 +336,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(CampaignService_1.CAMPAIGNS + "/" + id + "/" + CampaignService_1.DONATION_DOCUMENTS + "/" + CampaignService_1.CASHFLOW_DETAILS)];
+            , this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS + "/" + constant_1.Constant.CASHFLOW_DETAILS)];
 
           case 1:
             res = _a.sent();
@@ -354,10 +354,10 @@ function () {
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            console.log(id);
+            // console.log(id);
             return [4
             /*yield*/
-            , this.apiService.get(CampaignService_1.CAMPAIGNS + "/" + id + "/" + CampaignService_1.CAMPAIGN_PARTICIPATIONS)];
+            , this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
 
           case 1:
             res = _a.sent();
@@ -377,7 +377,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService["delete"](CampaignService_1.CAMPAIGNS + "/" + id)];
+            , this.apiService["delete"](constant_1.Constant.CAMPAIGN + "/" + id)];
 
           case 1:
             res = _a.sent();
@@ -397,7 +397,7 @@ function () {
           case 0:
             return [4
             /*yield*/
-            , this.apiService.get(CampaignService_1.CAMPAIGNS + "/" + id + "/" + CampaignService_1.DONATION_DOCUMENTS)];
+            , this.apiService.get(constant_1.Constant.CAMPAIGN + "/" + id + "/" + constant_1.Constant.DONATION_DOCUMENTS)];
 
           case 1:
             res = _a.sent();
@@ -409,12 +409,11 @@ function () {
     });
   };
 
-  var CampaignService_1;
-  Constant.CAMPAIGN = 'campaigns';
+  CampaignService.CAMPAIGNS = 'campaigns';
   CampaignService.DONATION_DOCUMENTS = 'donation_documents';
   CampaignService.CASHFLOW_DETAILS = 'cashflow_details';
   CampaignService.CAMPAIGN_PARTICIPATIONS = 'campaign_participations';
-  CampaignService = CampaignService_1 = __decorate([core_1.Injectable({
+  CampaignService = __decorate([core_1.Injectable({
     providedIn: 'root'
   })], CampaignService);
   return CampaignService;

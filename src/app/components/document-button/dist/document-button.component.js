@@ -28,8 +28,6 @@ var DocumentButtonComponent = /** @class */ (function () {
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
         var file = XLSX.writeFile(wb, this.fileName);
-        console.log(file);
-        console.log(XLSX.writeFile(wb, this.fileName));
     };
     DocumentButtonComponent = __decorate([
         core_1.Component({

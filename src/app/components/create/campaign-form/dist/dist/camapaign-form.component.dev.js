@@ -331,8 +331,8 @@ function () {
     }
 
     if (this.campaignForm.valid) {
-      this.campaignForm.value.category = this.categoryString;
-      console.log(this.campaignForm.value);
+      this.campaignForm.value.category = this.categoryString; // console.log(this.campaignForm.value);
+
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
       this.dialogRef.close(this.uploadData);
     }
@@ -356,8 +356,7 @@ function () {
   });
 
   CampaignForm.prototype.getType = function (e) {
-    console.log(e);
-
+    // console.log(e);
     if (e == 'Quyên góp') {
       this.campaignForm.removeControl('job_requirement');
       this.campaignForm.removeControl('job_description');
@@ -372,8 +371,7 @@ function () {
   CampaignForm.prototype.onRemoveCategory = function (e) {
     this.isRemoved = true;
     var category = this.campaignForm.controls.category.value;
-    var index = category.indexOf(e);
-    console.log(index);
+    var index = category.indexOf(e); // console.log(index);
 
     if (index !== -1) {
       category.splice(index, 1);

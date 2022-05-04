@@ -82,7 +82,7 @@ export class AdminComponent implements OnInit {
           return x.role == 'organization_manager_admin' || x.role == 'admin';
         });
       }
-      console.log(this.menus);
+      // console.log(this.menus);
     }
   }
 

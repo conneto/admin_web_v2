@@ -3,7 +3,7 @@
     <div class='box__item' >
       <mat-card (click)='goToDetail(project.id)'>
         <div class="image">
-            
+
           <img
             loading="lazy"
             alt="Cover of this project"
@@ -18,9 +18,9 @@
           <div>
             <img
               loading="lazy"
-              src="{{ urlApi }}/show/images?p={{ project.organizationLogo }}"
+              src="{{ urlApi }}/show/images?p={{ project.organization_logo }}"
             />
-            <span class="margin-left">{{ project.organizationName }}</span>
+            <span class="margin-left">{{ project.organization_name }}</span>
           </div>
           <div>
             <mat-icon title="At">date_range</mat-icon

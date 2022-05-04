@@ -375,7 +375,7 @@ function () {
   Object.defineProperty(OrganizationDetailsComponent.prototype, "getId", {
     get: function get() {
       this.getValueFromRoute();
-      var id = console.log(this.route.snapshot.paramMap.get('id'));
+      var id = // console.log(this.route.snapshot.paramMap.get('id'));
       return this.route.snapshot.paramMap.get('id');
     },
     enumerable: false,

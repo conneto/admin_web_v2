@@ -22,8 +22,7 @@ var CampaignItemComponent = /** @class */ (function () {
         if (this.userApi.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
-        console.log(this.valueNumber);
-    };
+    };// console.log
     CampaignItemComponent.prototype.goToDetails = function (id) {
         if (this.isAdmin) {
             this.router.navigate(["/admin/manage-campaign/campaign-details/" + id]);

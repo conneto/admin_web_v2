@@ -21,7 +21,7 @@ export class ProjectRequestDetailComponent implements OnInit {
 
     const id = this.actived.snapshot.paramMap.get('id');
     this.project = await this.projectApi.getByID(`${id}`);
-    console.log(this.project);
+    // console.log(this.project);
   }
   goBack() {
     this.location.back();

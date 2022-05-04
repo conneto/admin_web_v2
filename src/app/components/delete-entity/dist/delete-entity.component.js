@@ -45,7 +45,6 @@ exports.__esModule = true;
 exports.DeleteEntityComponent = void 0;
 var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
-var organization_form_component_1 = require("../update/organization-form/organization-form.component");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var DeleteEntityComponent = /** @class */ (function () {
     function DeleteEntityComponent(data, loading, camApi, proApi, user, snackBar, orgApi, dialog, router) {
@@ -59,6 +58,7 @@ var DeleteEntityComponent = /** @class */ (function () {
         this.dialog = dialog;
         this.router = router;
         this.isSave = false;
+        this.isOpenEdit = false;
     }
     DeleteEntityComponent.prototype.ngOnInit = function () {
         if (this.user.currentUserValue.role_id == 'admin') {
@@ -67,15 +67,6 @@ var DeleteEntityComponent = /** @class */ (function () {
         else {
             this.isAdmin = false;
         }
-    };
-    DeleteEntityComponent.prototype.change = function () {
-        var dialogRef = this.dialog.open(organization_form_component_1.OrganizationUpdateFormComponent, {
-            width: '768px',
-            data: {
-                title: 'Cập nhật tổ chức',
-                object: this.entity
-            }
-        });
     };
     DeleteEntityComponent.prototype.disable = function () {
         return __awaiter(this, void 0, void 0, function () {

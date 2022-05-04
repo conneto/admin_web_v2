@@ -58,7 +58,7 @@ export class ProjectComponent implements OnInit {
   }
   getEntity(e: any) {
     if (e?.length!=0) {
-      console.log(e);
+      // console.log(e);
       this.isEmpty = false;
       this.projects = e;
       this.oldData = e;
@@ -149,13 +149,13 @@ export class ProjectComponent implements OnInit {
         for (var i = 0; i < this.projects.length; i++) {
           this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
-          this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
+          this.projects[i].organization_logo = this.projects[i]?.organization_logo?.replace(/\\/g, '\/');
         }
 
         this.projects = this.projects.filter(x => {
-          return x.resultCode == 610;
+          return x.result_code == 610;
         })
-        this.oldData = this.passData.filter(x => x.resultCode == 610);
+        this.oldData = this.passData.filter(x => x.result_code == 610);
         this.isEmpty = false;
         if (this.projects == [] || this.projects.length <= 0) {
           this.isEmpty = true;
@@ -167,13 +167,13 @@ export class ProjectComponent implements OnInit {
         for (var i = 0; i < this.projects.length; i++) {
           this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
-          this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
+          this.projects[i].organization_logo = this.projects[i]?.organization_logo?.replace(/\\/g, '\/');
         }
 
         this.projects = this.projects.filter(x => {
-          return x.resultCode == 611;
+          return x.result_code == 611;
         })
-        this.oldData = this.passData.filter(x => x.resultCode == 611);
+        this.oldData = this.passData.filter(x => x.result_code == 611);
         this.isEmpty = false;
         if (this.projects == null || this.projects.length <= 0) {
           this.isEmpty = true;
@@ -184,13 +184,13 @@ export class ProjectComponent implements OnInit {
         for (var i = 0; i < this.projects.length; i++) {
           this.projects[i].cover = this.projects[i]?.cover?.replace(/\\/g, '\/');
           this.projects[i].logo = this.projects[i]?.logo?.replace(/\\/g, '\/');
-          this.projects[i].organizationLogo = this.projects[i]?.organizationLogo?.replace(/\\/g, '\/');
+          this.projects[i].organization_logo = this.projects[i]?.organization_logo?.replace(/\\/g, '\/');
         }
 
         this.projects = this.projects.filter(x => {
-          return x.resultCode == 601;
+          return x.result_code == 601;
         })
-        this.oldData = this.passData.filter(x => x.resultCode == 601);
+        this.oldData = this.passData.filter(x => x.result_code == 601);
         if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;
         } else {

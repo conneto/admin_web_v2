@@ -24,7 +24,6 @@ export class CampaignItemComponent implements OnInit {
     if (this.userApi.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     }
-    console.log(this.valueNumber);
   }
   goToDetails(id: any) {
 

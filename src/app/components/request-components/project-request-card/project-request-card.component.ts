@@ -30,7 +30,7 @@ export class ProjectRequestCardComponent implements OnInit {
   ngOnInit(): void {
     this.check();
     this.urlApi = this.loadingApi.getApiGetLink.value;
-    this.urlLogo = this.projects?.organizationLogo?.replace(/\\/g, '\/');
+    this.urlLogo = this.projects?.organization_logo?.replace(/\\/g, '\/');
     this.urlCover = this.projects?.cover?.replace(/\\/g, '\/');
 
   }
@@ -50,11 +50,9 @@ export class ProjectRequestCardComponent implements OnInit {
     }
   }
   async approve() {
-    console.log(this.isPro, this.isOrg, this.isCam);
     await this.dialogConfirm.approve(this.organization?.id || this.projects?.id || this.campaign?.id, this.isPro || this.isOrg || this.isCam);
   }
   async reject() {
-    console.log(this.isPro, this.isOrg, this.isCam);
     await this.dialogConfirm.reject(this.organization?.id || this.projects?.id || this.campaign?.id, this.isPro || this.isOrg || this.isCam);
   }
 }

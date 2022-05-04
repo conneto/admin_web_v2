@@ -176,7 +176,7 @@ function () {
     this.isRequest = false;
     this.isActivated = false;
     this.passData = [];
-    this.isDeleted = false;
+    this.isPending = false;
     this.isList = false;
     this.isAdmin = false;
     this.oldDataSearch = [];
@@ -199,8 +199,14 @@ function () {
 
   OrganizationsComponent.prototype.ngOnDestroy = function () {};
 
-  OrganizationsComponent.prototype.getState = function (e) {
-    this.isChangeState = e;
+  OrganizationsComponent.prototype.getTabGroupState = function (e) {
+    if (e) {
+      if (e == 'reject') {
+        this.isTabRejected = true;
+      } else {
+        this.isTabRejected = false;
+      }
+    }
   };
 
   OrganizationsComponent.prototype.handleTitle = function (e) {
@@ -219,16 +225,15 @@ function () {
     (_a = this.viewGrid) === null || _a === void 0 ? void 0 : _a.changeView(true);
   };
 
-<<<<<<< HEAD
-  OrganizationsComponent.prototype.getOrganizations = function (e) {};
-=======
   OrganizationsComponent.prototype.getOrganizations = function (e) {
     if (e) {
-      this.passData = e;
+      this.isEmpty = false;
+      this.oldData = e;
       this.organizations = e;
+    } else {
+      this.isEmpty = true;
     }
   };
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
 
   OrganizationsComponent.prototype.getData = function (e) {
     if (e == null || e.length <= 0) {
@@ -280,157 +285,6 @@ function () {
     });
   };
 
-<<<<<<< HEAD
-  OrganizationsComponent.prototype.getAllOrganizationAllRole = function (status, org) {
-    var _a, _b, _c, _d, _e, _f;
-
-    return __awaiter(this, void 0, void 0, function () {
-      var check, i, i, i;
-
-      var _this = this;
-
-      return __generator(this, function (_g) {
-        this.status = status;
-
-        if (org) {
-          this.organizations = org;
-        }
-
-        if (status) {
-          if (this.authService.currentUserValue.role_id == 'organization_manager') {
-            check = this.organizations.every(function (a) {
-              return a.result_code == 503;
-            });
-
-            if (check == true) {
-              this.isDeleted = true;
-            }
-          }
-
-          switch (status) {
-            case 'approve':
-              this.isRequest = false;
-
-              for (i = 0; i < this.organizations.length; i++) {
-                this.organizationId = this.organizations[i].id;
-                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                this.organizations[i].type = this.organizations[i].type == 'ngo' ? this.organizations[i].type = 'Tổ chức phi chính phủ' : this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-              }
-
-              if (this.authService.currentUserValue.role_id == 'organization_manager') {
-                if (this.organizations.length <= 0 || this.organizations == null) {
-                  this.organizations = [];
-                  this.noOrg = true;
-                } else {
-                  this.organizations = this.organizations.filter(function (x) {
-                    return x.result_code == 510 || x.result_code == 502;
-                  });
-                  this.oldData = this.passData.filter(function (x) {
-                    return x.result_code == 510;
-                  });
-                  this.noOrg = false;
-                  this.isEmpty = false;
-
-                  if (this.organizations.length <= 0 || this.organizations == null) {
-                    this.isEmpty = true;
-                  }
-                }
-              }
-
-              if (this.authService.currentUserValue.role_id == 'admin') {
-                this.isEmpty = false;
-                this.noOrg = false;
-                this.organizations = this.organizations.filter(function (x) {
-                  return x.result_code === 510;
-                });
-                this.oldData = this.passData.filter(function (x) {
-                  return x.result_code == 510;
-                });
-              }
-
-              setTimeout(function () {
-                _this.loadingService.isSkeleton.next(false);
-
-                _this.isLoaded = true;
-              }, 1000);
-              break;
-
-            case 'reject':
-              this.isRequest = false;
-
-              for (i = 0; i < this.organizations.length; i++) {
-                this.organizationId = this.organizations[i].id;
-                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                this.organizations[i].type = this.organizations[i].type == 'ngo' ? this.organizations[i].type = 'Tổ chức phi chính phủ' : this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-              }
-
-              this.organizations = this.organizations.filter(function (x) {
-                return x.result_code === 511;
-              });
-              this.oldData = this.passData.filter(function (x) {
-                return x.result_code == 511;
-              });
-              this.isEmpty = false;
-
-              if (this.organizations == null || this.organizations.length <= 0) {
-                this.isEmpty = true;
-              }
-
-              setTimeout(function () {
-                _this.loadingService.isSkeleton.next(false);
-
-                _this.isLoaded = true;
-              }, 1000);
-              break;
-
-            case 'pending':
-              for (i = 0; i < this.organizations.length; i++) {
-                this.organizationId = this.organizations[i].id;
-                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
-                this.organizations[i].type = this.organizations[i].type == 'ngo' ? this.organizations[i].type = 'Tổ chức phi chính phủ' : this.organizations[i].type = 'Tổ chức phi lợi nhuận';
-              }
-
-              if (this.authService.currentUserValue.role_id == 'admin') {
-                this.isRequest = true;
-              } else {
-                this.isRequest = false;
-              }
-
-              this.organizations = this.organizations.filter(function (x) {
-                return x.result_code === 501;
-              });
-              this.oldData = this.passData.filter(function (x) {
-                return x.result_code == 501;
-              });
-              console.log(this.organizations);
-              this.isEmpty = false;
-
-              if (this.organizations == null || this.organizations.length <= 0) {
-                this.isEmpty = true;
-              }
-
-              setTimeout(function () {
-                _this.loadingService.isSkeleton.next(false);
-
-                _this.isLoaded = true;
-              }, 1000);
-              break;
-          }
-
-          this.oldDataSearch = this.oldData;
-          this.number = this.organizations.length;
-          this.numberCount = new Array(this.organizations.length);
-        }
-
-        return [2
-        /*return*/
-        ];
-      });
-    });
-  };
-
-=======
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
   OrganizationsComponent.prototype.getAllOrganizationByStatus = function (status, org) {
     var _a, _b, _c, _d, _e, _f;
 
@@ -443,11 +297,7 @@ function () {
         this.status = status;
 
         if (org) {
-          this.organizations = org;
-<<<<<<< HEAD
-=======
-          console.log(this.organizations);
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
+          this.organizations = org; // console.log(this.organizations);
         }
 
         if (status) {
@@ -457,27 +307,20 @@ function () {
             });
 
             if (check == true) {
-              this.isDeleted = true;
+              this.isPending = true;
             }
           }
 
           this.isList = false;
-<<<<<<< HEAD
-          this.changeToGrid();
-
-          switch (status) {
-            case 'approve':
-=======
 
           switch (status) {
             case 'approve':
               this.changeToGrid();
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
               this.isRequest = false;
 
               for (i = 0; i < this.organizations.length; i++) {
                 this.organizationId = this.organizations[i].id;
-                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
               }
 
               if (this.authService.currentUserValue.role_id == 'organization_manager') {
@@ -485,17 +328,8 @@ function () {
                   this.organizations = [];
                   this.noOrg = true;
                 } else {
-<<<<<<< HEAD
-                  this.organizations = this.organizations.filter(function (x) {
-                    return x.result_code == 510 || x.result_code == 502;
-                  });
-                  this.oldData = this.passData.filter(function (x) {
-                    return x.result_code == 510;
-                  });
-=======
                   this.organizations = this.passData;
                   this.oldData = this.passData;
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
                   this.noOrg = false;
                   this.isEmpty = false;
 
@@ -506,15 +340,11 @@ function () {
               } else if (this.authService.currentUserValue.role_id == 'admin') {
                 this.isEmpty = false;
                 this.noOrg = false;
-<<<<<<< HEAD
-                this.organizations = this.organizations.filter(function (x) {
-                  return x.result_code === 510;
+                this.organizations = this.passData.filter(function (x) {
+                  return x.result_code == 510 || x.result_code == 520;
                 });
-=======
-                this.organizations = this.passData;
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
                 this.oldData = this.passData.filter(function (x) {
-                  return x.result_code == 510;
+                  return x.result_code == 510 || x.result_code == 520;
                 });
               }
 
@@ -526,27 +356,17 @@ function () {
               break;
 
             case 'reject':
-<<<<<<< HEAD
-=======
-              console.log(org);
-              console.log(this.organizations);
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
               this.isRequest = false;
 
               for (i = 0; i < this.organizations.length; i++) {
                 this.organizationId = this.organizations[i].id;
-                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
               }
 
               this.organizations = this.organizations.filter(function (x) {
-<<<<<<< HEAD
-                return x.result_code === 511;
-              });
-=======
                 return x.result_code == 511;
-              });
-              console.log(this.organizations);
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
+              }); // console.log(this.organizations);
+
               this.oldData = this.passData.filter(function (x) {
                 return x.result_code == 511;
               });
@@ -566,7 +386,7 @@ function () {
             case 'pending':
               for (i = 0; i < this.organizations.length; i++) {
                 this.organizationId = this.organizations[i].id;
-                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
               }
 
               if (this.authService.currentUserValue.role_id == 'admin') {
@@ -576,10 +396,10 @@ function () {
               }
 
               this.organizations = this.organizations.filter(function (x) {
-                return x.result_code === 501;
+                return x.result_code == 501 || x.result_code == 502 || x.result_code == 503;
               });
               this.oldData = this.passData.filter(function (x) {
-                return x.result_code == 501;
+                return x.result_code == 501 || x.result_code == 502 || x.result_code == 503;
               });
               this.isEmpty = false;
 
@@ -615,10 +435,7 @@ function () {
       return __generator(this, function (_d) {
         switch (_d.label) {
           case 0:
-<<<<<<< HEAD
-=======
             this.isLoaded = true;
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
             this.isRequest = false;
             _c = this;
             return [4
@@ -640,14 +457,10 @@ function () {
             for (i = 0; i < this.organizations.length; i++) {
               this.organizationId = this.organizations[i].id;
               this.loadingService.getOrganizationId.next("" + this.organizationId);
-              this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+              this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
               this.organizations[i].type = this.organizations[i].type == 'ngo' ? this.organizations[i].type = 'Tổ chức phi chính phủ' : this.organizations[i].type = 'Tổ chức phi lợi nhuận';
             }
 
-<<<<<<< HEAD
-            this.isLoaded = true;
-=======
->>>>>>> 75c214f8e28a13fadf0b78a68211c289b3a100fa
             return [2
             /*return*/
             ];
@@ -657,9 +470,13 @@ function () {
   };
 
   OrganizationsComponent.prototype.getEntity = function (e) {
-    if (e) {
+    if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
+      this.isEmpty = false;
       this.organizations = e;
       this.oldData = e;
+    } else {
+      this.isEmpty = true;
+      this.organizations = e;
     }
   };
 

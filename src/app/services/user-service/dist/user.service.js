@@ -108,7 +108,7 @@ var UserService = /** @class */ (function () {
                     case 1:
                         res = _a.sent();
                         res.data = this.userAdapter.adapt(res.data);
-                        console.log(res.data);
+                        // console.log(res.data);
                         return [2 /*return*/, res.data || null];
                 }
             });
@@ -122,7 +122,7 @@ var UserService = /** @class */ (function () {
                     case 0: return [4 /*yield*/, this.api.get(constant_1.Constant.ACCOUNTS + "/" + id + "/" + constant_1.Constant.CAMPAIGN_PARTICIPATIONS)];
                     case 1:
                         res = _a.sent();
-                        console.log(res.data);
+                        // console.log(res.data);
                         return [2 /*return*/, res.data || null];
                 }
             });

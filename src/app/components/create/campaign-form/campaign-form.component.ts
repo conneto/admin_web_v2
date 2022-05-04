@@ -74,7 +74,7 @@ export class CampaignForm implements OnInit {
         this.cloneProjects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
 
         this.projects = this.cloneProjects.filter(x => {
-          return x.resultCode == 610;
+          return x.result_code == 610;
         })
       }
     } else {
@@ -84,7 +84,7 @@ export class CampaignForm implements OnInit {
         this.cloneProjects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
 
         this.projects = this.cloneProjects.filter(x => {
-          return x.resultCode == 610;
+          return x.result_code == 610;
         })
       }
     }
@@ -121,7 +121,6 @@ export class CampaignForm implements OnInit {
     this.projects = this.cloneProjects.filter(x => {
       return x.name == this.campaignForm.value.selected;
     })
-    console.log(this.projects);
     if (this.projects.length != 0) {
       this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` })
     }
@@ -143,7 +142,6 @@ export class CampaignForm implements OnInit {
 
     if (this.campaignForm.valid) {
       this.campaignForm.value.category = this.categoryString;
-      console.log(this.campaignForm.value);
 
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
 
@@ -164,7 +162,6 @@ export class CampaignForm implements OnInit {
     return this.campaignForm.controls;
   }
   getType(e: string) {
-    console.log(e);
     if (e == 'Quyên góp') {
       this.campaignForm.patchValue({ start_working_date: `${this.campaignForm.value.start_date}` })
       this.campaignForm.patchValue({ end_working_date: `${this.campaignForm.value.end_date}` })
@@ -182,7 +179,6 @@ export class CampaignForm implements OnInit {
     this.isRemoved = true;
     const category = this.campaignForm.controls.category.value as string[];
     const index = category.indexOf(e);
-    console.log(index);
     if (index !== -1) {
       category.splice(index, 1);
     }

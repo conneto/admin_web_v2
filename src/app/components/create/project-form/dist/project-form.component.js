@@ -92,8 +92,7 @@ var ProjectFormComponent = /** @class */ (function () {
         this.isRemoved = true;
         var category = this.projectForm.controls.category.value;
         var index = category.indexOf(e);
-        console.log(index);
-        if (index !== -1) {
+        // console.log== -1) {
             category.splice(index, 1);
         }
         if (index == 0) {

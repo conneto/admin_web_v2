@@ -143,10 +143,11 @@ var CampaignDetailsComponent = /** @class */ (function () {
                     case 0:
                         id = this.activated.snapshot.paramMap.get('id');
                         this.urlApi = this.loadingService.getApiGetLink.value;
-                        console.log(this.urlApi);
+                        // console.log(this.urlApi);
                         _h = this;
                         return [4 /*yield*/, this.campaignApi.getById("" + id)];
                     case 1:
+                        // console.log(this.urlApi);
                         _h.campaign = _j.sent();
                         this.urlLogo = (_b = (_a = this.campaign) === null || _a === void 0 ? void 0 : _a.org_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
                         this.urlCover = (_d = (_c = this.campaign) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');

@@ -114,7 +114,7 @@ var CampaignForm = /** @class */ (function () {
                     case 2:
                         _b.cloneProjects = _e.sent();
                         this.projects = this.cloneProjects.filter(function (x) {
-                            return x.resultCode == 610;
+                            return x.result_code == 610;
                         });
                         _e.label = 3;
                     case 3: return [3 /*break*/, 7];
@@ -129,7 +129,7 @@ var CampaignForm = /** @class */ (function () {
                     case 6:
                         _d.cloneProjects = _e.sent();
                         this.projects = this.cloneProjects.filter(function (x) {
-                            return x.resultCode == 610;
+                            return x.result_code == 610;
                         });
                         _e.label = 7;
                     case 7: return [2 /*return*/];
@@ -167,7 +167,6 @@ var CampaignForm = /** @class */ (function () {
         this.projects = this.cloneProjects.filter(function (x) {
             return x.name == _this.campaignForm.value.selected;
         });
-        console.log(this.projects);
         if (this.projects.length != 0) {
             this.campaignForm.patchValue({ project_id: "" + this.projects[0].id });
         }
@@ -184,7 +183,6 @@ var CampaignForm = /** @class */ (function () {
         }
         if (this.campaignForm.valid) {
             this.campaignForm.value.category = this.categoryString;
-            console.log(this.campaignForm.value);
             this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
             this.dialogRef.close(this.uploadData);
         }
@@ -205,7 +203,6 @@ var CampaignForm = /** @class */ (function () {
         configurable: true
     });
     CampaignForm.prototype.getType = function (e) {
-        console.log(e);
         if (e == 'Quyên góp') {
             this.campaignForm.patchValue({ start_working_date: "" + this.campaignForm.value.start_date });
             this.campaignForm.patchValue({ end_working_date: "" + this.campaignForm.value.end_date });
@@ -223,7 +220,6 @@ var CampaignForm = /** @class */ (function () {
         this.isRemoved = true;
         var category = this.campaignForm.controls.category.value;
         var index = category.indexOf(e);
-        console.log(index);
         if (index !== -1) {
             category.splice(index, 1);
         }

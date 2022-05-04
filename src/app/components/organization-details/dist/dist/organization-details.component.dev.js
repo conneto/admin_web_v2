@@ -192,7 +192,7 @@ function () {
   }
 
   OrganizationDetailsComponent.prototype.ngOnInit = function () {
-    console.log(this.organizationInput);
+    // console.log(this.organizationInput);
     this.getValueFromRoute();
     this.check();
     this.isInformation = true;

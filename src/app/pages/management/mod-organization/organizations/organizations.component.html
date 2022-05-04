@@ -1,6 +1,6 @@
 <div *ngIf="isLoaded">
   <div
-    *ngIf="!noOrg && isDeleted == false; then tabgroup; else createOrganization"
+    *ngIf="!noOrg && !isPending; then tabgroup; else createOrganization"
   ></div>
 
   <ng-template #tabgroup>
@@ -28,8 +28,8 @@
       Tạo tổ chức
     </button>
   </ng-template>
-  <div *ngIf="isEmpty && isDeleted == false">
-    Hiện tại không có tổ chức nào được tạo!
+  <div *ngIf="isEmpty && !isPending" class="p-3">
+    Hiện tại không có yêu cầu nào!
   </div>
   <div *ngIf="isRequest">
     <div class="search-bar" *ngIf="!isEmpty">

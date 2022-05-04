@@ -56,7 +56,7 @@ export class CampaignsComponent implements OnInit {
   }
   getEntity(e: any) {
     if (e?.length != 0) {
-      console.log(e);
+      // console.log(e);
       this.isEmpty = false;
       this.campaigns = e;
       this.oldData = e;
@@ -86,7 +86,7 @@ export class CampaignsComponent implements OnInit {
     if (this.authApi.currentUserValue.role_id == 'organization_manager') {
       this.projects = await this.projectService.getAll();
       this.projects = this.projects.filter(x => {
-        return x.resultCode == 610;
+        return x.result_code == 610;
       })
       if (this.projects.length > 0) {
         this.isApprovedProject = true;
@@ -241,7 +241,7 @@ export class CampaignsComponent implements OnInit {
         this.campaigns = this.campaigns.filter(x => {
           return x.result_code == 701;
         })
-        console.log(this.campaigns);
+        // console.log(this.campaigns);
         this.oldData = this.passData.filter(x => x.result_code == 701);
         if (this.authApi.currentUserValue.role_id == 'admin') {
           this.isRequest = true;

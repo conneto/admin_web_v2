@@ -45,7 +45,7 @@ export class UserService {
 
     res.data = this.userAdapter.adapt(res.data);
 
-    console.log(res.data);
+    // console.log(res.data);
 
     return res.data || null;
   }
@@ -55,7 +55,7 @@ export class UserService {
       `${Constant.ACCOUNTS}/${id}/${Constant.CAMPAIGN_PARTICIPATIONS}`
     );
 
-    console.log(res.data);
+    // console.log(res.data);
 
     return res.data || null;
   }

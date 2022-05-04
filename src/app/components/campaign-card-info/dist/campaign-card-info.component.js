@@ -17,8 +17,7 @@ var CampaignCardInfoComponent = /** @class */ (function () {
         var _a;
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.valueNumber = (Number((_a = this.campaign) === null || _a === void 0 ? void 0 : _a.value) * 100).toFixed(2);
-        console.log(this.valueNumber);
-    };
+    };// console.log
     __decorate([
         core_1.Input()
     ], CampaignCardInfoComponent.prototype, "campaign");

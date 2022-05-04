@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './campaign-form.component.html',
   styleUrls: ['./campaign-form.component.scss']
 })
-export class CampaignFormComponent implements OnInit {
+export class CampaignUpdateFormComponent implements OnInit {
 
   constructor() { }
 

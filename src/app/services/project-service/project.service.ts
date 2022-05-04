@@ -11,41 +11,44 @@ import { ApiService } from '../api/api.service';
 export class ProjectService {
   constructor(
     private campaignAdapter: CampaignAdapter,
-    private api: ApiService,
+    private apiService: ApiService,
     private projectAdap: ProjectAdapter
   ) {}
 
   async getAll() {
-    let res: BaseResponse = await this.api.get(Constant.PROJECTS);
+    let res: BaseResponse = await this.apiService.get(Constant.PROJECTS);
     res.data = res.data?.map((item: any) => this.projectAdap.adapt(item));
     return res.data || [];
   }
   async getByID(id: string) {
-    let res: any = await this.api.get(
-      Constant.PROJECTS + '/' + `${id}`
-    );
+    let res: any = await this.apiService.get(Constant.PROJECTS + '/' + `${id}`);
     return (res.data = this.projectAdap.adapt(res.data) || []);
   }
   async getCampaignsByProjectId(id: string) {
-    let res: BaseResponse = await this.api.get(
+    let res: BaseResponse = await this.apiService.get(
       `${Constant.PROJECTS}/${id}/${Constant.CAMPAIGNS}`
     );
-  if(res.status!=8){
-    res.data = res.data.map((item: any) => {
-      return this.campaignAdapter.adapt(item);
-    });
-  }
+    if (res.status != 8) {
+      res.data = res.data.map((item: any) => {
+        return this.campaignAdapter.adapt(item);
+      });
+    }
     return res.data || [];
   }
   async createProject(data: any) {
-    let res: BaseResponse = await this.api.post(
-      Constant.PROJECTS,
-      data
-    );
+    let res: BaseResponse = await this.apiService.post(Constant.PROJECTS, data);
     return res || [];
   }
+  async updateById(data: any, id: string) {
+    let res: BaseResponse = await this.apiService.put(
+      `${Constant.PROJECTS}/${id}`,
+      data
+    );
+    return res;
+  }
+
   async delete(id: string) {
-    let res: BaseResponse = await this.api.delete(
+    let res: BaseResponse = await this.apiService.delete(
       `${Constant.PROJECTS}/${id}`
     );
     return res;

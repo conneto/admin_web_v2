@@ -84,11 +84,6 @@ button:hover {
   margin-bottom: 0 !important;
 }
 
-.box {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
 .box__item {
   margin: 0 10px;
 }

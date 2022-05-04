@@ -63,7 +63,7 @@ export class Constant {
       vietsub: 'Xã hội',
     },
     {
-      name: 'oldster',
+      name: 'older',
       vietsub: 'Người già',
     },
   ];

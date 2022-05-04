@@ -37,7 +37,7 @@
       <div>
         <mat-label style="width: 24%">Nhiệm vụ</mat-label>
         <textarea class="input login" type="text" placeholder="Nhiệm vụ của tổ chức" required=""
-          formControlName="mission" ></textarea>
+          formControlName="mission"></textarea>
       </div>
       <span *ngIf="  ( organizationControl.mission.touched||isSubmitted) &&
       organizationControl.mission.errors?.required|| organizationControl.mission.errors?.pattern
@@ -50,7 +50,6 @@
       </div>
       <div>
         <mat-label style="width: 24%">Ngày thành lập</mat-label>
-
         <input class="input login" type="date" required="" formControlName="founding_date" />
       </div>
       <span *ngIf="

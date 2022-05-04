@@ -2,13 +2,11 @@ h3 {
   text-align: center;
 }
 
-
 .form {
   display: flex;
 }
 
 .input {
-
   input,
   textarea {
     margin: 5px 5px;
@@ -16,7 +14,6 @@ h3 {
   }
 
   label {
-
     font-weight: bold;
     width: 100px;
     font-size: 13px;
@@ -40,33 +37,29 @@ h3 {
   justify-content: center;
 }
 
-
 .container {
   width: 650px;
 }
 
 .login-form {
-
-  input[type='text'],
-  input[type='password'] {}
+  input[type="text"],
+  input[type="password"] {
+  }
 
   ::placeholder {
     /* Edge */
 
     color: rgba(174, 174, 174, 1);
-
   }
 
   div {
     display: flex;
 
     align-items: center;
-
   }
 
   mat-form-filed {
     width: 100%;
-
   }
 
   .input {
@@ -78,12 +71,9 @@ h3 {
     border: none;
     margin: 10px auto;
   }
-
 }
 
-
 .login-form {
-
   position: relative;
 
   justify-content: center;
@@ -93,14 +83,11 @@ h3 {
 .login-form .form-icon {
   position: absolute;
   color: rgba(174, 174, 174, 1);
-  ;
-
 }
 
 .login-form form {
   display: inline-grid;
   width: 80%;
-
 }
 
 .login-form .mat-form-field {
@@ -122,7 +109,6 @@ h3 {
 }
 
 .login-remember-box {
-
   display: flex;
   text-align: center;
   align-items: center;
@@ -136,12 +122,10 @@ h3 {
 .login-forget a {
   text-decoration: none;
   color: rgba(255, 184, 0, 1);
-
 }
 
 .login-forget a:hover {
   text-decoration: underline;
-
 }
 
 #checkbox {
@@ -153,12 +137,15 @@ h3 {
 .login-button {
   text-align: center;
   margin: 15px 0;
-
 }
 
 .login-button button {
   width: 100%;
-  background: linear-gradient(to bottom left, rgba(254, 204, 78, 1), rgba(254, 223, 141, 1)) !important;
+  background: linear-gradient(
+    to bottom left,
+    rgba(254, 204, 78, 1),
+    rgba(254, 223, 141, 1)
+  ) !important;
   padding: 0 30px;
   font-size: 17px;
   border: none;
@@ -187,7 +174,6 @@ h3 {
 .login-footer {
   display: flex;
   justify-content: space-between;
-
 }
 
 .hide-button {
@@ -201,14 +187,12 @@ h3 {
   background-color: rgba(246, 246, 246, 1);
 }
 
-
 .register-button {
   text-align: center;
 
   a {
     font-size: 17px;
     text-decoration: none;
-
   }
 }
 

@@ -78,7 +78,6 @@ var RegisterComponent = /** @class */ (function () {
                         // this.registerForm.patchValue({ password: md5.appendStr(this.registerForm.value.password.concat(RegisterComponent.KEY)).end() });
                         this.registerForm.value.password = md5.appendStr(this.registerForm.value.password.concat(RegisterComponent_1.KEY)).end();
                         uploadData.append('account', JSON.stringify(this.registerForm.value));
-                        console.log(uploadData.get('account'));
                         return [4 /*yield*/, this.authService.register(uploadData)];
                     case 1:
                         res = _a.sent();

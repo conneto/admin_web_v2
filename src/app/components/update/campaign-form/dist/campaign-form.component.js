@@ -6,20 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.CampaignFormComponent = void 0;
+exports.CampaignUpdateFormComponent = void 0;
 var core_1 = require("@angular/core");
-var CampaignFormComponent = /** @class */ (function () {
-    function CampaignFormComponent() {
+var CampaignUpdateFormComponent = /** @class */ (function () {
+    function CampaignUpdateFormComponent() {
     }
-    CampaignFormComponent.prototype.ngOnInit = function () {
+    CampaignUpdateFormComponent.prototype.ngOnInit = function () {
     };
-    CampaignFormComponent = __decorate([
+    CampaignUpdateFormComponent = __decorate([
         core_1.Component({
             selector: 'app-campaign-update-form',
             templateUrl: './campaign-form.component.html',
             styleUrls: ['./campaign-form.component.scss']
         })
-    ], CampaignFormComponent);
-    return CampaignFormComponent;
+    ], CampaignUpdateFormComponent);
+    return CampaignUpdateFormComponent;
 }());
-exports.CampaignFormComponent = CampaignFormComponent;
+exports.CampaignUpdateFormComponent = CampaignUpdateFormComponent;
