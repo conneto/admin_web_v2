@@ -50,6 +50,9 @@
         <span *ngIf="noLocationName" class="text-danger"
           >Vui lòng nhập tên địa điểm
         </span>
+     
+      </div>
+      <div>
         <input
           class="input login"
           placeholder="Đia chỉ nơi diễn ra dự án "
@@ -59,9 +62,6 @@
         <span *ngIf="noAddress" class="text-danger"
           >Vui lòng nhập vào địa chỉ
         </span>
-        <!-- <google-map height="300px" width="300px">
-          <map-marker (positionChanged)="getPosition($event)"></map-marker>
-        </google-map> -->
       </div>
       <div>
         <mat-label style="width: 130px">Ngày bắt đầu</mat-label>
@@ -122,8 +122,8 @@
           formControlName="logo"
           (change)="onChangeCover($event)"
         />
-        <span *ngIf="noFileLogo" class="text-danger"
-          >Vui lòng tải lên logo</span
+        <span *ngIf="projectControl.logo.errors?.required" class="text-danger"
+          >Vui lòng tải lên logo !</span
         >
       </div>
     </div>

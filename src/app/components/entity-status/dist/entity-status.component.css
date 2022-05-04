@@ -1,7 +1,0 @@
-mat-form-field {
-  padding: 0 !important;
-}
-
-::ng-deep .mat-form-field-appearance-legacy {
-  padding: 0 !important;
-}

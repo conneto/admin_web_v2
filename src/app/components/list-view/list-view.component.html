@@ -116,9 +116,7 @@
           <td mat-cell *matCellDef="let e">{{ e.name }}</td>
         </ng-container>
         <ng-container matColumnDef="created_date">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Ngày tạo
-          </th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</th>
           <td mat-cell *matCellDef="let e">
             {{ e.created_at | date: "dd/MM/yyyy" }}
           </td>
@@ -150,7 +148,7 @@
             <img
               loading="lazy"
               mat-card-avatar
-              src="{{ urlApi }}/show/images?p={{ e.pro_logo }}"
+              src="{{ urlApi }}/show/images?p={{ e.avatar }}"
             />{{ e.first_name }} {{ e.last_name }}
           </td>
         </ng-container>
@@ -167,14 +165,25 @@
         <ng-container matColumnDef="role">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Vai trò</th>
           <td mat-cell *matCellDef="let e">
-            {{ e.role_id }}
+            {{
+              e.role_id == "organization_manager"
+                ? "Quản lý tổ chức"
+                : "Tình nguyện viên"
+            }}
           </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái</th>
-          <td mat-cell *matCellDef="let e">
-            {{ e.is_active == "true" ? "Đang hoạt động" : "Bị vô hiệu" }}
+          <td
+            mat-cell
+            *matCellDef="let e"
+            [ngClass]="{
+              'label-rejected': e.is_block == true,
+              'label-approved': e.is_block == false
+            }"
+          >
+            {{ e.is_block == false ? "Đang hoạt động" : "Bị vô hiệu" }}
           </td>
         </ng-container>
         >

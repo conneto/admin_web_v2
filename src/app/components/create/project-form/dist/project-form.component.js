@@ -84,7 +84,7 @@ var ProjectFormComponent = /** @class */ (function () {
             organization_id: [this.organizationId.getOrganizationId.value],
             request_type: ['create'],
             cover: [''],
-            logo: [''],
+            logo: ['', forms_1.Validators.required],
             category: [''],
             locations: ['']
         });

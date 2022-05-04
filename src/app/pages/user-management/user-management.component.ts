@@ -22,7 +22,9 @@ export class UserManagementComponent implements OnInit {
   isNoMore: boolean = false;
   isLoaded: boolean = false;
   isList?: boolean = false;
-
+  isFilter?: boolean;
+  saveEntity?: any;
+  isSearch?:boolean;
   constructor(private loading: LoadingService, private userService: UserService) {
   }
 
@@ -32,7 +34,21 @@ export class UserManagementComponent implements OnInit {
 
 
   }
-
+  getFilterUser(e: any) {
+    this.isFilter = true;
+    if (e) {
+      this.saveEntity = e;
+      if (e.length > 8) {
+        this.users = e.splice(0, 8);
+        this.isEmpty = false;
+        this.isNoMore = false;
+      } else {
+        this.users = e;
+        this.isEmpty = false;
+        this.isNoMore = true;
+      }
+    }
+  }
   async getListUsers() {
     this.users = await this.userService.getListUsers();
 
@@ -79,21 +95,45 @@ export class UserManagementComponent implements OnInit {
   }
 
   searchName(e: any) {
-
+    this.isSearch=true;
     setTimeout(() => {
+
+
       if (e.target.value.length <= 0 || e.target.value == '') {
-        this.users = this.oldUsers.slice(0, 8);
+        if (this.saveEntity.length > 8) {
+
+          this.users = this.saveEntity.splice(0, 8);
+          this.isEmpty = false;
+          this.isNoMore = false;
+
+        } else {
+          this.users = this.saveEntity
+          this.isEmpty = false;
+          this.isNoMore = true;
+
+        }
+        this.users = this.oldUsers.splice(0,8);
         this.isEmpty = false;
         this.isNoMore = false;
       } else {
-        this.isNoMore = true;
-        this.users = this.oldUsers;
-        this.isEmpty = false;
-        this.users = _.filter(this.users, (x: any) => {
-          return this.users = x.last_name.concat(` ${x.first_name}`).toLowerCase().includes(`${e.target.value}`.toLowerCase().trim());
-        })
-        if (this.users == [] || this.users.length == 0) {
-          this.isEmpty = true;
+        if (this.saveEntity) {
+          this.isEmpty = false;
+          this.users = _.filter(this.saveEntity, (x: any) => {
+            return this.users = x.last_name.concat(` ${x.first_name}`).toLowerCase().includes(`${e.target.value}`.toLowerCase().trim());
+          })
+          if (this.users == [] || this.users.length == 0) {
+            this.isEmpty = true;
+          }
+        } else {
+          this.isNoMore = true;
+          this.users=this.oldUsers
+          this.isEmpty = false;
+          this.users = _.filter(this.users, (x: any) => {
+            return this.users = x.last_name.concat(` ${x.first_name}`).toLowerCase().includes(`${e.target.value}`.toLowerCase().trim());
+          })
+          if (this.users == [] || this.users.length == 0) {
+            this.isEmpty = true;
+          }
         }
       }
     }, 500)

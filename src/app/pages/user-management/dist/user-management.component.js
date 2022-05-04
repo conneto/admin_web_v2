@@ -60,6 +60,22 @@ var UserManagementComponent = /** @class */ (function () {
     UserManagementComponent.prototype.ngOnInit = function () {
         this.getListMangerAndVolunteer();
     };
+    UserManagementComponent.prototype.getFilterUser = function (e) {
+        this.isFilter = true;
+        if (e) {
+            this.saveEntity = e;
+            if (e.length > 8) {
+                this.users = e.splice(0, 8);
+                this.isEmpty = false;
+                this.isNoMore = false;
+            }
+            else {
+                this.users = e;
+                this.isEmpty = false;
+                this.isNoMore = true;
+            }
+        }
+    };
     UserManagementComponent.prototype.getListUsers = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
@@ -126,21 +142,43 @@ var UserManagementComponent = /** @class */ (function () {
     };
     UserManagementComponent.prototype.searchName = function (e) {
         var _this = this;
+        this.isSearch = true;
         setTimeout(function () {
             if (e.target.value.length <= 0 || e.target.value == '') {
-                _this.users = _this.oldUsers.slice(0, 8);
+                if (_this.saveEntity.length > 8) {
+                    _this.users = _this.saveEntity.splice(0, 8);
+                    _this.isEmpty = false;
+                    _this.isNoMore = false;
+                }
+                else {
+                    _this.users = _this.saveEntity;
+                    _this.isEmpty = false;
+                    _this.isNoMore = true;
+                }
+                _this.users = _this.oldUsers.splice(0, 8);
                 _this.isEmpty = false;
                 _this.isNoMore = false;
             }
             else {
-                _this.isNoMore = true;
-                _this.users = _this.oldUsers;
-                _this.isEmpty = false;
-                _this.users = _.filter(_this.users, function (x) {
-                    return _this.users = x.last_name.concat(" " + x.first_name).toLowerCase().includes(("" + e.target.value).toLowerCase().trim());
-                });
-                if (_this.users == [] || _this.users.length == 0) {
-                    _this.isEmpty = true;
+                if (_this.saveEntity) {
+                    _this.isEmpty = false;
+                    _this.users = _.filter(_this.saveEntity, function (x) {
+                        return _this.users = x.last_name.concat(" " + x.first_name).toLowerCase().includes(("" + e.target.value).toLowerCase().trim());
+                    });
+                    if (_this.users == [] || _this.users.length == 0) {
+                        _this.isEmpty = true;
+                    }
+                }
+                else {
+                    _this.isNoMore = true;
+                    _this.users = _this.oldUsers;
+                    _this.isEmpty = false;
+                    _this.users = _.filter(_this.users, function (x) {
+                        return _this.users = x.last_name.concat(" " + x.first_name).toLowerCase().includes(("" + e.target.value).toLowerCase().trim());
+                    });
+                    if (_this.users == [] || _this.users.length == 0) {
+                        _this.isEmpty = true;
+                    }
                 }
             }
         }, 500);

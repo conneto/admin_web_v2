@@ -1,1 +1,15 @@
-<p>user-status-filter works!</p>
+<mat-form-field  style='padding:0;border-top:0'>
+    <mat-select [(value)]="default" (selectionChange)="getStatus($event.value)">
+      <mat-option
+        [disabled]="
+          (noDataDisbale && e == 'Ngừng hoạt động') ||
+          (noDataAll && e == 'Tất cả') ||
+          (noDataEnable && e == 'Đang hoạt động')
+        "
+        [value]="e"
+        *ngFor="let e of status"
+        >{{ e }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
