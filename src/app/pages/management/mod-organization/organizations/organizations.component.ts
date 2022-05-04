@@ -240,9 +240,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
             this.isRequest = false;
           }
           this.organizations = this.organizations.filter(
-            (x) => x.result_code == 501 || x.result_code == 503
+            (x) => x.result_code == 501 || x.result_code == 503  || x.result_code == 502
           );
-          this.oldData = this.passData.filter((x) => x.result_code == 501  || x.result_code == 503);
+          this.oldData = this.passData.filter((x) => x.result_code == 501  || x.result_code == 503  || x.result_code == 502);
 
           this.isEmpty = false;
 

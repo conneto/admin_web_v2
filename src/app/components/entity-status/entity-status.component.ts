@@ -45,7 +45,9 @@ export class EntityStatusComponent implements OnInit {
   }
   checkAll() {
     this.passData = this.entityData.filter((x: any) => {
-      return x.result_code == 510 || x.result_code == 610 || x.result_code == 710;
+      return x.result_code == 510 || x.result_code == 531 || x.result_code == 521
+        || x.result_code == 610 || x.result_code == 631 || x.result_code == 621 ||
+        x.result_code == 710 || x.result_code == 731 || x.result_code == 721
     })
     if (this.passData.length == 0) {
       this.noDataAll = true;

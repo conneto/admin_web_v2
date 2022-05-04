@@ -32,6 +32,20 @@ var UtilService = /** @class */ (function () {
                 return 'Nam';
             case 'female':
                 return 'Nữ';
+            case 'female':
+                return 'Nữ';
+            case 'female':
+                return 'Nữ';
+            case 'female':
+                return 'Nữ';
+            case 'female':
+                return 'Nữ';
+            case 'female':
+                return 'Nữ';
+            case 'female':
+                return 'Nữ';
+            case 'female':
+                return 'Nữ';
             default:
                 return '';
         }

@@ -241,8 +241,8 @@ var OrganizationsComponent = /** @class */ (function () {
                             else {
                                 this.isRequest = false;
                             }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code == 501 || x.result_code == 503; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 501 || x.result_code == 503; });
+                            this.organizations = this.organizations.filter(function (x) { return x.result_code == 501 || x.result_code == 503 || x.result_code == 502; });
+                            this.oldData = this.passData.filter(function (x) { return x.result_code == 501 || x.result_code == 503 || x.result_code == 502; });
                             this.isEmpty = false;
                             if (this.organizations == null || this.organizations.length <= 0) {
                                 this.isEmpty = true;

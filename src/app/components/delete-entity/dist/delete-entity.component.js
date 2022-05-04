@@ -253,7 +253,7 @@ var DeleteEntityComponent = /** @class */ (function () {
                                 if (res.status == 0) {
                                     this.loading.isLoading.next(false);
                                     this.router.navigate(['/manager/manage-organization']);
-                                    this.snackBar.showMessage('Xóa thành công', true);
+                                    this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
                                 }
                                 else {
                                     this.loading.isLoading.next(false);
@@ -266,7 +266,7 @@ var DeleteEntityComponent = /** @class */ (function () {
                                 if (res.status == 0) {
                                     this.loading.isLoading.next(false);
                                     this.router.navigate(['/manager/manage-campaign']);
-                                    this.snackBar.showMessage('Xóa thành công', true);
+                                    this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
                                 }
                                 else {
                                     this.loading.isLoading.next(false);
@@ -279,7 +279,7 @@ var DeleteEntityComponent = /** @class */ (function () {
                                 if (res.status == 0) {
                                     this.loading.isLoading.next(false);
                                     this.router.navigate(['/manager/manage-project']);
-                                    this.snackBar.showMessage('Xóa thành công', true);
+                                    this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
                                 }
                                 else {
                                     this.loading.isLoading.next(false);

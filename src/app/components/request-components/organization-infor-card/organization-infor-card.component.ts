@@ -61,12 +61,12 @@ export class OrganizationInforCardComponent implements OnInit {
         close: 'Hủy',
         message:
           checkType == 'org'
-            ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu tổ chức này không?'
+            ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu của tổ chức này không?'
             : checkType == 'cam'
-              ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu chiến dịch này không?'
+              ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu của chiến dịch này không?'
               : checkType == 'pro'
-                ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu dự án này không?'
-                : 'Bạn có chắc chắn muốn chấp nhận yêu cầu tổ chức này không?',
+                ? 'Bạn có chắc chắn muốn chấp nhận yêu cầu của dự án này không?'
+                : 'Bạn có chắc chắn muốn chấp nhận yêu cầu của tổ chức này không?',
       },
     });
 
@@ -119,12 +119,12 @@ export class OrganizationInforCardComponent implements OnInit {
         reason: true,
         message:
           checkType == 'org'
-            ? 'Bạn có chắc chắn muốn từ chối yêu cầu tổ chức này không?'
+            ? 'Bạn có chắc chắn muốn từ chối yêu cầu của tổ chức này không?'
             : checkType == 'cam'
-              ? 'Bạn có chắc chắn muốn  muốn từ chối yêu cầu chiến dịch này không?'
+              ? 'Bạn có chắc chắn muốn  muốn từ chối yêu cầu của chiến dịch này không?'
               : checkType == 'pro'
-                ? 'Bạn có chắc chắn muốn muốn từ chối yêu cầu dự án này không?'
-                : 'Bạn có chắc chắn muốn từ chối yêu cầu tổ chức này không?',
+                ? 'Bạn có chắc chắn muốn muốn từ chối yêu cầu của dự án này không?'
+                : 'Bạn có chắc chắn muốn từ chối yêu cầu của tổ chức này không?',
       },
     });
     diaglogRef.afterClosed().subscribe(async (data) => {

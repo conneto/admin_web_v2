@@ -38,8 +38,9 @@ export class CampaignDetailsComponent implements OnInit {
   isUpload?: boolean;
   pdfName?: any;
   isChecked?: boolean;
+  isNoHistory?:any;
 
-  constructor(private router:Router,private snackBar:SnackBarMessageComponent,private dialog: MatDialog, private userApi: AuthService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
+  constructor(private router: Router, private snackBar: SnackBarMessageComponent, private dialog: MatDialog, private userApi: AuthService, private loadingService: LoadingService, private location: Location, private activated: ActivatedRoute, private campaignApi: CampaignService) { }
 
   ngOnInit(): void {
     this.isPDF = true;
@@ -56,14 +57,14 @@ export class CampaignDetailsComponent implements OnInit {
     if (this.campaign?.is_transparent == false) {
       const data = {
         object_id: this.campaign.id,
-        object_type:'transparent',
-        status:'approve',
-        note:''
+        object_type: 'transparent',
+        status: 'approve',
+        note: ''
       }
-      let res:BaseResponse= await this.userApi.updateRequestByAdmin(data);
-      if(res?.status==0){
+      let res: BaseResponse = await this.userApi.updateRequestByAdmin(data);
+      if (res?.status == 0) {
         window.location.reload();
-        this.snackBar.showMessage("Xác thực thành công !",true);
+        this.snackBar.showMessage("Xác thực thành công !", true);
         this.router.navigate([`admin/manage-campaign/campaign-details/${this.campaign.id}`])
 
       }
@@ -126,8 +127,8 @@ export class CampaignDetailsComponent implements OnInit {
   }
   async getValue(e: any) {
 
-    if(e){
-      
+    if (e) {
+
       this.documentPDF = await this.campaignApi.getPdf(`${this.campaign?.id}`);
       this.documentExcel = await this.campaignApi.getCashFlow(`${this.campaign?.id}`);
       if (this.documentPDF) {
@@ -153,11 +154,11 @@ export class CampaignDetailsComponent implements OnInit {
       } else {
         this.isUpload = true;
       }
-   
+
     }
-    }
-  
-  
+  }
+
+
   goBack() {
     this.location.back();
   }
@@ -201,7 +202,13 @@ export class CampaignDetailsComponent implements OnInit {
           }
 
         } else {
-          this.isUpload = true;
+          if (this.documentPDF.length <= 0) {
+            this.isEmpty = true;
+          } else if (this.documentExcel) {
+            this.getDocumentExcel();
+          } else {
+            this.getDocument();
+          }
         }
         this.isDocument = true;
         this.isInformation = false;
@@ -212,7 +219,7 @@ export class CampaignDetailsComponent implements OnInit {
         this.volunteer = await this.campaignApi.getParticipations(`${this.campaign?.id}`);
 
         if (this.volunteer?.length == 0) {
-          this.isEmpty = true;
+          this.isNoHistory = true;
         }
 
         switch (this.campaign?.type) {

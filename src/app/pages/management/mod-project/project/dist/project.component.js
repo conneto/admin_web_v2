@@ -191,9 +191,9 @@ var ProjectComponent = /** @class */ (function () {
                             this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                         }
                         this.projects = this.projects.filter(function (x) {
-                            return x.result_code == 610;
+                            return x.result_code == 610 || x.result_code == 631;
                         });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 610; });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 610 || x.result_code == 631; });
                         this.isEmpty = false;
                         if (this.projects == [] || this.projects.length <= 0) {
                             this.isEmpty = true;

@@ -89,19 +89,11 @@
                 e.website ? e.website : 'google.com'
               }}">{{ e.website ? e.website : "Không có" }}</a>
           </div>
-<<<<<<< HEAD
-          <div class="content-introduce" *ngIf="e.operating_license">
-            <div>Giấy phép hoạt động:</div>
-            <div>
-              <a href='{{urlApi}}/show/files?p={{e.operating_license}}' download>
-                {{e.operating_license}}
-=======
           <div class="content-introduce">
-            <div>Giấy phép lao động:</div>
+            <div>Giấy phép hoạt động:</div>
 
               <a style='display:flex' href='{{urlApi}}/show/files?p={{e.operating_license}}' download>
 
->>>>>>> 5db114e18265cf58e2d7e0a276d9f353320bc77e
                 <img style="width: 25px" src="./assets/icons/pdf.svg" />
                 Xem tài liệu
 

@@ -187,8 +187,8 @@ export class DeleteEntityComponent implements OnInit {
             res = await this.orgApi.delete(`${this.entity.id}`);
             if (res.status == 0) {
               this.loading.isLoading.next(false);
-              this.router.navigate(['/manager/manage-organization']);
-              this.snackBar.showMessage('Xóa thành công', true);
+              this.router.navigate(['/manager/manage-organization'])
+              this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
             } else {
               this.loading.isLoading.next(false);
               this.snackBar.showMessage(`${res.message}`, false);
@@ -198,8 +198,8 @@ export class DeleteEntityComponent implements OnInit {
             res = await this.camApi.delete(`${this.entity.id}`);
             if (res.status == 0) {
               this.loading.isLoading.next(false);
-              this.router.navigate(['/manager/manage-campaign']);
-              this.snackBar.showMessage('Xóa thành công', true);
+              this.router.navigate(['/manager/manage-campaign'])
+              this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
             } else {
               this.loading.isLoading.next(false);
               this.snackBar.showMessage(`${res.message}`, false);
@@ -209,8 +209,8 @@ export class DeleteEntityComponent implements OnInit {
             res = await this.proApi.delete(`${this.entity.id}`);
             if (res.status == 0) {
               this.loading.isLoading.next(false);
-              this.router.navigate(['/manager/manage-project']);
-              this.snackBar.showMessage('Xóa thành công', true);
+              this.router.navigate(['/manager/manage-project'])
+              this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
             } else {
               this.loading.isLoading.next(false);
               this.snackBar.showMessage(`${res.message}`, false);

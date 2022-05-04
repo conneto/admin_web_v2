@@ -270,7 +270,15 @@ var CampaignDetailsComponent = /** @class */ (function () {
                             }
                         }
                         else {
-                            this.isUpload = true;
+                            if (this.documentPDF.length <= 0) {
+                                this.isEmpty = true;
+                            }
+                            else if (this.documentExcel) {
+                                this.getDocumentExcel();
+                            }
+                            else {
+                                this.getDocument();
+                            }
                         }
                         this.isDocument = true;
                         this.isInformation = false;
@@ -283,7 +291,7 @@ var CampaignDetailsComponent = /** @class */ (function () {
                     case 6:
                         _k.volunteer = _l.sent();
                         if (((_e = this.volunteer) === null || _e === void 0 ? void 0 : _e.length) == 0) {
-                            this.isEmpty = true;
+                            this.isNoHistory = true;
                         }
                         switch ((_f = this.campaign) === null || _f === void 0 ? void 0 : _f.type) {
                             case 'Quyên góp':

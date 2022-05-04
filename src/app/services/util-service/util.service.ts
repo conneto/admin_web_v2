@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class UtilService {
-  constructor() {}
+  constructor() { }
 
   public convertType(type: any): string {
     switch (type) {
@@ -23,10 +23,25 @@ export class UtilService {
         return 'Tình nguyện viên';
       case 'organization_manager':
         return 'Quản lý tổ chức';
-        case 'male':
-          return 'Nam';
-          case 'female':
-            return 'Nữ';
+      case 'male':
+        return 'Nam';
+      case 'female':
+        return 'Nữ';
+      case 'female':
+        return 'Nữ';
+      case 'female':
+        return 'Nữ';
+      case 'female':
+        return 'Nữ';
+      case 'female':
+        return 'Nữ';
+      case 'female':
+        return 'Nữ';
+
+      case 'female':
+        return 'Nữ';
+      case 'female':
+        return 'Nữ';
       default:
         return '';
     }

@@ -16,7 +16,7 @@
                 'label-rejected': project.result_code == 611,
                 'label-pending': project.result_code == 601
               }"
-              >{{ project.resultMessage }}</span
+              >{{ project.result_message }}</span
             >
           </div>
           <div class="header-image">
@@ -79,7 +79,7 @@
               {{ project.end_date | date: "dd/MM/yyyy" }}
             </p>
           </div>
-          <div *ngIf="isApproved" class="delete-button">
+          <div *ngIf="isApproved || project.result_code==631" class="delete-button">
             <app-delete-entity
               [type]="'pro'"
               [entity]="project"
