@@ -13,7 +13,7 @@ import { Organization } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { UserService } from 'src/app/services/user-service/user.service';
 import { UtilService } from 'src/app/services/util-service/util.service';
 
@@ -56,7 +56,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     public utilService: UtilService,
     private loadingService: LoadingService,
     private userService: UserService,
-    private organizationService: OrganizationApiService,
+    private organizationService: OrganizationService,
     private authService: AuthService
   ) { }
 

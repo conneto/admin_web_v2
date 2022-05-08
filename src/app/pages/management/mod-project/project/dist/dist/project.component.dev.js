@@ -165,8 +165,8 @@ var project_form_component_1 = require("src/app/components/create/project-form/p
 var ProjectComponent =
 /** @class */
 function () {
-  function ProjectComponent(orgApi, router, dialog, snackbar, loadingService, api, authApi) {
-    this.orgApi = orgApi;
+  function ProjectComponent(organizationService, router, dialog, snackbar, loadingService, api, authApi) {
+    this.organizationService = organizationService;
     this.router = router;
     this.dialog = dialog;
     this.snackbar = snackbar;
@@ -194,15 +194,51 @@ function () {
 
   ProjectComponent.prototype.ngOnDestroy = function () {};
 
+  ProjectComponent.prototype.showMore = function () {
+    var _this = this;
+
+    this.loadingService.isLoading.next(true);
+    setTimeout(function () {
+      var newLength = _this.projects.length + 6;
+
+      if (newLength > _this.oldData.length) {
+        newLength = _this.oldData.length;
+      }
+
+      _this.projects = _this.oldData.slice(0, newLength);
+
+      _this.checkShowMore();
+
+      _this.loadingService.isLoading.next(false);
+    }, 300);
+  };
+
+  ProjectComponent.prototype.checkShowMore = function () {
+    if (this.projects.length > 6) {
+      if (this.projects.length == this.oldData.length) {
+        this.isNoMore = true;
+      }
+    } else {
+      this.isNoMore = true;
+    }
+  };
+
   ProjectComponent.prototype.getEntity = function (e) {
     if ((e === null || e === void 0 ? void 0 : e.length) != 0) {
-      // console.log(e);
-      this.isEmpty = false;
-      this.projects = e;
-      this.oldData = e;
+      if (e.length > 6) {
+        this.isNoMore = false;
+        this.isEmpty = false;
+        this.projects = e.slice(0, 6);
+        this.oldData = e;
+      } else {
+        this.isNoMore = true;
+        this.isEmpty = false;
+        this.projects = e;
+        this.oldData = e;
+      }
     } else {
       this.isEmpty = true;
-      this.projects = e;
+      this.projects = e.slice(0, 6);
     }
   };
 
@@ -248,9 +284,16 @@ function () {
     if (e == null || e.length <= 0) {
       this.noResultBySearch = true;
       this.projects = e;
+      this.isNoMore = true;
     } else {
-      this.projects = e;
-      this.noResultBySearch = false;
+      if (this.projects.length > 6) {
+        this.isNoMore = false;
+        this.projects = e.slice(0, 6);
+      } else {
+        this.projects = e;
+        this.noResultBySearch = false;
+        this.isNoMore = true;
+      }
     }
   };
 
@@ -271,7 +314,7 @@ function () {
             _b = this;
             return [4
             /*yield*/
-            , this.orgApi.getAll()];
+            , this.organizationService.getAll()];
 
           case 2:
             _b.organization = _c.sent();
@@ -307,6 +350,7 @@ function () {
     return __awaiter(this, void 0, void 0, function () {
       var i, i, i;
       return __generator(this, function (_u) {
+        this.isNoMore = false;
         this.user = this.authApi.currentUserValue;
 
         if (pro) {
@@ -326,14 +370,14 @@ function () {
             for (i = 0; i < this.projects.length; i++) {
               this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
               this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-              this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+              this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
             }
 
             this.projects = this.projects.filter(function (x) {
-              return x.result_code == 610;
+              return x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621;
             });
             this.oldData = this.passData.filter(function (x) {
-              return x.result_code == 610;
+              return x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621;
             });
             this.isEmpty = false;
 
@@ -350,7 +394,7 @@ function () {
             for (i = 0; i < this.projects.length; i++) {
               this.projects[i].cover = (_h = (_g = this.projects[i]) === null || _g === void 0 ? void 0 : _g.cover) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
               this.projects[i].logo = (_k = (_j = this.projects[i]) === null || _j === void 0 ? void 0 : _j.logo) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
-              this.projects[i].organizationLogo = (_m = (_l = this.projects[i]) === null || _l === void 0 ? void 0 : _l.organizationLogo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
+              this.projects[i].organization_logo = (_m = (_l = this.projects[i]) === null || _l === void 0 ? void 0 : _l.organization_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
             }
 
             this.projects = this.projects.filter(function (x) {
@@ -373,14 +417,14 @@ function () {
             for (i = 0; i < this.projects.length; i++) {
               this.projects[i].cover = (_p = (_o = this.projects[i]) === null || _o === void 0 ? void 0 : _o.cover) === null || _p === void 0 ? void 0 : _p.replace(/\\/g, '\/');
               this.projects[i].logo = (_r = (_q = this.projects[i]) === null || _q === void 0 ? void 0 : _q.logo) === null || _r === void 0 ? void 0 : _r.replace(/\\/g, '\/');
-              this.projects[i].organizationLogo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organizationLogo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
+              this.projects[i].organization_logo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organization_logo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
             }
 
             this.projects = this.projects.filter(function (x) {
-              return x.result_code == 601;
+              return x.result_code == 601 || x.result_code == 603 || x.result_code == 602;
             });
             this.oldData = this.passData.filter(function (x) {
-              return x.result_code == 601;
+              return x.result_code == 601 || x.result_code == 603 || x.result_code == 602;
             });
 
             if (this.authApi.currentUserValue.role_id == 'admin') {
@@ -396,6 +440,12 @@ function () {
             }
 
             break;
+        }
+
+        if (this.projects.length > 6) {
+          this.projects = this.projects.slice(0, 6);
+        } else {
+          this.isNoMore = true;
         }
 
         this.number = this.projects.length;

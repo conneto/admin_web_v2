@@ -162,23 +162,23 @@ var core_1 = require("@angular/core");
 
 var constant_1 = require("src/app/constant/constant");
 
-var organization_form_component_1 = require("../update/organization-form/organization-form.component");
-
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 
 var DeleteEntityComponent =
 /** @class */
 function () {
-  function DeleteEntityComponent(data, loading, camApi, proApi, user, snackBar, orgApi, dialog) {
+  function DeleteEntityComponent(data, loading, camApi, proApi, user, snackBar, organizationService, dialog, router) {
     this.data = data;
     this.loading = loading;
     this.camApi = camApi;
     this.proApi = proApi;
     this.user = user;
     this.snackBar = snackBar;
-    this.orgApi = orgApi;
+    this.organizationService = organizationService;
     this.dialog = dialog;
+    this.router = router;
     this.isSave = false;
+    this.isOpenEdit = false;
   }
 
   DeleteEntityComponent.prototype.ngOnInit = function () {
@@ -187,16 +187,6 @@ function () {
     } else {
       this.isAdmin = false;
     }
-  };
-
-  DeleteEntityComponent.prototype.change = function () {
-    var dialogRef = this.dialog.open(organization_form_component_1.OrganizationUpdateFormComponent, {
-      width: '768px',
-      data: {
-        title: 'Cập nhật tổ chức',
-        object: this.entity
-      }
-    });
   };
 
   DeleteEntityComponent.prototype.disable = function () {
@@ -209,9 +199,9 @@ function () {
         diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
           width: '360px',
           data: {
-            button: 'Đồng ý',
-            close: 'Hủy',
-            message: 'Bạn có chắc chắn muốn vô hiệu hóa đối tượng này?'
+            button: 'Vô hiệu hóa',
+            message: this.type == 'org' ? 'Bạn có chắc chắn muốn vô hiệu hóa tổ chức này không? Nếu bạn vô hiệu hóa này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo' : this.type == 'cam' ? 'Bạn có chắc chắn muốn vô hiệu hóa chiến dịch này không?' : this.type == 'pro' ? 'Bạn có chắc chắn muốn vô hiệu hóa dự án này không? Nếu bạn vô hiệu hóa dự án này thì các chiến dịch liên quan đều sẽ bị tạm dừng theo' : 'Bạn có chắc chắn muốn vô hiệu hóa tổ chức này không? Nếu bạn vô hiệu hóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo',
+            reason: true
           }
         });
         diaglogRef.afterClosed().subscribe(function (x) {
@@ -231,8 +221,9 @@ function () {
                     object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
                     object_type: this.type == 'org' ? constant_1.Constant.ORGANIZATION : this.type == 'cam' ? constant_1.Constant.CAMPAIGN : this.type == 'pro' ? constant_1.Constant.PROJECT : constant_1.Constant.ORGANIZATION,
                     status: 'disable',
-                    note: 'Disable this'
+                    note: x
                   };
+                  console.log(data1);
                   return [4
                   /*yield*/
                   , this.user.activateEntity(data1)];
@@ -292,7 +283,7 @@ function () {
           data: {
             button: 'Đồng ý',
             close: 'Hủy',
-            message: 'Bạn có chắc chắn muốn cấp quyền hoạt động cho đối tượng này?'
+            message: this.type == 'org' ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?' : this.type == 'cam' ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho chiến dịch này không?' : this.type == 'pro' ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho dự án này không?' : 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?'
           }
         });
         diaglogRef.afterClosed().subscribe(function (x) {
@@ -363,18 +354,21 @@ function () {
   };
 
   DeleteEntityComponent.prototype["delete"] = function () {
+    var _a;
+
     return __awaiter(this, void 0, void 0, function () {
       var dialogRef;
 
       var _this = this;
 
-      return __generator(this, function (_a) {
+      return __generator(this, function (_b) {
+        console.log((_a = this.entity) === null || _a === void 0 ? void 0 : _a.id);
         dialogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
           width: '360px',
           data: {
             button: 'Xóa',
             close: 'Hủy',
-            message: 'Bạn có chắc chắn muốn xóa không?'
+            message: this.type == 'org' ? 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ xóa theo' : this.type == 'cam' ? 'Bạn có chắc chắn muốn xóa chiến dịch này không?' : this.type == 'pro' ? 'Bạn có chắc chắn muốn xóa dự án này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ xóa theo' : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị xóa theo'
           }
         });
         dialogRef.afterClosed().subscribe(function (data) {
@@ -415,14 +409,15 @@ function () {
                 case 1:
                   return [4
                   /*yield*/
-                  , this.orgApi["delete"]("" + this.entity.id)];
+                  , this.organizationService["delete"]("" + this.entity.id)];
 
                 case 2:
                   res = _b.sent();
 
                   if (res.status == 0) {
                     this.loading.isLoading.next(false);
-                    this.snackBar.showMessage('Xóa thành công', true);
+                    this.router.navigate(['/manager/manage-organization']);
+                    this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
                   } else {
                     this.loading.isLoading.next(false);
                     this.snackBar.showMessage("" + res.message, false);
@@ -442,7 +437,8 @@ function () {
 
                   if (res.status == 0) {
                     this.loading.isLoading.next(false);
-                    this.snackBar.showMessage('Xóa thành công', true);
+                    this.router.navigate(['/manager/manage-campaign']);
+                    this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
                   } else {
                     this.loading.isLoading.next(false);
                     this.snackBar.showMessage("" + res.message, false);
@@ -462,7 +458,8 @@ function () {
 
                   if (res.status == 0) {
                     this.loading.isLoading.next(false);
-                    this.snackBar.showMessage('Xóa thành công', true);
+                    this.router.navigate(['/manager/manage-project']);
+                    this.snackBar.showMessage('Gửi yêu cầu xóa thành công. Đợi phê duyệt từ ban quản trị', true);
                   } else {
                     this.loading.isLoading.next(false);
                     this.snackBar.showMessage("" + res.message, false);

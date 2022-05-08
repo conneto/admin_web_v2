@@ -6,7 +6,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { OrganizationUpdateFormComponent } from '../update/organization-form/organization-form.component';
 
@@ -33,7 +33,7 @@ export class DeleteEntityComponent implements OnInit {
     private proApi: ProjectService,
     private user: AuthService,
     private snackBar: SnackBarMessageComponent,
-    private orgApi: OrganizationApiService,
+    private organizationService: OrganizationService,
     private dialog: MatDialog,
     private router: Router
   ) {}
@@ -184,7 +184,7 @@ export class DeleteEntityComponent implements OnInit {
         this.loading.isLoading.next(true);
         switch (this.type) {
           case 'org':
-            res = await this.orgApi.delete(`${this.entity.id}`);
+            res = await this.organizationService.delete(`${this.entity.id}`);
             if (res.status == 0) {
               this.loading.isLoading.next(false);
               this.router.navigate(['/manager/manage-organization'])

@@ -47,14 +47,14 @@ var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var DeleteEntityComponent = /** @class */ (function () {
-    function DeleteEntityComponent(data, loading, camApi, proApi, user, snackBar, orgApi, dialog, router) {
+    function DeleteEntityComponent(data, loading, camApi, proApi, user, snackBar, organizationService, dialog, router) {
         this.data = data;
         this.loading = loading;
         this.camApi = camApi;
         this.proApi = proApi;
         this.user = user;
         this.snackBar = snackBar;
-        this.orgApi = orgApi;
+        this.organizationService = organizationService;
         this.dialog = dialog;
         this.router = router;
         this.isSave = false;
@@ -247,7 +247,7 @@ var DeleteEntityComponent = /** @class */ (function () {
                                     case 'pro': return [3 /*break*/, 5];
                                 }
                                 return [3 /*break*/, 7];
-                            case 1: return [4 /*yield*/, this.orgApi["delete"]("" + this.entity.id)];
+                            case 1: return [4 /*yield*/, this.organizationService["delete"]("" + this.entity.id)];
                             case 2:
                                 res = _b.sent();
                                 if (res.status == 0) {

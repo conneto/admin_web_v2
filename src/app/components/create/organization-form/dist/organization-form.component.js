@@ -58,14 +58,14 @@ var core_1 = require("@angular/core");
 var forms_1 = require("@angular/forms");
 var constant_1 = require("src/app/constant/constant");
 var OrganizationFormComponent = /** @class */ (function () {
-    function OrganizationFormComponent(org, getEntityService, loadingService, router, snackBar, formBuilder, orgApi, user) {
+    function OrganizationFormComponent(org, getEntityService, loadingService, router, snackBar, formBuilder, organizationService, user) {
         this.org = org;
         this.getEntityService = getEntityService;
         this.loadingService = loadingService;
         this.router = router;
         this.snackBar = snackBar;
         this.formBuilder = formBuilder;
-        this.orgApi = orgApi;
+        this.organizationService = organizationService;
         this.user = user;
         this.filePDF = [];
         this.category = constant_1.Constant.CATEGORY;
@@ -148,7 +148,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                         console.log(this.organizationForm.value);
                         this.uploadData.append('organization', JSON.stringify(this.organizationForm.value));
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.orgApi.create(this.uploadData)];
+                        return [4 /*yield*/, this.organizationService.create(this.uploadData)];
                     case 1:
                         res = _b.sent();
                         if (!((res === null || res === void 0 ? void 0 : res.status) == 0)) return [3 /*break*/, 2];
@@ -159,7 +159,7 @@ var OrganizationFormComponent = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 2:
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.orgApi.create(this.uploadData)];
+                        return [4 /*yield*/, this.organizationService.create(this.uploadData)];
                     case 3:
                         res_1 = _b.sent();
                         if ((res_1 === null || res_1 === void 0 ? void 0 : res_1.status) == 0) {

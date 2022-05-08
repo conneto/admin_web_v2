@@ -42,19 +42,19 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.OrganizationApiService = void 0;
+exports.OrganizationService = void 0;
 var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
-var OrganizationApiService = /** @class */ (function () {
-    function OrganizationApiService(campaignAdapter, projectAdapter, apiService, adapter, authApi) {
+var OrganizationService = /** @class */ (function () {
+    function OrganizationService(campaignAdapter, projectAdapter, apiService, adapter, authService) {
         this.campaignAdapter = campaignAdapter;
         this.projectAdapter = projectAdapter;
         this.apiService = apiService;
         this.adapter = adapter;
-        this.authApi = authApi;
-        this.user = authApi.currentUserValue;
+        this.authService = authService;
+        this.user = this.authService.currentUserValue;
     }
-    OrganizationApiService.prototype.getAll = function () {
+    OrganizationService.prototype.getAll = function () {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
             var res;
@@ -70,7 +70,7 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.prototype.getProjectsByOrgId = function (id) {
+    OrganizationService.prototype.getProjectsByOrgId = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             var _this = this;
@@ -89,7 +89,7 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.prototype.getCampaignsByOrgId = function (id) {
+    OrganizationService.prototype.getCampaignsByOrgId = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             var _this = this;
@@ -108,7 +108,7 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.prototype.getById = function (id) {
+    OrganizationService.prototype.getById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -122,7 +122,7 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.prototype.create = function (data) {
+    OrganizationService.prototype.create = function (data) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -138,7 +138,7 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.prototype["delete"] = function (id) {
+    OrganizationService.prototype["delete"] = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -151,7 +151,7 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.prototype.createById = function (data, id) {
+    OrganizationService.prototype.createById = function (data, id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -167,7 +167,7 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.prototype.updateById = function (data, id) {
+    OrganizationService.prototype.updateById = function (data, id) {
         return __awaiter(this, void 0, void 0, function () {
             var res;
             return __generator(this, function (_a) {
@@ -180,12 +180,11 @@ var OrganizationApiService = /** @class */ (function () {
             });
         });
     };
-    OrganizationApiService.CREATE = 'create';
-    OrganizationApiService = __decorate([
+    OrganizationService = __decorate([
         core_1.Injectable({
             providedIn: 'root'
         })
-    ], OrganizationApiService);
-    return OrganizationApiService;
+    ], OrganizationService);
+    return OrganizationService;
 }());
-exports.OrganizationApiService = OrganizationApiService;
+exports.OrganizationService = OrganizationService;

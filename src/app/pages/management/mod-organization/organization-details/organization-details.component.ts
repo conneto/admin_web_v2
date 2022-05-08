@@ -16,7 +16,7 @@ import { UserManagementComponent } from 'src/app/pages/user-management/user-mana
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { ProjectComponent } from '../../mod-project/project/project.component';
 
@@ -68,7 +68,7 @@ export class OrganizationDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private proApi: ProjectService,
     private location: Location,
-    private orgApi: OrganizationApiService,
+    private organizationService: OrganizationService,
     private orgComponent: OrganizationInforCardComponent
   ) {}
 
@@ -88,7 +88,7 @@ export class OrganizationDetailsComponent implements OnInit {
   }
   async getValueFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.organization = await this.orgApi.getById(`${id}`);
+    this.organization = await this.organizationService.getById(`${id}`);
     if (this.organization?.result_code == 510 || this.organization?.result_code == 531) {
       this.isApproved = true;
     }
@@ -134,7 +134,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   async getCampaigns() {
-    this.campaignsCopy = await this.orgApi.getCampaignsByOrgId(
+    this.campaignsCopy = await this.organizationService.getCampaignsByOrgId(
       `${this.route.snapshot.paramMap.get('id')}`
     );
     this.campaigns = this.campaignsCopy;
@@ -162,7 +162,7 @@ export class OrganizationDetailsComponent implements OnInit {
     }
   }
   async getProjects() {
-    this.projectsCopy = await this.orgApi.getProjectsByOrgId(
+    this.projectsCopy = await this.organizationService.getProjectsByOrgId(
       `${this.route.snapshot.paramMap.get('id')}`
     );
     this.projects = this.projectsCopy;

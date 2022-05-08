@@ -20,17 +20,17 @@ var core_1 = require("@angular/core");
 var AdminComponent =
 /** @class */
 function () {
-  function AdminComponent(authService, router, orgApi) {
+  function AdminComponent(authService, router, organizationService) {
     this.authService = authService;
     this.router = router;
-    this.orgApi = orgApi;
+    this.organizationService = organizationService;
     this.title = '';
     this.menus = [{
       id: '1',
       name: 'Bảng điều khiển',
       path: 'dashboard',
       icon: 'assets/icons/dashboard_icon.png',
-      role: 'organization_manager_admin'
+      role: 'admin'
     }, {
       id: '2',
       name: 'Quản lý người dùng',
@@ -55,12 +55,6 @@ function () {
       path: 'manage-campaign',
       icon: 'assets/icons/campaign_icon.png',
       role: 'organization_manager_admin'
-    }, {
-      id: '6',
-      name: 'Quản lý tình nguyện viên',
-      path: 'manage-volunteer',
-      icon: 'assets/icons/volunteer_icon.png',
-      role: 'organization_manager'
     }];
     this.isExpanded = false;
   }

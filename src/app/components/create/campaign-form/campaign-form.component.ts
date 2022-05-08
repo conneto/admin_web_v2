@@ -1,27 +1,39 @@
-
-
 import { CurrencyPipe } from '@angular/common';
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Constant } from 'src/app/constant/constant';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 import { OrganizationDetailsComponent } from 'src/app/pages/management/mod-organization/organization-details/organization-details.component';
-
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
   selector: 'app-campaign-form',
   templateUrl: './campaign-form.component.html',
-  styleUrls: ['./campaign-form.component.scss']
+  styleUrls: ['./campaign-form.component.scss'],
 })
 export class CampaignForm implements OnInit {
   coverImage?: File;
-  constructor(private currency: CurrencyPipe, private organizationApi: OrganizationApiService, private projectApi: ProjectService, public loadingService: LoadingService, public authApi: AuthService, public dialogRef: MatDialogRef<CampaignForm>, @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder, private organizatioNDetail: OrganizationDetailsComponent) { }
+  constructor(
+    private currency: CurrencyPipe,
+    private organizationService: OrganizationService,
+    private projectApi: ProjectService,
+    public loadingService: LoadingService,
+    public authApi: AuthService,
+    public dialogRef: MatDialogRef<CampaignForm>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private formBuilder: FormBuilder,
+    private organizatioNDetail: OrganizationDetailsComponent
+  ) {}
   campaignForm!: FormGroup;
   isSubmitted?: boolean;
   organizations: Organization[] = [];
@@ -43,22 +55,33 @@ export class CampaignForm implements OnInit {
     this.check();
     // let uploadData: any = new FormData();
     // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
-
   }
   getValue(element: any) {
     this.defaultNumber = this.currency.transform(this.defaultNumber, 'đ');
     element.target.value = this.defaultNumber;
   }
   initForm() {
-
     this.campaignForm = this.formBuilder.group({
       selected: [this.selectedValue, Validators.required],
-      name: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]],
+      name: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(128),
+        ],
+      ],
       description: ['', [Validators.required, Validators.minLength(128)]],
       start_date: ['', Validators.required],
       end_date: ['', Validators.required],
-      start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : Validators.required],
-      end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : Validators.required],
+      start_working_date: [
+        '',
+        this.selectedRadio == 'Quyên góp' ? '' : Validators.required,
+      ],
+      end_working_date: [
+        '',
+        this.selectedRadio == 'Quyên góp' ? '' : Validators.required,
+      ],
       request_type: ['create'],
       type: [this.selectedRadio, Validators.required],
       target_number: ['', Validators.required],
@@ -68,103 +91,129 @@ export class CampaignForm implements OnInit {
       project_id: [''],
       cover: [''],
       category: [''],
-
-    })
-
+    });
   }
   async check() {
     if (this.data.project) {
       this.isOnlyProject = true;
-      this.organizations = await this.organizationApi.getAll();
+      this.organizations = await this.organizationService.getAll();
       if (this.organizations) {
+        this.cloneProjects = await this.organizationService.getProjectsByOrgId(
+          `${this.organizations[0].id}`
+        );
 
-        this.cloneProjects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
-
-        this.projects = this.cloneProjects.filter(x => {
+        this.projects = this.cloneProjects.filter((x) => {
           return x.result_code == 610;
-        })
+        });
       }
     } else {
-      this.organizations = await this.organizationApi.getAll();
+      this.organizations = await this.organizationService.getAll();
       if (this.organizations) {
+        this.cloneProjects = await this.organizationService.getProjectsByOrgId(
+          `${this.organizations[0].id}`
+        );
 
-        this.cloneProjects = await this.organizationApi.getProjectsByOrgId(`${this.organizations[0].id}`);
-
-        this.projects = this.cloneProjects.filter(x => {
+        this.projects = this.cloneProjects.filter((x) => {
           return x.result_code == 610;
-        })
+        });
       }
     }
   }
   noClick() {
-
     this.dialogRef.close(false);
-
   }
 
   yesClick() {
-    if (this.campaignForm.controls.category.value.length != 0 && this.campaignForm.controls.category.value) {
+    if (
+      this.campaignForm.controls.category.value.length != 0 &&
+      this.campaignForm.controls.category.value
+    ) {
       if (this.isRemoved == true || this.isSubmitted == true) {
         this.categoryStringClone = '';
-        for (let i = 0; i < this.campaignForm.controls.category.value.length; i++) {
-          this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+        for (
+          let i = 0;
+          i < this.campaignForm.controls.category.value.length;
+          i++
+        ) {
+          this.categoryStringClone = this.campaignForm.controls.category.value[
+            i
+          ].name.concat('|', this.categoryStringClone);
         }
       } else {
         this.categoryStringClone = '';
-        for (let i = 0; i < this.campaignForm.controls.category.value.length; i++) {
-          this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
-
+        for (
+          let i = 0;
+          i < this.campaignForm.controls.category.value.length;
+          i++
+        ) {
+          this.categoryStringClone = this.campaignForm.controls.category.value[
+            i
+          ].name.concat('|', this.categoryStringClone);
         }
       }
     }
     if (this.categoryStringClone?.length > 0) {
-      this.categoryString = this.categoryStringClone.slice(0, this.categoryStringClone.length - 1);
+      this.categoryString = this.categoryStringClone.slice(
+        0,
+        this.categoryStringClone.length - 1
+      );
     } else {
       this.categoryString = '';
     }
     this.isSubmitted = true;
 
-
-    this.projects = this.cloneProjects.filter(x => {
+    this.projects = this.cloneProjects.filter((x) => {
       return x.name == this.campaignForm.value.selected;
-    })
+    });
     if (this.projects.length != 0) {
-      this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` })
+      this.campaignForm.patchValue({ project_id: `${this.projects[0].id}` });
     }
     if (this.selectedRadio == 'Quyên góp') {
-
-      this.campaignForm.patchValue({ start_working_date: `${this.campaignForm.value.start_date}` })
-      this.campaignForm.patchValue({ end_working_date: `${this.campaignForm.value.end_date}` })
-      this.campaignForm.patchValue({ type: 'donation' })
+      this.campaignForm.patchValue({
+        start_working_date: `${this.campaignForm.value.start_date}`,
+      });
+      this.campaignForm.patchValue({
+        end_working_date: `${this.campaignForm.value.end_date}`,
+      });
+      this.campaignForm.patchValue({ type: 'donation' });
       this.campaignForm.removeControl('job_requirement');
       this.campaignForm.removeControl('job_description');
       this.campaignForm.removeControl('job_benefit');
-
-    } else if (
-      this.selectedRadio == 'Tuyển tình nguyện viên'
-    ) {
-      this.campaignForm.patchValue({ type: 'recruitment' })
-
+    } else if (this.selectedRadio == 'Tuyển tình nguyện viên') {
+      this.campaignForm.patchValue({ type: 'recruitment' });
     }
 
     if (this.campaignForm.valid) {
       this.campaignForm.value.category = this.categoryString;
-      this.campaignForm.value.start_date = new Date(this.campaignForm.value.start_date);
-      this.campaignForm.value.start_working_date = new Date(this.campaignForm.value.start_working_date);
-      this.campaignForm.value.end_working_date = new Date(this.campaignForm.value.end_working_date);
-      this.campaignForm.value.end_date = new Date(this.campaignForm.value.end_date);
+      this.campaignForm.value.start_date = new Date(
+        this.campaignForm.value.start_date
+      );
+      this.campaignForm.value.start_working_date = new Date(
+        this.campaignForm.value.start_working_date
+      );
+      this.campaignForm.value.end_working_date = new Date(
+        this.campaignForm.value.end_working_date
+      );
+      this.campaignForm.value.end_date = new Date(
+        this.campaignForm.value.end_date
+      );
 
-      this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
-
+      this.uploadData.append(
+        'campaign',
+        JSON.stringify(this.campaignForm.value)
+      );
 
       this.dialogRef.close(this.uploadData);
     }
   }
   onChange(e: any) {
-
     if (e.target.files && e.target.files.length > 0) {
       for (let i = 0; i < e.target.files.length; i++) {
-        this.uploadData.append('cover', e.target.files[i], e.target.files[i].name);
+        this.uploadData.append(
+          'cover',
+          e.target.files[i],
+          e.target.files[i].name
+        );
       }
       // this.coverImage = e.target.files[0];
     }
@@ -174,16 +223,28 @@ export class CampaignForm implements OnInit {
   }
   getType(e: string) {
     if (e == 'Quyên góp') {
-      this.campaignForm.patchValue({ start_working_date: `${this.campaignForm.value.start_date}` })
-      this.campaignForm.patchValue({ end_working_date: `${this.campaignForm.value.end_date}` })
+      this.campaignForm.patchValue({
+        start_working_date: `${this.campaignForm.value.start_date}`,
+      });
+      this.campaignForm.patchValue({
+        end_working_date: `${this.campaignForm.value.end_date}`,
+      });
       this.campaignForm.removeControl('job_requirement');
       this.campaignForm.removeControl('job_description');
       this.campaignForm.removeControl('job_benefit');
     } else if (e == 'Tuyển tình nguyện viên') {
-
-      this.campaignForm.setControl('job_requirement', new FormControl('', [Validators.required, Validators.minLength(8)]));
-      this.campaignForm.setControl('job_description', new FormControl('', [Validators.required, Validators.minLength(8)]));
-      this.campaignForm.setControl('job_benefit', new FormControl('', [Validators.required, Validators.minLength(8)]));
+      this.campaignForm.setControl(
+        'job_requirement',
+        new FormControl('', [Validators.required, Validators.minLength(8)])
+      );
+      this.campaignForm.setControl(
+        'job_description',
+        new FormControl('', [Validators.required, Validators.minLength(8)])
+      );
+      this.campaignForm.setControl(
+        'job_benefit',
+        new FormControl('', [Validators.required, Validators.minLength(8)])
+      );
     }
   }
   onRemoveCategory(e: string) {
@@ -194,7 +255,7 @@ export class CampaignForm implements OnInit {
       category.splice(index, 1);
     }
     if (index == 0) {
-      this.categoryStringClone = ''
+      this.categoryStringClone = '';
     }
     this.campaignForm.controls.category.patchValue(category);
   }

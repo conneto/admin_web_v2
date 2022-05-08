@@ -156,16 +156,16 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
 };
 
 exports.__esModule = true;
-exports.OrganizationApiService = void 0;
+exports.OrganizationService = void 0;
 
 var core_1 = require("@angular/core");
 
 var constant_1 = require("src/app/constant/constant");
 
-var OrganizationApiService =
+var OrganizationService =
 /** @class */
 function () {
-  function OrganizationApiService(campaignAdapter, projectAdapter, apiService, adapter, authApi) {
+  function OrganizationService(campaignAdapter, projectAdapter, apiService, adapter, authApi) {
     this.campaignAdapter = campaignAdapter;
     this.projectAdapter = projectAdapter;
     this.apiService = apiService;
@@ -174,7 +174,7 @@ function () {
     this.user = authApi.currentUserValue;
   }
 
-  OrganizationApiService.prototype.getAll = function () {
+  OrganizationService.prototype.getAll = function () {
     var _a;
 
     return __awaiter(this, void 0, void 0, function () {
@@ -202,7 +202,7 @@ function () {
     });
   };
 
-  OrganizationApiService.prototype.getProjectsByOrgId = function (id) {
+  OrganizationService.prototype.getProjectsByOrgId = function (id) {
     return __awaiter(this, void 0, void 0, function () {
       var res;
 
@@ -217,9 +217,13 @@ function () {
 
           case 1:
             res = _a.sent();
-            res.data = res.data.map(function (item) {
-              return _this.projectAdapter.adapt(item);
-            });
+
+            if (res.data) {
+              res.data = res.data.map(function (item) {
+                return _this.projectAdapter.adapt(item);
+              });
+            }
+
             return [2
             /*return*/
             , res.data || []];
@@ -228,7 +232,7 @@ function () {
     });
   };
 
-  OrganizationApiService.prototype.getCampaignsByOrgId = function (id) {
+  OrganizationService.prototype.getCampaignsByOrgId = function (id) {
     return __awaiter(this, void 0, void 0, function () {
       var res;
 
@@ -243,9 +247,13 @@ function () {
 
           case 1:
             res = _a.sent();
-            res.data = res.data.map(function (item) {
-              return _this.campaignAdapter.adapt(item);
-            });
+
+            if (res.data) {
+              res.data = res.data.map(function (item) {
+                return _this.campaignAdapter.adapt(item);
+              });
+            }
+
             return [2
             /*return*/
             , res.data || []];
@@ -254,7 +262,7 @@ function () {
     });
   };
 
-  OrganizationApiService.prototype.getById = function (id) {
+  OrganizationService.prototype.getById = function (id) {
     return __awaiter(this, void 0, void 0, function () {
       var res;
       return __generator(this, function (_a) {
@@ -275,7 +283,7 @@ function () {
     });
   };
 
-  OrganizationApiService.prototype.create = function (data) {
+  OrganizationService.prototype.create = function (data) {
     return __awaiter(this, void 0, void 0, function () {
       var res;
       return __generator(this, function (_a) {
@@ -302,7 +310,7 @@ function () {
     });
   };
 
-  OrganizationApiService.prototype["delete"] = function (id) {
+  OrganizationService.prototype["delete"] = function (id) {
     return __awaiter(this, void 0, void 0, function () {
       var res;
       return __generator(this, function (_a) {
@@ -322,13 +330,12 @@ function () {
     });
   };
 
-  OrganizationApiService.prototype.createById = function (data, id) {
+  OrganizationService.prototype.createById = function (data, id) {
     return __awaiter(this, void 0, void 0, function () {
       var res;
       return __generator(this, function (_a) {
         switch (_a.label) {
           case 0:
-            // console.log(id);
             return [4
             /*yield*/
             , this.apiService.post(constant_1.Constant.ORGANIZATIONS + "/" + id, data)];
@@ -350,7 +357,7 @@ function () {
     });
   };
 
-  OrganizationApiService.prototype.updateById = function (data, id) {
+  OrganizationService.prototype.updateById = function (data, id) {
     return __awaiter(this, void 0, void 0, function () {
       var res;
       return __generator(this, function (_a) {
@@ -370,11 +377,11 @@ function () {
     });
   };
 
-  OrganizationApiService.CREATE = 'create';
-  OrganizationApiService = __decorate([core_1.Injectable({
+  OrganizationService.CREATE = 'create';
+  OrganizationService = __decorate([core_1.Injectable({
     providedIn: 'root'
-  })], OrganizationApiService);
-  return OrganizationApiService;
+  })], OrganizationService);
+  return OrganizationService;
 }();
 
-exports.OrganizationApiService = OrganizationApiService;
+exports.OrganizationService = OrganizationService;

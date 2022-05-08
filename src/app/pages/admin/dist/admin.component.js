@@ -9,10 +9,10 @@ exports.__esModule = true;
 exports.AdminComponent = void 0;
 var core_1 = require("@angular/core");
 var AdminComponent = /** @class */ (function () {
-    function AdminComponent(authService, router, orgApi) {
+    function AdminComponent(authService, router, organizationService) {
         this.authService = authService;
         this.router = router;
-        this.orgApi = orgApi;
+        this.organizationService = organizationService;
         this.title = '';
         this.menus = [
             {

@@ -46,8 +46,8 @@ exports.ProjectComponent = void 0;
 var core_1 = require("@angular/core");
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var ProjectComponent = /** @class */ (function () {
-    function ProjectComponent(orgApi, router, dialog, snackbar, loadingService, api, authApi) {
-        this.orgApi = orgApi;
+    function ProjectComponent(organizationService, router, dialog, snackbar, loadingService, api, authApi) {
+        this.organizationService = organizationService;
         this.router = router;
         this.dialog = dialog;
         this.snackbar = snackbar;
@@ -178,7 +178,7 @@ var ProjectComponent = /** @class */ (function () {
                     case 1:
                         _a.projects = _c.sent();
                         _b = this;
-                        return [4 /*yield*/, this.orgApi.getAll()];
+                        return [4 /*yield*/, this.organizationService.getAll()];
                     case 2:
                         _b.organization = _c.sent();
                         this.passData = this.projects;

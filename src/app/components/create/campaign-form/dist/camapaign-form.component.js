@@ -51,8 +51,8 @@ var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var constant_1 = require("src/app/constant/constant");
 var CampaignForm = /** @class */ (function () {
-    function CampaignForm(organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
-        this.organizationApi = organizationApi;
+    function CampaignForm(organizationService, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+        this.organizationService = organizationService;
         this.projectApi = projectApi;
         this.loadingService = loadingService;
         this.authApi = authApi;
@@ -107,12 +107,12 @@ var CampaignForm = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 1:
                         _a = this;
-                        return [4 /*yield*/, this.organizationApi.getAll()];
+                        return [4 /*yield*/, this.organizationService.getAll()];
                     case 2:
                         _a.organizations = _c.sent();
                         if (!this.organizations) return [3 /*break*/, 4];
                         _b = this;
-                        return [4 /*yield*/, this.organizationApi.getProjectsByOrgId("" + this.organizations[0].id)];
+                        return [4 /*yield*/, this.organizationService.getProjectsByOrgId("" + this.organizations[0].id)];
                     case 3:
                         _b.cloneProjects = _c.sent();
                         this.projects = this.cloneProjects.filter(function (x) {

@@ -165,7 +165,7 @@ var project_form_component_1 = require("src/app/components/create/project-form/p
 var OrganizationDetailsComponent =
 /** @class */
 function () {
-  function OrganizationDetailsComponent(pro, org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
+  function OrganizationDetailsComponent(pro, org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, organizationService, orgComponent) {
     this.pro = pro;
     this.org = org;
     this.usersCom = usersCom;
@@ -178,7 +178,7 @@ function () {
     this.route = route;
     this.proApi = proApi;
     this.location = location;
-    this.orgApi = orgApi;
+    this.organizationService = organizationService;
     this.orgComponent = orgComponent;
     this.users = [];
     this.isAdmin = true;
@@ -208,30 +208,30 @@ function () {
   };
 
   OrganizationDetailsComponent.prototype.getValueFromRoute = function () {
-    var _a, _b;
+    var _a, _b, _c;
 
     return __awaiter(this, void 0, void 0, function () {
-      var id, _c;
+      var id, _d;
 
-      return __generator(this, function (_d) {
-        switch (_d.label) {
+      return __generator(this, function (_e) {
+        switch (_e.label) {
           case 0:
             id = this.route.snapshot.paramMap.get('id');
-            _c = this;
+            _d = this;
             return [4
             /*yield*/
-            , this.orgApi.getById("" + id)];
+            , this.organizationService.getById("" + id)];
 
           case 1:
-            _c.organization = _d.sent();
+            _d.organization = _e.sent();
 
-            if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510) {
+            if (((_a = this.organization) === null || _a === void 0 ? void 0 : _a.result_code) == 510 || ((_b = this.organization) === null || _b === void 0 ? void 0 : _b.result_code) == 531) {
               this.isApproved = true;
             }
 
             this.loadingService.getOrganizationId.next("" + id);
 
-            switch ((_b = this.organization) === null || _b === void 0 ? void 0 : _b.type) {
+            switch ((_c = this.organization) === null || _c === void 0 ? void 0 : _c.type) {
               case 'ngo':
                 this.organization.type = 'Tổ chức phi chính phủ';
                 break;
@@ -286,44 +286,39 @@ function () {
   };
 
   OrganizationDetailsComponent.prototype.getCampaigns = function () {
-    var _a, _b, _c, _d;
-
     return __awaiter(this, void 0, void 0, function () {
-      var _e, i;
+      var _a, i;
 
-      return __generator(this, function (_f) {
-        switch (_f.label) {
+      return __generator(this, function (_b) {
+        switch (_b.label) {
           case 0:
-            _e = this;
+            _a = this;
             return [4
             /*yield*/
-            , this.orgApi.getCampaignsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
+            , this.organizationService.getCampaignsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
 
           case 1:
-            _e.campaignsCopy = _f.sent();
+            _a.campaignsCopy = _b.sent();
             this.campaigns = this.campaignsCopy;
 
             if (this.campaigns) {
+              this.passDataCampaigns = this.campaignsCopy;
+
               for (i = 0; i < this.campaigns.length; i++) {
-                {
-                  this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                  this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                switch (this.campaigns[i].type) {
+                  case 'donation':
+                    Object.assign(this.campaigns[i], {
+                      value: (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString()
+                    });
+                    break;
 
-                  switch (this.campaigns[i].type) {
-                    case 'donation':
-                      this.campaigns[i].type = 'Quyên Góp';
-                      this.campaigns[i].org_id = (this.campaigns[i].totalDonated / this.campaigns[i].target).toString();
-                      break;
-
-                    case 'recruitment':
-                      this.campaigns[i].type = 'Thiện Nguyện';
-                      this.campaigns[i].org_id = (this.campaigns[i].totalPaticipant / this.campaigns[i].target).toString();
-                      break;
-                  }
+                  case 'recruitment':
+                    Object.assign(this.campaigns[i], {
+                      value: (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString()
+                    });
+                    break;
                 }
               }
-
-              this.passDataCampaigns = this.campaignsCopy;
             }
 
             return [2
@@ -346,7 +341,7 @@ function () {
             _g = this;
             return [4
             /*yield*/
-            , this.orgApi.getProjectsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
+            , this.organizationService.getProjectsByOrgId("" + this.route.snapshot.paramMap.get('id'))];
 
           case 1:
             _g.projectsCopy = _h.sent();
@@ -355,9 +350,9 @@ function () {
             if (this.projects) {
               for (i = 0; i < this.projects.length; i++) {
                 {
-                  this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                  this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                  this.projects[i].organizationLogo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organizationLogo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                  this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                  this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
+                  this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
                 }
               }
 
@@ -375,7 +370,6 @@ function () {
   Object.defineProperty(OrganizationDetailsComponent.prototype, "getId", {
     get: function get() {
       this.getValueFromRoute();
-      var id = // console.log(this.route.snapshot.paramMap.get('id'));
       return this.route.snapshot.paramMap.get('id');
     },
     enumerable: false,

@@ -13,7 +13,7 @@ import { Project } from 'src/app/models/projects/project.model';
 import { User } from 'src/app/models/user/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 
 @Component({
@@ -43,7 +43,7 @@ export class ProjectComponent implements OnInit {
   isTabRejected?: boolean;
   isTabPending?: boolean;
   isNoMore?:boolean;
-  constructor(private orgApi: OrganizationApiService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
+  constructor(private organizationService: OrganizationService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
@@ -146,7 +146,7 @@ export class ProjectComponent implements OnInit {
   }
   async checkToGetData(status?: string) {
     this.projects = await this.api.getAll();
-    this.organization = await this.orgApi.getAll();
+    this.organization = await this.organizationService.getAll();
 
     this.passData = this.projects;
     if (status == 'pending') {

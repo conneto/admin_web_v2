@@ -45,11 +45,11 @@ exports.__esModule = true;
 exports.OrganizationRequestDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var OrganizationRequestDetailsComponent = /** @class */ (function () {
-    function OrganizationRequestDetailsComponent(loadingService, route, location, orgApi, orgComponent) {
+    function OrganizationRequestDetailsComponent(loadingService, route, location, organizationService, orgComponent) {
         this.loadingService = loadingService;
         this.route = route;
         this.location = location;
-        this.orgApi = orgApi;
+        this.organizationService = organizationService;
         this.orgComponent = orgComponent;
         this.uriApi = this.loadingService.getApiGetLink.value;
     }
@@ -65,7 +65,7 @@ var OrganizationRequestDetailsComponent = /** @class */ (function () {
                     case 0:
                         id = this.route.snapshot.paramMap.get('id');
                         _e = this;
-                        return [4 /*yield*/, this.orgApi.getById("" + id)];
+                        return [4 /*yield*/, this.organizationService.getById("" + id)];
                     case 1:
                         _e.organization = _f.sent();
                         this.urlLogo = (_b = (_a = this.organization) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');

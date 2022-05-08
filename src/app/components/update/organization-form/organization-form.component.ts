@@ -8,7 +8,7 @@ import {
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { Constant } from 'src/app/constant/constant';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Router } from '@angular/router';
 
@@ -33,7 +33,7 @@ export class OrganizationUpdateFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private loadingService: LoadingService,
-    private organizationService: OrganizationApiService,
+    private organizationService: OrganizationService,
     // public dialogRef: MatDialogRef<OrganizationUpdateFormComponent>,
     // public dialog: MatDialog,
     // @Inject(MAT_DIALOG_DATA) public data: any,
@@ -166,7 +166,7 @@ export class OrganizationUpdateFormComponent implements OnInit {
       this.loadingService.isLoading.next(false);
       // if (this.organizationId) {
       //   this.loadingService.isLoading.next(true);
-      //   let res: BaseResponse | null = await this.orgApi.createById(
+      //   let res: BaseResponse | null = await this.organizationService.createById(
       //     uploadData,
       //     `${this.organizationId}`
       //   );
@@ -186,7 +186,7 @@ export class OrganizationUpdateFormComponent implements OnInit {
       //   }
       // } else {
       //   this.loadingService.isLoading.next(true);
-      //   let res: BaseResponse | null = await this.orgApi.create(uploadData);
+      //   let res: BaseResponse | null = await this.organizationService.create(uploadData);
       //   if (res?.status == 0) {
       //     this.snackBar.showMessage(
       //       'Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi',

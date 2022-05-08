@@ -46,7 +46,7 @@ exports.OrganizationDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var project_form_component_1 = require("../create/project-form/project-form.component");
 var OrganizationDetailsComponent = /** @class */ (function () {
-    function OrganizationDetailsComponent(pro, org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, orgApi, orgComponent) {
+    function OrganizationDetailsComponent(pro, org, usersCom, getEntityService, router, loadingService, snackBar, auth, dialog, route, proApi, location, organizationService, orgComponent) {
         this.pro = pro;
         this.org = org;
         this.usersCom = usersCom;
@@ -59,7 +59,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
         this.route = route;
         this.proApi = proApi;
         this.location = location;
-        this.orgApi = orgApi;
+        this.organizationService = organizationService;
         this.orgComponent = orgComponent;
         this.users = [];
         this.isAdmin = true;
@@ -150,7 +150,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                 switch (_f.label) {
                     case 0:
                         _e = this;
-                        return [4 /*yield*/, this.orgApi.getCampaignsByOrgId("" + this.organizationInput[0].id)];
+                        return [4 /*yield*/, this.organizationService.getCampaignsByOrgId("" + this.organizationInput[0].id)];
                     case 1:
                         _e.campaignsCopy = _f.sent();
                         this.campaigns = this.campaignsCopy;
@@ -186,7 +186,7 @@ var OrganizationDetailsComponent = /** @class */ (function () {
                 switch (_h.label) {
                     case 0:
                         _g = this;
-                        return [4 /*yield*/, this.orgApi.getProjectsByOrgId("" + this.organizationInput[0].id)];
+                        return [4 /*yield*/, this.organizationService.getProjectsByOrgId("" + this.organizationInput[0].id)];
                     case 1:
                         _g.projectsCopy = _h.sent();
                         this.projects = this.projectsCopy;

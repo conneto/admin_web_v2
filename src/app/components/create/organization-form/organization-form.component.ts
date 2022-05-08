@@ -10,7 +10,7 @@ import { OrganizationsComponent } from 'src/app/pages/management/mod-organizatio
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { SnackBarMessageComponent } from '../../snack-bar-message/snack-bar-message.component';
 
 @Component({
@@ -55,7 +55,7 @@ export class OrganizationFormComponent implements OnInit {
     private router: Router,
     private snackBar: SnackBarMessageComponent,
     private formBuilder: FormBuilder,
-    private orgApi: OrganizationApiService,
+    private organizationService: OrganizationService,
     private user: AuthService
   ) { }
 
@@ -156,7 +156,7 @@ export class OrganizationFormComponent implements OnInit {
       );
 
       this.loadingService.isLoading.next(true);
-      let res: BaseResponse | null = await this.orgApi.create(this.uploadData);
+      let res: BaseResponse | null = await this.organizationService.create(this.uploadData);
       if (res?.status == 0) {
         this.snackBar.showMessage(
           'Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi',
@@ -167,7 +167,7 @@ export class OrganizationFormComponent implements OnInit {
         this.router.navigate(['/manager']);
       } else {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.orgApi.create(
+        let res: BaseResponse | null = await this.organizationService.create(
           this.uploadData
         );
         if (res?.status == 0) {

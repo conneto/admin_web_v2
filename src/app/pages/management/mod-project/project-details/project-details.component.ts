@@ -16,7 +16,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { CampaignService } from 'src/app/services/campaign/campaign.service';
 import { LoadingDataService } from 'src/app/services/get-entity/loading-data.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
-import { OrganizationApiService } from 'src/app/services/organization/organization-api.service';
+import { OrganizationService } from 'src/app/services/organization-service/organization.service';
 import { ProjectService } from 'src/app/services/project-service/project.service';
 import { OrganizationsComponent } from '../../mod-organization/organizations/organizations.component';
 
@@ -44,9 +44,9 @@ export class ProjectDetailsComponent implements OnInit {
   organization?: any;
   isEmpty?: boolean;
   isOpenUpdateForm?: boolean = false;
-  
+
   constructor(
-    private organizationService: OrganizationApiService,
+    private organizationService: OrganizationService,
     private getEntityService: LoadingDataService,
     private snackBar: SnackBarMessageComponent,
     private auth: AuthService,

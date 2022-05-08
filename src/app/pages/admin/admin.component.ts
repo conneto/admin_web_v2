@@ -61,7 +61,7 @@ export class AdminComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private orgApi: OrganizationsComponent
+    private organizationService: OrganizationsComponent
   ) {}
 
   isExpanded: boolean = false;

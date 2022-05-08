@@ -175,7 +175,8 @@ var constant_1 = require("src/app/constant/constant");
 var CampaignForm =
 /** @class */
 function () {
-  function CampaignForm(organizationService, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+  function CampaignForm(currency, organizationService, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+    this.currency = currency;
     this.organizationService = organizationService;
     this.projectApi = projectApi;
     this.loadingService = loadingService;
@@ -201,17 +202,22 @@ function () {
     // uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
   };
 
+  CampaignForm.prototype.getValue = function (element) {
+    this.defaultNumber = this.currency.transform(this.defaultNumber, 'đ');
+    element.target.value = this.defaultNumber;
+  };
+
   CampaignForm.prototype.initForm = function () {
     this.campaignForm = this.formBuilder.group({
       selected: [this.selectedValue, forms_1.Validators.required],
       name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
-      description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128), forms_1.Validators.maxLength(256)]],
+      description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128)]],
       start_date: ['', forms_1.Validators.required],
       end_date: ['', forms_1.Validators.required],
       start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
       end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
       request_type: ['create'],
-      type: ['', forms_1.Validators.required],
+      type: [this.selectedRadio, forms_1.Validators.required],
       target_number: ['', forms_1.Validators.required],
       job_requirement: [''],
       job_description: [''],
@@ -224,43 +230,66 @@ function () {
 
   CampaignForm.prototype.check = function () {
     return __awaiter(this, void 0, void 0, function () {
-      var _a, _b;
+      var _a, _b, _c, _d;
 
-      return __generator(this, function (_c) {
-        switch (_c.label) {
+      return __generator(this, function (_e) {
+        switch (_e.label) {
           case 0:
             if (!this.data.project) return [3
             /*break*/
-            , 1];
-            this.isOnlyProject = true;
-            return [3
-            /*break*/
             , 4];
-
-          case 1:
+            this.isOnlyProject = true;
             _a = this;
             return [4
             /*yield*/
             , this.organizationService.getAll()];
 
-          case 2:
-            _a.organizations = _c.sent();
+          case 1:
+            _a.organizations = _e.sent();
             if (!this.organizations) return [3
             /*break*/
-            , 4];
+            , 3];
             _b = this;
             return [4
             /*yield*/
             , this.organizationService.getProjectsByOrgId("" + this.organizations[0].id)];
 
-          case 3:
-            _b.cloneProjects = _c.sent();
+          case 2:
+            _b.cloneProjects = _e.sent();
             this.projects = this.cloneProjects.filter(function (x) {
               return x.result_code == 610;
             });
-            _c.label = 4;
+            _e.label = 3;
+
+          case 3:
+            return [3
+            /*break*/
+            , 7];
 
           case 4:
+            _c = this;
+            return [4
+            /*yield*/
+            , this.organizationService.getAll()];
+
+          case 5:
+            _c.organizations = _e.sent();
+            if (!this.organizations) return [3
+            /*break*/
+            , 7];
+            _d = this;
+            return [4
+            /*yield*/
+            , this.organizationService.getProjectsByOrgId("" + this.organizations[0].id)];
+
+          case 6:
+            _d.cloneProjects = _e.sent();
+            this.projects = this.cloneProjects.filter(function (x) {
+              return x.result_code == 610;
+            });
+            _e.label = 7;
+
+          case 7:
             return [2
             /*return*/
             ];
@@ -331,8 +360,11 @@ function () {
     }
 
     if (this.campaignForm.valid) {
-      this.campaignForm.value.category = this.categoryString; // console.log(this.campaignForm.value);
-
+      this.campaignForm.value.category = this.categoryString;
+      this.campaignForm.value.start_date = new Date(this.campaignForm.value.start_date);
+      this.campaignForm.value.start_working_date = new Date(this.campaignForm.value.start_working_date);
+      this.campaignForm.value.end_working_date = new Date(this.campaignForm.value.end_working_date);
+      this.campaignForm.value.end_date = new Date(this.campaignForm.value.end_date);
       this.uploadData.append('campaign', JSON.stringify(this.campaignForm.value));
       this.dialogRef.close(this.uploadData);
     }
@@ -356,22 +388,27 @@ function () {
   });
 
   CampaignForm.prototype.getType = function (e) {
-    // console.log(e);
     if (e == 'Quyên góp') {
+      this.campaignForm.patchValue({
+        start_working_date: "" + this.campaignForm.value.start_date
+      });
+      this.campaignForm.patchValue({
+        end_working_date: "" + this.campaignForm.value.end_date
+      });
       this.campaignForm.removeControl('job_requirement');
       this.campaignForm.removeControl('job_description');
       this.campaignForm.removeControl('job_benefit');
     } else if (e == 'Tuyển tình nguyện viên') {
-      this.campaignForm.setControl('job_requirement', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
-      this.campaignForm.setControl('job_description', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
-      this.campaignForm.setControl('job_benefit', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]));
+      this.campaignForm.setControl('job_requirement', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8)]));
+      this.campaignForm.setControl('job_description', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8)]));
+      this.campaignForm.setControl('job_benefit', new forms_1.FormControl('', [forms_1.Validators.required, forms_1.Validators.minLength(8)]));
     }
   };
 
   CampaignForm.prototype.onRemoveCategory = function (e) {
     this.isRemoved = true;
     var category = this.campaignForm.controls.category.value;
-    var index = category.indexOf(e); // console.log(index);
+    var index = category.indexOf(e);
 
     if (index !== -1) {
       category.splice(index, 1);
@@ -388,7 +425,7 @@ function () {
     selector: 'app-campaign-form',
     templateUrl: './campaign-form.component.html',
     styleUrls: ['./campaign-form.component.scss']
-  }), __param(5, core_1.Inject(dialog_1.MAT_DIALOG_DATA))], CampaignForm);
+  }), __param(6, core_1.Inject(dialog_1.MAT_DIALOG_DATA))], CampaignForm);
   return CampaignForm;
 }();
 

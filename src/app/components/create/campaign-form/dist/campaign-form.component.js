@@ -51,9 +51,9 @@ var forms_1 = require("@angular/forms");
 var dialog_1 = require("@angular/material/dialog");
 var constant_1 = require("src/app/constant/constant");
 var CampaignForm = /** @class */ (function () {
-    function CampaignForm(currency, organizationApi, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
+    function CampaignForm(currency, organizationService, projectApi, loadingService, authApi, dialogRef, data, formBuilder, organizatioNDetail) {
         this.currency = currency;
-        this.organizationApi = organizationApi;
+        this.organizationService = organizationService;
         this.projectApi = projectApi;
         this.loadingService = loadingService;
         this.authApi = authApi;
@@ -84,12 +84,25 @@ var CampaignForm = /** @class */ (function () {
     CampaignForm.prototype.initForm = function () {
         this.campaignForm = this.formBuilder.group({
             selected: [this.selectedValue, forms_1.Validators.required],
-            name: ['', [forms_1.Validators.required, forms_1.Validators.minLength(8), forms_1.Validators.maxLength(128)]],
+            name: [
+                '',
+                [
+                    forms_1.Validators.required,
+                    forms_1.Validators.minLength(8),
+                    forms_1.Validators.maxLength(128),
+                ],
+            ],
             description: ['', [forms_1.Validators.required, forms_1.Validators.minLength(128)]],
             start_date: ['', forms_1.Validators.required],
             end_date: ['', forms_1.Validators.required],
-            start_working_date: ["", this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
-            end_working_date: ['', this.selectedRadio == "Quyên góp" ? "" : forms_1.Validators.required],
+            start_working_date: [
+                '',
+                this.selectedRadio == 'Quyên góp' ? '' : forms_1.Validators.required,
+            ],
+            end_working_date: [
+                '',
+                this.selectedRadio == 'Quyên góp' ? '' : forms_1.Validators.required,
+            ],
             request_type: ['create'],
             type: [this.selectedRadio, forms_1.Validators.required],
             target_number: ['', forms_1.Validators.required],
@@ -110,12 +123,12 @@ var CampaignForm = /** @class */ (function () {
                         if (!this.data.project) return [3 /*break*/, 4];
                         this.isOnlyProject = true;
                         _a = this;
-                        return [4 /*yield*/, this.organizationApi.getAll()];
+                        return [4 /*yield*/, this.organizationService.getAll()];
                     case 1:
                         _a.organizations = _e.sent();
                         if (!this.organizations) return [3 /*break*/, 3];
                         _b = this;
-                        return [4 /*yield*/, this.organizationApi.getProjectsByOrgId("" + this.organizations[0].id)];
+                        return [4 /*yield*/, this.organizationService.getProjectsByOrgId("" + this.organizations[0].id)];
                     case 2:
                         _b.cloneProjects = _e.sent();
                         this.projects = this.cloneProjects.filter(function (x) {
@@ -125,12 +138,12 @@ var CampaignForm = /** @class */ (function () {
                     case 3: return [3 /*break*/, 7];
                     case 4:
                         _c = this;
-                        return [4 /*yield*/, this.organizationApi.getAll()];
+                        return [4 /*yield*/, this.organizationService.getAll()];
                     case 5:
                         _c.organizations = _e.sent();
                         if (!this.organizations) return [3 /*break*/, 7];
                         _d = this;
-                        return [4 /*yield*/, this.organizationApi.getProjectsByOrgId("" + this.organizations[0].id)];
+                        return [4 /*yield*/, this.organizationService.getProjectsByOrgId("" + this.organizations[0].id)];
                     case 6:
                         _d.cloneProjects = _e.sent();
                         this.projects = this.cloneProjects.filter(function (x) {
@@ -148,17 +161,18 @@ var CampaignForm = /** @class */ (function () {
     CampaignForm.prototype.yesClick = function () {
         var _this = this;
         var _a;
-        if (this.campaignForm.controls.category.value.length != 0 && this.campaignForm.controls.category.value) {
+        if (this.campaignForm.controls.category.value.length != 0 &&
+            this.campaignForm.controls.category.value) {
             if (this.isRemoved == true || this.isSubmitted == true) {
                 this.categoryStringClone = '';
                 for (var i = 0; i < this.campaignForm.controls.category.value.length; i++) {
-                    this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                    this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                 }
             }
             else {
                 this.categoryStringClone = '';
                 for (var i = 0; i < this.campaignForm.controls.category.value.length; i++) {
-                    this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat("|", this.categoryStringClone);
+                    this.categoryStringClone = this.campaignForm.controls.category.value[i].name.concat('|', this.categoryStringClone);
                 }
             }
         }
@@ -176,8 +190,12 @@ var CampaignForm = /** @class */ (function () {
             this.campaignForm.patchValue({ project_id: "" + this.projects[0].id });
         }
         if (this.selectedRadio == 'Quyên góp') {
-            this.campaignForm.patchValue({ start_working_date: "" + this.campaignForm.value.start_date });
-            this.campaignForm.patchValue({ end_working_date: "" + this.campaignForm.value.end_date });
+            this.campaignForm.patchValue({
+                start_working_date: "" + this.campaignForm.value.start_date
+            });
+            this.campaignForm.patchValue({
+                end_working_date: "" + this.campaignForm.value.end_date
+            });
             this.campaignForm.patchValue({ type: 'donation' });
             this.campaignForm.removeControl('job_requirement');
             this.campaignForm.removeControl('job_description');
@@ -213,8 +231,12 @@ var CampaignForm = /** @class */ (function () {
     });
     CampaignForm.prototype.getType = function (e) {
         if (e == 'Quyên góp') {
-            this.campaignForm.patchValue({ start_working_date: "" + this.campaignForm.value.start_date });
-            this.campaignForm.patchValue({ end_working_date: "" + this.campaignForm.value.end_date });
+            this.campaignForm.patchValue({
+                start_working_date: "" + this.campaignForm.value.start_date
+            });
+            this.campaignForm.patchValue({
+                end_working_date: "" + this.campaignForm.value.end_date
+            });
             this.campaignForm.removeControl('job_requirement');
             this.campaignForm.removeControl('job_description');
             this.campaignForm.removeControl('job_benefit');
