@@ -35,7 +35,7 @@ import { CommonInterceptor } from './common.interceptor';
   providers: [
     CurrencyPipe,
     {
-      provide:HTTP_INTERCEPTORS,useClass:CommonInterceptor,multi:true
+      provide:HTTP_INTERCEPTORS,useClass:CommonInterceptorr,multi:true
     }
   ],
   bootstrap: [AppComponent],
