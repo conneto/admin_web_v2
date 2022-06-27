@@ -6,12 +6,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularMaterialModule } from 'src/app/angular-material.module';
 import { ComponentModule } from './components/component/component.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HotToastModule } from '@ngneat/hot-toast';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { FileUploadModule } from 'ng2-file-upload';
+// import { FileUploadModule } from 'ng2-file-upload';
 import { CurrencyPipe } from '@angular/common';
+import { CommonInterceptor } from './common.interceptor';
 
 
 
@@ -29,10 +30,13 @@ import { CurrencyPipe } from '@angular/common';
     HotToastModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
-    FileUploadModule,
+  
   ],
   providers: [
-    CurrencyPipe
+    CurrencyPipe,
+    {
+      provide:HTTP_INTERCEPTORS,useClass:CommonInterceptor,multi:true
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
