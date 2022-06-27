@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
 
   BaseResponseAdapter,
@@ -139,6 +140,10 @@ export class ApiService {
         }
       );
     });
+  }
+  public getByObservable(api_name: string, params?: any): Observable<any> {
+    let api_uri = this.getFetchUri(api_name, params);
+    return this.http.get<any>(api_uri);
   }
   delete(api_name: string, params?: any): any {
     let api_uri = this.getPostUri(api_name, params);

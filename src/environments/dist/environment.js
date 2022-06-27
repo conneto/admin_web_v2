@@ -7,7 +7,7 @@ exports.environment = void 0;
 exports.environment = {
     production: false,
     api_core: 'http://conneto.org:5000/core/api/v1',
-    api_fetch: 'http://conneto.org:5001/fetch_data/api/v1'
+    api_fetch: 'http://localhost:3000'
 };
 /*
  * For easier debugging in development mode, you can import the following file

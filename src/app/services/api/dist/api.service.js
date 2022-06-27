@@ -105,6 +105,10 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
+    ApiService.prototype.getByObservable = function (api_name, params) {
+        var api_uri = this.getFetchUri(api_name, params);
+        return this.http.get(api_uri);
+    };
     ApiService.prototype["delete"] = function (api_name, params) {
         var _this = this;
         var api_uri = this.getPostUri(api_name, params);
