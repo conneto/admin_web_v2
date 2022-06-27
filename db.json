@@ -1,0 +1,87 @@
+{
+  "organizations": [{
+    "id": 1,
+    "category": "ahihi",
+    "type": "ngo",
+    "created_name":"Tổ chức A",
+    "created_at":"22/06/2022",
+    "name": "THE PHIÊU LINH PROJECT",
+    "description": "ahihi",
+    "founding_date": "22",
+    "eng_name": "ahihi",
+    "is_active": true,
+    "is_enable": true,
+    "result_code": 510
+    
+  },{
+    "id": 1,
+    "category": "ahihi",
+    "type": "ngo",
+    "created_name":"Tổ chức B",
+    "created_at":"22/06/2022",
+    "name": "VTC ACADEMY - DỰ ÁN TÔI CÓ 1 ƯỚC MƠ",
+    "description": "ahihi",
+    "founding_date": "22",
+    "eng_name": "ahihi",
+    "is_active": true,
+    "is_enable": true,
+    "result_code": 510
+    
+  },{
+    "id": 1,
+    "category": "ahihi",
+    "type": "ngo",
+    "created_name":"Tổ chức C",
+    "created_at":"22/06/2022",
+    "name": "LĂN BÁNH ƯỚC MƠ",
+    "description": "ahihi",
+    "founding_date": "22",
+    "eng_name": "ahihi",
+    "is_active": true,
+    "is_enable": true,
+    "result_code": 510
+    
+  },{
+    "id": 1,
+    "category": "ahihi",
+    "type": "ngo",
+    "created_name":"Tổ chức D",
+    "created_at":"22/06/2022",
+    "name": "Ahihi",
+    "description": "ahihi",
+    "founding_date": "22",
+    "eng_name": "ahihi",
+    "is_active": true,
+    "is_enable": true,
+    "result_code": 510
+    
+  },{
+    "id": 1,
+    "category": "ahihi",
+    "type": "ngo",
+    "created_name":"Tổ chức E",
+    "created_at":"22/06/2022",
+    "name": "ENLIGHTEN",
+    "description": "ahihi",
+    "founding_date": "22",
+    "eng_name": "ahihi",
+    "is_active": true,
+    "is_enable": true,
+    "result_code": 510
+    
+  },{
+    "id": 1,
+    "category": "ahihi",
+    "type": "ngo",
+    "created_name":"Tổ chức F",
+    "created_at":"22/06/2022",
+    "name": "MẠNG LƯỚI THANH NIÊN HÀNH ĐỘNG VÌ KHÍ HẬU",
+    "description": "ahihi",
+    "founding_date": "22",
+    "eng_name": "ahihi",
+    "is_active": true,
+    "is_enable": true,
+    "result_code": 510
+    
+  }]
+}
