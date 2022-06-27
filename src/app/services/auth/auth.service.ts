@@ -19,9 +19,18 @@ export class AuthService {
   private curUser: Observable<any>;
 
   constructor(private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
-
+    const userFake = {
+      username: 'admin',
+      password: '1',
+      role_id: 'admin',
+      first_name:"Admin",
+    }
+    const json=JSON.stringify(userFake);
+    console.log(json);
+    localStorage.setItem("USER_FAKE", json);
     this.curUserSubject = new BehaviorSubject<any>(
-      JSON.parse(localStorage.getItem('USER_WEB')!)
+       JSON.parse(localStorage.getItem('USER_FAKE')!)
+
     );
     this.curUser = this.curUserSubject.asObservable();
   }
@@ -53,7 +62,7 @@ export class AuthService {
 
         localStorage.setItem('USER_TOKEN', userLoginResponse.token);
         this.curUserSubject.next(userLoginResponse);
-     
+
       }
     } else if (res.status == 6) {
       this.loadingService.isLoading.next(false);

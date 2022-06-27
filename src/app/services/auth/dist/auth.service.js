@@ -55,7 +55,16 @@ var AuthService = /** @class */ (function () {
         this.userRequest = userRequest;
         this.userResponse = userResponse;
         this.registerRequest = registerRequest;
-        this.curUserSubject = new rxjs_1.BehaviorSubject(JSON.parse(localStorage.getItem('USER_WEB')));
+        var userFake = {
+            username: 'admin',
+            password: '1',
+            role_id: 'admin',
+            first_name: "Admin"
+        };
+        var json = JSON.stringify(userFake);
+        console.log(json);
+        localStorage.setItem("USER_FAKE", json);
+        this.curUserSubject = new rxjs_1.BehaviorSubject(JSON.parse(localStorage.getItem('USER_FAKE')));
         this.curUser = this.curUserSubject.asObservable();
     }
     Object.defineProperty(AuthService.prototype, "currentUserValue", {
