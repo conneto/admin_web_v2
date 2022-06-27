@@ -20,6 +20,7 @@ var hot_toast_1 = require("@ngneat/hot-toast");
 var forms_1 = require("@angular/forms");
 // import { FileUploadModule } from 'ng2-file-upload';
 var common_1 = require("@angular/common");
+var common_interceptor_1 = require("./common.interceptor");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -42,7 +43,7 @@ var AppModule = /** @class */ (function () {
             providers: [
                 common_1.CurrencyPipe,
                 {
-                    provide: http_1.HTTP_INTERCEPTORS, useClass: CommonInterceptorraass, multi: true
+                    provide: http_1.HTTP_INTERCEPTORS, useClass: common_interceptor_1.CommonInterceptor, multi: true
                 }
             ],
             bootstrap: [app_component_1.AppComponent],
