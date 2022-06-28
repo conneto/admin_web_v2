@@ -90,9 +90,9 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       //     return data.result_code==510;
       //   });
       // })
-      // tap(data => data.filter((data:any)=>{
-      //   console.log(data.result_code)
-      // })),
+      tap(data => data.filter((data:any)=>{
+        console.log(data.result_code)
+      })),
     ).subscribe((data: Organization[]) => {
         console.log(data);
         this.organizations = data;
