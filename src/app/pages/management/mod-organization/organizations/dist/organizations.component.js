@@ -44,13 +44,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationsComponent = void 0;
 var core_1 = require("@angular/core");
+var constant_1 = require("src/app/constant/constant");
 var OrganizationsComponent = /** @class */ (function () {
-    function OrganizationsComponent(utilService, loadingService, userService, organizationService, authService) {
+    function OrganizationsComponent(utilService, loadingService, userService, organizationService, authService, apiService) {
         this.utilService = utilService;
         this.loadingService = loadingService;
         this.userService = userService;
         this.organizationService = organizationService;
         this.authService = authService;
+        this.apiService = apiService;
         this.organizations = [];
         this.oldData = [];
         this.isShow = false;
@@ -70,11 +72,40 @@ var OrganizationsComponent = /** @class */ (function () {
         }
         else if (this.authService.currentUserValue.role_id == 'organization_manager') {
             this.isAdmin = false;
-            this.getAllOrganization();
+            this.getAllByObservable();
         }
         this.urlApi = this.loadingService.getApiGetLink.value;
         this.loadingService.isSkeleton.next(true);
         this.checkShowMore();
+    };
+    OrganizationsComponent.prototype.getAllByObservable = function () {
+        var _this = this;
+        this.apiService.getByObservable(constant_1.Constant.ORGANIZATIONS).pipe(
+        // map((data:Organization[])=>{
+        //   return data.filter(data=>{
+        //     console.log(data);
+        //     return data.result_code==510;
+        //   });
+        // })
+        // tap(data => data.filter((data:any)=>{
+        //   console.log(data.result_code)
+        // })),
+        ).subscribe(function (data) {
+            console.log(data);
+            _this.organizations = data;
+            _this.isLoaded = true;
+            _this.noOrg = false;
+            _this.isEmpty = false;
+            _this.isNoMore = false;
+            _this.isList = false;
+            _this.isRequest = false;
+            _this.number = _this.organizations.length;
+            _this.numberCount = new Array(_this.organizations.length);
+        }
+        // , (error) => {
+        //   console.log(error);
+        // }
+        );
     };
     OrganizationsComponent.prototype.ngAfterViewInit = function () { };
     OrganizationsComponent.prototype.ngOnDestroy = function () { };
@@ -154,146 +185,154 @@ var OrganizationsComponent = /** @class */ (function () {
     };
     OrganizationsComponent.prototype.checkToGetData = function (getStatus) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.organizationService.getAll()];
-                    case 1:
-                        _a.organizations = _b.sent();
-                        this.passData = this.organizations;
-                        if (getStatus == 'pending') {
-                            this.getAllOrganizationByStatus('pending');
-                            localStorage.setItem('pending', 'true');
-                        }
-                        else if (!localStorage.getItem('reject') &&
-                            !localStorage.getItem('approve') &&
-                            !localStorage.getItem('pending')) {
-                            this.getAllOrganizationByStatus('approve');
-                            localStorage.setItem('approve', 'true');
-                        }
-                        else {
-                            if (localStorage.getItem('reject')) {
-                                this.getAllOrganizationByStatus('reject');
-                            }
-                            else if (localStorage.getItem('approve')) {
-                                this.getAllOrganizationByStatus('approve');
-                            }
-                            else if (localStorage.getItem('pending')) {
-                                this.getAllOrganizationByStatus('pending');
-                            }
-                        }
-                        return [2 /*return*/];
+            return __generator(this, function (_a) {
+                this.getAllByObservable();
+                this.passData = this.organizations;
+                if (getStatus == 'pending') {
+                    this.getAllOrganizationByStatus('pending');
+                    localStorage.setItem('pending', 'true');
                 }
+                else if (!localStorage.getItem('reject') &&
+                    !localStorage.getItem('approve') &&
+                    !localStorage.getItem('pending')) {
+                    this.getAllOrganizationByStatus('approve');
+                    localStorage.setItem('approve', 'true');
+                }
+                else {
+                    if (localStorage.getItem('reject')) {
+                        this.getAllOrganizationByStatus('reject');
+                    }
+                    else if (localStorage.getItem('approve')) {
+                        this.getAllOrganizationByStatus('approve');
+                    }
+                    else if (localStorage.getItem('pending')) {
+                        this.getAllOrganizationByStatus('pending');
+                    }
+                }
+                return [2 /*return*/];
             });
         });
     };
     OrganizationsComponent.prototype.getAllOrganizationByStatus = function (status, org) {
-        var _a, _b, _c, _d, _e, _f;
         return __awaiter(this, void 0, void 0, function () {
-            var check, i, i, i;
             var _this = this;
-            return __generator(this, function (_g) {
+            return __generator(this, function (_a) {
                 this.status = status;
-                if (org) {
-                    this.organizations = org;
-                    // console.log(this.organizations);
-                }
+                // if (org) {
+                //   this.organizations = org;
+                //   // console.log(this.organizations);
+                // }
                 if (status) {
                     this.isNoMore = false;
-                    if (this.authService.currentUserValue.role_id == 'organization_manager') {
-                        check = this.organizations.every(function (a) {
-                            return a.result_code == 503;
-                        });
-                        if (check == true) {
-                            this.isPending = true;
-                        }
-                    }
+                    // if (this.authService.currentUserValue.role_id == 'organization_manager') {
+                    //   const check = this.organizations.every((a) => {
+                    //     return a.result_code == 503;
+                    //   });
+                    //   if (check == true) {
+                    //     this.isPending = true;
+                    //   }
+                    // }
                     this.isList = false;
                     switch (status) {
                         case 'approve':
                             this.changeToGrid();
                             this.isRequest = false;
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_b = (_a = this.organizations[i]) === null || _a === void 0 ? void 0 : _a.logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
-                            }
-                            if (this.authService.currentUserValue.role_id == 'organization_manager') {
-                                if (this.organizations.length <= 0 || this.organizations == null) {
-                                    this.organizations = [];
-                                    this.noOrg = true;
-                                }
-                                else {
-                                    this.organizations = this.passData;
-                                    this.oldData = this.passData;
-                                    this.noOrg = false;
-                                    this.isEmpty = false;
-                                    if (this.organizations.length <= 0 ||
-                                        this.organizations == null) {
-                                        this.isEmpty = true;
-                                    }
-                                }
-                            }
-                            else if (this.authService.currentUserValue.role_id == 'admin') {
+                            // for (var i = 0; i < this.organizations.length; i++) {
+                            //   this.organizationId = this.organizations[i].id;
+                            //   this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+                            //     /\\/g,
+                            //     '/'
+                            //   );
+                            // }
+                            // if (
+                            //   this.authService.currentUserValue.role_id == 'organization_manager'
+                            // ) {
+                            //   if (this.organizations.length <= 0 || this.organizations == null) {
+                            //     this.organizations = [];
+                            //     this.noOrg = true;
+                            //   } else {
+                            //     this.organizations = this.passData;
+                            //     this.oldData = this.passData;
+                            //     this.noOrg = false;
+                            //     this.isEmpty = false;
+                            //     if (
+                            //       this.organizations.length <= 0 ||
+                            //       this.organizations == null
+                            //     ) {
+                            //       this.isEmpty = true;
+                            //     }
+                            //   }
+                            // } else
+                            if (this.authService.currentUserValue.role_id == 'admin') {
                                 this.isEmpty = false;
                                 this.noOrg = false;
-                                this.organizations = this.passData.filter(function (x) { return (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521); });
-                                this.oldData = this.passData.filter(function (x) { return (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521); });
+                                // this.organizations = this.passData.filter(
+                                //   (x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521)
+                                // );
+                                // this.oldData = this.passData.filter((x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521));
                             }
                             setTimeout(function () {
                                 _this.loadingService.isSkeleton.next(false);
                                 _this.isLoaded = true;
                             }, 1000);
                             break;
-                        case 'reject':
-                            this.isRequest = false;
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_d = (_c = this.organizations[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
-                            }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code == 511; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 511; });
-                            this.isEmpty = false;
-                            if (this.organizations == null || this.organizations.length <= 0) {
-                                this.isEmpty = true;
-                            }
-                            setTimeout(function () {
-                                _this.loadingService.isSkeleton.next(false);
-                                _this.isLoaded = true;
-                            }, 1000);
-                            break;
-                        case 'pending':
-                            for (i = 0; i < this.organizations.length; i++) {
-                                this.organizationId = this.organizations[i].id;
-                                this.organizations[i].logo = (_f = (_e = this.organizations[i]) === null || _e === void 0 ? void 0 : _e.logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '/');
-                            }
-                            if (this.authService.currentUserValue.role_id == 'admin') {
-                                this.isRequest = true;
-                            }
-                            else {
-                                this.isRequest = false;
-                            }
-                            this.organizations = this.organizations.filter(function (x) { return x.result_code == 501 || x.result_code == 503 || x.result_code == 502; });
-                            this.oldData = this.passData.filter(function (x) { return x.result_code == 501 || x.result_code == 503 || x.result_code == 502; });
-                            this.isEmpty = false;
-                            if (this.organizations == null || this.organizations.length <= 0) {
-                                this.isEmpty = true;
-                            }
-                            setTimeout(function () {
-                                _this.loadingService.isSkeleton.next(false);
-                                _this.isLoaded = true;
-                            }, 1000);
-                            break;
+                            //   case 'reject':
+                            //     this.isRequest = false;
+                            //     for (var i = 0; i < this.organizations.length; i++) {
+                            //       this.organizationId = this.organizations[i].id;
+                            //       this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+                            //         /\\/g,
+                            //         '/'
+                            //       );
+                            //     }
+                            //     this.organizations = this.organizations.filter(
+                            //       (x) => x.result_code == 511
+                            //     );
+                            //     this.oldData = this.passData.filter((x) => x.result_code == 511);
+                            //     this.isEmpty = false;
+                            //     if (this.organizations == null || this.organizations.length <= 0) {
+                            //       this.isEmpty = true;
+                            //     }
+                            //     setTimeout(() => {
+                            //       this.loadingService.isSkeleton.next(false);
+                            //       this.isLoaded = true;
+                            //     }, 1000);
+                            //     break;
+                            //   case 'pending':
+                            //     for (var i = 0; i < this.organizations.length; i++) {
+                            //       this.organizationId = this.organizations[i].id;
+                            //       this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+                            //         /\\/g,
+                            //         '/'
+                            //       );
+                            //     }
+                            //     if (this.authService.currentUserValue.role_id == 'admin') {
+                            //       this.isRequest = true;
+                            //     } else {
+                            //       this.isRequest = false;
+                            //     }
+                            //     this.organizations = this.organizations.filter(
+                            //       (x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502
+                            //     );
+                            //     this.oldData = this.passData.filter((x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502);
+                            //     this.isEmpty = false;
+                            //     if (this.organizations == null || this.organizations.length <= 0) {
+                            //       this.isEmpty = true;
+                            //     }
+                            //     setTimeout(() => {
+                            //       this.loadingService.isSkeleton.next(false);
+                            //       this.isLoaded = true;
+                            //     }, 1000);
+                            //     break;
+                            // }
+                            // if (this.organizations.length > 6) {
+                            //   this.organizations = this.organizations.slice(0, 6);
+                            // } else {
+                            //   this.isNoMore = true;
+                            // }
+                            this.number = this.organizations.length;
+                            this.numberCount = new Array(this.organizations.length);
                     }
-                    if (this.organizations.length > 6) {
-                        this.organizations = this.organizations.slice(0, 6);
-                    }
-                    else {
-                        this.isNoMore = true;
-                    }
-                    this.number = this.organizations.length;
-                    this.numberCount = new Array(this.organizations.length);
                 }
                 return [2 /*return*/];
             });

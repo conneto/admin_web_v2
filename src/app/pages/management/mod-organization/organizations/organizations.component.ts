@@ -6,11 +6,14 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { concatMap, filter, map, tap } from 'rxjs/operators';
 import { ChangeToListComponent } from 'src/app/components/change-to-list/change-to-list.component';
 
 import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
+import { Constant } from 'src/app/constant/constant';
 import { Organization } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
+import { ApiService } from 'src/app/services/api/api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationService } from 'src/app/services/organization-service/organization.service';
@@ -52,15 +55,19 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   oldDataSearch: Organization[] = [];
   isTabRejected?: boolean;
   isNoMore?: boolean;
+  test: any;
   constructor(
     public utilService: UtilService,
     private loadingService: LoadingService,
     private userService: UserService,
     private organizationService: OrganizationService,
-    private authService: AuthService
+    private authService: AuthService,
+    private apiService: ApiService
   ) { }
 
   ngOnInit(): void {
+
+
     if (this.authService.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
       this.checkToGetData();
@@ -68,13 +75,42 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       this.authService.currentUserValue.role_id == 'organization_manager'
     ) {
       this.isAdmin = false;
-      this.getAllOrganization();
+      this.getAllByObservable();
     }
     this.urlApi = this.loadingService.getApiGetLink.value;
     this.loadingService.isSkeleton.next(true);
     this.checkShowMore();
   }
+  public getAllByObservable(): any {
+    this.apiService.getByObservable(Constant.ORGANIZATIONS).pipe(
+      // map((data:Organization[])=>{
 
+      //   return data.filter(data=>{
+      //     console.log(data);
+      //     return data.result_code==510;
+      //   });
+      // })
+      // tap(data => data.filter((data:any)=>{
+      //   console.log(data.result_code)
+      // })),
+    ).subscribe((data: Organization[]) => {
+        console.log(data);
+        this.organizations = data;
+        this.isLoaded = true;
+        this.noOrg = false;
+        this.isEmpty = false;
+        this.isNoMore = false;
+        this.isList = false;
+        this.isRequest = false;
+        this.number = this.organizations.length;
+        this.numberCount = new Array<number>(this.organizations.length);
+      }
+        // , (error) => {
+        //   console.log(error);
+        // }
+
+      )
+  }
   ngAfterViewInit(): void { }
   ngOnDestroy(): void { }
   showMore() {
@@ -148,7 +184,7 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   }
 
   async checkToGetData(getStatus?: string) {
-    this.organizations = await this.organizationService.getAll();
+    this.getAllByObservable();
 
     this.passData = this.organizations;
     if (getStatus == 'pending') {
@@ -175,127 +211,131 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
   async getAllOrganizationByStatus(status?: string, org?: any) {
     this.status = status;
 
-    if (org) {
-      this.organizations = org;
-      // console.log(this.organizations);
-    }
+    // if (org) {
+    //   this.organizations = org;
+    //   // console.log(this.organizations);
+    // }
     if (status) {
       this.isNoMore = false;
-      if (this.authService.currentUserValue.role_id == 'organization_manager') {
-        const check = this.organizations.every((a) => {
-          return a.result_code == 503;
-        });
+      // if (this.authService.currentUserValue.role_id == 'organization_manager') {
+      //   const check = this.organizations.every((a) => {
+      //     return a.result_code == 503;
+      //   });
 
-        if (check == true) {
-          this.isPending = true;
-        }
-      }
+      //   if (check == true) {
+      //     this.isPending = true;
+      //   }
+      // }
       this.isList = false;
 
       switch (status) {
         case 'approve':
           this.changeToGrid();
           this.isRequest = false;
-          for (var i = 0; i < this.organizations.length; i++) {
-            this.organizationId = this.organizations[i].id;
-            this.organizations[i].logo = this.organizations[i]?.logo?.replace(
-              /\\/g,
-              '/'
-            );
-          }
+          // for (var i = 0; i < this.organizations.length; i++) {
+          //   this.organizationId = this.organizations[i].id;
+          //   this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+          //     /\\/g,
+          //     '/'
+          //   );
+          // }
 
-          if (
-            this.authService.currentUserValue.role_id == 'organization_manager'
-          ) {
-            if (this.organizations.length <= 0 || this.organizations == null) {
-              this.organizations = [];
-              this.noOrg = true;
-            } else {
-              this.organizations = this.passData;
-              this.oldData = this.passData;
-              this.noOrg = false;
-              this.isEmpty = false;
-              if (
-                this.organizations.length <= 0 ||
-                this.organizations == null
-              ) {
-                this.isEmpty = true;
-              }
-            }
-          } else if (this.authService.currentUserValue.role_id == 'admin') {
+          // if (
+          //   this.authService.currentUserValue.role_id == 'organization_manager'
+          // ) {
+          //   if (this.organizations.length <= 0 || this.organizations == null) {
+          //     this.organizations = [];
+          //     this.noOrg = true;
+          //   } else {
+          //     this.organizations = this.passData;
+          //     this.oldData = this.passData;
+          //     this.noOrg = false;
+          //     this.isEmpty = false;
+          //     if (
+          //       this.organizations.length <= 0 ||
+          //       this.organizations == null
+          //     ) {
+          //       this.isEmpty = true;
+          //     }
+          //   }
+          // } else
+
+          if (this.authService.currentUserValue.role_id == 'admin') {
             this.isEmpty = false;
             this.noOrg = false;
-            this.organizations = this.passData.filter(
-              (x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521)
-            );
-            this.oldData = this.passData.filter((x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521));
+            // this.organizations = this.passData.filter(
+            //   (x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521)
+            // );
+            // this.oldData = this.passData.filter((x) => (x.result_code == 510 || x.result_code == 531 || x.result_code == 520 || x.result_code == 521));
           }
           setTimeout(() => {
             this.loadingService.isSkeleton.next(false);
             this.isLoaded = true;
           }, 1000);
           break;
-        case 'reject':
-          this.isRequest = false;
-          for (var i = 0; i < this.organizations.length; i++) {
-            this.organizationId = this.organizations[i].id;
-            this.organizations[i].logo = this.organizations[i]?.logo?.replace(
-              /\\/g,
-              '/'
-            );
-          }
-          this.organizations = this.organizations.filter(
-            (x) => x.result_code == 511
-          );
-          this.oldData = this.passData.filter((x) => x.result_code == 511);
+          //   case 'reject':
+          //     this.isRequest = false;
+          //     for (var i = 0; i < this.organizations.length; i++) {
+          //       this.organizationId = this.organizations[i].id;
+          //       this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+          //         /\\/g,
+          //         '/'
+          //       );
+          //     }
+          //     this.organizations = this.organizations.filter(
+          //       (x) => x.result_code == 511
+          //     );
+          //     this.oldData = this.passData.filter((x) => x.result_code == 511);
 
-          this.isEmpty = false;
-          if (this.organizations == null || this.organizations.length <= 0) {
-            this.isEmpty = true;
-          }
-          setTimeout(() => {
-            this.loadingService.isSkeleton.next(false);
-            this.isLoaded = true;
-          }, 1000);
-          break;
-        case 'pending':
-          for (var i = 0; i < this.organizations.length; i++) {
-            this.organizationId = this.organizations[i].id;
-            this.organizations[i].logo = this.organizations[i]?.logo?.replace(
-              /\\/g,
-              '/'
-            );
-          }
-          if (this.authService.currentUserValue.role_id == 'admin') {
-            this.isRequest = true;
-          } else {
-            this.isRequest = false;
-          }
-          this.organizations = this.organizations.filter(
-            (x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502
-          );
-          this.oldData = this.passData.filter((x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502);
+          //     this.isEmpty = false;
+          //     if (this.organizations == null || this.organizations.length <= 0) {
+          //       this.isEmpty = true;
+          //     }
+          //     setTimeout(() => {
+          //       this.loadingService.isSkeleton.next(false);
+          //       this.isLoaded = true;
+          //     }, 1000);
+          //     break;
+          //   case 'pending':
+          //     for (var i = 0; i < this.organizations.length; i++) {
+          //       this.organizationId = this.organizations[i].id;
+          //       this.organizations[i].logo = this.organizations[i]?.logo?.replace(
+          //         /\\/g,
+          //         '/'
+          //       );
+          //     }
+          //     if (this.authService.currentUserValue.role_id == 'admin') {
+          //       this.isRequest = true;
+          //     } else {
+          //       this.isRequest = false;
+          //     }
+          //     this.organizations = this.organizations.filter(
+          //       (x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502
+          //     );
+          //     this.oldData = this.passData.filter((x) => x.result_code == 501 || x.result_code == 503 || x.result_code == 502);
 
-          this.isEmpty = false;
+          //     this.isEmpty = false;
 
-          if (this.organizations == null || this.organizations.length <= 0) {
-            this.isEmpty = true;
-          }
-          setTimeout(() => {
-            this.loadingService.isSkeleton.next(false);
-            this.isLoaded = true;
-          }, 1000);
-          break;
+          //     if (this.organizations == null || this.organizations.length <= 0) {
+          //       this.isEmpty = true;
+          //     }
+          //     setTimeout(() => {
+          //       this.loadingService.isSkeleton.next(false);
+          //       this.isLoaded = true;
+          //     }, 1000);
+          //     break;
+          // }
+          // if (this.organizations.length > 6) {
+          //   this.organizations = this.organizations.slice(0, 6);
+          // } else {
+          //   this.isNoMore = true;
+          // }
+          this.number = this.organizations.length;
+          this.numberCount = new Array<number>(this.organizations.length);
       }
-      if (this.organizations.length > 6) {
-        this.organizations = this.organizations.slice(0, 6);
-      } else {
-        this.isNoMore = true;
-      }
-      this.number = this.organizations.length;
-      this.numberCount = new Array<number>(this.organizations.length);
     }
   }
+
 
   async getAllOrganization() {
     this.isLoaded = true;
