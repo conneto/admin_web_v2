@@ -11,7 +11,7 @@ import { ChangeToListComponent } from 'src/app/components/change-to-list/change-
 
 import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
 import { Constant } from 'src/app/constant/constant';
-import { Organization } from 'src/app/models/organization/organization';
+import { Organization, OrganizationAdapter } from 'src/app/models/organization/organization';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api/api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -62,7 +62,8 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private organizationService: OrganizationService,
     private authService: AuthService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private organizationAdapter:OrganizationAdapter
   ) { }
 
   ngOnInit(): void {
@@ -90,26 +91,37 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
       //     return data.result_code==510;
       //   });
       // })
-      tap(data => data.filter((data:any)=>{
-        console.log(data.result_code)
-      })),
-    ).subscribe((data: Organization[]) => {
-        console.log(data);
-        this.organizations = data;
-        this.isLoaded = true;
-        this.noOrg = false;
-        this.isEmpty = false;
-        this.isNoMore = false;
-        this.isList = false;
-        this.isRequest = false;
-        this.number = this.organizations.length;
-        this.numberCount = new Array<number>(this.organizations.length);
-      }
-        // , (error) => {
-        //   console.log(error);
-        // }
+      // tap(data => data.filter((data:any)=>{
+      //   console.log(data.result_code)
+      // })),
+      tap(data => {
+        return data;
+      })
+      
+      ,map(data=>{
+        return data.map((data:any)=>{
+          console.log(data);
+        })
+      })
+      
 
-      )
+    ).subscribe((data: Organization[]) => {
+      // console.log(data);
+      // this.organizations = data;
+      // this.isLoaded = true;
+      // this.noOrg = false;
+      // this.isEmpty = false;
+      // this.isNoMore = false;
+      // this.isList = false;
+      // this.isRequest = false;
+      // this.number = this.organizations.length;
+      // this.numberCount = new Array<number>(this.organizations.length);
+    }
+      // , (error) => {
+      //   console.log(error);
+      // }
+
+    )
   }
   ngAfterViewInit(): void { }
   ngOnDestroy(): void { }
