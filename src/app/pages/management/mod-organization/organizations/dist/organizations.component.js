@@ -47,14 +47,13 @@ var core_1 = require("@angular/core");
 var operators_1 = require("rxjs/operators");
 var constant_1 = require("src/app/constant/constant");
 var OrganizationsComponent = /** @class */ (function () {
-    function OrganizationsComponent(utilService, loadingService, userService, organizationService, authService, apiService, organizationAdapter) {
+    function OrganizationsComponent(utilService, loadingService, userService, organizationService, authService, apiService) {
         this.utilService = utilService;
         this.loadingService = loadingService;
         this.userService = userService;
         this.organizationService = organizationService;
         this.authService = authService;
         this.apiService = apiService;
-        this.organizationAdapter = organizationAdapter;
         this.organizations = [];
         this.oldData = [];
         this.isShow = false;
@@ -81,6 +80,7 @@ var OrganizationsComponent = /** @class */ (function () {
         this.checkShowMore();
     };
     OrganizationsComponent.prototype.getAllByObservable = function () {
+        var _this = this;
         this.apiService.getByObservable(constant_1.Constant.ORGANIZATIONS).pipe(
         // map((data:Organization[])=>{
         //   return data.filter(data=>{
@@ -88,26 +88,19 @@ var OrganizationsComponent = /** @class */ (function () {
         //     return data.result_code==510;
         //   });
         // })
-        // tap(data => data.filter((data:any)=>{
-        //   console.log(data.result_code)
-        // })),
-        operators_1.tap(function (data) {
-            return data;
-        }), operators_1.map(function (data) {
-            return data.map(function (data) {
-                console.log(data);
-            });
-        })).subscribe(function (data) {
-            // console.log(data);
-            // this.organizations = data;
-            // this.isLoaded = true;
-            // this.noOrg = false;
-            // this.isEmpty = false;
-            // this.isNoMore = false;
-            // this.isList = false;
-            // this.isRequest = false;
-            // this.number = this.organizations.length;
-            // this.numberCount = new Array<number>(this.organizations.length);
+        operators_1.tap(function (data) { return data.filter(function (data) {
+            console.log(data.result_code);
+        }); })).subscribe(function (data) {
+            console.log(data);
+            _this.organizations = data;
+            _this.isLoaded = true;
+            _this.noOrg = false;
+            _this.isEmpty = false;
+            _this.isNoMore = false;
+            _this.isList = false;
+            _this.isRequest = false;
+            _this.number = _this.organizations.length;
+            _this.numberCount = new Array(_this.organizations.length);
         }
         // , (error) => {
         //   console.log(error);
