@@ -46,13 +46,14 @@ exports.ProjectComponent = void 0;
 var core_1 = require("@angular/core");
 var project_form_component_1 = require("src/app/components/create/project-form/project-form.component");
 var ProjectComponent = /** @class */ (function () {
-    function ProjectComponent(organizationService, router, dialog, snackbar, loadingService, api, authApi) {
+    function ProjectComponent(apiService, organizationService, router, dialog, snackbar, loadingService, projectService, authApi) {
+        this.apiService = apiService;
         this.organizationService = organizationService;
         this.router = router;
         this.dialog = dialog;
         this.snackbar = snackbar;
         this.loadingService = loadingService;
-        this.api = api;
+        this.projectService = projectService;
         this.authApi = authApi;
         this.projects = [];
         this.passData = [];
@@ -168,142 +169,111 @@ var ProjectComponent = /** @class */ (function () {
         }
     };
     ProjectComponent.prototype.checkToGetData = function (status) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a, _b;
-            return __generator(this, function (_c) {
-                switch (_c.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.api.getAll()];
-                    case 1:
-                        _a.projects = _c.sent();
-                        _b = this;
-                        return [4 /*yield*/, this.organizationService.getAll()];
-                    case 2:
-                        _b.organization = _c.sent();
-                        this.passData = this.projects;
-                        if (status == 'pending') {
-                            this.getAllProjectsByStatus('pending', this.projects);
-                            localStorage.setItem('pending', 'true');
-                        }
-                        else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-                            && !localStorage.getItem('pending')) {
-                            this.getAllProjectsByStatus('approve');
-                            localStorage.setItem('approve', 'true');
-                        }
-                        else {
-                            if (localStorage.getItem('reject')) {
-                                this.getAllProjectsByStatus('reject');
-                            }
-                            else if (localStorage.getItem('approve')) {
-                                this.getAllProjectsByStatus('approve');
-                            }
-                            else if (localStorage.getItem('pending')) {
-                                this.getAllProjectsByStatus('pending');
-                            }
-                        }
-                        return [2 /*return*/];
+        var _this = this;
+        this.projectService.getAllByObservable().subscribe(function (data) {
+            _this.projects = data.data;
+            _this.passData = _this.projects;
+            if (status == 'pending') {
+                _this.getAllProjectsByStatus('pending', _this.projects);
+                localStorage.setItem('pending', 'true');
+            }
+            else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+                && !localStorage.getItem('pending')) {
+                _this.getAllProjectsByStatus('approve');
+                localStorage.setItem('approve', 'true');
+            }
+            else {
+                if (localStorage.getItem('reject')) {
+                    _this.getAllProjectsByStatus('reject');
                 }
-            });
+                else if (localStorage.getItem('approve')) {
+                    _this.getAllProjectsByStatus('approve');
+                }
+                else if (localStorage.getItem('pending')) {
+                    _this.getAllProjectsByStatus('pending');
+                }
+            }
+        });
+        this.organizationService.getAllByObservable().subscribe(function (data) {
+            _this.organization = data.data;
         });
     };
     ProjectComponent.prototype.getAllProjectsByStatus = function (status, pro) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
-        return __awaiter(this, void 0, void 0, function () {
-            var i, i, i;
-            return __generator(this, function (_u) {
-                this.isNoMore = false;
-                this.user = this.authApi.currentUserValue;
-                if (pro) {
-                    this.projects = pro;
+        this.isNoMore = false;
+        this.user = this.authApi.currentUserValue;
+        if (pro) {
+            this.projects = pro;
+        }
+        if (status) {
+            this.isList = false;
+            this.changeView();
+        }
+        switch (status) {
+            case 'approve':
+                this.isLoaded = true;
+                this.isRequest = false;
+                for (var i = 0; i < this.projects.length; i++) {
+                    this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                    this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                    this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
                 }
-                if (status) {
-                    this.isList = false;
-                    this.changeView();
+                this.projects = this.projects.filter(function (x) {
+                    return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621);
+                });
+                this.oldData = this.passData.filter(function (x) { return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621); });
+                this.isEmpty = false;
+                if (this.projects == [] || this.projects.length <= 0) {
+                    this.isEmpty = true;
                 }
-                switch (status) {
-                    case 'approve':
-                        this.isLoaded = true;
-                        this.isRequest = false;
-                        for (i = 0; i < this.projects.length; i++) {
-                            this.projects[i].cover = (_b = (_a = this.projects[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                            this.projects[i].logo = (_d = (_c = this.projects[i]) === null || _c === void 0 ? void 0 : _c.logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                            this.projects[i].organization_logo = (_f = (_e = this.projects[i]) === null || _e === void 0 ? void 0 : _e.organization_logo) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
-                        }
-                        this.projects = this.projects.filter(function (x) {
-                            return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621);
-                        });
-                        this.oldData = this.passData.filter(function (x) { return (x.result_code == 610 || x.result_code == 631 || x.result_code == 620 || x.result_code == 621); });
-                        this.isEmpty = false;
-                        if (this.projects == [] || this.projects.length <= 0) {
-                            this.isEmpty = true;
-                        }
-                        break;
-                    case 'reject':
-                        this.isLoaded = true;
-                        this.isRequest = false;
-                        for (i = 0; i < this.projects.length; i++) {
-                            this.projects[i].cover = (_h = (_g = this.projects[i]) === null || _g === void 0 ? void 0 : _g.cover) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
-                            this.projects[i].logo = (_k = (_j = this.projects[i]) === null || _j === void 0 ? void 0 : _j.logo) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
-                            this.projects[i].organization_logo = (_m = (_l = this.projects[i]) === null || _l === void 0 ? void 0 : _l.organization_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
-                        }
-                        this.projects = this.projects.filter(function (x) {
-                            return x.result_code == 611;
-                        });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 611; });
-                        this.isEmpty = false;
-                        if (this.projects == null || this.projects.length <= 0) {
-                            this.isEmpty = true;
-                        }
-                        break;
-                    case 'pending':
-                        this.isLoaded = true;
-                        for (i = 0; i < this.projects.length; i++) {
-                            this.projects[i].cover = (_p = (_o = this.projects[i]) === null || _o === void 0 ? void 0 : _o.cover) === null || _p === void 0 ? void 0 : _p.replace(/\\/g, '\/');
-                            this.projects[i].logo = (_r = (_q = this.projects[i]) === null || _q === void 0 ? void 0 : _q.logo) === null || _r === void 0 ? void 0 : _r.replace(/\\/g, '\/');
-                            this.projects[i].organization_logo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organization_logo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
-                        }
-                        this.projects = this.projects.filter(function (x) {
-                            return x.result_code == 601 || x.result_code == 603 || x.result_code == 602;
-                        });
-                        this.oldData = this.passData.filter(function (x) { return x.result_code == 601 || x.result_code == 603 || x.result_code == 602; });
-                        if (this.authApi.currentUserValue.role_id == 'admin') {
-                            this.isRequest = true;
-                        }
-                        else {
-                            this.isRequest = false;
-                        }
-                        this.isEmpty = false;
-                        if (this.projects == null || this.projects.length <= 0) {
-                            this.isEmpty = true;
-                        }
-                        break;
+                break;
+            case 'reject':
+                this.isLoaded = true;
+                this.isRequest = false;
+                for (var i = 0; i < this.projects.length; i++) {
+                    this.projects[i].cover = (_h = (_g = this.projects[i]) === null || _g === void 0 ? void 0 : _g.cover) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
+                    this.projects[i].logo = (_k = (_j = this.projects[i]) === null || _j === void 0 ? void 0 : _j.logo) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
+                    this.projects[i].organization_logo = (_m = (_l = this.projects[i]) === null || _l === void 0 ? void 0 : _l.organization_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
                 }
-                if (this.projects.length > 6) {
-                    this.projects = this.projects.slice(0, 6);
+                this.projects = this.projects.filter(function (x) {
+                    return x.result_code == 611;
+                });
+                this.oldData = this.passData.filter(function (x) { return x.result_code == 611; });
+                this.isEmpty = false;
+                if (this.projects == null || this.projects.length <= 0) {
+                    this.isEmpty = true;
+                }
+                break;
+            case 'pending':
+                this.isLoaded = true;
+                for (var i = 0; i < this.projects.length; i++) {
+                    this.projects[i].cover = (_p = (_o = this.projects[i]) === null || _o === void 0 ? void 0 : _o.cover) === null || _p === void 0 ? void 0 : _p.replace(/\\/g, '\/');
+                    this.projects[i].logo = (_r = (_q = this.projects[i]) === null || _q === void 0 ? void 0 : _q.logo) === null || _r === void 0 ? void 0 : _r.replace(/\\/g, '\/');
+                    this.projects[i].organization_logo = (_t = (_s = this.projects[i]) === null || _s === void 0 ? void 0 : _s.organization_logo) === null || _t === void 0 ? void 0 : _t.replace(/\\/g, '\/');
+                }
+                this.projects = this.projects.filter(function (x) {
+                    return x.result_code == 601 || x.result_code == 603 || x.result_code == 602;
+                });
+                this.oldData = this.passData.filter(function (x) { return x.result_code == 601 || x.result_code == 603 || x.result_code == 602; });
+                if (this.authApi.currentUserValue.role_id == 'admin') {
+                    this.isRequest = true;
                 }
                 else {
-                    this.isNoMore = true;
+                    this.isRequest = false;
                 }
-                this.number = this.projects.length;
-                return [2 /*return*/];
-            });
-        });
-    };
-    ProjectComponent.prototype.getAll = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.api.getAll()];
-                    case 1:
-                        _a.projects = _b.sent();
-                        return [2 /*return*/];
+                this.isEmpty = false;
+                if (this.projects == null || this.projects.length <= 0) {
+                    this.isEmpty = true;
                 }
-            });
-        });
+                break;
+        }
+        if (this.projects.length > 6) {
+            this.projects = this.projects.slice(0, 6);
+        }
+        else {
+            this.isNoMore = true;
+        }
+        this.number = this.projects.length;
     };
     ProjectComponent.prototype.openProjectForm = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -324,7 +294,7 @@ var ProjectComponent = /** @class */ (function () {
                             case 0:
                                 if (!data) return [3 /*break*/, 2];
                                 this.loadingService.isLoading.next(true);
-                                return [4 /*yield*/, this.api.createProject(data)];
+                                return [4 /*yield*/, this.projectService.createProject(data)];
                             case 1:
                                 res = _a.sent();
                                 if (res.status == 0) {

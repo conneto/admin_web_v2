@@ -3,6 +3,7 @@ import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { CampaignAdapter } from 'src/app/models/campaign/campaign.model';
 import { ApiService } from '../api/api.service';
 import { Constant } from 'src/app/constant/constant';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +16,26 @@ export class CampaignService {
   constructor(
     private apiService: ApiService,
     private campaignAdap: CampaignAdapter
-  ) {}
+  ) { }
   async getAll() {
     let res: BaseResponse = await this.apiService.get(Constant.CAMPAIGNS);
     res.data = res.data?.map((item: any) => this.campaignAdap.adapt(item));
 
     return res.data || [];
+  }
+  public getAllByObservable(): any {
+    return this.apiService.getByObservable(Constant.CAMPAIGNS)
+    .pipe(map((data: any) => {
+      return data.data.map((data: any) => {
+        console.log(data);
+        return this.campaignAdap.adapt(data);
+      })
+    }))
+  }
+  public getIdByObservable(id:string){
+    return this.apiService.getByObservable(`${Constant.CAMPAIGNS}/${id}`).pipe(map(data=>{
+     return this.campaignAdap.adapt(data.data);
+    }))
   }
   async getById(id: string) {
     let res: BaseResponse = await this.apiService.get(

@@ -6,11 +6,13 @@ import { ChangeToListComponent } from 'src/app/components/change-to-list/change-
 import { ProjectFormComponent } from 'src/app/components/create/project-form/project-form.component';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { TabgroupComponent } from 'src/app/components/tab-group/tabgroup.component';
+import { Constant } from 'src/app/constant/constant';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { Organization } from 'src/app/models/organization/organization';
 import { Project } from 'src/app/models/projects/project.model';
 
 import { User } from 'src/app/models/user/user.model';
+import { ApiService } from 'src/app/services/api/api.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { LoadingService } from 'src/app/services/loading-service/loading.service';
 import { OrganizationService } from 'src/app/services/organization-service/organization.service';
@@ -42,8 +44,8 @@ export class ProjectComponent implements OnInit {
   isAdmin?: boolean;
   isTabRejected?: boolean;
   isTabPending?: boolean;
-  isNoMore?:boolean;
-  constructor(private organizationService: OrganizationService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private api: ProjectService, private authApi: AuthService) { }
+  isNoMore?: boolean;
+  constructor(private apiService: ApiService, private organizationService: OrganizationService, private router: Router, private dialog: MatDialog, private snackbar: SnackBarMessageComponent, private loadingService: LoadingService, private projectService: ProjectService, private authApi: AuthService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
@@ -144,32 +146,40 @@ export class ProjectComponent implements OnInit {
     }
 
   }
-  async checkToGetData(status?: string) {
-    this.projects = await this.api.getAll();
-    this.organization = await this.organizationService.getAll();
 
-    this.passData = this.projects;
-    if (status == 'pending') {
-      this.getAllProjectsByStatus('pending', this.projects);
-      localStorage.setItem('pending', 'true');
-    } else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-      && !localStorage.getItem('pending')
-    ) {
-      this.getAllProjectsByStatus('approve');
-      localStorage.setItem('approve', 'true');
-    } else {
-      if (localStorage.getItem('reject')) {
-        this.getAllProjectsByStatus('reject');
+  checkToGetData(status?: string) {
+    this.projectService.getAllByObservable().subscribe((data: any) => {
+      this.projects = data.data;
+      this.passData = this.projects;
 
-      } else if (localStorage.getItem('approve')) {
+      if (status == 'pending') {
+        this.getAllProjectsByStatus('pending', this.projects);
+        localStorage.setItem('pending', 'true');
+      } else if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+        && !localStorage.getItem('pending')
+      ) {
         this.getAllProjectsByStatus('approve');
-      } else if (localStorage.getItem('pending')) {
-        this.getAllProjectsByStatus('pending');
+        localStorage.setItem('approve', 'true');
+      } else {
+        if (localStorage.getItem('reject')) {
+          this.getAllProjectsByStatus('reject');
+
+        } else if (localStorage.getItem('approve')) {
+          this.getAllProjectsByStatus('approve');
+        } else if (localStorage.getItem('pending')) {
+          this.getAllProjectsByStatus('pending');
+        }
       }
-    }
+    })
+    this.organizationService.getAllByObservable().subscribe((data: any) => {
+      this.organization = data.data;
+
+    })
+
+
   }
-  async getAllProjectsByStatus(status?: string, pro?: any) {
-    this.isNoMore=false;
+  getAllProjectsByStatus(status?: string, pro?: any) {
+    this.isNoMore = false;
     this.user = this.authApi.currentUserValue;
     if (pro) {
       this.projects = pro;
@@ -244,17 +254,14 @@ export class ProjectComponent implements OnInit {
     }
     if (this.projects.length > 6) {
       this.projects = this.projects.slice(0, 6);
-    }else {
-      this.isNoMore=true;
+    } else {
+      this.isNoMore = true;
     }
     this.number = this.projects.length;
 
   }
 
-  async getAll() {
-    this.projects = await this.api.getAll();
 
-  }
 
   async openProjectForm() {
 
@@ -269,7 +276,7 @@ export class ProjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse = await this.api.createProject(data);
+        let res: BaseResponse = await this.projectService.createProject(data);
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
           this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);

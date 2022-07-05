@@ -151,25 +151,23 @@ var ProjectDetailsComponent = /** @class */ (function () {
         }
     };
     ProjectDetailsComponent.prototype.getByID = function () {
-        var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function () {
-            var id, _e;
-            return __generator(this, function (_f) {
-                switch (_f.label) {
-                    case 0:
-                        id = this.actived.snapshot.paramMap.get('id');
-                        _e = this;
-                        return [4 /*yield*/, this.proApi.getByID("" + id)];
-                    case 1:
-                        _e.project = _f.sent();
-                        this.loadingService.projectId.next("" + id);
-                        if (this.project.result_code == 610) {
-                            this.isApproved = true;
-                        }
-                        this.urlLogo = (_b = (_a = this.project) === null || _a === void 0 ? void 0 : _a.organization_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
-                        this.urlCover = (_d = (_c = this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
-                        return [2 /*return*/];
-                }
+            var id;
+            var _this = this;
+            return __generator(this, function (_a) {
+                id = this.actived.snapshot.paramMap.get('id');
+                // this.project = await this.proApi.getByID(`${id}`);
+                this.proApi.getIdByObservable("" + id).subscribe(function (data) {
+                    var _a, _b, _c, _d;
+                    _this.project = data;
+                    _this.loadingService.projectId.next("" + id);
+                    if (_this.project.result_code == 610) {
+                        _this.isApproved = true;
+                    }
+                    _this.urlLogo = (_b = (_a = _this.project) === null || _a === void 0 ? void 0 : _a.organization_logo) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '/');
+                    _this.urlCover = (_d = (_c = _this.project) === null || _c === void 0 ? void 0 : _c.cover) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '/');
+                });
+                return [2 /*return*/];
             });
         });
     };

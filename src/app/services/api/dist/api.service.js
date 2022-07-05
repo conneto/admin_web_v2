@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.ApiService = void 0;
 var http_1 = require("@angular/common/http");
 var core_1 = require("@angular/core");
+var operators_1 = require("rxjs/operators");
 var environment_1 = require("src/environments/environment");
 var ApiService = /** @class */ (function () {
     function ApiService(http, baseResponseAdapter) {
@@ -41,6 +42,19 @@ var ApiService = /** @class */ (function () {
             url += '?' + array.join('&');
         }
         return url;
+    };
+    ApiService.prototype.postByObservable = function (api_name, body, params) {
+        var _this = this;
+        var api_uri = '';
+        if (params) {
+            api_uri = this.getPostUri(api_name, body);
+        }
+        else {
+            api_uri = this.getPostUri(api_name);
+        }
+        return this.http.post(api_uri, body).pipe(operators_1.map(function (data) {
+            return _this.baseResponseAdapter.adapt(data);
+        }));
     };
     ApiService.prototype.post = function (api_name, body, params, parse_json) {
         var _this = this;
@@ -107,7 +121,12 @@ var ApiService = /** @class */ (function () {
     };
     ApiService.prototype.getByObservable = function (api_name, params) {
         var api_uri = this.getFetchUri(api_name, params);
-        return this.http.get(api_uri);
+        return this.http.get(api_uri).pipe(
+        // map((data: any) => {
+        //   console.log('Get By Observable:',data);
+        //   return this.baseResponseAdapter.adapt(data);
+        // }),
+        );
     };
     ApiService.prototype["delete"] = function (api_name, params) {
         var _this = this;
@@ -173,6 +192,19 @@ var ApiService = /** @class */ (function () {
                 resolve(err);
             });
         });
+    };
+    ApiService.prototype.putByObservable = function (api_name, body, params, parse_json) {
+        var _this = this;
+        var api_uri = '';
+        if (params) {
+            api_uri = this.getPostUri(api_name, body);
+        }
+        else {
+            api_uri = this.getPostUri(api_name);
+        }
+        return this.http.put(api_uri, body).pipe(operators_1.map(function (data) {
+            return _this.baseResponseAdapter.adapt(data);
+        }));
     };
     ApiService = __decorate([
         core_1.Injectable({

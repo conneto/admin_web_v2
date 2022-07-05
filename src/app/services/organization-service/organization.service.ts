@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { Constant } from 'src/app/constant/constant';
 import { UserLoginResponse } from 'src/app/dtos/user-login-response/user-login-response.model';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
@@ -28,7 +29,11 @@ export class OrganizationService {
     res.data = res.data?.map((item: any) => this.adapter.adapt(item));
     return res.data || [];
   }
+  public getAllByObservable(): any {
+    return this.apiService.getByObservable(Constant.ORGANIZATIONS);
+  }
   async getProjectsByOrgId(id: string) {
+    
     let res: BaseResponse = await this.apiService.get(
       `${Constant.ORGANIZATIONS}/${id}/${Constant.PROJECTS}`
     );
@@ -55,6 +60,11 @@ export class OrganizationService {
     let res: any = await this.apiService.get(`${Constant.ORGANIZATIONS}/${id}`);
     res.data = this.adapter.adapt(res.data);
     return res.data || [];
+  }
+  public getIdByObservable(id:string){
+    return this.apiService.getByObservable(`${Constant.ORGANIZATIONS}/${id}`).pipe(map(data=>{
+     return this.adapter.adapt(data.data);
+    }))
   }
   async create(data: any) {
     let res: BaseResponse = await this.apiService.post(
