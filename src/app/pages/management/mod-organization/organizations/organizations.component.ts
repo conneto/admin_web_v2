@@ -82,9 +82,20 @@ export class OrganizationsComponent implements OnInit, AfterViewInit {
     this.checkShowMore();
   }
   public getAllByObservable(): any {
-    this.apiService.getByObservable(Constant.ORGANIZATIONS).subscribe((data:any) => {
-    
-        this.organizations = data.data;
+    this.apiService.getByObservable(Constant.ORGANIZATIONS).pipe(
+      // map((data:Organization[])=>{
+
+      //   return data.filter(data=>{
+      //     console.log(data);
+      //     return data.result_code==510;
+      //   });
+      // })
+      tap(data => data.filter((data:any)=>{
+        console.log(data.result_code)
+      })),
+    ).subscribe((data: Organization[]) => {
+        console.log(data);
+        this.organizations = data;
         this.isLoaded = true;
         this.noOrg = false;
         this.isEmpty = false;

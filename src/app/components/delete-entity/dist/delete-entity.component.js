@@ -47,12 +47,12 @@ var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
 var dialog_confirm_component_1 = require("../dialog-confirm/dialog-confirm.component");
 var DeleteEntityComponent = /** @class */ (function () {
-    function DeleteEntityComponent(data, loading, camApi, proApi, authService, snackBar, organizationService, dialog, router) {
+    function DeleteEntityComponent(data, loading, camApi, proApi, user, snackBar, organizationService, dialog, router) {
         this.data = data;
         this.loading = loading;
         this.camApi = camApi;
         this.proApi = proApi;
-        this.authService = authService;
+        this.user = user;
         this.snackBar = snackBar;
         this.organizationService = organizationService;
         this.dialog = dialog;
@@ -61,7 +61,7 @@ var DeleteEntityComponent = /** @class */ (function () {
         this.isOpenEdit = false;
     }
     DeleteEntityComponent.prototype.ngOnInit = function () {
-        if (this.authService.currentUserValue.role_id == 'admin') {
+        if (this.user.currentUserValue.role_id == 'admin') {
             this.isAdmin = true;
         }
         else {
@@ -88,49 +88,52 @@ var DeleteEntityComponent = /** @class */ (function () {
                     }
                 });
                 diaglogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
-                    var data1;
-                    var _this = this;
+                    var data1, res;
                     var _a;
                     return __generator(this, function (_b) {
-                        if (x) {
-                            this.loading.isLoading.next(true);
-                            data1 = {
-                                object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
-                                object_type: this.type == 'org'
-                                    ? constant_1.Constant.ORGANIZATION
-                                    : this.type == 'cam'
-                                        ? constant_1.Constant.CAMPAIGN
-                                        : this.type == 'pro'
-                                            ? constant_1.Constant.PROJECT
-                                            : constant_1.Constant.ORGANIZATION,
-                                status: 'disable',
-                                note: x
-                            };
-                            // let res: BaseResponse | null = await this.authService.activateEntity(data1);
-                            this.authService.activateEntityByObservable(data1).subscribe(function (data) {
-                                if ((data === null || data === void 0 ? void 0 : data.status) == 0) {
-                                    switch (_this.type) {
+                        switch (_b.label) {
+                            case 0:
+                                if (!x) return [3 /*break*/, 2];
+                                this.loading.isLoading.next(true);
+                                data1 = {
+                                    object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
+                                    object_type: this.type == 'org'
+                                        ? constant_1.Constant.ORGANIZATION
+                                        : this.type == 'cam'
+                                            ? constant_1.Constant.CAMPAIGN
+                                            : this.type == 'pro'
+                                                ? constant_1.Constant.PROJECT
+                                                : constant_1.Constant.ORGANIZATION,
+                                    status: 'disable',
+                                    note: x
+                                };
+                                console.log(data1);
+                                return [4 /*yield*/, this.user.activateEntity(data1)];
+                            case 1:
+                                res = _b.sent();
+                                if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                                    switch (this.type) {
                                         case 'org':
-                                            _this.data.getByEntity('org');
+                                            this.data.getByEntity('org');
                                             break;
                                         case 'cam':
-                                            _this.data.getByEntity('cam');
+                                            this.data.getByEntity('cam');
                                             break;
                                         case 'pro':
-                                            _this.data.getByEntity('pro');
+                                            this.data.getByEntity('pro');
                                             break;
                                     }
-                                    _this.loading.isLoading.next(false);
+                                    this.loading.isLoading.next(false);
                                     window.location.reload();
-                                    _this.snackBar.showMessage('Vô hiệu hóa thành công !', true);
+                                    this.snackBar.showMessage('Vô hiệu hóa thành công !', true);
                                 }
                                 else {
-                                    _this.loading.isLoading.next(false);
-                                    _this.snackBar.showMessage('Lỗi. Xin hãy thử lại', false);
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage('Lỗi. Xin hãy thử lại', false);
                                 }
-                            });
+                                _b.label = 2;
+                            case 2: return [2 /*return*/];
                         }
-                        return [2 /*return*/];
                     });
                 }); });
                 return [2 /*return*/];
@@ -138,66 +141,75 @@ var DeleteEntityComponent = /** @class */ (function () {
         });
     };
     DeleteEntityComponent.prototype.enable = function () {
-        var _this = this;
-        var diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
-            width: '360px',
-            data: {
-                button: 'Đồng ý',
-                close: 'Hủy',
-                message: this.type == 'org'
-                    ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?'
-                    : this.type == 'cam'
-                        ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho chiến dịch này không?'
-                        : this.type == 'pro'
-                            ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho dự án này không?'
-                            : 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?'
-            }
-        });
-        diaglogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
-            var data1;
+        return __awaiter(this, void 0, void 0, function () {
+            var diaglogRef;
             var _this = this;
-            var _a;
-            return __generator(this, function (_b) {
-                if (x) {
-                    this.loading.isLoading.next(true);
-                    data1 = {
-                        object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
-                        object_type: this.type == 'org'
-                            ? constant_1.Constant.ORGANIZATION
+            return __generator(this, function (_a) {
+                diaglogRef = this.dialog.open(dialog_confirm_component_1.DialogConfirmComponent, {
+                    width: '360px',
+                    data: {
+                        button: 'Đồng ý',
+                        close: 'Hủy',
+                        message: this.type == 'org'
+                            ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?'
                             : this.type == 'cam'
-                                ? constant_1.Constant.CAMPAIGN
+                                ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho chiến dịch này không?'
                                 : this.type == 'pro'
-                                    ? constant_1.Constant.PROJECT
-                                    : constant_1.Constant.ORGANIZATION,
-                        status: 'enable',
-                        note: 'Enable this'
-                    };
-                    this.authService.activateEntityByObservable(data1).subscribe(function (data) {
-                        if ((data === null || data === void 0 ? void 0 : data.status) == 0) {
-                            _this.loading.isLoading.next(false);
-                            switch (_this.type) {
-                                case 'org':
-                                    _this.data.getByEntity('org');
-                                    break;
-                                case 'cam':
-                                    _this.data.getByEntity('cam');
-                                    break;
-                                case 'pro':
-                                    _this.data.getByEntity('pro');
-                                    break;
-                            }
-                            window.location.reload();
-                            _this.snackBar.showMessage('Cấp quyền hoạt động thành công !', true);
-                        }
-                        else {
-                            _this.loading.isLoading.next(false);
-                            _this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
+                                    ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho dự án này không?'
+                                    : 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?'
+                    }
+                });
+                diaglogRef.afterClosed().subscribe(function (x) { return __awaiter(_this, void 0, void 0, function () {
+                    var data1, res;
+                    var _a;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                if (!x) return [3 /*break*/, 2];
+                                this.loading.isLoading.next(true);
+                                data1 = {
+                                    object_id: (_a = this.entity) === null || _a === void 0 ? void 0 : _a.id,
+                                    object_type: this.type == 'org'
+                                        ? constant_1.Constant.ORGANIZATION
+                                        : this.type == 'cam'
+                                            ? constant_1.Constant.CAMPAIGN
+                                            : this.type == 'pro'
+                                                ? constant_1.Constant.PROJECT
+                                                : constant_1.Constant.ORGANIZATION,
+                                    status: 'enable',
+                                    note: 'Enable this'
+                                };
+                                return [4 /*yield*/, this.user.activateEntity(data1)];
+                            case 1:
+                                res = _b.sent();
+                                if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
+                                    this.loading.isLoading.next(false);
+                                    switch (this.type) {
+                                        case 'org':
+                                            this.data.getByEntity('org');
+                                            break;
+                                        case 'cam':
+                                            this.data.getByEntity('cam');
+                                            break;
+                                        case 'pro':
+                                            this.data.getByEntity('pro');
+                                            break;
+                                    }
+                                    window.location.reload();
+                                    this.snackBar.showMessage('Cấp quyền hoạt động thành công !', true);
+                                }
+                                else {
+                                    this.loading.isLoading.next(false);
+                                    this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
+                                }
+                                _b.label = 2;
+                            case 2: return [2 /*return*/];
                         }
                     });
-                }
+                }); });
                 return [2 /*return*/];
             });
-        }); });
+        });
     };
     DeleteEntityComponent.prototype["delete"] = function () {
         var _a;

@@ -60,7 +60,7 @@ export class ProjectDetailsComponent implements OnInit {
     private loadingService: LoadingService,
     private api: ProjectService,
     private authApi: AuthService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getByID();
@@ -150,17 +150,14 @@ export class ProjectDetailsComponent implements OnInit {
 
   async getByID() {
     const id = this.actived.snapshot.paramMap.get('id');
-    // this.project = await this.proApi.getByID(`${id}`);
-    this.proApi.getIdByObservable(`${id}`).subscribe(data => {
-      this.project = data;
-      this.loadingService.projectId.next(`${id}`);
-      if (this.project.result_code == 610) {
-        this.isApproved = true;
-      }
-      this.urlLogo = this.project?.organization_logo?.replace(/\\/g, '/');
-      this.urlCover = this.project?.cover?.replace(/\\/g, '/');
-    })
+    this.project = await this.proApi.getByID(`${id}`);
 
+    this.loadingService.projectId.next(`${id}`);
+    if (this.project.result_code == 610) {
+      this.isApproved = true;
+    }
+    this.urlLogo = this.project?.organization_logo?.replace(/\\/g, '/');
+    this.urlCover = this.project?.cover?.replace(/\\/g, '/');
   }
   goBack() {
     this.location.back();

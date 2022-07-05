@@ -44,7 +44,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationService = void 0;
 var core_1 = require("@angular/core");
-var operators_1 = require("rxjs/operators");
 var constant_1 = require("src/app/constant/constant");
 var OrganizationService = /** @class */ (function () {
     function OrganizationService(campaignAdapter, projectAdapter, apiService, adapter, authService) {
@@ -70,9 +69,6 @@ var OrganizationService = /** @class */ (function () {
                 }
             });
         });
-    };
-    OrganizationService.prototype.getAllByObservable = function () {
-        return this.apiService.getByObservable(constant_1.Constant.ORGANIZATIONS);
     };
     OrganizationService.prototype.getProjectsByOrgId = function (id) {
         return __awaiter(this, void 0, void 0, function () {
@@ -125,12 +121,6 @@ var OrganizationService = /** @class */ (function () {
                 }
             });
         });
-    };
-    OrganizationService.prototype.getIdByObservable = function (id) {
-        var _this = this;
-        return this.apiService.getByObservable(constant_1.Constant.ORGANIZATIONS + "/" + id).pipe(operators_1.map(function (data) {
-            return _this.adapter.adapt(data.data);
-        }));
     };
     OrganizationService.prototype.create = function (data) {
         return __awaiter(this, void 0, void 0, function () {

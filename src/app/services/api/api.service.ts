@@ -1,14 +1,10 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { TagPlaceholder } from '@angular/compiler/src/i18n/i18n_ast';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 import {
 
-  BaseResponse,
   BaseResponseAdapter,
 } from 'src/app/models/base-response/base-response';
-import { Campaign } from 'src/app/models/campaign/campaign.model';
 
 import { environment } from 'src/environments/environment';
 
@@ -62,18 +58,6 @@ export class ApiService {
     }
 
     return url;
-  }
-  public postByObservable(api_name: string, body?: any, params?: boolean): any {
-    let api_uri = '';
-
-    if (params) {
-      api_uri = this.getPostUri(api_name, body);
-    } else {
-      api_uri = this.getPostUri(api_name);
-    }
-    return this.http.post<any>(api_uri, body).pipe(map((data: any) => {
-      return this.baseResponseAdapter.adapt(data);
-    }))
   }
   post(
     api_name: string,
@@ -157,17 +141,9 @@ export class ApiService {
       );
     });
   }
-  public getByObservable(api_name: string, params?: any): Observable<BaseResponse<Campaign>> {
+  public getByObservable(api_name: string, params?: any): Observable<any> {
     let api_uri = this.getFetchUri(api_name, params);
-    return this.http.get<BaseResponse<Campaign>>(api_uri).pipe(
-
-      // map((data: any) => {
-      //   console.log('Get By Observable:',data);
-      //   return this.baseResponseAdapter.adapt(data);
-      // }),
-
-
-    );
+    return this.http.get<any>(api_uri);
   }
   delete(api_name: string, params?: any): any {
     let api_uri = this.getPostUri(api_name, params);
@@ -256,22 +232,5 @@ export class ApiService {
         }
       );
     });
-  }
-  putByObservable(
-    api_name: string,
-    body?: any,
-    params?: boolean,
-    parse_json?: boolean
-  ): any {
-    let api_uri = '';
-
-    if (params) {
-      api_uri = this.getPostUri(api_name, body);
-    } else {
-      api_uri = this.getPostUri(api_name);
-    }
-    return this.http.put<any>(api_uri, body).pipe(map(data=>{
-    return   this.baseResponseAdapter.adapt(data);
-    }))
   }
 }

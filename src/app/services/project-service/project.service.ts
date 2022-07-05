@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs/operators';
 import { Constant } from 'src/app/constant/constant';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
 import { CampaignAdapter } from 'src/app/models/campaign/campaign.model';
@@ -14,22 +13,12 @@ export class ProjectService {
     private campaignAdapter: CampaignAdapter,
     private apiService: ApiService,
     private projectAdap: ProjectAdapter
-  ) { }
+  ) {}
 
   async getAll() {
     let res: BaseResponse = await this.apiService.get(Constant.PROJECTS);
     res.data = res.data?.map((item: any) => this.projectAdap.adapt(item));
     return res.data || [];
-  }
-  public getAllByObservable(): any {
-    return this.apiService.getByObservable(Constant.PROJECTS);
-
-
-  }
-  public getIdByObservable(id:string){
-    return this.apiService.getByObservable(`${Constant.PROJECTS}/${id}`).pipe(map(data=>{
-     return this.projectAdap.adapt(data.data);
-    }))
   }
   async getByID(id: string) {
     let res: any = await this.apiService.get(Constant.PROJECTS + '/' + `${id}`);

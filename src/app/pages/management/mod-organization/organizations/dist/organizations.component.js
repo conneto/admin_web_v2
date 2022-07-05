@@ -44,6 +44,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 exports.OrganizationsComponent = void 0;
 var core_1 = require("@angular/core");
+var operators_1 = require("rxjs/operators");
 var constant_1 = require("src/app/constant/constant");
 var OrganizationsComponent = /** @class */ (function () {
     function OrganizationsComponent(utilService, loadingService, userService, organizationService, authService, apiService) {
@@ -80,9 +81,18 @@ var OrganizationsComponent = /** @class */ (function () {
     };
     OrganizationsComponent.prototype.getAllByObservable = function () {
         var _this = this;
-        this.apiService.getByObservable(constant_1.Constant.ORGANIZATIONS).subscribe(function (data) {
+        this.apiService.getByObservable(constant_1.Constant.ORGANIZATIONS).pipe(
+        // map((data:Organization[])=>{
+        //   return data.filter(data=>{
+        //     console.log(data);
+        //     return data.result_code==510;
+        //   });
+        // })
+        operators_1.tap(function (data) { return data.filter(function (data) {
+            console.log(data.result_code);
+        }); })).subscribe(function (data) {
             console.log(data);
-            _this.organizations = data.data;
+            _this.organizations = data;
             _this.isLoaded = true;
             _this.noOrg = false;
             _this.isEmpty = false;

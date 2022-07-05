@@ -70,7 +70,7 @@ export class OrganizationDetailsComponent implements OnInit {
     private location: Location,
     private organizationService: OrganizationService,
     private orgComponent: OrganizationInforCardComponent
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getValueFromRoute();
@@ -86,26 +86,22 @@ export class OrganizationDetailsComponent implements OnInit {
       this.isAdmin = false;
     }
   }
-  public getValueFromRoute() {
+  async getValueFromRoute() {
     const id = this.route.snapshot.paramMap.get('id');
-    // this.organization = await this.organizationService.getById(`${id}`);
-    this.organizationService.getIdByObservable(`${id}`).subscribe((data:any) => {
-      this.organization = data;
-      if (this.organization?.result_code == 510 || this.organization?.result_code == 531) {
-        this.isApproved = true;
-      }
-      this.loadingService.getOrganizationId.next(`${id}`);
-  
-      switch (this.organization?.type) {
-        case 'ngo':
-          this.organization.type = 'Tổ chức phi chính phủ';
-          break;
-        case 'npo':
-          this.organization.type = 'Tổ chức phi lợi nhuận';
-          break;
-      }
-    })
+    this.organization = await this.organizationService.getById(`${id}`);
+    if (this.organization?.result_code == 510 || this.organization?.result_code == 531) {
+      this.isApproved = true;
+    }
+    this.loadingService.getOrganizationId.next(`${id}`);
 
+    switch (this.organization?.type) {
+      case 'ngo':
+        this.organization.type = 'Tổ chức phi chính phủ';
+        break;
+      case 'npo':
+        this.organization.type = 'Tổ chức phi lợi nhuận';
+        break;
+    }
   }
   goBack() {
     this.location.back();

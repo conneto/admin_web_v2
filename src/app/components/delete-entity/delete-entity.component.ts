@@ -31,16 +31,16 @@ export class DeleteEntityComponent implements OnInit {
     private loading: LoadingService,
     private camApi: CampaignService,
     private proApi: ProjectService,
-    private authService: AuthService,
+    private user: AuthService,
     private snackBar: SnackBarMessageComponent,
     private organizationService: OrganizationService,
     private dialog: MatDialog,
     private router: Router
-  ) { }
+  ) {}
   e: any;
 
   ngOnInit(): void {
-    if (this.authService.currentUserValue.role_id == 'admin') {
+    if (this.user.currentUserValue.role_id == 'admin') {
       this.isAdmin = true;
     } else {
       this.isAdmin = false;
@@ -56,10 +56,10 @@ export class DeleteEntityComponent implements OnInit {
           this.type == 'org'
             ? 'Bạn có chắc chắn muốn vô hiệu hóa tổ chức này không? Nếu bạn vô hiệu hóa này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo'
             : this.type == 'cam'
-              ? 'Bạn có chắc chắn muốn vô hiệu hóa chiến dịch này không?'
-              : this.type == 'pro'
-                ? 'Bạn có chắc chắn muốn vô hiệu hóa dự án này không? Nếu bạn vô hiệu hóa dự án này thì các chiến dịch liên quan đều sẽ bị tạm dừng theo'
-                : 'Bạn có chắc chắn muốn vô hiệu hóa tổ chức này không? Nếu bạn vô hiệu hóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo',
+            ? 'Bạn có chắc chắn muốn vô hiệu hóa chiến dịch này không?'
+            : this.type == 'pro'
+            ? 'Bạn có chắc chắn muốn vô hiệu hóa dự án này không? Nếu bạn vô hiệu hóa dự án này thì các chiến dịch liên quan đều sẽ bị tạm dừng theo'
+            : 'Bạn có chắc chắn muốn vô hiệu hóa tổ chức này không? Nếu bạn vô hiệu hóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị tạm dừng theo',
         reason: true,
       },
     });
@@ -72,44 +72,39 @@ export class DeleteEntityComponent implements OnInit {
             this.type == 'org'
               ? Constant.ORGANIZATION
               : this.type == 'cam'
-                ? Constant.CAMPAIGN
-                : this.type == 'pro'
-                  ? Constant.PROJECT
-                  : Constant.ORGANIZATION,
+              ? Constant.CAMPAIGN
+              : this.type == 'pro'
+              ? Constant.PROJECT
+              : Constant.ORGANIZATION,
           status: 'disable',
           note: x,
         };
-
-        // let res: BaseResponse | null = await this.authService.activateEntity(data1);
-        this.authService.activateEntityByObservable(data1).subscribe(
-          (data: any) => {
-            if (data?.status == 0) {
-              switch (this.type) {
-                case 'org':
-                  this.data.getByEntity('org');
-                  break;
-                case 'cam':
-                  this.data.getByEntity('cam');
-                  break;
-                case 'pro':
-                  this.data.getByEntity('pro');
-                  break;
-              }
-              this.loading.isLoading.next(false);
-              window.location.reload();
-
-              this.snackBar.showMessage('Vô hiệu hóa thành công !', true);
-            } else {
-              this.loading.isLoading.next(false);
-              this.snackBar.showMessage('Lỗi. Xin hãy thử lại', false);
-            }
+        console.log(data1);
+        let res: BaseResponse | null = await this.user.activateEntity(data1);
+        if (res?.status == 0) {
+          switch (this.type) {
+            case 'org':
+              this.data.getByEntity('org');
+              break;
+            case 'cam':
+              this.data.getByEntity('cam');
+              break;
+            case 'pro':
+              this.data.getByEntity('pro');
+              break;
           }
-        )
+          this.loading.isLoading.next(false);
+          window.location.reload();
 
+          this.snackBar.showMessage('Vô hiệu hóa thành công !', true);
+        } else {
+          this.loading.isLoading.next(false);
+          this.snackBar.showMessage('Lỗi. Xin hãy thử lại', false);
+        }
       }
     });
   }
-  public enable() {
+  async enable() {
     const diaglogRef = this.dialog.open(DialogConfirmComponent, {
       width: '360px',
       data: {
@@ -119,10 +114,10 @@ export class DeleteEntityComponent implements OnInit {
           this.type == 'org'
             ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?'
             : this.type == 'cam'
-              ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho chiến dịch này không?'
-              : this.type == 'pro'
-                ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho dự án này không?'
-                : 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?',
+            ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho chiến dịch này không?'
+            : this.type == 'pro'
+            ? 'Bạn có chắc chắn muốn cấp quyền hoạt động cho dự án này không?'
+            : 'Bạn có chắc chắn muốn cấp quyền hoạt động cho tổ chức này không?',
       },
     });
     diaglogRef.afterClosed().subscribe(async (x) => {
@@ -134,37 +129,33 @@ export class DeleteEntityComponent implements OnInit {
             this.type == 'org'
               ? Constant.ORGANIZATION
               : this.type == 'cam'
-                ? Constant.CAMPAIGN
-                : this.type == 'pro'
-                  ? Constant.PROJECT
-                  : Constant.ORGANIZATION,
+              ? Constant.CAMPAIGN
+              : this.type == 'pro'
+              ? Constant.PROJECT
+              : Constant.ORGANIZATION,
           status: 'enable',
           note: 'Enable this',
         };
-
-        this.authService.activateEntityByObservable(data1).subscribe((data: any) => {
-
-          if (data?.status == 0) {
-            this.loading.isLoading.next(false);
-            switch (this.type) {
-              case 'org':
-                this.data.getByEntity('org');
-                break;
-              case 'cam':
-                this.data.getByEntity('cam');
-                break;
-              case 'pro':
-                this.data.getByEntity('pro');
-                break;
-            }
-            // window.location.reload();
-            this.snackBar.showMessage('Cấp quyền hoạt động thành công !', true);
-          } else {
-            this.loading.isLoading.next(false);
-            this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
+        let res: BaseResponse | null = await this.user.activateEntity(data1);
+        if (res?.status == 0) {
+          this.loading.isLoading.next(false);
+          switch (this.type) {
+            case 'org':
+              this.data.getByEntity('org');
+              break;
+            case 'cam':
+              this.data.getByEntity('cam');
+              break;
+            case 'pro':
+              this.data.getByEntity('pro');
+              break;
           }
-        })
-
+          window.location.reload();
+          this.snackBar.showMessage('Cấp quyền hoạt động thành công !', true);
+        } else {
+          this.loading.isLoading.next(false);
+          this.snackBar.showMessage('Lỗi.Xin hãy thử lại', false);
+        }
       }
     });
   }
@@ -179,10 +170,10 @@ export class DeleteEntityComponent implements OnInit {
           this.type == 'org'
             ? 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ xóa theo'
             : this.type == 'cam'
-              ? 'Bạn có chắc chắn muốn xóa chiến dịch này không?'
-              : this.type == 'pro'
-                ? 'Bạn có chắc chắn muốn xóa dự án này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ xóa theo'
-                : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị xóa theo',
+            ? 'Bạn có chắc chắn muốn xóa chiến dịch này không?'
+            : this.type == 'pro'
+              ? 'Bạn có chắc chắn muốn xóa dự án này không? Nếu bạn xóa dự án này thì các chiến dịch liên quan đều sẽ xóa theo'
+              : 'Bạn có chắc chắn muốn xóa tổ chức này không? Nếu bạn xóa tổ chức này thì các dự án,chiến dịch liên quan đều sẽ bị xóa theo',
 
       },
     });
