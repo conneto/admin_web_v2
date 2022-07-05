@@ -55,17 +55,14 @@ var AuthService = /** @class */ (function () {
         this.userRequest = userRequest;
         this.userResponse = userResponse;
         this.registerRequest = registerRequest;
-        var userFake = {
-            username: 'admin',
-            password: '1',
-            role_id: 'admin',
-            first_name: "Admin"
-        };
-        var json = JSON.stringify(userFake);
-        console.log(json);
-        localStorage.setItem("USER_FAKE", json);
-        this.curUserSubject = new rxjs_1.BehaviorSubject(JSON.parse(localStorage.getItem('USER_FAKE')));
+        this.curUserSubject = new rxjs_1.BehaviorSubject(JSON.parse(localStorage.getItem('USER_WEB')));
         this.curUser = this.curUserSubject.asObservable();
+        // const a= this.curUserSubject.subscribe(
+        //   (data)=>{
+        //     console.log(data);
+        //   }
+        // );
+        // this.curUserSubject.next('');
     }
     Object.defineProperty(AuthService.prototype, "currentUserValue", {
         get: function () {
@@ -170,6 +167,9 @@ var AuthService = /** @class */ (function () {
                 }
             });
         });
+    };
+    AuthService.prototype.activateEntityByObservable = function (data) {
+        return this.apiService.putByObservable(constant_1.Constant.ADMIN + "/" + constant_1.Constant.ACTIVATE, data);
     };
     AuthService.prototype.updateRequestByManager = function (data) {
         return __awaiter(this, void 0, void 0, function () {

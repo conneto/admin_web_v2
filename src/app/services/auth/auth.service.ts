@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { SnackBarMessageComponent } from 'src/app/components/snack-bar-message/snack-bar-message.component';
 import { Constant } from 'src/app/constant/constant';
 import { RegisterAdapter } from 'src/app/dtos/register/register.model';
@@ -19,20 +20,21 @@ export class AuthService {
   private curUser: Observable<any>;
 
   constructor(private loadingService: LoadingService, private snackBar: SnackBarMessageComponent, private apiService: ApiService, private userRequest: UserLoginRequestAdapter, private userResponse: UserLoginResponseApdater, private registerRequest: RegisterAdapter) {
-    const userFake = {
-      username: 'admin',
-      password: '1',
-      role_id: 'admin',
-      first_name:"Admin",
-    }
-    const json=JSON.stringify(userFake);
-    console.log(json);
-    localStorage.setItem("USER_FAKE", json);
+
     this.curUserSubject = new BehaviorSubject<any>(
-       JSON.parse(localStorage.getItem('USER_FAKE')!)
+      JSON.parse(localStorage.getItem('USER_WEB')!)
 
     );
+
     this.curUser = this.curUserSubject.asObservable();
+    // const a= this.curUserSubject.subscribe(
+    //   (data)=>{
+    //     console.log(data);
+    //   }
+    // );
+
+    // this.curUserSubject.next('');
+
   }
   public get currentUserValue(): any {
     return this.curUserSubject.value;
@@ -84,6 +86,9 @@ export class AuthService {
 
     return res;
   }
+  public registerByObservable(data:any){
+    
+  }
 
   logout() {
     localStorage.removeItem('USER_WEB');
@@ -107,6 +112,9 @@ export class AuthService {
       return res;
     }
     return res;
+  }
+  public activateEntityByObservable(data: any):any {
+    return this.apiService.putByObservable(`${Constant.ADMIN}/${Constant.ACTIVATE}`, data);
   }
   async updateRequestByManager(data: any) {
     let res: BaseResponse = await this.apiService.put(Constant.ORGANIZATION_MANAGER + '/' + Constant.APPROVEADMIN, data);

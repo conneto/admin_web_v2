@@ -18,11 +18,11 @@ export class CommonInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    const hardToken = 'ak2jbvlse232kdasasdb2';
+
     return next.handle(request.clone({
       setHeaders: {
         [`Access-Control-Allow-Origin`]: '*',
-        Authorization: `Bearer ${hardToken}`,
+        Authorization: `Bearer ${localStorage.getItem('USER_TOKEN') ? localStorage.getItem('USER_TOKEN') : ''}`,
       }
     })).pipe(
       retry(2), catchError((error: HttpErrorResponse) => {

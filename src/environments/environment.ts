@@ -5,8 +5,9 @@
 
 export const environment = {
   production: false,
-  api_core: 'http://conneto.org:5000/core/api/v1',
-  api_fetch:'http://localhost:3000',
+  // api_core: 'http://conneto.org:5000/core/api/v1',
+  api_core:'http://localhost:5000/core/api/v1',
+  api_fetch:'http://localhost:5001/fetch_data/api/v1',
   // api_fetch: 'http://conneto.org:5001/fetch_data/api/v1'
 };
 

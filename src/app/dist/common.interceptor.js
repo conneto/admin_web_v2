@@ -15,11 +15,10 @@ var CommonInterceptor = /** @class */ (function () {
     }
     CommonInterceptor.prototype.intercept = function (request, next) {
         var _a;
-        var hardToken = 'ak2jbvlse232kdasasdb2';
         return next.handle(request.clone({
             setHeaders: (_a = {},
                 _a["Access-Control-Allow-Origin"] = '*',
-                _a.Authorization = "Bearer " + hardToken,
+                _a.Authorization = "Bearer " + (localStorage.getItem('USER_TOKEN') ? localStorage.getItem('USER_TOKEN') : ''),
                 _a)
         })).pipe(operators_1.retry(2), operators_1.catchError(function (error) {
             alert(error.message);
