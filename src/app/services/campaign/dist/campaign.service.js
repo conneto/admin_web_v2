@@ -50,6 +50,9 @@ var CampaignService = /** @class */ (function () {
         this.apiService = apiService;
         this.campaignAdap = campaignAdap;
     }
+    CampaignService.prototype.getAllByObservable = function () {
+        return this.apiService.getByObservable("" + constant_1.Constant.CAMPAIGNS);
+    };
     CampaignService.prototype.getAll = function () {
         var _a;
         return __awaiter(this, void 0, void 0, function () {

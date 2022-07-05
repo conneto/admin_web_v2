@@ -137,6 +137,16 @@ var ApiService = /** @class */ (function () {
             });
         });
     };
+    ApiService.prototype.putByObservable = function (api_name, body, params) {
+        var api_uri = '';
+        if (params) {
+            api_uri = this.getPostUri(api_name, body);
+        }
+        else {
+            api_uri = this.getPostUri(api_name);
+        }
+        return this.http.put(api_uri, body);
+    };
     ApiService.prototype.put = function (api_name, body, params, parse_json) {
         var _this = this;
         var api_uri = '';

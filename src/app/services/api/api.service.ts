@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { Observable } from 'rxjs';
 import {
 
@@ -12,6 +13,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class ApiService {
+
   corsHeaders: HttpHeaders;
 
   private fetchUri = environment.api_fetch;
@@ -178,7 +180,16 @@ export class ApiService {
       );
     });
   }
+ public putByObservable(api_name: string, body: any, params?: boolean,): Observable<any> {
+    let api_uri = '';
 
+    if (params) {
+      api_uri = this.getPostUri(api_name, body);
+    } else {
+      api_uri = this.getPostUri(api_name);
+    }
+    return this.http.put<any>(api_uri, body);
+  }
   put(
     api_name: string,
     body?: any,

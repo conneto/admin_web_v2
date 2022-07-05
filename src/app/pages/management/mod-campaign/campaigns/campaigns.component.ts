@@ -45,7 +45,7 @@ export class CampaignsComponent implements OnInit {
   percentValue?: boolean;
   isNoMore?: boolean;
   @ViewChild('changeView') changeView?: ChangeToListComponent;
-  constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private campaignService: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthService) { }
+  constructor(private projectService: ProjectService, private snackBar: SnackBarMessageComponent, private router: Router, private camApi: CampaignService, private loadingService: LoadingService, private dialog: MatDialog, private api: CampaignService, private authApi: AuthService) { }
 
   ngOnInit(): void {
     this.checkToGetData();
@@ -81,12 +81,12 @@ export class CampaignsComponent implements OnInit {
   getEntity(e: any) {
     if (e?.length != 0) {
       if (e.length > 6) {
-        this.isNoMore = false;
+        this.isNoMore=false;
         this.isEmpty = false;
         this.campaigns = e.slice(0, 6);
         this.oldData = e;
-      } else {
-        this.isNoMore = true;
+      }else{
+        this.isNoMore=true;
         this.isEmpty = false;
         this.campaigns = e
         this.oldData = e;
@@ -171,7 +171,7 @@ export class CampaignsComponent implements OnInit {
       if (data) {
 
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.campaignService.create(data);
+        let res: BaseResponse | null = await this.camApi.create(data);
         if (res?.status == 0) {
           this.loadingService.isLoading.next(false);
 
@@ -184,37 +184,32 @@ export class CampaignsComponent implements OnInit {
       }
     })
   }
+  async checkToGetData(pending?: string) {
+    this.campaigns = await this.api.getAll();
 
+    this.passData = this.campaigns;
+    if (pending == 'pending') {
+      this.getAllCampaignsByStatus('pending');
+      localStorage.setItem('pending', 'true');
+    }
+    if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+      && !localStorage.getItem('pending')
+    ) {
+      this.getAllCampaignsByStatus('approve');
+      localStorage.setItem('approve', 'true');
+    } else {
+      if (localStorage.getItem('reject')) {
+        this.getAllCampaignsByStatus('reject');
 
-  public checkToGetData(pending?: string) {
-    this.campaignService.getAllByObservable().subscribe((data: any) => {
-
-      this.campaigns = data;
-      this.passData = this.campaigns;
-
-      if (pending == 'pending') {
-        this.getAllCampaignsByStatus('pending');
-        localStorage.setItem('pending', 'true');
-      }
-      if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-        && !localStorage.getItem('pending')
-      ) {
+      } else if (localStorage.getItem('approve')) {
         this.getAllCampaignsByStatus('approve');
-        localStorage.setItem('approve', 'true');
-      } else {
-        if (localStorage.getItem('reject')) {
-          this.getAllCampaignsByStatus('reject');
-
-        } else if (localStorage.getItem('approve')) {
-          this.getAllCampaignsByStatus('approve');
-        } else if (localStorage.getItem('pending')) {
-          this.getAllCampaignsByStatus('pending');
-        }
+      } else if (localStorage.getItem('pending')) {
+        this.getAllCampaignsByStatus('pending');
       }
-    })
-  }
+    }
 
-  public getAllCampaignsByStatus(status?: string, pro?: any) {
+  }
+  async getAllCampaignsByStatus(status?: string, pro?: any) {
     this.user = this.authApi.currentUserValue;
     if (pro) {
       this.campaigns = pro;

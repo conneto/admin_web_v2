@@ -8,6 +8,9 @@ import { Constant } from 'src/app/constant/constant';
   providedIn: 'root',
 })
 export class CampaignService {
+  getAllByObservable() {
+    return this.apiService.getByObservable(`${Constant.CAMPAIGNS}`);
+  }
   public static readonly CAMPAIGNS = 'campaigns';
   public static readonly DONATION_DOCUMENT = 'donation_documents';
   public static readonly CASHFLOW_DETAILS = 'cashflow_details';
@@ -15,7 +18,7 @@ export class CampaignService {
   constructor(
     private apiService: ApiService,
     private campaignAdap: CampaignAdapter
-  ) {}
+  ) { }
   async getAll() {
     let res: BaseResponse = await this.apiService.get(Constant.CAMPAIGNS);
     res.data = res.data?.map((item: any) => this.campaignAdap.adapt(item));

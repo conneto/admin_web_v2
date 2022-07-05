@@ -46,11 +46,11 @@ exports.CampaignsComponent = void 0;
 var core_1 = require("@angular/core");
 var campaign_form_component_1 = require("src/app/components/create/campaign-form/campaign-form.component");
 var CampaignsComponent = /** @class */ (function () {
-    function CampaignsComponent(projectService, snackBar, router, campaignService, loadingService, dialog, api, authApi) {
+    function CampaignsComponent(projectService, snackBar, router, camApi, loadingService, dialog, api, authApi) {
         this.projectService = projectService;
         this.snackBar = snackBar;
         this.router = router;
-        this.campaignService = campaignService;
+        this.camApi = camApi;
         this.loadingService = loadingService;
         this.dialog = dialog;
         this.api = api;
@@ -207,7 +207,7 @@ var CampaignsComponent = /** @class */ (function () {
                     case 0:
                         if (!data) return [3 /*break*/, 2];
                         this.loadingService.isLoading.next(true);
-                        return [4 /*yield*/, this.campaignService.create(data)];
+                        return [4 /*yield*/, this.camApi.create(data)];
                     case 1:
                         res = _a.sent();
                         if ((res === null || res === void 0 ? void 0 : res.status) == 0) {
@@ -226,114 +226,129 @@ var CampaignsComponent = /** @class */ (function () {
         }); });
     };
     CampaignsComponent.prototype.checkToGetData = function (pending) {
-        var _this = this;
-        this.campaignService.getAllByObservable().subscribe(function (data) {
-            _this.campaigns = data;
-            _this.passData = _this.campaigns;
-            if (pending == 'pending') {
-                _this.getAllCampaignsByStatus('pending');
-                localStorage.setItem('pending', 'true');
-            }
-            if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-                && !localStorage.getItem('pending')) {
-                _this.getAllCampaignsByStatus('approve');
-                localStorage.setItem('approve', 'true');
-            }
-            else {
-                if (localStorage.getItem('reject')) {
-                    _this.getAllCampaignsByStatus('reject');
+        return __awaiter(this, void 0, void 0, function () {
+            var _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _a = this;
+                        return [4 /*yield*/, this.api.getAll()];
+                    case 1:
+                        _a.campaigns = _b.sent();
+                        this.passData = this.campaigns;
+                        if (pending == 'pending') {
+                            this.getAllCampaignsByStatus('pending');
+                            localStorage.setItem('pending', 'true');
+                        }
+                        if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+                            && !localStorage.getItem('pending')) {
+                            this.getAllCampaignsByStatus('approve');
+                            localStorage.setItem('approve', 'true');
+                        }
+                        else {
+                            if (localStorage.getItem('reject')) {
+                                this.getAllCampaignsByStatus('reject');
+                            }
+                            else if (localStorage.getItem('approve')) {
+                                this.getAllCampaignsByStatus('approve');
+                            }
+                            else if (localStorage.getItem('pending')) {
+                                this.getAllCampaignsByStatus('pending');
+                            }
+                        }
+                        return [2 /*return*/];
                 }
-                else if (localStorage.getItem('approve')) {
-                    _this.getAllCampaignsByStatus('approve');
-                }
-                else if (localStorage.getItem('pending')) {
-                    _this.getAllCampaignsByStatus('pending');
-                }
-            }
+            });
         });
     };
     CampaignsComponent.prototype.getAllCampaignsByStatus = function (status, pro) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
-        this.user = this.authApi.currentUserValue;
-        if (pro) {
-            this.campaigns = pro;
-        }
-        if (status) {
-            this.isList = false;
-            this.changeViewGrid();
-        }
-        switch (status) {
-            case 'approve':
-                this.isLoaded = true;
-                this.isRequest = false;
-                for (var i = 0; i < this.campaigns.length; i++) {
-                    this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
-                    this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
-                    switch (this.campaigns[i].type) {
-                        case 'donation':
-                            // this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
-                            Object.assign(this.campaigns[i], { value: (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString() });
-                            break;
-                        case 'recruitment':
-                            Object.assign(this.campaigns[i], { value: (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString() });
-                            break;
-                    }
+        return __awaiter(this, void 0, void 0, function () {
+            var i, i, i;
+            return __generator(this, function (_o) {
+                this.user = this.authApi.currentUserValue;
+                if (pro) {
+                    this.campaigns = pro;
                 }
-                this.campaigns = this.campaigns.filter(function (x) {
-                    return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721);
-                });
-                this.oldData = this.passData.filter(function (x) { return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721); });
-                this.isEmpty = false;
-                if (this.campaigns == [] || this.campaigns.length <= 0) {
-                    this.isEmpty = true;
+                if (status) {
+                    this.isList = false;
+                    this.changeViewGrid();
                 }
-                break;
-            case 'reject':
-                this.isLoaded = true;
-                this.isRequest = false;
-                for (var i = 0; i < this.campaigns.length; i++) {
-                    this.campaigns[i].cover = (_f = (_e = this.campaigns[i]) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
-                    this.campaigns[i].org_logo = (_h = (_g = this.campaigns[i]) === null || _g === void 0 ? void 0 : _g.org_logo) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
+                switch (status) {
+                    case 'approve':
+                        this.isLoaded = true;
+                        this.isRequest = false;
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_b = (_a = this.campaigns[i]) === null || _a === void 0 ? void 0 : _a.cover) === null || _b === void 0 ? void 0 : _b.replace(/\\/g, '\/');
+                            this.campaigns[i].org_logo = (_d = (_c = this.campaigns[i]) === null || _c === void 0 ? void 0 : _c.org_logo) === null || _d === void 0 ? void 0 : _d.replace(/\\/g, '\/');
+                            switch (this.campaigns[i].type) {
+                                case 'donation':
+                                    // this.campaigns[i].org_id = (this.campaigns[i].totalDonated! / this.campaigns[i].target!).toString();
+                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].total_donated / this.campaigns[i].target_number).toString() });
+                                    break;
+                                case 'recruitment':
+                                    Object.assign(this.campaigns[i], { value: (this.campaigns[i].total_participant / this.campaigns[i].target_number).toString() });
+                                    break;
+                            }
+                        }
+                        this.campaigns = this.campaigns.filter(function (x) {
+                            return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721);
+                        });
+                        this.oldData = this.passData.filter(function (x) { return (x.result_code == 710 || x.result_code == 731 || x.result_code == 720 || x.result_code == 721); });
+                        this.isEmpty = false;
+                        if (this.campaigns == [] || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        break;
+                    case 'reject':
+                        this.isLoaded = true;
+                        this.isRequest = false;
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_f = (_e = this.campaigns[i]) === null || _e === void 0 ? void 0 : _e.cover) === null || _f === void 0 ? void 0 : _f.replace(/\\/g, '\/');
+                            this.campaigns[i].org_logo = (_h = (_g = this.campaigns[i]) === null || _g === void 0 ? void 0 : _g.org_logo) === null || _h === void 0 ? void 0 : _h.replace(/\\/g, '\/');
+                        }
+                        this.campaigns = this.campaigns.filter(function (x) {
+                            return x.result_code == 711;
+                        });
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 711; });
+                        this.isEmpty = false;
+                        if (this.campaigns == null || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        break;
+                    case 'pending':
+                        this.isLoaded = true;
+                        for (i = 0; i < this.campaigns.length; i++) {
+                            this.campaigns[i].cover = (_k = (_j = this.campaigns[i]) === null || _j === void 0 ? void 0 : _j.cover) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
+                            this.campaigns[i].org_logo = (_m = (_l = this.campaigns[i]) === null || _l === void 0 ? void 0 : _l.org_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
+                        }
+                        this.campaigns = this.campaigns.filter(function (x) {
+                            return x.result_code == 701 || x.result_code == 703 || x.result_code == 702;
+                        });
+                        console.log(this.campaigns);
+                        this.oldData = this.passData.filter(function (x) { return x.result_code == 701 || x.result_code == 703 || x.result_code == 702; });
+                        if (this.authApi.currentUserValue.role_id == 'admin') {
+                            this.isRequest = true;
+                        }
+                        else {
+                            this.isRequest = false;
+                        }
+                        this.isEmpty = false;
+                        if (this.campaigns == null || this.campaigns.length <= 0) {
+                            this.isEmpty = true;
+                        }
+                        break;
                 }
-                this.campaigns = this.campaigns.filter(function (x) {
-                    return x.result_code == 711;
-                });
-                this.oldData = this.passData.filter(function (x) { return x.result_code == 711; });
-                this.isEmpty = false;
-                if (this.campaigns == null || this.campaigns.length <= 0) {
-                    this.isEmpty = true;
-                }
-                break;
-            case 'pending':
-                this.isLoaded = true;
-                for (var i = 0; i < this.campaigns.length; i++) {
-                    this.campaigns[i].cover = (_k = (_j = this.campaigns[i]) === null || _j === void 0 ? void 0 : _j.cover) === null || _k === void 0 ? void 0 : _k.replace(/\\/g, '\/');
-                    this.campaigns[i].org_logo = (_m = (_l = this.campaigns[i]) === null || _l === void 0 ? void 0 : _l.org_logo) === null || _m === void 0 ? void 0 : _m.replace(/\\/g, '\/');
-                }
-                this.campaigns = this.campaigns.filter(function (x) {
-                    return x.result_code == 701 || x.result_code == 703 || x.result_code == 702;
-                });
-                console.log(this.campaigns);
-                this.oldData = this.passData.filter(function (x) { return x.result_code == 701 || x.result_code == 703 || x.result_code == 702; });
-                if (this.authApi.currentUserValue.role_id == 'admin') {
-                    this.isRequest = true;
+                if (this.campaigns.length > 6) {
+                    this.campaigns = this.campaigns.slice(0, 6);
                 }
                 else {
-                    this.isRequest = false;
+                    this.isNoMore = true;
                 }
-                this.isEmpty = false;
-                if (this.campaigns == null || this.campaigns.length <= 0) {
-                    this.isEmpty = true;
-                }
-                break;
-        }
-        if (this.campaigns.length > 6) {
-            this.campaigns = this.campaigns.slice(0, 6);
-        }
-        else {
-            this.isNoMore = true;
-        }
-        this.number = this.campaigns.length;
+                this.number = this.campaigns.length;
+                return [2 /*return*/];
+            });
+        });
     };
     CampaignsComponent.prototype.getAll = function () {
         return __awaiter(this, void 0, void 0, function () {
