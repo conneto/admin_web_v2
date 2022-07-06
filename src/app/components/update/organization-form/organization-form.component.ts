@@ -152,7 +152,7 @@ export class OrganizationUpdateFormComponent implements OnInit {
           this.filePDF[0].name
         );
       this.loadingService.isLoading.next(true);
-      let res: BaseResponse = await this.organizationService.updateById(
+       let res: BaseResponse<any> = await this.organizationService.updateById(
         uploadData,
         this.data.id
       );
@@ -166,7 +166,7 @@ export class OrganizationUpdateFormComponent implements OnInit {
       this.loadingService.isLoading.next(false);
       // if (this.organizationId) {
       //   this.loadingService.isLoading.next(true);
-      //   let res: BaseResponse | null = await this.organizationService.createById(
+      //    let res: BaseResponse<any> | null = await this.organizationService.createById(
       //     uploadData,
       //     `${this.organizationId}`
       //   );
@@ -186,7 +186,7 @@ export class OrganizationUpdateFormComponent implements OnInit {
       //   }
       // } else {
       //   this.loadingService.isLoading.next(true);
-      //   let res: BaseResponse | null = await this.organizationService.create(uploadData);
+      //    let res: BaseResponse<any> | null = await this.organizationService.create(uploadData);
       //   if (res?.status == 0) {
       //     this.snackBar.showMessage(
       //       'Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi',

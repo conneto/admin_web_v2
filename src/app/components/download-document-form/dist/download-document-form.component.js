@@ -132,8 +132,8 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
         var wb = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
         var file = XLSX.writeFile(wb, this.fileName);
-    };// console.log
-    Down// console.logtFormComponent.prototype.openModal = function () {
+    };
+    DownloadDocumentFormComponent.prototype.openModal = function () {
     };
     DownloadDocumentFormComponent.prototype.uploadFile = function (e) {
         var af = ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'];
@@ -141,7 +141,7 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
             this.docFile = e.target.files[0];
             if (!_.includes(af, this.docFile.type)) {
                 alert('Only EXCEL Docs Allowed!');
-            // console.log
+            }
         }
     };
     DownloadDocumentFormComponent.prototype.onFormSubmit = function () {
@@ -160,10 +160,10 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
                         }
                         else {
                         }
-                        retu// console.logurn*/];
+                        return [2 /*return*/];
                 }
             });
-        });// console.log
+        });
     };
     Object.defineProperty(DownloadDocumentFormComponent.prototype, "campaignControl", {
         get: function () {
@@ -180,18 +180,18 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
         }
         for (var i = 0; i < this.files.length; i++) {
             (_b = this.formData) === null || _b === void 0 ? void 0 : _b.append("files", this.files[i], this.files[i].name);
-        // console.log
+        }
     };
     DownloadDocumentFormComponent.prototype.onSelectExcel = function (event) {
         var _a;
         if (event) {
             this.filesExcel = event.addedFiles;
         }
-        // console.log= 0; i < this.filesExcel.length; i++) {
+        for (var i = 0; i < this.filesExcel.length; i++) {
             (_a = this.formDataExcel) === null || _a === void 0 ? void 0 : _a.append("cashflow_detail", this.filesExcel[i], this.filesExcel[i].name);
         }
         ;
-    };// console.log
+    };
     DownloadDocumentFormComponent.prototype.onRemove = function (event) {
         this.files.splice(this.files.indexOf(event), 1);
     };
@@ -201,11 +201,11 @@ var DownloadDocumentFormComponent = /** @class */ (function () {
     __decorate([
         core_1.Input()
     ], DownloadDocumentFormComponent.prototype, "campaign");
-    __de// console.log
+    __decorate([
         core_1.Output()
     ], DownloadDocumentFormComponent.prototype, "isUploaded");
     DownloadDocumentFormComponent = __decorate([
-        // console.logonent({
+        core_1.Component({
             selector: 'app-download-document-form',
             templateUrl: './download-document-form.component.html',
             styleUrls: ['./download-document-form.component.scss']

@@ -16,7 +16,7 @@ export class ProjectService {
   ) {}
 
   async getAll() {
-    let res: BaseResponse = await this.apiService.get(Constant.PROJECTS);
+     let res: BaseResponse<any> = await this.apiService.get(Constant.PROJECTS);
     res.data = res.data?.map((item: any) => this.projectAdap.adapt(item));
     return res.data || [];
   }
@@ -25,7 +25,7 @@ export class ProjectService {
     return (res.data = this.projectAdap.adapt(res.data) || []);
   }
   async getCampaignsByProjectId(id: string) {
-    let res: BaseResponse = await this.apiService.get(
+     let res: BaseResponse<any> = await this.apiService.get(
       `${Constant.PROJECTS}/${id}/${Constant.CAMPAIGNS}`
     );
     if (res.status != 8) {
@@ -36,11 +36,11 @@ export class ProjectService {
     return res.data || [];
   }
   async createProject(data: any) {
-    let res: BaseResponse = await this.apiService.post(Constant.PROJECTS, data);
+     let res: BaseResponse<any> = await this.apiService.post(Constant.PROJECTS, data);
     return res || [];
   }
   async updateById(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.put(
+     let res: BaseResponse<any> = await this.apiService.put(
       `${Constant.PROJECTS}/${id}`,
       data
     );
@@ -48,7 +48,7 @@ export class ProjectService {
   }
 
   async delete(id: string) {
-    let res: BaseResponse = await this.apiService.delete(
+     let res: BaseResponse<any> = await this.apiService.delete(
       `${Constant.PROJECTS}/${id}`
     );
     return res;

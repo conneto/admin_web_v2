@@ -24,12 +24,12 @@ export class OrganizationService {
   }
 
   async getAll() {
-    let res: BaseResponse = await this.apiService.get(Constant.ORGANIZATIONS);
+     let res: BaseResponse<any> = await this.apiService.get(Constant.ORGANIZATIONS);
     res.data = res.data?.map((item: any) => this.adapter.adapt(item));
     return res.data || [];
   }
   async getProjectsByOrgId(id: string) {
-    let res: BaseResponse = await this.apiService.get(
+     let res: BaseResponse<any> = await this.apiService.get(
       `${Constant.ORGANIZATIONS}/${id}/${Constant.PROJECTS}`
     );
     if (res.data) {
@@ -41,7 +41,7 @@ export class OrganizationService {
     return res.data || [];
   }
   async getCampaignsByOrgId(id: string) {
-    let res: BaseResponse = await this.apiService.get(
+     let res: BaseResponse<any> = await this.apiService.get(
       `${Constant.ORGANIZATIONS}/${id}/${Constant.CAMPAIGNS}`
     );
     if (res.data) {
@@ -57,7 +57,7 @@ export class OrganizationService {
     return res.data || [];
   }
   async create(data: any) {
-    let res: BaseResponse = await this.apiService.post(
+     let res: BaseResponse<any> = await this.apiService.post(
       `${Constant.ORGANIZATIONS}`,
       data
     );
@@ -67,14 +67,14 @@ export class OrganizationService {
     return res;
   }
   async delete(id: any) {
-    let res: BaseResponse = await this.apiService.delete(
+     let res: BaseResponse<any> = await this.apiService.delete(
       `${Constant.ORGANIZATIONS}/${id}`
     );
 
     return res;
   }
   async createById(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.post(
+     let res: BaseResponse<any> = await this.apiService.post(
       `${Constant.ORGANIZATIONS}/${id}`,
       data
     );
@@ -84,7 +84,7 @@ export class OrganizationService {
     return res;
   }
   async updateById(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.put(
+     let res: BaseResponse<any> = await this.apiService.put(
       `${Constant.ORGANIZATIONS}/${id}`,
       data
     );

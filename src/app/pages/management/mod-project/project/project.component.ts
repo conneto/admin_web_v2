@@ -269,7 +269,7 @@ export class ProjectComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async data => {
       if (data) {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse = await this.api.createProject(data);
+         let res: BaseResponse<any> = await this.api.createProject(data);
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
           this.snackbar.showMessage('Tạo dự án thành công.Chờ phê duyệt từ ban quản trị', true);

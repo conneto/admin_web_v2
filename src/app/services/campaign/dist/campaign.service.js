@@ -45,14 +45,12 @@ exports.__esModule = true;
 exports.CampaignService = void 0;
 var core_1 = require("@angular/core");
 var constant_1 = require("src/app/constant/constant");
+var operators_1 = require("rxjs/operators");
 var CampaignService = /** @class */ (function () {
     function CampaignService(apiService, campaignAdap) {
         this.apiService = apiService;
         this.campaignAdap = campaignAdap;
     }
-    CampaignService.prototype.getAllByObservable = function () {
-        return this.apiService.getByObservable("" + constant_1.Constant.CAMPAIGNS);
-    };
     CampaignService.prototype.getAll = function () {
         var _a;
         return __awaiter(this, void 0, void 0, function () {
@@ -68,6 +66,13 @@ var CampaignService = /** @class */ (function () {
                 }
             });
         });
+    };
+    CampaignService.prototype.getCampaignsByObservable = function () {
+        return this.apiService.getByObservable("" + constant_1.Constant.CAMPAIGNS).pipe(operators_1.map(function (data) {
+            return data.data.map(function (data) {
+                return data;
+            });
+        }));
     };
     CampaignService.prototype.getById = function (id) {
         return __awaiter(this, void 0, void 0, function () {

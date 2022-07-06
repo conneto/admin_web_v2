@@ -201,7 +201,7 @@ export class OrganizationDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse = await this.proApi.createProject(data);
+         let res: BaseResponse<any> = await this.proApi.createProject(data);
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
           this.snackBar.showMessage(

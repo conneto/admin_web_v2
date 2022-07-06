@@ -50,7 +50,7 @@ export class DownloadDocumentFormComponent implements OnInit {
   }
   async uploadExcel() {
     this.loading.isLoading.next(true);
-    let res: BaseResponse | null = await this.camApi.uploadCashFlow(this.formDataExcel, `${this.campaign?.id}`);
+     let res: BaseResponse<any> | null = await this.camApi.uploadCashFlow(this.formDataExcel, `${this.campaign?.id}`);
     switch (res?.status) {
       case 0: this.filesExcel = [];
         this.loading.isLoading.next(false);
@@ -65,7 +65,7 @@ export class DownloadDocumentFormComponent implements OnInit {
   }
   async uploadPdf() {
     this.loading.isLoading.next(true);
-    let res: BaseResponse | null = await this.camApi.uploadPdf(this.formData, `${this.campaign?.id}`);
+     let res: BaseResponse<any> | null = await this.camApi.uploadPdf(this.formData, `${this.campaign?.id}`);
 
     switch (res?.status) {
       case 0: this.files = [];
@@ -105,7 +105,7 @@ export class DownloadDocumentFormComponent implements OnInit {
     const formData = new FormData();
 
     formData.append('cashflow_detail', this.docFile, this.docFile?.name);
-    let res: BaseResponse | null = await this.camApi.uploadCashFlow(formData, `${this.campaign?.id}`);
+     let res: BaseResponse<any> | null = await this.camApi.uploadCashFlow(formData, `${this.campaign?.id}`);
     if (res?.status == 0) {
     } else {
     }

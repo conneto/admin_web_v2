@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   async login() {
     this.isSubmitData = true;
     if (this.loginForm.valid) {
-      let baseResponse: BaseResponse | null = await this.authService.login(
+      let baseResponse: BaseResponse<any> | null = await this.authService.login(
         this.isChecked,
         this.loginForm.value.username,
         this.loginForm.value.password

@@ -16,12 +16,12 @@ export class UserService {
   ) {}
 
   async getStatistics() {
-    let res: BaseResponse = await this.api.get(Constant.STATISTICS);
+     let res: BaseResponse<any> = await this.api.get(Constant.STATISTICS);
 
     return res.data || [];
   }
   async getRanking(type?: string) {
-    let res!: BaseResponse;
+    let res!: BaseResponse<any>;
     if (type == 'recruitment') {
       res = await this.api.get(
         `${Constant.CAMPAIGNS}/top_volunteers?type=participate`
@@ -34,14 +34,14 @@ export class UserService {
     return res.data || [];
   }
   async getListUsers() {
-    let res: BaseResponse = await this.api.get(Constant.ACCOUNTS);
+     let res: BaseResponse<any> = await this.api.get(Constant.ACCOUNTS);
 
     res.data = res.data.map((item: any) => this.userAdapter.adapt(item));
     return res.data || [];
   }
 
   async getById(id: string) {
-    let res: BaseResponse = await this.api.get(`${Constant.ACCOUNTS}/${id}`);
+     let res: BaseResponse<any> = await this.api.get(`${Constant.ACCOUNTS}/${id}`);
 
     res.data = this.userAdapter.adapt(res.data);
 
@@ -51,7 +51,7 @@ export class UserService {
   }
 
   async getCampaignParticipations(id: string) {
-    let res: BaseResponse = await this.api.get(
+     let res: BaseResponse<any> = await this.api.get(
       `${Constant.ACCOUNTS}/${id}/${Constant.CAMPAIGN_PARTICIPATIONS}`
     );
 
@@ -61,7 +61,7 @@ export class UserService {
   }
 
   async activateUser(data: any) {
-    let res: BaseResponse = await this.api.put(
+     let res: BaseResponse<any> = await this.api.put(
       "admins/activate",
       data
     );

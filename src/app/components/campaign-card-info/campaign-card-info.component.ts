@@ -9,7 +9,7 @@ import {UtilService} from "../../services/util-service/util.service";
   styleUrls: ['./campaign-card-info.component.scss']
 })
 export class CampaignCardInfoComponent implements OnInit {
-  @Input() campaign?: any;
+  @Input() campaign?: Campaign;
   @Input() valueNumber?: any;
   urlApi?: string;
   @Input() receivedValue?:any
@@ -19,7 +19,7 @@ export class CampaignCardInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.urlApi = this.loadingService.getApiGetLink.value;
-    this.valueNumber = (Number(this.campaign?.value) * 100).toFixed(2);
+    // this.valueNumber = (Number(this.campaign?.value) * 100).toFixed(2);
   }
 
 }

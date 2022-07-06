@@ -116,7 +116,7 @@ export class ProjectUpdateFormComponent implements OnInit {
       if (this.logo != null)
         uploadData.append('logo', this.logo, this.logo?.name);
       uploadData.append('project', JSON.stringify(this.projectForm.value));
-      let res: BaseResponse = await this.projectService.updateById(
+       let res: BaseResponse<any> = await this.projectService.updateById(
         uploadData,
         this.data.id
       );

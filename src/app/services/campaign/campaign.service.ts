@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { BaseResponse } from 'src/app/models/base-response/base-response';
-import { CampaignAdapter } from 'src/app/models/campaign/campaign.model';
+import { Campaign, CampaignAdapter } from 'src/app/models/campaign/campaign.model';
 import { ApiService } from '../api/api.service';
 import { Constant } from 'src/app/constant/constant';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CampaignService {
-  getAllByObservable() {
-    return this.apiService.getByObservable(`${Constant.CAMPAIGNS}`);
-  }
+
   public static readonly CAMPAIGNS = 'campaigns';
   public static readonly DONATION_DOCUMENT = 'donation_documents';
   public static readonly CASHFLOW_DETAILS = 'cashflow_details';
@@ -20,13 +19,20 @@ export class CampaignService {
     private campaignAdap: CampaignAdapter
   ) { }
   async getAll() {
-    let res: BaseResponse = await this.apiService.get(Constant.CAMPAIGNS);
+    let res: BaseResponse<any> = await this.apiService.get(Constant.CAMPAIGNS);
     res.data = res.data?.map((item: any) => this.campaignAdap.adapt(item));
 
     return res.data || [];
   }
+  public getCampaignsByObservable() {
+    return this.apiService.getByObservable(`${Constant.CAMPAIGNS}`).pipe(map((data: BaseResponse<Array<Campaign>>) => {
+     return data.data.map((data:any) => {
+        return data;
+      })
+    }));
+  }
   async getById(id: string) {
-    let res: BaseResponse = await this.apiService.get(
+    let res: BaseResponse<any> = await this.apiService.get(
       `${Constant.CAMPAIGNS}/${id}`
     );
     res.data = this.campaignAdap.adapt(res.data);
@@ -34,7 +40,7 @@ export class CampaignService {
   }
   async createById(data: any, id: string) {
     // console.log(id);
-    let res: BaseResponse = await this.apiService.post(
+    let res: BaseResponse<any> = await this.apiService.post(
       `${Constant.CAMPAIGNS}/${id}`,
       data
     );
@@ -44,7 +50,7 @@ export class CampaignService {
     return res;
   }
   async create(data: any) {
-    let res: BaseResponse = await this.apiService.post(
+    let res: BaseResponse<any> = await this.apiService.post(
       `${Constant.CAMPAIGNS}`,
       data
     );
@@ -54,7 +60,7 @@ export class CampaignService {
     return res;
   }
   async uploadCashFlow(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.post(
+    let res: BaseResponse<any> = await this.apiService.post(
       `${Constant.CAMPAIGNS}/${id}/${Constant.DONATION_DOCUMENTS}/${Constant.CASHFLOW_DETAILS}`,
       data
     );
@@ -64,7 +70,7 @@ export class CampaignService {
     return res;
   }
   async uploadPdf(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.post(
+    let res: BaseResponse<any> = await this.apiService.post(
       `${Constant.CAMPAIGNS}/${id}/${Constant.DONATION_DOCUMENTS}`,
       data
     );
@@ -74,7 +80,7 @@ export class CampaignService {
     return res;
   }
   async getCashFlow(id: string) {
-    let res: BaseResponse = await this.apiService.get(
+    let res: BaseResponse<any> = await this.apiService.get(
       `${Constant.CAMPAIGNS}/${id}/${Constant.DONATION_DOCUMENTS}/${Constant.CASHFLOW_DETAILS}`
     );
 
@@ -82,26 +88,26 @@ export class CampaignService {
   }
   async getParticipations(id: string) {
     // console.log(id);
-    let res: BaseResponse = await this.apiService.get(
+    let res: BaseResponse<any> = await this.apiService.get(
       `${Constant.CAMPAIGNS}/${id}/${Constant.CAMPAIGN_PARTICIPATIONS}`
     );
     return res.data || [];
   }
   async delete(id: string) {
-    let res: BaseResponse = await this.apiService.delete(
+    let res: BaseResponse<any> = await this.apiService.delete(
       `${Constant.CAMPAIGNS}/${id}`
     );
     return res;
   }
   async updateById(data: any, id: string) {
-    let res: BaseResponse = await this.apiService.put(
+    let res: BaseResponse<any> = await this.apiService.put(
       `${Constant.CAMPAIGNS}/${id}`,
       data
     );
     return res;
   }
   async getPdf(id: string) {
-    let res: BaseResponse = await this.apiService.get(
+    let res: BaseResponse<any> = await this.apiService.get(
       `${Constant.CAMPAIGNS}/${id}/${Constant.DONATION_DOCUMENTS}`
     );
     return res.data || [];

@@ -89,7 +89,7 @@ export class OrganizationInforCardComponent implements OnInit {
           note: 'Approve this',
         };
        
-        let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(
+         let res: BaseResponse<any> | null = await this.authApi.updateRequestByAdmin(
           data1
         );
 
@@ -145,7 +145,7 @@ export class OrganizationInforCardComponent implements OnInit {
           status: 'reject',
           note: data,
         };
-        let res: BaseResponse | null = await this.authApi.updateRequestByAdmin(
+         let res: BaseResponse<any> | null = await this.authApi.updateRequestByAdmin(
           data1
         );
         this.loadingApi.isLoading.next(true);

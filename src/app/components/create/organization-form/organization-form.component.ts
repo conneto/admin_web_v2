@@ -156,7 +156,7 @@ export class OrganizationFormComponent implements OnInit {
       );
 
       this.loadingService.isLoading.next(true);
-      let res: BaseResponse | null = await this.organizationService.create(this.uploadData);
+       let res: BaseResponse<any> | null = await this.organizationService.create(this.uploadData);
       if (res?.status == 0) {
         this.snackBar.showMessage(
           'Tạo tổ chức thành công. Yêu cầu của bạn đã được gửi',
@@ -167,7 +167,7 @@ export class OrganizationFormComponent implements OnInit {
         this.router.navigate(['/manager']);
       } else {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.organizationService.create(
+         let res: BaseResponse<any> | null = await this.organizationService.create(
           this.uploadData
         );
         if (res?.status == 0) {

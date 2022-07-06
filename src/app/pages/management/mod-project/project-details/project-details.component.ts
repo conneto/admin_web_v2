@@ -189,7 +189,7 @@ export class ProjectDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse | null = await this.campaignService.create(data);
+         let res: BaseResponse<any> | null = await this.campaignService.create(data);
         if (res?.status == 0) {
           this.loadingService.isLoading.next(false);
 
@@ -218,7 +218,7 @@ export class ProjectDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (data) => {
       if (data) {
         this.loadingService.isLoading.next(true);
-        let res: BaseResponse = await this.api.createProject(data);
+         let res: BaseResponse<any> = await this.api.createProject(data);
         if (res.status == 0) {
           this.loadingService.isLoading.next(false);
           this.snackbar.showMessage(

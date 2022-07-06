@@ -128,6 +128,8 @@ var AuthService = /** @class */ (function () {
             });
         });
     };
+    AuthService.prototype.registerByObservable = function (data) {
+    };
     AuthService.prototype.logout = function () {
         localStorage.removeItem('USER_WEB');
         localStorage.removeItem('USER_TOKEN');

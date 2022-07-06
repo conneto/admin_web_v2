@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
 
       uploadData.append('account', JSON.stringify(this.registerForm.value));
       // console.log(uploadData.get('account'));
-      let res: BaseResponse = await this.authService.register(
+       let res: BaseResponse<any> = await this.authService.register(
         uploadData
       )
 
@@ -54,7 +54,7 @@ export class RegisterComponent implements OnInit {
         this.userComponent.getListMangerAndVolunteer();
         this.loadingService.isLoading.next(false);
         this.snackBar.showMessage('Đăng ký thành công. Đi tới đăng nhập', true);
-        let baseResponse: BaseResponse = await this.authService.login(
+        let baseResponse: BaseResponse<any> = await this.authService.login(
           false,
           this.registerForm.value.username,
           oldPass,

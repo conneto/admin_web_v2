@@ -43,7 +43,7 @@ export class AuthService {
   public async login(isSaveUser: boolean, username: string, password: string) {
     const md5 = new Md5();
     this.loadingService.isLoading.next(true);
-    let res: BaseResponse = await this.apiService.post(
+     let res: BaseResponse<any> = await this.apiService.post(
       Constant.ACCOUNTS + Constant.LOGIN,
       this.userRequest.adapt({
         username: username,
@@ -77,7 +77,7 @@ export class AuthService {
   async register(data: any) {
 
     const md5 = new Md5();
-    let res: BaseResponse = await this.apiService.post(Constant.ACCOUNTS + Constant.REGISTER, data
+     let res: BaseResponse<any> = await this.apiService.post(Constant.ACCOUNTS + Constant.REGISTER, data
     );
 
     if (res.status != 0) {
@@ -100,14 +100,14 @@ export class AuthService {
   }
 
   async updateRequestByAdmin(data: any) {
-    let res: BaseResponse = await this.apiService.put(Constant.ADMIN + '/' + Constant.APPROVEADMIN, data);
+     let res: BaseResponse<any> = await this.apiService.put(Constant.ADMIN + '/' + Constant.APPROVEADMIN, data);
     if (res.status != 0) {
       return res;
     }
     return res;
   }
   async activateEntity(data: any) {
-    let res: BaseResponse = await this.apiService.put(Constant.ADMIN + '/' + Constant.ACTIVATE, data);
+     let res: BaseResponse<any> = await this.apiService.put(Constant.ADMIN + '/' + Constant.ACTIVATE, data);
     if (res.status != 0) {
       return res;
     }
@@ -117,7 +117,7 @@ export class AuthService {
     return this.apiService.putByObservable(`${Constant.ADMIN}/${Constant.ACTIVATE}`, data);
   }
   async updateRequestByManager(data: any) {
-    let res: BaseResponse = await this.apiService.put(Constant.ORGANIZATION_MANAGER + '/' + Constant.APPROVEADMIN, data);
+     let res: BaseResponse<any> = await this.apiService.put(Constant.ORGANIZATION_MANAGER + '/' + Constant.APPROVEADMIN, data);
     if (res.status != 0) {
       return res;
     }

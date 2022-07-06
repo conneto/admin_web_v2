@@ -74,7 +74,7 @@ export class CampaignDetailsComponent implements OnInit {
         status: 'approve',
         note: ''
       }
-      let res: BaseResponse = await this.userApi.updateRequestByAdmin(data);
+       let res: BaseResponse<any> = await this.userApi.updateRequestByAdmin(data);
       console.log(res);
       if (res?.status == 0) {
         window.location.reload();
@@ -89,7 +89,7 @@ export class CampaignDetailsComponent implements OnInit {
         status: 'reject',
         note: ''
       }
-      let res: BaseResponse = await this.userApi.updateRequestByAdmin(data);
+       let res: BaseResponse<any> = await this.userApi.updateRequestByAdmin(data);
       if (res?.status == 0) {
         window.location.reload();
         this.snackBar.showMessage("Bỏ xác nhận thành công !", true);

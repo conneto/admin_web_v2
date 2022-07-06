@@ -111,7 +111,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
           note: x,
         };
         // console.log(data1);
-        let res: BaseResponse = await this.api.updateRequestByManager(data1);
+         let res: BaseResponse<any> = await this.api.updateRequestByManager(data1);
         if (res.status == 0) {
           this.volunteer = await this.camApi.getParticipations(`${cam_id}`);
           window.location.reload();
@@ -144,7 +144,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
           status: 'reject',
           note: x,
         };
-        let res: BaseResponse = await this.api.updateRequestByManager(data1);
+         let res: BaseResponse<any> = await this.api.updateRequestByManager(data1);
         if (res.status == 0) {
           window.location.reload();
           this.volunteer = await this.camApi.getParticipations(`${cam_id}`);
@@ -181,7 +181,7 @@ export class TableCampaignParticipationsComponent implements OnInit {
           status: 'approve',
           note: 'Chúc mừng bạn đã hoàn thành chiến dịch này',
         };
-        let res: BaseResponse = await this.api.updateRequestByManager(data1);
+         let res: BaseResponse<any> = await this.api.updateRequestByManager(data1);
         if (res.status == 0) {
           this.volunteer = await this.camApi.getParticipations(`${cam_id}`);
           this.loadingService.isLoading.next(false);

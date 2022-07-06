@@ -226,39 +226,30 @@ var CampaignsComponent = /** @class */ (function () {
         }); });
     };
     CampaignsComponent.prototype.checkToGetData = function (pending) {
-        return __awaiter(this, void 0, void 0, function () {
-            var _a;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        _a = this;
-                        return [4 /*yield*/, this.api.getAll()];
-                    case 1:
-                        _a.campaigns = _b.sent();
-                        this.passData = this.campaigns;
-                        if (pending == 'pending') {
-                            this.getAllCampaignsByStatus('pending');
-                            localStorage.setItem('pending', 'true');
-                        }
-                        if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
-                            && !localStorage.getItem('pending')) {
-                            this.getAllCampaignsByStatus('approve');
-                            localStorage.setItem('approve', 'true');
-                        }
-                        else {
-                            if (localStorage.getItem('reject')) {
-                                this.getAllCampaignsByStatus('reject');
-                            }
-                            else if (localStorage.getItem('approve')) {
-                                this.getAllCampaignsByStatus('approve');
-                            }
-                            else if (localStorage.getItem('pending')) {
-                                this.getAllCampaignsByStatus('pending');
-                            }
-                        }
-                        return [2 /*return*/];
+        var _this = this;
+        this.camApi.getCampaignsByObservable().subscribe(function (data) {
+            _this.campaigns = data;
+            _this.passData = _this.campaigns;
+            if (pending == 'pending') {
+                _this.getAllCampaignsByStatus('pending');
+                localStorage.setItem('pending', 'true');
+            }
+            if (!localStorage.getItem('reject') && !localStorage.getItem('approve')
+                && !localStorage.getItem('pending')) {
+                _this.getAllCampaignsByStatus('approve');
+                localStorage.setItem('approve', 'true');
+            }
+            else {
+                if (localStorage.getItem('reject')) {
+                    _this.getAllCampaignsByStatus('reject');
                 }
-            });
+                else if (localStorage.getItem('approve')) {
+                    _this.getAllCampaignsByStatus('approve');
+                }
+                else if (localStorage.getItem('pending')) {
+                    _this.getAllCampaignsByStatus('pending');
+                }
+            }
         });
     };
     CampaignsComponent.prototype.getAllCampaignsByStatus = function (status, pro) {

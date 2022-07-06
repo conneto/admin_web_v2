@@ -80,7 +80,7 @@ export class DeleteEntityComponent implements OnInit {
           note: x,
         };
         console.log(data1);
-        let res: BaseResponse | null = await this.user.activateEntity(data1);
+         let res: BaseResponse<any> | null = await this.user.activateEntity(data1);
         if (res?.status == 0) {
           switch (this.type) {
             case 'org':
@@ -136,7 +136,7 @@ export class DeleteEntityComponent implements OnInit {
           status: 'enable',
           note: 'Enable this',
         };
-        let res: BaseResponse | null = await this.user.activateEntity(data1);
+         let res: BaseResponse<any> | null = await this.user.activateEntity(data1);
         if (res?.status == 0) {
           this.loading.isLoading.next(false);
           switch (this.type) {
@@ -180,7 +180,7 @@ export class DeleteEntityComponent implements OnInit {
     dialogRef.afterClosed().subscribe(async (data) => {
 
       if (data) {
-        let res: BaseResponse;
+         let res: BaseResponse<any>;
         this.loading.isLoading.next(true);
         switch (this.type) {
           case 'org':

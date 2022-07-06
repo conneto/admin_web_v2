@@ -45,7 +45,7 @@ export class UserCardComponent implements OnInit {
           status: 'disable',
           note: 'Người dùng vi phạm',
         };
-        let res: BaseResponse = await this.userService.activateUser(obj);
+         let res: BaseResponse<any> = await this.userService.activateUser(obj);
         if (res?.status == 0) {
           this.snackBar.showMessage('Khóa tài khoản thành công', true);
         } else {
@@ -74,7 +74,7 @@ export class UserCardComponent implements OnInit {
           status: 'enable',
           note: '',
         };
-        let res: BaseResponse = await this.userService.activateUser(obj);
+         let res: BaseResponse<any> = await this.userService.activateUser(obj);
         if (res?.status == 0) {
           this.snackBar.showMessage('Kích hoạt thành công', true);
         } else {

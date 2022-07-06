@@ -175,7 +175,7 @@ export class CampaignUpdateFormComponent implements OnInit {
         JSON.stringify(this.campaignForm.value) 
       );
       console.log(this.campaignForm.value)
-      let res: BaseResponse = await this.campaignService.updateById(
+       let res: BaseResponse<any> = await this.campaignService.updateById(
         this.uploadData,
         this.data.id
       );
